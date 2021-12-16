@@ -19,7 +19,7 @@
 #'
 #' @export
 evaluate_p_value <- function(p_value, significance_level = 0.05, tol = 1e-6) {
-  return(p_value < significance_level)
+  return(p_value < significance_level + tol)
 }
 
 
@@ -32,7 +32,7 @@ evaluate_p_value <- function(p_value, significance_level = 0.05, tol = 1e-6) {
 #' plots in a lineup.
 #'
 #' For a given lineup, plots are assumed to have weights
-#' \deqn{W_i, i = 1, ..., num_plots}, where \eqn{w_i} follows a uniform
+#' \deqn{W_i, i = 1, ..., num_plots,} where \eqn{W_i} follows a uniform
 #' distribution independently. For each draw, weights for a lineup will be
 #' simulated. Then, for each evaluation of a draw, the function will sample
 #' same number of plots as the number of selection in the evaluation
@@ -44,7 +44,7 @@ evaluate_p_value <- function(p_value, significance_level = 0.05, tol = 1e-6) {
 #' @param num_selections Integer. A vector of the number of selections.
 #' @param num_plots Integer. Number of plots in the lineup.
 #' @param num_simulations Integer. Number of simulations draws.
-#' @return A named vector repenting the probability mass function of the distribution
+#' @return A named vector representing the probability mass function of the distribution.
 #'
 #' @examples
 #' sim_dist(3, c(2,2,3))
@@ -84,10 +84,29 @@ sim_dist <- function(num_evaluations,
 
 # calc_p_value ------------------------------------------------------------
 
-#' Calculate p-value for visual test
+#' Calculate p-value for a visual test
 #'
-#' This function
-#' @noRd
+#' This function calculate the p-value for a visual test. The null distribution
+#' is simulated by using function [sim_dist()]. The p-value is the probability
+#' of the number of detections greater or equal to the observed value.
+#'
+#' It is encouraged to provide a cache environment to boost up the performance
+#' when you need to reuse this function. The cache environment will remember
+#' the result corresponding to the combinations of `num_evaluations`
+#' and `num_simulations`.
+#'
+#' @param num_detections Integer. Observed value of number of detections.
+#' @param num_evaluations,num_selections,num_plots,num_simulations Arguments passed to [sim_dist()].
+#' @param cache_env Environment. A provided environment for caching.
+#' @param seed Integer. [set.seed()] will be run at the beginning of the
+#' function if `seed` is provided.
+#' @return A numeric value representing the p-value.
+#'
+#' @examples
+#' calc_p_value(2, 3, c(1,1,2))
+#' calc_p_value(1, 1, c(1))
+#'
+#' @export
 calc_p_value <- function(num_detections,
                          num_evaluations,
                          num_selections,
@@ -95,8 +114,34 @@ calc_p_value <- function(num_detections,
                          num_simulations = 50000,
                          cache_env = NULL,
                          seed = NULL) {
+
+  if (num_detections > num_evaluations) stop("Number of detected plots greater than number of evaluations.")
+
+
   if(!is.null(seed)) {
     set.seed(seed)
   }
 
+  target_dist <- NULL
+  uid <- paste0(num_simulations, "s",
+                paste0(num_selections, collapse = "_"))
+
+  # Load result from cache
+  if (is.environment(cache_env)) target_dist <- cache_env$cache_dist[[uid]]
+
+  if (is.null(target_dist)) {
+    target_dist <- sim_dist(num_evaluations,
+                            num_selections,
+                            num_plots,
+                            num_simulations)
+
+    # Cache result
+    if (is.environment(cache_env)) cache_env$cache_dist[[uid]] <- target_dist
+  }
+
+  if (num_detections == 0) {
+    return(1)
+  } else {
+    return(1 - unname(cumsum(target_dist)[num_detections]))
+  }
 }
