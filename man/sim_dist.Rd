@@ -30,11 +30,11 @@ plots in a lineup.
 }
 \details{
 For a given lineup, plots are assumed to have weights
-\deqn{W_i, i = 1, ..., num_plots,} where \eqn{W_i} follows a uniform
-distribution independently. For each draw, weights for a lineup will be
-simulated. Then, for each evaluation of a draw, the function will sample
-same number of plots as the number of selection in the evaluation
-using the simulated weights without replacement.
+\eqn{W_i, i = 1, ..., N,} where \eqn{N} is the number of plots, and
+\eqn{W_i} follows a uniform distribution independently. For each draw,
+weights for a lineup will be simulated. Then, for each evaluation of a draw,
+the function will sample same number of plots as the number of selection in
+the evaluation using the simulated weights without replacement.
 Finally, the distribution of the occurrences of plot 1 in a draw is the
 approximated distribution of number of detections of a lineup.
 }
