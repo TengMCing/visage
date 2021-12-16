@@ -1,4 +1,4 @@
-# evaluate_p_value --------------------------------------------------------
+# eval_p_value --------------------------------------------------------
 
 #' Evaluate test for given p-value and significance level
 #'
@@ -13,11 +13,11 @@
 #'
 #' @examples
 #'
-#' evaluate_p_value(c(0.05, 0.0501), 0.05, 1e-3)
-#' evaluate_p_value(c(0.05, 0.0501), 0.05, 1e-5)
+#' eval_p_value(c(0.05, 0.0501), 0.05, 1e-3)
+#' eval_p_value(c(0.05, 0.0501), 0.05, 1e-5)
 #'
 #' @export
-evaluate_p_value <- function(p_value, significance_level = 0.05, tol = 1e-6) {
+eval_p_value <- function(p_value, significance_level = 0.05, tol = 1e-6) {
   return(p_value < significance_level + tol)
 }
 
@@ -39,10 +39,10 @@ evaluate_p_value <- function(p_value, significance_level = 0.05, tol = 1e-6) {
 #' Finally, the distribution of the occurrences of plot 1 in a draw is the
 #' approximated distribution of number of detections of a lineup.
 #'
-#' @param n_evaluations Integer. Number of evaluations.
-#' @param n_selections Integer. A vector of the number of selections.
-#' @param n_plots Integer. Number of plots in the lineup.
-#' @param n_simulations Integer. Number of simulations draws.
+#' @param n_eval Integer. Number of evaluations.
+#' @param n_sel Integer. A vector of the number of selections.
+#' @param n_plot Integer. Number of plots in the lineup.
+#' @param n_sim Integer. Number of simulations draws.
 #' @return A named vector representing the probability mass function of the distribution.
 #'
 #' @examples
@@ -50,34 +50,34 @@ evaluate_p_value <- function(p_value, significance_level = 0.05, tol = 1e-6) {
 #' sim_dist(1, c(1))
 #'
 #' @export
-sim_dist <- function(n_evaluations,
-                     n_selections,
-                     n_plots = 20,
-                     n_simulations = 50000) {
+sim_dist <- function(n_eval,
+                     n_sel,
+                     n_plot = 20,
+                     n_sim = 50000) {
 
-  # Allow for n_selections to be a single integer
-  stopifnot((n_evaluations == length(n_selections)) | (length(n_selections) == 1))
-  n_selections <- rep(n_selections, length = n_evaluations)
+  # Allow for n_sel to be a single integer
+  stopifnot((n_eval == length(n_sel)) | (length(n_sel) == 1))
+  n_sel <- rep(n_sel, length = n_eval)
 
   # Define weights for plots in lineups
-  plot_weights <- matrix(stats::runif(n_plots * n_simulations), ncol = n_plots)
+  plot_weights <- matrix(stats::runif(n_plot * n_sim), ncol = n_plot)
 
-  result <- matrix(ncol = n_evaluations, nrow = n_simulations)
-  for (i in 1:n_evaluations) {
+  result <- matrix(ncol = n_eval, nrow = n_sim)
+  for (i in 1:n_eval) {
     result[,i] <- apply(plot_weights,
                         MARGIN = 1,
                         function(plot_weights_single_lineup) {
-                          1 %in% sample(1:n_plots,
-                                        size = n_selections[i],
+                          1 %in% sample(1:n_plot,
+                                        size = n_sel[i],
                                         prob = plot_weights_single_lineup)
                         })
   }
 
   # Aggregate all subjects
-  result <- factor(rowSums(result), levels = 0:n_evaluations)
+  result <- factor(rowSums(result), levels = 0:n_eval)
 
   # Average the count to get the approximated distribution
-  return(c(table(result)/n_simulations))
+  return(c(table(result)/n_sim))
 }
 
 
@@ -91,11 +91,11 @@ sim_dist <- function(n_evaluations,
 #'
 #' It is encouraged to provide a cache environment to boost up the performance
 #' when this function needs to be reused. The cache environment will remember
-#' the result corresponding to the combinations of `n_evaluations`
-#' and `n_simulations`.
+#' the result corresponding to the combinations of `n_eval`
+#' and `n_sim`.
 #'
-#' @param n_detections Integer. Observed value of number of detections.
-#' @param n_evaluations,n_selections,n_plots,n_simulations Arguments passed to [sim_dist()].
+#' @param n_detect Integer. Observed value of number of detections.
+#' @param n_eval,n_sel,n_plot,n_sim Arguments passed to [sim_dist()].
 #' @param cache_env Environment. A provided environment for caching.
 #' @param seed Integer. [set.seed()] will be run at the beginning of the
 #' function if `seed` is provided.
@@ -106,15 +106,15 @@ sim_dist <- function(n_evaluations,
 #' calc_p_value(1, 1, c(1))
 #'
 #' @export
-calc_p_value <- function(n_detections,
-                         n_evaluations,
-                         n_selections,
-                         n_plots = 20,
-                         n_simulations = 50000,
+calc_p_value <- function(n_detect,
+                         n_eval,
+                         n_sel,
+                         n_plot = 20,
+                         n_sim = 50000,
                          cache_env = NULL,
                          seed = NULL) {
 
-  if (n_detections > n_evaluations) stop("Number of detected plots greater than number of evaluations.")
+  if (n_detect > n_eval) stop("Number of detected plots greater than number of evaluations.")
 
 
   if(!is.null(seed)) {
@@ -122,25 +122,25 @@ calc_p_value <- function(n_detections,
   }
 
   target_dist <- NULL
-  uid <- paste0(n_simulations, "s",
-                paste0(n_selections, collapse = "_"))
+  uid <- paste0(n_sim, "s",
+                paste0(n_sel, collapse = "_"))
 
   # Load result from cache
   if (is.environment(cache_env)) target_dist <- cache_env$cache_dist[[uid]]
 
   if (is.null(target_dist)) {
-    target_dist <- sim_dist(n_evaluations,
-                            n_selections,
-                            n_plots,
-                            n_simulations)
+    target_dist <- sim_dist(n_eval,
+                            n_sel,
+                            n_plot,
+                            n_sim)
 
     # Cache result
     if (is.environment(cache_env)) cache_env$cache_dist[[uid]] <- target_dist
   }
 
-  if (n_detections == 0) {
+  if (n_detect == 0) {
     return(1)
   } else {
-    return(1 - unname(cumsum(target_dist)[n_detections]))
+    return(1 - unname(cumsum(target_dist)[n_detect]))
   }
 }
