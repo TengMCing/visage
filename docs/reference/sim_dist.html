@@ -54,18 +54,18 @@ plots in a lineup.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">sim_dist</span><span class="op">(</span><span class="va">n_evaluations</span>, <span class="va">n_selections</span>, n_plots <span class="op">=</span> <span class="fl">20</span>, n_simulations <span class="op">=</span> <span class="fl">50000</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">sim_dist</span><span class="op">(</span><span class="va">n_eval</span>, <span class="va">n_sel</span>, n_plot <span class="op">=</span> <span class="fl">20</span>, n_sim <span class="op">=</span> <span class="fl">50000</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>n_evaluations</dt>
+    <dl><dt>n_eval</dt>
 <dd><p>Integer. Number of evaluations.</p></dd>
-<dt>n_selections</dt>
+<dt>n_sel</dt>
 <dd><p>Integer. A vector of the number of selections.</p></dd>
-<dt>n_plots</dt>
+<dt>n_plot</dt>
 <dd><p>Integer. Number of plots in the lineup.</p></dd>
-<dt>n_simulations</dt>
+<dt>n_sim</dt>
 <dd><p>Integer. Number of simulations draws.</p></dd>
 </dl></div>
     <div id="value">
@@ -88,10 +88,10 @@ approximated distribution of number of detections of a lineup.</p>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">sim_dist</span><span class="op">(</span><span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       0       1       2       3 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.70056 0.25248 0.04406 0.00290 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.69818 0.25358 0.04546 0.00278 </span>
 <span class="r-in"><span class="fu">sim_dist</span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       0       1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.95068 0.04932 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.94974 0.05026 </span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
