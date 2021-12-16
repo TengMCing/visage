@@ -5,19 +5,19 @@
 \title{Calculate p-value for a visual test}
 \usage{
 calc_p_value(
-  num_detections,
-  num_evaluations,
-  num_selections,
-  num_plots = 20,
-  num_simulations = 50000,
+  n_detections,
+  n_evaluations,
+  n_selections,
+  n_plots = 20,
+  n_simulations = 50000,
   cache_env = NULL,
   seed = NULL
 )
 }
 \arguments{
-\item{num_detections}{Integer. Observed value of number of detections.}
+\item{n_detections}{Integer. Observed value of number of detections.}
 
-\item{num_evaluations, num_selections, num_plots, num_simulations}{Arguments passed to \code{\link[=sim_dist]{sim_dist()}}.}
+\item{n_evaluations, n_selections, n_plots, n_simulations}{Arguments passed to \code{\link[=sim_dist]{sim_dist()}}.}
 
 \item{cache_env}{Environment. A provided environment for caching.}
 
@@ -34,9 +34,9 @@ of the number of detections greater or equal to the observed value.
 }
 \details{
 It is encouraged to provide a cache environment to boost up the performance
-when you need to reuse this function. The cache environment will remember
-the result corresponding to the combinations of \code{num_evaluations}
-and \code{num_simulations}.
+when this function needs to be reused. The cache environment will remember
+the result corresponding to the combinations of \code{n_evaluations}
+and \code{n_simulations}.
 }
 \examples{
 calc_p_value(2, 3, c(1,1,2))

@@ -4,21 +4,16 @@
 \alias{sim_dist}
 \title{Approximate the distribution of number of detections of a lineup with simulation}
 \usage{
-sim_dist(
-  num_evaluations,
-  num_selections,
-  num_plots = 20,
-  num_simulations = 50000
-)
+sim_dist(n_evaluations, n_selections, n_plots = 20, n_simulations = 50000)
 }
 \arguments{
-\item{num_evaluations}{Integer. Number of evaluations.}
+\item{n_evaluations}{Integer. Number of evaluations.}
 
-\item{num_selections}{Integer. A vector of the number of selections.}
+\item{n_selections}{Integer. A vector of the number of selections.}
 
-\item{num_plots}{Integer. Number of plots in the lineup.}
+\item{n_plots}{Integer. Number of plots in the lineup.}
 
-\item{num_simulations}{Integer. Number of simulations draws.}
+\item{n_simulations}{Integer. Number of simulations draws.}
 }
 \value{
 A named vector representing the probability mass function of the distribution.
