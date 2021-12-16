@@ -1,0 +1,8 @@
+reference:
+- title: "p-value"
+  desc: >
+    Functions for caculating p-value in a visual test
+  contents:
+  - sim_dist
+  - calc_p_value
+  - evaluate_p_value
