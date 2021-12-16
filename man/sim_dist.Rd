@@ -21,7 +21,7 @@ sim_dist(
 \item{num_simulations}{Integer. Number of simulations draws.}
 }
 \value{
-A named vector repenting the probability mass function of the distribution
+A named vector representing the probability mass function of the distribution.
 }
 \description{
 This function approximate the distribution of number of detections of a
@@ -30,7 +30,7 @@ plots in a lineup.
 }
 \details{
 For a given lineup, plots are assumed to have weights
-\deqn{W_i, i = 1, ..., num_plots}, where \eqn{w_i} follows a uniform
+\deqn{W_i, i = 1, ..., num_plots,} where \eqn{W_i} follows a uniform
 distribution independently. For each draw, weights for a lineup will be
 simulated. Then, for each evaluation of a draw, the function will sample
 same number of plots as the number of selection in the evaluation
