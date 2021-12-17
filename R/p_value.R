@@ -144,3 +144,37 @@ calc_p_value <- function(n_detect,
     return(1 - unname(cumsum(target_dist)[n_detect]))
   }
 }
+
+
+# all_comb_p_value --------------------------------------------------------
+
+#' Calculate p-value for all combinations of evaluations of a lineup
+#'
+#'
+#' @noRd
+all_comb_p_value <- function(detected,
+                             n_eval,
+                             n_sel,
+                             n_plot = 20,
+                             n_sim = 50000,
+                             cache_env = NULL,
+                             seed = NULL) {
+
+  # Generate all combinations
+  comb_mat <- utils::combn(length(detected), n_eval)
+  result <- apply(comb_mat,
+                  MARGIN = 2,
+                  function(this_combo) {
+                    calc_p_value(n_detect = sum(detected[this_combo]),
+                                 n_eval = n_eval,
+                                 n_sel = n_sel[this_combo],
+                                 n_plot = n_plot,
+                                 n_sim = n_sim,
+                                 cache_env = cache_env,
+                                 seed = seed)
+                  })
+
+  # Save combinations
+  attr(result, "combinations") <- comb_mat
+  return(result)
+}
