@@ -116,7 +116,6 @@ calc_p_value <- function(n_detect,
 
   if (n_detect > n_eval) stop("Number of detected plots greater than number of evaluations.")
 
-
   if(!is.null(seed)) {
     set.seed(seed)
   }
@@ -147,7 +146,7 @@ calc_p_value <- function(n_detect,
 
 
 
-# calc_comb_p_value -------------------------------------------------------
+# calc_p_value_comb -------------------------------------------------------
 
 #' Calculate p-value for all combinations of evaluations of a lineup.
 #'
@@ -174,12 +173,12 @@ calc_p_value <- function(n_detect,
 #' @return A vector of p-value with the combination matrix as the attribute.
 #'
 #' @examples
-#' calc_comb_p_value(c(TRUE, FALSE, TRUE), 2, c(1, 1, 2))
-#' calc_comb_p_value(c(TRUE, FALSE), 1, c(1, 1))
+#' calc_p_value_comb(c(TRUE, FALSE, TRUE), 2, c(1, 1, 2))
+#' calc_p_value_comb(c(TRUE, FALSE), 1, c(1, 1))
 #'
 #' @seealso [combn()]
 #' @export
-calc_comb_p_value <- function(detected,
+calc_p_value_comb <- function(detected,
                               n_eval,
                               n_sel,
                               n_plot = 20,
@@ -203,5 +202,79 @@ calc_comb_p_value <- function(detected,
 
   # Save combinations
   attr(result, "combinations") <- comb_mat
+  return(result)
+}
+
+#' Calculate p-value for multiple visual test.
+#' @noRd
+calc_p_value_multi <- function(dat,
+                               lineup_id = "lineup_id",
+                               detected = "detected",
+                               n_sel = "n_sel",
+                               comb = FALSE,
+                               n_eval = 1,
+                               replace_0 = TRUE,
+                               replace_full = TRUE,
+                               n_plot = 20,
+                               n_sim = 50000,
+                               cache_env = NULL,
+                               seed = NULL) {
+  # Pass CMD check
+  mutate <- `%>%` <- group_by <- summarise <- count <- filter <- n <- NULL
+
+  # Load pkg funcs
+  define_pkg_funcs(c("mutate", "%>%", "group_by", "summarise", "count", "filter"),
+                   rep("dplyr", 5))
+
+  # Replace variable names
+  dat <- tibble::tibble(lineup_id = dat[[lineup_id]],
+                        detected = dat[[detected]],
+                        n_sel = dat[[n_sel]])
+
+  # Case: 0 selections
+  if (replace_0) {
+    dat <- mutate(dat, detected = ifelse(n_sel == 0, FALSE, detected)) %>%
+      mutate(n_sel = ifelse(n_sel == 0, 1, n_sel))
+  }
+
+  # Case: full selections
+  if (replace_full) {
+    dat <- mutate(dat, detected = ifelse(n_sel == n_plot, FALSE, detected)) %>%
+      mutate(n_sel = ifelse(n_sel == n_plot, 1, n_sel))
+  }
+
+  # Compute p-value for all combinations or not
+  if (comb) {
+
+    # Only use lineups with more than n_eval evaluations
+    target_lineups <- dat %>%
+      count(lineup_id) %>%
+      filter(n > n_eval - 1)
+
+    result <- dat %>%
+      filter(lineup_id %in% target_lineups$lineup_id) %>%
+      group_by(lineup_id) %>%
+      summarise(p_value = list(calc_p_value_comb(detected,
+                                                 n_eval = n_eval,
+                                                 n_sel = n_sel,
+                                                 n_plot = n_plot,
+                                                 n_sim = n_sim,
+                                                 cache_env = cache_env,
+                                                 seed = seed)),
+                n_eval = n_eval,
+                total_eval = dplyr::n())
+
+  } else {
+    result <- dat %>%
+      group_by(lineup_id) %>%
+      summarise(p_value = calc_p_value(n_detect = sum(detected),
+                                       n_eval = dplyr::n(),
+                                       n_sel = n_sel,
+                                       n_plot = n_plot,
+                                       n_sim = n_sim,
+                                       cache_env = cache_env,
+                                       seed = seed))
+  }
+
   return(result)
 }
