@@ -121,6 +121,7 @@ calc_p_value <- function(n_detect,
   }
 
   target_dist <- NULL
+  n_sel <- sort(n_sel)
   uid <- paste0(n_sim, "s",
                 paste0(n_sel, collapse = "_"))
 
@@ -220,11 +221,11 @@ calc_p_value_multi <- function(dat,
                                cache_env = NULL,
                                seed = NULL) {
   # Pass CMD check
-  mutate <- `%>%` <- group_by <- summarise <- count <- filter <- n <- NULL
+  mutate <- `%>%` <- group_by <- summarise <- count <- filter <- bind_rows <- n <- NULL
 
   # Load pkg funcs
-  define_pkg_funcs(c("mutate", "%>%", "group_by", "summarise", "count", "filter"),
-                   rep("dplyr", 5))
+  define_pkg_funcs(c("mutate", "%>%", "group_by", "summarise", "count", "filter", "bind_rows"),
+                   "dplyr")
 
   # Replace variable names
   dat <- tibble::tibble(lineup_id = dat[[lineup_id]],
@@ -243,37 +244,72 @@ calc_p_value_multi <- function(dat,
       mutate(n_sel = ifelse(n_sel == n_plot, 1, n_sel))
   }
 
+  # Progress bar decorator
+  calc_with_progress <- function(lineup_id, fn, ...) {
+    pb$tick(token = list(what = lineup_id))
+    return(do.call(fn, list(...)))
+  }
+
   # Compute p-value for all combinations or not
   if (comb) {
 
-    # Only use lineups with more than n_eval evaluations
-    target_lineups <- dat %>%
-      count(lineup_id) %>%
-      filter(n > n_eval - 1)
+    result <- NULL
 
-    result <- dat %>%
-      filter(lineup_id %in% target_lineups$lineup_id) %>%
-      group_by(lineup_id) %>%
-      summarise(p_value = list(calc_p_value_comb(detected,
-                                                 n_eval = n_eval,
-                                                 n_sel = n_sel,
-                                                 n_plot = n_plot,
-                                                 n_sim = n_sim,
-                                                 cache_env = cache_env,
-                                                 seed = seed)),
-                n_eval = n_eval,
-                total_eval = dplyr::n())
+    for (j in n_eval) {
+      # Only use lineups with more than n_eval evaluations
+      target_lineups <- dat %>%
+        count(lineup_id) %>%
+        filter(n > j - 1)
+
+      # Init progress bar
+      barstr <- paste0("[:spin] n_eval: ", j, " Lineup: :what [:bar] :current/:total (:percent) eta: :eta")
+      pb <- progress::progress_bar$new(format = barstr,
+                                       total = nrow(target_lineups),
+                                       clear = FALSE,
+                                       width = 60)
+
+      tmp <- dat %>%
+        filter(lineup_id %in% target_lineups$lineup_id) %>%
+        group_by(lineup_id) %>%
+        summarise(p_value = list(calc_with_progress(lineup_id = lineup_id,
+                                                    fn = calc_p_value_comb,
+                                                    detected = detected,
+                                                    n_eval = j,
+                                                    n_sel = n_sel,
+                                                    n_plot = n_plot,
+                                                    n_sim = n_sim,
+                                                    cache_env = cache_env,
+                                                    seed = seed)),
+                  n_eval = j,
+                  total_eval = dplyr::n())
+
+      if (is.null(result)) {
+        result <- tmp
+      } else {
+        result <- bind_rows(result, tmp)
+      }
+    }
 
   } else {
+
+    # Init progress bar
+    barstr <- "[:spin] Lineup :what [:bar] :current/:total (:percent) eta: :eta"
+    pb <- progress::progress_bar$new(format = barstr,
+                                     total = length(unique(dat$lineup_id)),
+                                     clear = FALSE,
+                                     width = 60)
+
     result <- dat %>%
       group_by(lineup_id) %>%
-      summarise(p_value = calc_p_value(n_detect = sum(detected),
-                                       n_eval = dplyr::n(),
-                                       n_sel = n_sel,
-                                       n_plot = n_plot,
-                                       n_sim = n_sim,
-                                       cache_env = cache_env,
-                                       seed = seed))
+      summarise(p_value = calc_with_progress(lineup_id = lineup_id,
+                                             fn = calc_p_value,
+                                             n_detect = sum(detected),
+                                             n_eval = dplyr::n(),
+                                             n_sel = n_sel,
+                                             n_plot = n_plot,
+                                             n_sim = n_sim,
+                                             cache_env = cache_env,
+                                             seed = seed))
   }
 
   return(result)

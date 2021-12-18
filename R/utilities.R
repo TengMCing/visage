@@ -20,6 +20,8 @@
 #' @export
 define_pkg_funcs <- function(func_names, pkg_names, pref_names = func_names) {
 
+  if (length(pkg_names) == 1) pkg_names <- rep(pkg_names, length = length(func_names))
+
   # Collect functions from packages
   fns <- lapply(1:length(func_names),
                 function(i) {
