@@ -5,4 +5,5 @@ reference:
   contents:
   - sim_dist
   - calc_p_value
+  - calc_comb_p_value
   - eval_p_value
