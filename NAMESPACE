@@ -2,6 +2,7 @@
 
 export(calc_p_value)
 export(calc_p_value_comb)
+export(calc_p_value_multi)
 export(define_pkg_funcs)
 export(eval_p_value)
 export(sim_dist)

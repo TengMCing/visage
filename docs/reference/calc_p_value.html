@@ -69,8 +69,14 @@ of the number of detections greater or equal to the observed value.</p>
     <h2>Arguments</h2>
     <dl><dt>n_detect</dt>
 <dd><p>Integer. Observed value of number of detections.</p></dd>
-<dt>n_eval, n_sel, n_plot, n_sim</dt>
-<dd><p>Arguments passed to <code><a href="sim_dist.html">sim_dist()</a></code>.</p></dd>
+<dt>n_eval</dt>
+<dd><p>Integer. Number of evaluations.</p></dd>
+<dt>n_sel</dt>
+<dd><p>Integer. A vector of the number of selections.</p></dd>
+<dt>n_plot</dt>
+<dd><p>Integer. Number of plots in the lineup.</p></dd>
+<dt>n_sim</dt>
+<dd><p>Integer. Number of simulations draws.</p></dd>
 <dt>cache_env</dt>
 <dd><p>Environment. A provided environment for caching.</p></dd>
 <dt>seed</dt>
@@ -92,9 +98,9 @@ and <code>n_sim</code>.</p>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">calc_p_value</span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.01512</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.01588</span>
 <span class="r-in"><span class="fu">calc_p_value</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.05078</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.05014</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>

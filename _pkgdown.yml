@@ -6,6 +6,7 @@ reference:
   - sim_dist
   - calc_p_value
   - calc_p_value_comb
+  - calc_p_value_multi
   - eval_p_value
 - title: "utilties"
   desc: >

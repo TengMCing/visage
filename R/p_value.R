@@ -95,7 +95,10 @@ sim_dist <- function(n_eval,
 #' and `n_sim`.
 #'
 #' @param n_detect Integer. Observed value of number of detections.
-#' @param n_eval,n_sel,n_plot,n_sim Arguments passed to [sim_dist()].
+#' @param n_eval Integer. Number of evaluations.
+#' @param n_sel Integer. A vector of the number of selections.
+#' @param n_plot Integer. Number of plots in the lineup.
+#' @param n_sim Integer. Number of simulations draws.
 #' @param cache_env Environment. A provided environment for caching.
 #' @param seed Integer. [set.seed()] will be run at the beginning of the
 #' function if `seed` is provided.
@@ -206,8 +209,48 @@ calc_p_value_comb <- function(detected,
   return(result)
 }
 
-#' Calculate p-value for multiple visual test.
-#' @noRd
+#' Calculate p-value for multiple lineups.
+#'
+#' This function calculates p-value for multiple lineups by using function
+#' [calc_p_value()]. If `comb = TRUE`, then function [calc_p_value_comb()] will
+#' be used instead.
+#'
+#' It is encouraged to provide a cache environment to boost up the performance.
+#' The cache environment will remember the result corresponding to the
+#' combinations of `n_eval` and `n_sim`. `replace_0` and `replace_full` can be
+#' turned on to set evaluations with 0 or full selections to be false detection
+#' with only one selection.
+#'
+#' @param dat Data.frame/Tibble. A data.frame or a tibble.
+#' @param lineup_id Character. Column name of ids of lineup.
+#' @param detected Character. Column name of whether the lineup is detected by
+#' the subject.
+#' @param n_sel Character. Column name of the number of selections.
+#' @param comb Boolean. Whether to compute all the combinations.
+#' See also [calc_p_value_comb()].
+#' @param n_eval Integer. A vector of desired number of evaluations. Only used
+#' when `comb = TRUE`.
+#' @param replace_0 Boolean. Whether to give treatment to evaluations with
+#' number of selections equal to 0.
+#' @param replace_full Boolean. Whether to give treatment to evaluations with
+#' number of selections equal to number of plots.
+#' @param n_plot Integer. Number of plots.
+#' @param n_sim Integer. Number of simulation draws.
+#' @param cache_env Environment. A provided environment for caching.
+#' @param seed Integer. [set.seed()] will be run at the beginning of
+#' [calc_p_value()] if `seed` is provided.
+#' @return If `comb = TRUE`, the function returns a tiible with columns
+#' `lineup_id` and `p_value`, where `p_value` is a list of vectors. If
+#' `comb = FALSE`, the `p_value` column is a vector.
+#'
+#' @examples
+#' dat <- data.frame(lineup_id = c(1,1,2),
+#'                   detected = c(TRUE, FALSE, TRUE),
+#'                   n_sel = c(1,1,2))
+#' calc_p_value_multi(dat, comb = TRUE, n_eval = 1:2)
+#' calc_p_value_multi(dat)
+#'
+#' @export
 calc_p_value_multi <- function(dat,
                                lineup_id = "lineup_id",
                                detected = "detected",
