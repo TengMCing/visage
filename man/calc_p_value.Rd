@@ -17,7 +17,13 @@ calc_p_value(
 \arguments{
 \item{n_detect}{Integer. Observed value of number of detections.}
 
-\item{n_eval, n_sel, n_plot, n_sim}{Arguments passed to \code{\link[=sim_dist]{sim_dist()}}.}
+\item{n_eval}{Integer. Number of evaluations.}
+
+\item{n_sel}{Integer. A vector of the number of selections.}
+
+\item{n_plot}{Integer. Number of plots in the lineup.}
+
+\item{n_sim}{Integer. Number of simulations draws.}
 
 \item{cache_env}{Environment. A provided environment for caching.}
 
