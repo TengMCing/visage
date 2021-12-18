@@ -5,7 +5,7 @@ reference:
   contents:
   - sim_dist
   - calc_p_value
-  - calc_comb_p_value
+  - calc_p_value_comb
   - eval_p_value
 - title: "utilties"
   desc: >
