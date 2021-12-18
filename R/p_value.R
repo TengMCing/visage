@@ -146,19 +146,46 @@ calc_p_value <- function(n_detect,
 }
 
 
-# all_comb_p_value --------------------------------------------------------
 
-#' Calculate p-value for all combinations of evaluations of a lineup
+# calc_comb_p_value -------------------------------------------------------
+
+#' Calculate p-value for all combinations of evaluations of a lineup.
 #'
+#' This function calculate p-value for all combinations of evaluations given
+#' the desired number of evaluations. For a lineup that being evaluated
+#' by \eqn{K} subjects, all combinations of \eqn{K} evaluations, taken
+#' \eqn{X} at a time will be generated, where \eqn{X} is the desired number of
+#' evaluations.
 #'
-#' @noRd
-all_comb_p_value <- function(detected,
-                             n_eval,
-                             n_sel,
-                             n_plot = 20,
-                             n_sim = 50000,
-                             cache_env = NULL,
-                             seed = NULL) {
+#' It is encouraged to provide a cache environment to boost up the performance
+#' when this function needs to be reused. The cache environment will remember
+#' the result corresponding to the combinations of `n_eval`
+#' and `n_sim`.
+#'
+#' @param detected Boolean. A vector of Boolean values indicating whether the
+#' lineup has been detected by the subjects.
+#' @param n_eval Integer. Desired number of evaluations.
+#' @param n_sel Integer. A vector of the number of selections.
+#' @param n_plot Integer. Number of plots in the lineup.
+#' @param n_sim Integer. Number of simulation draws.
+#' @param cache_env Environment. A provided environment for caching.
+#' @param seed Integer. [set.seed()] will be run at the beginning of
+#' [calc_p_value()] if `seed` is provided.
+#' @return A vector of p-value with the combination matrix as the attribute.
+#'
+#' @examples
+#' calc_comb_p_value(c(TRUE, FALSE, TRUE), 2, c(1, 1, 2))
+#' calc_comb_p_value(c(TRUE, FALSE), 1, c(1, 1))
+#'
+#' @seealso [combn()]
+#' @export
+calc_comb_p_value <- function(detected,
+                              n_eval,
+                              n_sel,
+                              n_plot = 20,
+                              n_sim = 50000,
+                              cache_env = NULL,
+                              seed = NULL) {
 
   # Generate all combinations
   comb_mat <- utils::combn(length(detected), n_eval)
