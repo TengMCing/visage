@@ -7,3 +7,8 @@ reference:
   - calc_p_value
   - calc_comb_p_value
   - eval_p_value
+- title: "utilties"
+  desc: >
+    Utility functions
+  contents:
+  - define_pkg_funcs
