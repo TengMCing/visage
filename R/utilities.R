@@ -1,45 +1,116 @@
-# define_pkg_funcs --------------------------------------------------------
+# define_pkg_fns ----------------------------------------------------------
 
 #' Load functions from package namespaces into current environment
 #'
 #' This function loads functions from package namespaces via `::` and
 #' assigns them to the preferred function names in the current environment.
 #'
-#' If the length of `pref_names` and `func_names` does not match, `func_names`
-#' will repleace `pref_names`.
+#' Preferred function names can be provide via named arguments
+#' like `dplyr_filter = filter`.
 #'
-#' @param func_names Character. A vector of function names.
-#' @param pkg_names Character. A vector of package names.
-#' @param pref_names Character. A vector of preferred function names.
+#' @param ... Functions. Preferred names can be provide via named arguments.
+#' @param pkg Package.
 #' @return No return value, called for side effects
 #'
 #' @examples
-#' define_pkg_funcs("filter", "dplyr")
-#' define_pkg_funcs(c("filter", "%>%"), rep("dplyr", 2))
+#' define_pkg_fns(select, filter, pkg = dplyr)
+#' define_pkg_fns(select, dplyr_filter = filter, `%>%`, pkg = dplyr)
 #'
 #' @export
-define_pkg_funcs <- function(func_names, pkg_names, pref_names = func_names) {
+define_pkg_fns <- function(..., pkg = NULL) {
 
-  if (length(pkg_names) == 1) pkg_names <- rep(pkg_names, length = length(func_names))
+  # Capture function call
+  fn_list <- as.list(sys.call())
 
-  # Collect functions from packages
-  fns <- lapply(1:length(func_names),
-                function(i) {
-                  expr <- substitute(`::`(base, sum),
-                                     list(base = pkg_names[i], sum = func_names[i]))
-                  eval(expr)
-                }
-  )
+  # pkg must be provided
+  pkg <- fn_list$pkg
+  if (is.null(pkg)) stop("`pkg` is missing!")
 
-  # Assign them back to the parent frame
-  if (length(unique(pref_names)) == length(unique(func_names))) {
-    names(fns) <- pref_names
-  } else {
-    warning("Length of `pref_names` doesn't match the length of `func_names`!")
-    names(fns) <- func_names
-  }
+  # Extract ...
+  fn_list$pkg <- NULL
+  fn_list[[1]] <- NULL
 
-  list2env(fns, envir = parent.frame())
+  # Check if pref_names are provided via named arguments and delete all "`"
+  pref_names <- names(fn_list)
+  pref_names[pref_names == ""] <- as.character(fn_list)[pref_names == ""]
+  pref_names <- gsub('`', '', pref_names)
+
+  assign_list <- lapply(1:length(fn_list), function(i) {
+
+    # Arguments in ... must be symbols
+    if (!is.symbol(fn_list[[i]])) stop("`", as.expression(fn_list[[i]]), "` is not a symbol!")
+
+    eval(substitute(`::`(base, sum),
+                    list(base = pkg, sum = fn_list[[i]])))
+  })
+
+  names(assign_list) <- pref_names
+  list2env(assign_list, envir = parent.frame())
 
   return(invisible(NULL))
 }
+
+
+
+
+
+# bind_fns_2_env ----------------------------------------------------------
+
+#' Bind functions of the current environment to a target environment
+#'
+#' This function is equivalent to `environment(fn) <- env`. Hence functions
+#' must bind to names in the current environment.
+#'
+#' Pass character function names to `...` will cause error.
+#'
+#' @param ... Functions.
+#' @param env Environment.
+#' @return No return value, called for side effects
+#'
+#' @examples
+#' # Access the associated environment inside a function
+#'
+#' self <- NULL
+#' e <- new.env()
+#'
+#' # The associated environment needs to have a reference to itself
+#' e$self <- e
+#'
+#' e$show_self <- function() return(self)
+#'
+#' # The function can only access the global variable `self`
+#' e$show_self()
+#'
+#' # Bind the function to the environment `e`
+#' bind_fns_2_env(e$show_self, env = e)
+#'
+#' # Both point to the same environment
+#' e$show_self()
+#' e
+#'
+#' @export
+bind_fns_2_env <- function(..., env = NULL) {
+
+  # Capture function call
+  fn_list <- as.list(sys.call())
+
+  # env must be provided and has a self
+  if (is.null(fn_list$env)) stop("`env` is missing!")
+  env <- fn_list$env
+
+  # Extract ...
+  fn_list$env <- NULL
+  fn_list[[1]] <- NULL
+
+  for (fn in fn_list) {
+
+    # Arguments in ... must be functions
+    if (!is.function(eval(fn, envir = parent.frame()))) stop("`", as.expression(fn), "` is not a function!")
+
+    # Bind the function environment to the target environment
+    eval(substitute(environment(fn) <- env), envir = parent.frame())
+  }
+
+  return(invisible(NULL))
+}
+

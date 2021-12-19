@@ -12,4 +12,5 @@ reference:
   desc: >
     Utility functions
   contents:
-  - define_pkg_funcs
+  - define_pkg_fns
+  - bind_fns_2_env
