@@ -16,7 +16,7 @@ No return value, called for side effects
 }
 \description{
 This function is equivalent to \code{environment(fn) <- env}. Hence functions
-must bind to names in the current environment.
+must bind to names.
 }
 \details{
 Pass character function names to \code{...} will cause error.

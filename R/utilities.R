@@ -59,7 +59,7 @@ define_pkg_fns <- function(..., pkg = NULL) {
 #' Bind functions of the current environment to a target environment
 #'
 #' This function is equivalent to `environment(fn) <- env`. Hence functions
-#' must bind to names in the current environment.
+#' must bind to names.
 #'
 #' Pass character function names to `...` will cause error.
 #'
@@ -94,7 +94,7 @@ bind_fns_2_env <- function(..., env = NULL) {
   # Capture function call
   fn_list <- as.list(sys.call())
 
-  # env must be provided and has a self
+  # env must be provided
   if (is.null(fn_list$env)) stop("`env` is missing!")
   env <- fn_list$env
 
@@ -107,7 +107,7 @@ bind_fns_2_env <- function(..., env = NULL) {
     # Arguments in ... must be functions
     if (!is.function(eval(fn, envir = parent.frame()))) stop("`", as.expression(fn), "` is not a function!")
 
-    # Bind the function environment to the target environment
+    # Change the function environment to the target environment
     eval(substitute(environment(fn) <- env), envir = parent.frame())
   }
 
