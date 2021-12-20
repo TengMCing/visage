@@ -14,3 +14,4 @@ reference:
   contents:
   - define_pkg_fns
   - bind_fns_2_env
+  - register_method

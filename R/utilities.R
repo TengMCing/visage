@@ -10,7 +10,7 @@
 #'
 #' @param pkg Package.
 #' @param ... Functions. Preferred names can be provide via named arguments.
-#' @return No return value, called for side effects
+#' @return No return value, called for side effects.
 #'
 #' @examples
 #' define_pkg_fns(pkg = dplyr, select, filter)
@@ -74,7 +74,7 @@ define_pkg_fns <- function(pkg, ...) {
 #'
 #' @param env Environment.
 #' @param ... Functions.
-#' @return No return value, called for side effects
+#' @return No return value, called for side effects.
 #'
 #' @examples
 #' # Access the associated environment inside a function
@@ -131,8 +131,29 @@ bind_fns_2_env <- function(env, ...) {
 
 #' Register method for a class or an instance
 #'
-#' This function register a method which needs to be a function
-#' @noRd
+#' This function register a function as method of a class or an instance.
+#'
+#' Method needs to be provided as `a = function() 1`, where `a` is the name of
+#' the method and the right hand side of the equal sign is the function.
+#'
+#' @param env Environment. Class or instance environment.
+#' @param ... Named Functions. Functions needs to be provided in named format
+#' like `a = function() 1`.
+#' @return No return value, called for side effects.
+#'
+#' @examples
+#'
+#' x <- 0
+#' a <- function() print(x)
+#' a()
+#'
+#' e <- new.env()
+#' e$x <- 1
+#' register_method(e, aa = a)
+#'
+#' e$aa()
+#'
+#' @export
 
 register_method <- function(env, ...) {
 

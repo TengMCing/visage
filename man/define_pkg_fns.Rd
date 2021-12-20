@@ -12,7 +12,7 @@ define_pkg_fns(pkg, ...)
 \item{...}{Functions. Preferred names can be provide via named arguments.}
 }
 \value{
-No return value, called for side effects
+No return value, called for side effects.
 }
 \description{
 This function loads functions from package namespaces via \code{::} and
