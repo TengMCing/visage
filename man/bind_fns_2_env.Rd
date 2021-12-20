@@ -4,12 +4,12 @@
 \alias{bind_fns_2_env}
 \title{Bind functions of the current environment to a target environment}
 \usage{
-bind_fns_2_env(..., env = NULL)
+bind_fns_2_env(env, ...)
 }
 \arguments{
-\item{...}{Functions.}
-
 \item{env}{Environment.}
+
+\item{...}{Functions.}
 }
 \value{
 No return value, called for side effects
@@ -36,7 +36,7 @@ e$show_self <- function() return(self)
 e$show_self()
 
 # Bind the function to the environment `e`
-bind_fns_2_env(e$show_self, env = e)
+bind_fns_2_env(env = e, e$show_self)
 
 # Both point to the same environment
 e$show_self()

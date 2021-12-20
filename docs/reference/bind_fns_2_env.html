@@ -52,15 +52,15 @@ must bind to names.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">bind_fns_2_env</span><span class="op">(</span><span class="va">...</span>, env <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">bind_fns_2_env</span><span class="op">(</span><span class="va">env</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>...</dt>
-<dd><p>Functions.</p></dd>
-<dt>env</dt>
+    <dl><dt>env</dt>
 <dd><p>Environment.</p></dd>
+<dt>...</dt>
+<dd><p>Functions.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -88,13 +88,13 @@ must bind to names.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Bind the function to the environment `e`</span></span>
-<span class="r-in"><span class="fu">bind_fns_2_env</span><span class="op">(</span><span class="va">e</span><span class="op">$</span><span class="va">show_self</span>, env <span class="op">=</span> <span class="va">e</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">bind_fns_2_env</span><span class="op">(</span>env <span class="op">=</span> <span class="va">e</span>, <span class="va">e</span><span class="op">$</span><span class="va">show_self</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Both point to the same environment</span></span>
 <span class="r-in"><span class="va">e</span><span class="op">$</span><span class="fu">show_self</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7fceb646a798&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7fbbec0717b0&gt;</span>
 <span class="r-in"><span class="va">e</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7fceb646a798&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7fbbec0717b0&gt;</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
