@@ -12,7 +12,7 @@ bind_fns_2_env(env, ...)
 \item{...}{Functions.}
 }
 \value{
-No return value, called for side effects
+No return value, called for side effects.
 }
 \description{
 This function is equivalent to \code{environment(fn) <- env}. Hence functions
