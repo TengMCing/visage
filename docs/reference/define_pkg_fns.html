@@ -52,15 +52,15 @@ assigns them to the preferred function names in the current environment.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">define_pkg_fns</span><span class="op">(</span><span class="va">...</span>, pkg <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">define_pkg_fns</span><span class="op">(</span><span class="va">pkg</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>...</dt>
-<dd><p>Functions. Preferred names can be provide via named arguments.</p></dd>
-<dt>pkg</dt>
+    <dl><dt>pkg</dt>
 <dd><p>Package.</p></dd>
+<dt>...</dt>
+<dd><p>Functions. Preferred names can be provide via named arguments.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -74,8 +74,8 @@ like <code>dplyr_filter = filter</code>.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">define_pkg_fns</span><span class="op">(</span><span class="va">select</span>, <span class="va">filter</span>, pkg <span class="op">=</span> <span class="va">dplyr</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">define_pkg_fns</span><span class="op">(</span><span class="va">select</span>, dplyr_filter <span class="op">=</span> <span class="va">filter</span>, <span class="va">`%&gt;%`</span>, pkg <span class="op">=</span> <span class="va">dplyr</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">define_pkg_fns</span><span class="op">(</span>pkg <span class="op">=</span> <span class="va">dplyr</span>, <span class="va">select</span>, <span class="va">filter</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">define_pkg_fns</span><span class="op">(</span><span class="va">dplyr</span>, <span class="va">select</span>, dplyr_filter <span class="op">=</span> <span class="va">filter</span>, <span class="va">`%&gt;%`</span><span class="op">)</span></span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>

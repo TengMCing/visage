@@ -4,12 +4,12 @@
 \alias{define_pkg_fns}
 \title{Load functions from package namespaces into current environment}
 \usage{
-define_pkg_fns(..., pkg = NULL)
+define_pkg_fns(pkg, ...)
 }
 \arguments{
-\item{...}{Functions. Preferred names can be provide via named arguments.}
-
 \item{pkg}{Package.}
+
+\item{...}{Functions. Preferred names can be provide via named arguments.}
 }
 \value{
 No return value, called for side effects
@@ -23,7 +23,7 @@ Preferred function names can be provide via named arguments
 like \code{dplyr_filter = filter}.
 }
 \examples{
-define_pkg_fns(select, filter, pkg = dplyr)
-define_pkg_fns(select, dplyr_filter = filter, `\%>\%`, pkg = dplyr)
+define_pkg_fns(pkg = dplyr, select, filter)
+define_pkg_fns(dplyr, select, dplyr_filter = filter, `\%>\%`)
 
 }
