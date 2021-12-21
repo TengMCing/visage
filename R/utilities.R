@@ -13,11 +13,11 @@
 #' @return No return value, called for side effects.
 #'
 #' @examples
-#' define_pkg_fns(pkg = dplyr, select, filter)
-#' define_pkg_fns(dplyr, select, dplyr_filter = filter, `%>%`)
+#' define_pkg_fn(pkg = dplyr, select, filter)
+#' define_pkg_fn(dplyr, select, dplyr_filter = filter, `%>%`)
 #'
 #' @export
-define_pkg_fns <- function(pkg, ...) {
+define_pkg_fn <- function(pkg, ...) {
 
   # Capture function call
   fn_list <- as.list(sys.call())
@@ -63,7 +63,7 @@ define_pkg_fns <- function(pkg, ...) {
 
 
 
-# bind_fns_2_env ----------------------------------------------------------
+# bind_fn_2_env -----------------------------------------------------------
 
 #' Bind functions of the current environment to a target environment
 #'
@@ -91,14 +91,14 @@ define_pkg_fns <- function(pkg, ...) {
 #' e$show_self()
 #'
 #' # Bind the function to the environment `e`
-#' bind_fns_2_env(env = e, e$show_self)
+#' bind_fn_2_env(env = e, e$show_self)
 #'
 #' # Both point to the same environment
 #' e$show_self()
 #' e
 #'
 #' @export
-bind_fns_2_env <- function(env, ...) {
+bind_fn_2_env <- function(env, ...) {
 
   # Capture function call
   fn_list <- as.list(sys.call())
@@ -126,70 +126,3 @@ bind_fns_2_env <- function(env, ...) {
   return(invisible(NULL))
 }
 
-
-# register_method ---------------------------------------------------------
-
-#' Register method for a class or an instance
-#'
-#' This function register a function as method of a class or an instance.
-#'
-#' Method needs to be provided as `a = function() 1`, where `a` is the name of
-#' the method and the right hand side of the equal sign is the function.
-#'
-#' @param env Environment. Class or instance environment.
-#' @param ... Named Functions. Functions needs to be provided in named format
-#' like `a = function() 1`.
-#' @return No return value, called for side effects.
-#'
-#' @examples
-#'
-#' x <- 0
-#' a <- function() print(x)
-#' a()
-#'
-#' e <- new.env()
-#' e$x <- 1
-#' register_method(e, aa = a)
-#'
-#' e$aa()
-#'
-#' @export
-
-register_method <- function(env, ...) {
-
-  # Capture function call
-  fn_list <- as.list(sys.call())
-
-  # `env` must be provided
-  if (!is.environment(env)) stop("`env` is not an environment!")
-
-  # Extract `...`, check how `env` is provided
-  if (is.null(fn_list$env)) {
-    fn_list[1:2] <- NULL
-  } else {
-    fn_list[[1]] <- NULL
-    fn_list$env <- NULL
-  }
-
-  # Check if `fn_names` are provided via named arguments and delete all "`"
-  # A unnamed list will return NULL, a named list but without names will return empty strings
-  fn_names <- names(fn_list)
-
-  if (is.null(fn_names) || "" %in% fn_names) stop("All methods should have a name.")
-  fn_names <- gsub('`', '', fn_names)
-
-  for (i in 1:length(fn_list)) {
-
-    # Eval the function in the parent frame
-    eval_fn <- eval(fn_list[[i]], envir = parent.frame())
-
-    # Check whether it is a function
-    if (!is.function(eval_fn)) stop("`", as.expression(fn_list[[i]]), "` is not a function!")
-
-    # Bind it to the target environment
-    env[[fn_names[i]]] <- eval_fn
-    bind_fns_2_env(env, env[[fn_names[i]]])
-  }
-
-  return(invisible(NULL))
-}

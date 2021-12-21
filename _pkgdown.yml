@@ -8,10 +8,16 @@ reference:
   - calc_p_value_comb
   - calc_p_value_multi
   - eval_p_value
+- title: "pseudo OOP"
+  desc: >
+    Functions for building a pseudo OOP system
+  contents:
+  - register_method
+  - BASE
 - title: "utilties"
   desc: >
     Utility functions
   contents:
-  - define_pkg_fns
-  - bind_fns_2_env
-  - register_method
+  - define_pkg_fn
+  - bind_fn_2_env
+

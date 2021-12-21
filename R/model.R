@@ -1,12 +1,12 @@
 MODEL_SPEC <- function(model = new.env(parent = parent.frame()), ...) {
 
-  # The MODEL_SPEC CLASS constructor
+  # The MODEL_SPEC class constructor
 
   # Pass CMD check
   rbinom <- rlnorm <- rnorm <- runif <- self <- NULL
 
   # Load pkg fns
-  define_pkg_fns("stats", rbinom, rlnorm, rnorm, runif)
+  define_pkg_fn("stats", rbinom, rlnorm, rnorm, runif)
 
   # Crate a new environment and store parameters
   model$parameters <- list(...)
