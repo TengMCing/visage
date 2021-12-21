@@ -267,7 +267,7 @@ calc_p_value_multi <- function(dat,
   mutate <- `%>%` <- group_by <- summarise <- count <- filter <- bind_rows <- n <- NULL
 
   # Load pkg funcs, quote dplyr to pass CMD check
-  define_pkg_fns("dplyr", mutate, `%>%`, group_by, summarise, count, filter, bind_rows)
+  define_pkg_fn("dplyr", mutate, `%>%`, group_by, summarise, count, filter, bind_rows)
 
   # Replace variable names
   dat <- tibble::tibble(lineup_id = dat[[lineup_id]],
