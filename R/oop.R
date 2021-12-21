@@ -79,13 +79,13 @@ inherit <- function(env, parent, child_name, ...) {
   return(child)
 }
 
-parent_method <- function(env, parent, method_name, ..., container_name = "method_env_", self_name = "self") {
+class_method <- function(env, cls, method_name, ..., container_name = "method_env_", self_name = "self") {
 
-  # Init a parent instance
-  new_parent <- parent(env = new.env(parent = env), ...)
+  # Init a class instance
+  new_instance <- cls(env = new.env(parent = env), ...)
 
   # Get the target method
-  target_method <- new_parent[[method_name]]
+  target_method <- new_instance[[method_name]]
 
   # Change the function env to target container
   bind_fn_2_env(env[[container_name]], target_method)
@@ -95,8 +95,8 @@ parent_method <- function(env, parent, method_name, ..., container_name = "metho
   self <- as.symbol(self_name)
   body(target_method) <- do.call(substitute, list(expr = fn_body, env = environment()))
 
-  # remove parent instance
-  rm(new_parent)
+  # remove the instance
+  rm(new_instance)
 
   return(target_method)
 }
