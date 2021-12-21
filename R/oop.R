@@ -17,10 +17,6 @@
 #' @export
 BASE <- function(env = new.env(parent = parent.frame()), ...) {
 
-  # Base class constructor
-
-  # This template provides some basic methods and attributes
-
   # Pass CMD check
   self <- NULL
 
@@ -64,6 +60,48 @@ BASE <- function(env = new.env(parent = parent.frame()), ...) {
 }
 
 attr(BASE, "parent_class") <- c()
+
+inherit <- function(env, parent, child_name, ...) {
+
+  # Init a parent instance
+  child <- parent(env = env, ...)
+
+  # Push the child class name
+  child$class <- c(child_name, env$class)
+
+  # Set the child instance type
+  child$type <- env$class[1]
+
+  # Reset the call
+  # Warning: this only works if inherit is called within a class constructor
+  child$init_call <- sys.call(which = 1)
+
+  return(child)
+}
+
+parent_method <- function(env, parent, method_name, ..., container_name = "method_env_", self_name = "self") {
+
+  # Init a parent instance
+  new_parent <- parent(env = new.env(parent = env), ...)
+
+  # Get the target method
+  target_method <- new_parent[[method_name]]
+
+  # Change the function env to target container
+  bind_fn_2_env(env[[container_name]], target_method)
+
+  # Substitute self with desired `self_name`
+  fn_body <- body(target_method)
+  self <- as.symbol(self_name)
+  body(target_method) <- do.call(substitute, list(expr = fn_body, env = environment()))
+
+  # remove parent instance
+  rm(new_parent)
+
+  return(target_method)
+}
+
+
 
 is_instance <- function(env, cls) {
   cls == env$type
