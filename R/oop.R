@@ -265,6 +265,17 @@ register_class_ctor(BASE, "BASE")
 
 
 
+# print.pseudo_oop --------------------------------------------------------
+
+#' S3 method of printing `pseudo_oop` object
+#'
+#' This function print the string representation of the object.
+#'
+#' @param x `pseudo_oop` object.
+#' @param ... ignored.
+#' @return No return value, called for side effects.
+#' @export
+
 print.pseudo_oop <- function(x, ...) {
   cli::cli_h3(x$string())
   return(invisible(NULL))
