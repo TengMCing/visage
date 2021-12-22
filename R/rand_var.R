@@ -33,3 +33,4 @@ RAND_VAR <- function(env = new.env(parent = parent.frame()), ...) {
   return(env)
 }
 
+register_class_ctor(RAND_VAR, "RAND_VAR", parent = BASE)

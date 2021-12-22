@@ -1,121 +1,3 @@
-#' Base class constructor
-#'
-#' This class includes some basic methods and attributes.
-#'
-#' details
-#'
-#' @param env Environment. The instance environment.
-#' @param ... Values that will be stored in the instance environment.
-#' @return An environment with S3 class "pseudo_oop".
-#'
-#' @examples
-#'
-#' base_instance <- BASE(name = "a")
-#' base_instance
-#' base_instance$methods()
-#'
-#' @export
-BASE <- function(env = new.env(parent = parent.frame()), ...) {
-
-  # Pass CMD check
-  self <- NULL
-
-  list2env(list(...), envir = env)
-
-  env$class <- c("BASE")
-  env$type <- env$class[1]
-  env$doc <- ""
-  env$init_call <- sys.call()
-
-  methods_ <- function() names(self)[unlist(lapply(names(self), function(x) is.function(self[[x]])))]
-
-  has_attr_ <- function(attr_name) attr_name %in% names(self)
-
-  set_attr_ <- function(attr_name, attr_val) self[[attr_name]] <- attr_val
-
-  get_attr_ <- function(attr_name) self[[attr_name]]
-
-  del_attr <- function(attr_name) if (attr_name %in% names(self)) rm(attr_name, envir = self)
-
-  list_attr_ <- function() names(self)
-
-  len_ <- function() NULL
-
-  repr_ <- function() deparse(self$init_call)
-
-  string_ <- function() paste0("<", self$class[1], " object>")
-
-  register_method(env,
-                  methods = methods_,
-                  has_attr = has_attr_,
-                  set_attr = set_attr_,
-                  get_attr = get_attr_,
-                  list_attr = list_attr_,
-                  repr = repr_,
-                  string = string_,
-                  len = len_)
-
-  class(env) <- "pseudo_oop"
-  return(env)
-}
-
-attr(BASE, "parent_class") <- c()
-
-inherit <- function(env, parent, child_name, ...) {
-
-  # Init a parent instance
-  child <- parent(env = env, ...)
-
-  # Push the child class name
-  child$class <- c(child_name, env$class)
-
-  # Set the child instance type
-  child$type <- env$class[1]
-
-  # Reset the call
-  # Warning: this only works if inherit is called within a class constructor
-  child$init_call <- sys.call(which = 1)
-
-  return(child)
-}
-
-class_method <- function(env, cls, method_name, ..., container_name = "method_env_", self_name = "self") {
-
-  # Init a class instance
-  new_instance <- cls(env = new.env(parent = env), ...)
-
-  # Get the target method
-  target_method <- new_instance[[method_name]]
-
-  # Change the function env to target container
-  bind_fn_2_env(env[[container_name]], target_method)
-
-  # Substitute self with desired `self_name`
-  fn_body <- body(target_method)
-  self <- as.symbol(self_name)
-  body(target_method) <- do.call(substitute, list(expr = fn_body, env = environment()))
-
-  # remove the instance
-  rm(new_instance)
-
-  return(target_method)
-}
-
-
-
-is_instance <- function(env, cls) {
-  cls == env$type
-}
-
-is_subclass <- function(child_cls, parent_cls) {
-  parent_cls %in% attr(child_cls, "parent_class")
-}
-
-print.pseudo_oop <- function(x, ...) {
-  cli::cli_h3(x$string())
-  return(invisible(NULL))
-}
-
 # register_method ---------------------------------------------------------
 
 #' Register method for an instance
@@ -231,3 +113,145 @@ register_method <- function(env, ..., container_name = "method_env_", self_name 
 
   return(invisible(NULL))
 }
+
+
+# register_class_ctor -----------------------------------------------------
+
+register_class_ctor <- function(cls, cls_name, parent = NULL, ...) {
+  eval(substitute(attr(cls, "pseudo_oop_class") <- c(cls_name, attr(parent, "pseudo_oop_class"))),
+       envir = parent.frame())
+}
+
+
+# class_method ------------------------------------------------------------
+
+class_method <- function(env, cls, method_name, ..., container_name = "method_env_", self_name = "self") {
+
+  # Init a class instance
+  new_instance <- cls(env = new.env(parent = env), ...)
+
+  # Get the target method
+  target_method <- new_instance[[method_name]]
+
+  # Change the function env to target container
+  bind_fn_2_env(env[[container_name]], target_method)
+
+  # Substitute self with desired `self_name`
+  fn_body <- body(target_method)
+  self <- as.symbol(self_name)
+  body(target_method) <- do.call(substitute, list(expr = fn_body, env = environment()))
+
+  # remove the instance
+  rm(new_instance)
+
+  return(target_method)
+}
+
+# is_instance -------------------------------------------------------------
+
+is_instance <- function(env, cls) {
+  attr(cls, "pseudo_oop_class")[1] == env$type
+}
+
+
+# is_subclass -------------------------------------------------------------
+
+is_subclass <- function(child_cls, parent_cls) {
+  attr(parent_cls, "pseudo_oop_class")[1] %in% attr(child_cls, "pseudo_oop_class")[-1]
+}
+
+# inherit -----------------------------------------------------------------
+
+inherit <- function(env, parent, child_name, ...) {
+
+  # Init a parent instance
+  child <- parent(env = env, ...)
+
+  # Push the child class name
+  child$class <- c(child_name, env$class)
+
+  # Set the child instance type
+  child$type <- env$class[1]
+
+  # Reset the call
+  # Warning: this only works if inherit is called within a class constructor
+  child$init_call <- sys.call(which = 1)
+
+  return(child)
+}
+
+# BASE --------------------------------------------------------------------
+
+#' Base class constructor
+#'
+#' This class includes some basic methods and attributes.
+#'
+#' details
+#'
+#' @param env Environment. The instance environment.
+#' @param ... Values that will be stored in the instance environment.
+#' @return An environment with S3 class "pseudo_oop".
+#'
+#' @examples
+#'
+#' base_instance <- BASE(name = "a")
+#' base_instance
+#' base_instance$methods()
+#'
+#' @export
+BASE <- function(env = new.env(parent = parent.frame()), ...) {
+
+  # Pass CMD check
+  self <- NULL
+
+  list2env(list(...), envir = env)
+
+  env$class <- c("BASE")
+  env$type <- env$class[1]
+  env$doc <- ""
+  env$init_call <- sys.call()
+
+  methods_ <- function() names(self)[unlist(lapply(names(self), function(x) is.function(self[[x]])))]
+
+  has_attr_ <- function(attr_name) attr_name %in% names(self)
+
+  set_attr_ <- function(attr_name, attr_val) self[[attr_name]] <- attr_val
+
+  get_attr_ <- function(attr_name) self[[attr_name]]
+
+  del_attr <- function(attr_name) if (attr_name %in% names(self)) rm(attr_name, envir = self)
+
+  list_attr_ <- function() names(self)
+
+  len_ <- function() NULL
+
+  repr_ <- function() deparse(self$init_call)
+
+  string_ <- function() paste0("<", self$class[1], " object>")
+
+  register_method(env,
+                  methods = methods_,
+                  has_attr = has_attr_,
+                  set_attr = set_attr_,
+                  get_attr = get_attr_,
+                  list_attr = list_attr_,
+                  repr = repr_,
+                  string = string_,
+                  len = len_)
+
+  class(env) <- "pseudo_oop"
+  return(env)
+}
+
+register_class_ctor(BASE, "BASE")
+
+
+
+print.pseudo_oop <- function(x, ...) {
+  cli::cli_h3(x$string())
+  return(invisible(NULL))
+}
+
+
+
+
