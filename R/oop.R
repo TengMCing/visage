@@ -61,6 +61,9 @@ register_method <- function(env, ..., container_name = "method_env_", self_name 
     # Check if the container is empty (except self)
     if (sum(names(env[[container_name]]) != self_name) > 0) warning("The container is not empty!")
 
+    # Check if the container is the child of the parent of the instance environment
+    if (!identical(parent.env(env[[container_name]]), parent.env(env))) stop(container_name, " exists, but it is not a child of the parent of the instance environment! Consider remove it.")
+
     # Check if self exists
     if (self_name %in% names(env[[container_name]])) {
 
@@ -128,7 +131,7 @@ register_class_ctor <- function(cls, cls_name, parent = NULL, ...) {
 class_method <- function(env, cls, method_name, ..., container_name = "method_env_", self_name = "self") {
 
   # Init a class instance
-  new_instance <- cls(env = new.env(parent = env), ...)
+  new_instance <- cls(..., env = new.env(parent = env))
 
   # Get the target method
   target_method <- new_instance[[method_name]]
@@ -165,7 +168,7 @@ is_subclass <- function(child_cls, parent_cls) {
 inherit <- function(env, parent, child_name, ...) {
 
   # Init a parent instance
-  child <- parent(env = env, ...)
+  child <- parent(..., env = env)
 
   # Push the child class name
   child$class <- c(child_name, env$class)
@@ -188,8 +191,8 @@ inherit <- function(env, parent, child_name, ...) {
 #'
 #' details
 #'
-#' @param env Environment. The instance environment.
 #' @param ... Values that will be stored in the instance environment.
+#' @param env Environment. The instance environment.
 #' @return An environment with S3 class "pseudo_oop".
 #'
 #' @examples
@@ -199,7 +202,7 @@ inherit <- function(env, parent, child_name, ...) {
 #' base_instance$methods()
 #'
 #' @export
-BASE <- function(env = new.env(parent = parent.frame()), ...) {
+BASE <- function(..., env = new.env(parent = parent.frame())) {
 
   # Pass CMD check
   self <- NULL

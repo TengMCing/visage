@@ -1,36 +1,42 @@
-RAND_VAR <- function(env = new.env(parent = parent.frame()), ...) {
+RAND_VAR <- function(dist = "uniform", parameters = list(), ..., env = new.env(parent = parent.frame())) {
 
   # pass CMD check
   self <- NULL
 
   # Inherit from BASE class
-  env <- inherit(env, BASE, "RAND_VAR")
+  env <- inherit(env, BASE, "RAND_VAR", ...)
+  env$depend <- NULL
+  env$dist <- dist
+  env$parameters <- parameters
 
-  len_ <- function() 1
+  gen_ <- function() NULL
 
   register_method(env,
-                  len = len_)
+                  gen = gen_)
 
-  return(env)
-
-  # The RAND_VAR class constructor
-
-  env$name <- name
-  env$self <- env
-  env$parameters <- list()
-
-  gen_ <- function(...) {
-
-  }
-
-  update_ <- function(...) self$parameters <- modifyList(self$parameters, list(...))
-
-  methods_ <- function() names(self)[unlist(lapply(names(self), function(x) is.function(self[[x]])))]
-  attrs_ <- function() {}
-
-  register_method(env, gen = gen_, update = update_, methods = methods_)
-  class(env) <- "RAND_VAR"
   return(env)
 }
 
 register_class_ctor(RAND_VAR, "RAND_VAR", parent = BASE)
+
+
+RAND_VAR_UNIFORM <- function(a, b, ..., env = new.env(parent = parent.frame())) {
+
+  # pass CMD check
+  self <- NULL
+
+  # Inherit from RAND_VAR class
+  env <- inherit(env, RAND_VAR, "RAND_VAR_UNIFORM", dist = "uniform", ...)
+  env$parameters$a <- a
+  env$parameters$b <- b
+
+  gen_ <- function(n) {
+    runif(n, self$parameters$a, self$parameters$b)
+  }
+
+  register_method(env, gen = gen_)
+
+  return(env)
+}
+
+register_class_ctor(RAND_VAR_UNIFORM, "RAND_VAR_UNIFORM", parent = RAND_VAR)
