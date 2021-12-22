@@ -66,15 +66,27 @@
     </div>
     <div id="details">
     <h2>Details</h2>
-    <p>details</p>
-    </div>
+    <p>The base class provides the following attributes and methods:</p><ul><li><p><code>class</code> : Class list.</p></li>
+<li><p><code>type</code> : Class.</p></li>
+<li><p><code>doc</code> : Doc string.</p></li>
+<li><p><code>init_call</code> : The call that init this instance.</p></li>
+<li><p><code><a href="https://rdrr.io/r/utils/methods.html" class="external-link">methods()</a></code> : Get all method names.</p></li>
+<li><p><code>has_attr(attr_name)</code> : Whether the instance has the attribute.</p></li>
+<li><p><code>set_attr(attr_name, attr_val)</code> : Set value for an attribute.</p></li>
+<li><p><code>get_attr(attr_name)</code> : Get the value of an attribute.</p></li>
+<li><p><code>del_attr(attr_name)</code> : Delete an attribute.</p></li>
+<li><p><code>list_attr()</code> : Get all attributes name.</p></li>
+<li><p><code>len()</code> : Length of the instance.</p></li>
+<li><p><code>repr()</code> : Representation of an object.</p></li>
+<li><p><code>string()</code> : String pepresentation of an object.</p></li>
+</ul></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="va">base_instance</span> <span class="op">&lt;-</span> <span class="fu">BASE</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"a"</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">base_instance</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7fc7b6bae7e8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7f9b7e12d178&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "pseudo_oop"</span>
 <span class="r-in"><span class="va">base_instance</span><span class="op">$</span><span class="fu">methods</span><span class="op">(</span><span class="op">)</span></span>
