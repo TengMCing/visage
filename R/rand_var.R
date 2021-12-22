@@ -5,14 +5,12 @@ RAND_VAR <- function(dist = "uniform", parameters = list(), ..., env = new.env(p
 
   # Inherit from BASE class
   env <- inherit(env, BASE, "RAND_VAR", ...)
-  env$depend <- NULL
   env$dist <- dist
   env$parameters <- parameters
 
   gen_ <- function() NULL
 
-  register_method(env,
-                  gen = gen_)
+  register_method(env, gen = gen_)
 
   return(env)
 }
@@ -31,7 +29,7 @@ RAND_VAR_UNIFORM <- function(a, b, ..., env = new.env(parent = parent.frame())) 
   env$parameters$b <- b
 
   gen_ <- function(n) {
-    runif(n, self$parameters$a, self$parameters$b)
+    stats::runif(n, self$parameters$a, self$parameters$b)
   }
 
   register_method(env, gen = gen_)

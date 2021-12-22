@@ -100,8 +100,6 @@ sim_dist <- function(n_eval,
 #' @param n_plot Integer. Number of plots in the lineup.
 #' @param n_sim Integer. Number of simulations draws.
 #' @param cache_env Environment. A provided environment for caching.
-#' @param seed Integer. [set.seed()] will be run at the beginning of the
-#' function if `seed` is provided.
 #' @return A numeric value representing the p-value.
 #'
 #' @examples
@@ -114,14 +112,9 @@ calc_p_value <- function(n_detect,
                          n_sel,
                          n_plot = 20,
                          n_sim = 50000,
-                         cache_env = NULL,
-                         seed = NULL) {
+                         cache_env = NULL) {
 
   if (n_detect > n_eval) stop("Number of detected plots greater than number of evaluations.")
-
-  if(!is.null(seed)) {
-    set.seed(seed)
-  }
 
   target_dist <- NULL
   n_sel <- sort(n_sel)
@@ -172,8 +165,6 @@ calc_p_value <- function(n_detect,
 #' @param n_plot Integer. Number of plots in the lineup.
 #' @param n_sim Integer. Number of simulation draws.
 #' @param cache_env Environment. A provided environment for caching.
-#' @param seed Integer. [set.seed()] will be run at the beginning of
-#' [calc_p_value()] if `seed` is provided.
 #' @return A vector of p-value with the combination matrix as the attribute.
 #'
 #' @examples
@@ -187,8 +178,7 @@ calc_p_value_comb <- function(detected,
                               n_sel,
                               n_plot = 20,
                               n_sim = 50000,
-                              cache_env = NULL,
-                              seed = NULL) {
+                              cache_env = NULL) {
 
   # Generate all combinations
   comb_mat <- utils::combn(length(detected), n_eval)
@@ -200,8 +190,7 @@ calc_p_value_comb <- function(detected,
                                  n_sel = n_sel[this_combo],
                                  n_plot = n_plot,
                                  n_sim = n_sim,
-                                 cache_env = cache_env,
-                                 seed = seed)
+                                 cache_env = cache_env)
                   })
 
   # Save combinations
@@ -237,8 +226,6 @@ calc_p_value_comb <- function(detected,
 #' @param n_plot Integer. Number of plots.
 #' @param n_sim Integer. Number of simulation draws.
 #' @param cache_env Environment. A provided environment for caching.
-#' @param seed Integer. [set.seed()] will be run at the beginning of
-#' [calc_p_value()] if `seed` is provided.
 #' @return If `comb = TRUE`, the function returns a tiible with columns
 #' `lineup_id` and `p_value`, where `p_value` is a list of vectors. If
 #' `comb = FALSE`, the `p_value` column is a vector.
@@ -261,8 +248,7 @@ calc_p_value_multi <- function(dat,
                                replace_full = TRUE,
                                n_plot = 20,
                                n_sim = 50000,
-                               cache_env = NULL,
-                               seed = NULL) {
+                               cache_env = NULL) {
   # Pass CMD check
   mutate <- `%>%` <- group_by <- summarise <- count <- filter <- bind_rows <- n <- NULL
 
@@ -320,8 +306,7 @@ calc_p_value_multi <- function(dat,
                                                     n_sel = n_sel,
                                                     n_plot = n_plot,
                                                     n_sim = n_sim,
-                                                    cache_env = cache_env,
-                                                    seed = seed)),
+                                                    cache_env = cache_env)),
                   n_eval = j,
                   total_eval = dplyr::n())
 
@@ -350,8 +335,7 @@ calc_p_value_multi <- function(dat,
                                              n_sel = n_sel,
                                              n_plot = n_plot,
                                              n_sim = n_sim,
-                                             cache_env = cache_env,
-                                             seed = seed))
+                                             cache_env = cache_env))
   }
 
   return(result)
