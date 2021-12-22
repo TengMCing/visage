@@ -10,8 +10,7 @@ calc_p_value_comb(
   n_sel,
   n_plot = 20,
   n_sim = 50000,
-  cache_env = NULL,
-  seed = NULL
+  cache_env = NULL
 )
 }
 \arguments{
@@ -27,9 +26,6 @@ lineup has been detected by the subjects.}
 \item{n_sim}{Integer. Number of simulation draws.}
 
 \item{cache_env}{Environment. A provided environment for caching.}
-
-\item{seed}{Integer. \code{\link[=set.seed]{set.seed()}} will be run at the beginning of
-\code{\link[=calc_p_value]{calc_p_value()}} if \code{seed} is provided.}
 }
 \value{
 A vector of p-value with the combination matrix as the attribute.

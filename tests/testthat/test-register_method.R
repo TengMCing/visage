@@ -45,7 +45,7 @@ test_that("register_method container (diff env) error works", {
   e$x <- 0
 
   expect_error(register_method(e, a = a),
-               " exists, but it is not a child of the parent of the instance environment! Consider remove it.",
+               "method_env_ exists, but it is not a child of the parent of the instance environment! Consider remove it.",
                ignore.case = TRUE)
 })
 

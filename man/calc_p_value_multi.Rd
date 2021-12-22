@@ -15,8 +15,7 @@ calc_p_value_multi(
   replace_full = TRUE,
   n_plot = 20,
   n_sim = 50000,
-  cache_env = NULL,
-  seed = NULL
+  cache_env = NULL
 )
 }
 \arguments{
@@ -46,9 +45,6 @@ number of selections equal to number of plots.}
 \item{n_sim}{Integer. Number of simulation draws.}
 
 \item{cache_env}{Environment. A provided environment for caching.}
-
-\item{seed}{Integer. \code{\link[=set.seed]{set.seed()}} will be run at the beginning of
-\code{\link[=calc_p_value]{calc_p_value()}} if \code{seed} is provided.}
 }
 \value{
 If \code{comb = TRUE}, the function returns a tiible with columns

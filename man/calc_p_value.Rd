@@ -10,8 +10,7 @@ calc_p_value(
   n_sel,
   n_plot = 20,
   n_sim = 50000,
-  cache_env = NULL,
-  seed = NULL
+  cache_env = NULL
 )
 }
 \arguments{
@@ -26,9 +25,6 @@ calc_p_value(
 \item{n_sim}{Integer. Number of simulations draws.}
 
 \item{cache_env}{Environment. A provided environment for caching.}
-
-\item{seed}{Integer. \code{\link[=set.seed]{set.seed()}} will be run at the beginning of the
-function if \code{seed} is provided.}
 }
 \value{
 A numeric value representing the p-value.

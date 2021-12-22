@@ -65,8 +65,7 @@ be used instead.</p>
   replace_full <span class="op">=</span> <span class="cn">TRUE</span>,
   n_plot <span class="op">=</span> <span class="fl">20</span>,
   n_sim <span class="op">=</span> <span class="fl">50000</span>,
-  cache_env <span class="op">=</span> <span class="cn">NULL</span>,
-  seed <span class="op">=</span> <span class="cn">NULL</span>
+  cache_env <span class="op">=</span> <span class="cn">NULL</span>
 <span class="op">)</span></code></pre></div>
     </div>
 
@@ -99,9 +98,6 @@ number of selections equal to number of plots.</p></dd>
 <dd><p>Integer. Number of simulation draws.</p></dd>
 <dt>cache_env</dt>
 <dd><p>Environment. A provided environment for caching.</p></dd>
-<dt>seed</dt>
-<dd><p>Integer. <code><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed()</a></code> will be run at the beginning of
-<code><a href="calc_p_value.html">calc_p_value()</a></code> if <code>seed</code> is provided.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -134,8 +130,8 @@ with only one selection.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 x 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   lineup_id p_value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>         1  0.098<span style="text-decoration: underline;">4</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>         2  0.099<span style="text-decoration: underline;">1</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>         1  0.095<span style="text-decoration: underline;">3</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>         2  0.099<span style="text-decoration: underline;">0</span></span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>

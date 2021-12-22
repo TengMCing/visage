@@ -4,12 +4,12 @@
 \alias{BASE}
 \title{Base class constructor}
 \usage{
-BASE(env = new.env(parent = parent.frame()), ...)
+BASE(..., env = new.env(parent = parent.frame()))
 }
 \arguments{
-\item{env}{Environment. The instance environment.}
-
 \item{...}{Values that will be stored in the instance environment.}
+
+\item{env}{Environment. The instance environment.}
 }
 \value{
 An environment with S3 class "pseudo_oop".
