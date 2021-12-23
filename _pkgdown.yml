@@ -14,8 +14,9 @@ reference:
   contents:
   - register_method
   - register_class_ctor
-  - print.pseudo_oop
+  - class_method
   - BASE
+  - print.pseudo_oop
 - title: "utilties"
   desc: >
     Utility functions

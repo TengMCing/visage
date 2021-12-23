@@ -32,7 +32,9 @@ variables of the parent of the instance environment directly. The designed
 way for methods to access the instance environment is by using the name
 "self", this name can be changed by specifying a string in \code{self_name}.
 The default name of the container is "method_env_". This also can be changed
-by specifying a string in \code{container_name}.
+by specifying a string in \code{container_name}. An instance can have multiple
+containers, but every container is recommended to contain only one self
+reference.
 \cr
 \cr
 Method needs to be provided as \code{a = function() 1}, where \code{a} is the name of
