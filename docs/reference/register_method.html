@@ -93,7 +93,7 @@ self reference.</p>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="va">a</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">self</span><span class="op">$</span><span class="va">x</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">a</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="va">self</span><span class="op">$</span><span class="va">x</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">e</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">e</span><span class="op">$</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
@@ -109,7 +109,7 @@ self reference.</p>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">e</span><span class="op">$</span><span class="va">method_env_</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "self"</span>
 <span class="r-in"></span>
-<span class="r-in"><span class="co"># `self` is a reference of `e`</span></span>
+<span class="r-in"><span class="co"># `self` is a reference to `e`</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">e</span>, <span class="va">e</span><span class="op">$</span><span class="va">method_env_</span><span class="op">$</span><span class="va">self</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"></span>
@@ -117,7 +117,7 @@ self reference.</p>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="va">e</span><span class="op">$</span><span class="va">aa</span><span class="op">)</span>, <span class="va">e</span><span class="op">$</span><span class="va">method_env_</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"></span>
-<span class="r-in"><span class="co"># Therefore, `self$x` is a reference of variable `x` of the environment `e`</span></span>
+<span class="r-in"><span class="co"># Therefore, `self$x` is a reference to variable `x` of the environment `e`</span></span>
 <span class="r-in"><span class="va">e</span><span class="op">$</span><span class="fu">aa</span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
 <span class="r-in"></span>

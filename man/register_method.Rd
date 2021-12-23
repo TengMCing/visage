@@ -44,7 +44,7 @@ self reference.
 }
 \examples{
 
-a <- function() print(self$x)
+a <- function() self$x
 
 e <- new.env()
 e$x <- 1
@@ -58,13 +58,13 @@ names(e)
 # The container is empty (except `self`)
 names(e$method_env_)
 
-# `self` is a reference of `e`
+# `self` is a reference to `e`
 identical(e, e$method_env_$self)
 
 # The method `aa` will be evaluated in the container
 identical(environment(e$aa), e$method_env_)
 
-# Therefore, `self$x` is a reference of variable `x` of the environment `e`
+# Therefore, `self$x` is a reference to variable `x` of the environment `e`
 e$aa()
 
 }
