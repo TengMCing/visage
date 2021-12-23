@@ -2,12 +2,12 @@
 % Please edit documentation in R/oop.R
 \name{register_method}
 \alias{register_method}
-\title{Register method for an instance}
+\title{Register method for an object environment}
 \usage{
 register_method(env, ..., container_name = "method_env_", self_name = "self")
 }
 \arguments{
-\item{env}{Environment. Instance environment.}
+\item{env}{Environment. Object environment.}
 
 \item{...}{Named Functions. Functions needs to be provided in named format,
 like \code{a = function() 1}.}
@@ -16,23 +16,23 @@ like \code{a = function() 1}.}
 executed inside this container.}
 
 \item{self_name}{Character. Name of the self reference. Methods needs to use
-this name to access the instance environment.}
+this name to access the object environment.}
 }
 \value{
 No return value, called for side effects.
 }
 \description{
-This function register a function as a method of an instance environment.
+This function register a function as a method of an object environment.
 }
 \details{
 Methods will be executed inside a container, which is a child
-environment of the parent of the instance environment. Thus, methods can not
-access variables of the instance environment directly, but can access
-variables of the parent of the instance environment directly. The designed
-way for methods to access the instance environment is by using the name
+environment of the parent of the object environment. Thus, methods can not
+access variables of the object environment directly, but can access
+variables of the parent of the object environment directly. The designed
+way for methods to access the object environment is by using the name
 "self", this name can be changed by specifying a string in \code{self_name}.
 The default name of the container is "method_env_". This also can be changed
-by specifying a string in \code{container_name}. An instance can have multiple
+by specifying a string in \code{container_name}. An object can have multiple
 containers, but every container is recommended to contain only one self
 reference.
 \cr
@@ -48,8 +48,23 @@ a <- function() print(self$x)
 
 e <- new.env()
 e$x <- 1
+
+# Register the method `aa` for environment `e` with `self_name = "self"`
 register_method(e, aa = a, self_name = "self")
 
+# There is an environment `method_env_` in the environment `e`
+names(e)
+
+# The container is empty (except `self`)
+names(e$method_env_)
+
+# `self` is a reference of `e`
+identical(e, e$method_env_$self)
+
+# The method `aa` will be evaluated in the container
+identical(environment(e$aa), e$method_env_)
+
+# Therefore, `self$x` is a reference of variable `x` of the environment `e`
 e$aa()
 
 }
