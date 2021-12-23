@@ -11,7 +11,9 @@
 #' way for methods to access the instance environment is by using the name
 #' "self", this name can be changed by specifying a string in `self_name`.
 #' The default name of the container is "method_env_". This also can be changed
-#' by specifying a string in `container_name`.
+#' by specifying a string in `container_name`. An instance can have multiple
+#' containers, but every container is recommended to contain only one self
+#' reference.
 #' \cr
 #' \cr
 #' Method needs to be provided as `a = function() 1`, where `a` is the name of
@@ -157,7 +159,24 @@ register_class_ctor <- function(cls, cls_name, parent = NULL, ...) {
 
 # class_method ------------------------------------------------------------
 
-class_method <- function(env, cls, method_name, ..., container_name = "method_env_", self_name = "self") {
+#' Get the class method
+#'
+#' This function construct an instance by using the provided class constructor,
+#' then get the method from the instance and set its evaluation environment to
+#' the container of the provided instance environment.
+#'
+#' If the body of the method depends on the arguments passed to the class
+#' constructor, those values needs to be provided in `...`.
+#'
+#' @param env Environment. The instance environment.
+#' @param cls Function. The class constructor.
+#' @param method_name Character. The method name.
+#' @param ... Arguments passed to the class constructor.
+#' @param container_name Character. Container name of the instance environment.
+#' @return The class method.
+#' @export
+
+class_method <- function(env, cls, method_name, ..., container_name = "method_env_") {
 
   # Init a class instance
   new_instance <- cls(..., env = new.env(parent = env))
@@ -168,15 +187,29 @@ class_method <- function(env, cls, method_name, ..., container_name = "method_en
   # Change the function env to target container
   bind_fn_2_env(env[[container_name]], target_method)
 
-  # Substitute self with desired `self_name`
-  fn_body <- body(target_method)
-  self <- as.symbol(self_name)
-  body(target_method) <- do.call(substitute, list(expr = fn_body, env = environment()))
-
   # remove the instance
   rm(new_instance)
 
   return(target_method)
+}
+
+
+# sub_self_name -----------------------------------------------------------
+
+sub_self_name <- function(fn, old_name, new_name) {
+
+  # Check if names are characters
+  if (!is.character(old_name)) stop("`old_name` is not a string!")
+  if (!is.character(new_name)) stop("`new_name` is not a string!")
+
+  # Get the function body
+  fn_body <- body(fn)
+
+  # Substitute old names with new names
+  assign(old_name, as.symbol(new_name), envir = environment())
+  body(fn) <- do.call(substitute, list(expr = fn_body, env = environment()))
+
+  return(fn)
 }
 
 # is_instance -------------------------------------------------------------

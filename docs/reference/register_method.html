@@ -80,7 +80,9 @@ variables of the parent of the instance environment directly. The designed
 way for methods to access the instance environment is by using the name
 "self", this name can be changed by specifying a string in <code>self_name</code>.
 The default name of the container is "method_env_". This also can be changed
-by specifying a string in <code>container_name</code>.
+by specifying a string in <code>container_name</code>. An instance can have multiple
+containers, but every container is recommended to contain only one self
+reference.
 <br><br>
 Method needs to be provided as <code>a = function() 1</code>, where <code>a</code> is the name of
 the method and the right hand side of the equal sign is the function.
