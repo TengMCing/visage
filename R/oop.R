@@ -194,25 +194,6 @@ class_method <- function(env, cls, method_name, ..., container_name = "method_en
   return(target_method)
 }
 
-
-# sub_self_name -----------------------------------------------------------
-
-sub_self_name <- function(fn, old_name, new_name) {
-
-  # Check if names are characters
-  if (!is.character(old_name)) stop("`old_name` is not a string!")
-  if (!is.character(new_name)) stop("`new_name` is not a string!")
-
-  # Get the function body
-  fn_body <- body(fn)
-
-  # Substitute old names with new names
-  assign(old_name, as.symbol(new_name), envir = environment())
-  body(fn) <- do.call(substitute, list(expr = fn_body, env = environment()))
-
-  return(fn)
-}
-
 # is_instance -------------------------------------------------------------
 
 #' Check whether an environment is an instance built by a class constructor

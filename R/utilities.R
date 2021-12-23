@@ -126,3 +126,46 @@ bind_fn_2_env <- function(env, ...) {
   return(invisible(NULL))
 }
 
+
+
+
+# sub_fn_body_name --------------------------------------------------------
+
+#' Substitute a symbol in a function body
+#'
+#' This function substitute all `old_names` with `new_names` in a function
+#' body, and drops all the attributes.
+#'
+#' @param fn Function.
+#' @param old_name Character. Name that needs to be replaced.
+#' @param new_name Character. Replacement of the old name.
+#' @return A function.
+#'
+#' @examples
+#'
+#' a <- function() self$x + self$y
+#' a
+#'
+#' sub_fn_body_name(a, "self", "this")
+#'
+#' @seealso [body()]
+#'
+#' @export
+
+sub_fn_body_name <- function(fn, old_name, new_name) {
+
+  # Check if names are characters
+  if (!is.character(old_name)) stop("`old_name` is not a string!")
+  if (!is.character(new_name)) stop("`new_name` is not a string!")
+
+  # Get the function body
+  fn_body <- body(fn)
+  fn_attr <- attributes(fn)
+
+
+  # Substitute old names with new names
+  assign(old_name, as.symbol(new_name), envir = environment())
+  body(fn) <- do.call(substitute, list(expr = fn_body, env = environment()))
+
+  return(fn)
+}
