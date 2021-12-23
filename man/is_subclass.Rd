@@ -24,18 +24,25 @@ This function only works if both class constructors are registered.
 \examples{
 
 # Define a derived class constructor
-myclass <- function(..., env = new.env(parent = parent.frame())) {
-  env <- inherit(env, BASE, "myclass", ...)
+MY_CLASS <- function(..., env = new.env(parent = parent.frame())) {
 
-  myfunc_ <- function() 1 + 1
+  # Declare inheritance
+  env <- inherit(env, BASE, "MY_CLASS", ...)
 
-  register_method(env, myfunc = myfunc_)
+  # Methods of this derived class
+  string_ <- function() "(MY_CLASS object)"
+
+  # Register the method
+  register_method(env, string = string_)
+
+  # Return the instance environment
   return(env)
 }
 
-register_class_ctor(myclass, "myclass", parent = BASE)
+# Register the class constructor
+register_class_ctor(MY_CLASS, "MY_CLASS", parent = BASE)
 
-is_subclass(myclass, BASE)
+is_subclass(MY_CLASS, BASE)
 
 }
 \seealso{

@@ -134,7 +134,7 @@ bind_fn_2_env <- function(env, ...) {
 #' Substitute a symbol in a function body
 #'
 #' This function substitute all `old_names` with `new_names` in a function
-#' body, and drops all the attributes.
+#' body, **and drops all the attributes**.
 #'
 #' @param fn Function.
 #' @param old_name Character. Name that needs to be replaced.

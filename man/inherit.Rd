@@ -30,15 +30,28 @@ calling \code{env$init_call <- sys.call()} inside the constructor directly.
 \examples{
 
 # Define a derived class constructor
-myclass <- function(..., env = new.env(parent = parent.frame())) {
-  env <- inherit(env, BASE, "myclass", ...)
+MY_CLASS <- function(..., env = new.env(parent = parent.frame())) {
 
+  # Declare inheritance
+  env <- inherit(env, BASE, "MY_CLASS", ...)
+
+  # Methods of this derived class
   myfunc_ <- function() 1 + 1
 
+  # Register the method
   register_method(env, myfunc = myfunc_)
+
+  # Return the instance environment
   return(env)
 }
 
-register_class_ctor(myclass, "myclass", parent = BASE)
+# Register the class constructor
+register_class_ctor(MY_CLASS, "MY_CLASS", parent = BASE)
+
+# Init an instance
+my_instance <- MY_CLASS()
+
+# Some methods are inherited from `BASE`
+my_instance$methods()
 
 }

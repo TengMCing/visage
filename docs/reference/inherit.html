@@ -81,16 +81,31 @@ calling <code>env$init_call &lt;- sys.call()</code> inside the constructor direc
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="co"># Define a derived class constructor</span></span>
-<span class="r-in"><span class="va">myclass</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span>, <span class="va">env</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span>parent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="va">env</span> <span class="op">&lt;-</span> <span class="fu">inherit</span><span class="op">(</span><span class="va">env</span>, <span class="va">BASE</span>, <span class="st">"myclass"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">MY_CLASS</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">...</span>, <span class="va">env</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span>parent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span class="r-in"></span>
+<span class="r-in">  <span class="co"># Declare inheritance</span></span>
+<span class="r-in">  <span class="va">env</span> <span class="op">&lt;-</span> <span class="fu">inherit</span><span class="op">(</span><span class="va">env</span>, <span class="va">BASE</span>, <span class="st">"MY_CLASS"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in">  <span class="co"># Methods of this derived class</span></span>
 <span class="r-in">  <span class="va">myfunc_</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span></span>
 <span class="r-in"></span>
+<span class="r-in">  <span class="co"># Register the method</span></span>
 <span class="r-in">  <span class="fu"><a href="register_method.html">register_method</a></span><span class="op">(</span><span class="va">env</span>, myfunc <span class="op">=</span> <span class="va">myfunc_</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in">  <span class="co"># Return the instance environment</span></span>
 <span class="r-in">  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">env</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">}</span></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="register_class_ctor.html">register_class_ctor</a></span><span class="op">(</span><span class="va">myclass</span>, <span class="st">"myclass"</span>, parent <span class="op">=</span> <span class="va">BASE</span><span class="op">)</span></span>
+<span class="r-in"><span class="co"># Register the class constructor</span></span>
+<span class="r-in"><span class="fu"><a href="register_class_ctor.html">register_class_ctor</a></span><span class="op">(</span><span class="va">MY_CLASS</span>, <span class="st">"MY_CLASS"</span>, parent <span class="op">=</span> <span class="va">BASE</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># Init an instance</span></span>
+<span class="r-in"><span class="va">my_instance</span> <span class="op">&lt;-</span> <span class="fu">MY_CLASS</span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># Some methods are inherited from `BASE`</span></span>
+<span class="r-in"><span class="va">my_instance</span><span class="op">$</span><span class="fu">methods</span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "myfunc"    "has_attr"  "list_attr" "set_attr"  "get_attr"  "methods"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [7] "repr"      "string"    "len"      </span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>

@@ -37,7 +37,9 @@ The base class provides the following attributes and methods:
 }
 \examples{
 
+# Init an `BASE` instance
 base_instance <- BASE(name = "a")
+
 base_instance
 base_instance$methods()
 

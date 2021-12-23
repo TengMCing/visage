@@ -30,14 +30,24 @@ constructor.
 \examples{
 
 # Define a derived class constructor
-myclass <- function(..., env = new.env(parent = parent.frame())) {
-  env <- inherit(env, BASE, "myclass", ...)
+MY_CLASS <- function(..., env = new.env(parent = parent.frame())) {
 
+  # Declare inheritance
+  env <- inherit(env, BASE, "MY_CLASS", ...)
+
+  # Methods of this derived class
   myfunc_ <- function() 1 + 1
 
+  # Register the method
   register_method(env, myfunc = myfunc_)
+
+  # Return the instance environment
   return(env)
 }
 
-register_class_ctor(myclass, "myclass", parent = BASE)
+# Register the class constructor
+register_class_ctor(MY_CLASS, "MY_CLASS", parent = BASE)
+
+# Check the class information
+attr(MY_CLASS, "pseudo_oop_class")
 }

@@ -1,17 +1,17 @@
 # register_method ---------------------------------------------------------
 
-#' Register method for an instance
+#' Register method for an object environment
 #'
-#' This function register a function as a method of an instance environment.
+#' This function register a function as a method of an object environment.
 #'
 #' Methods will be executed inside a container, which is a child
-#' environment of the parent of the instance environment. Thus, methods can not
-#' access variables of the instance environment directly, but can access
-#' variables of the parent of the instance environment directly. The designed
-#' way for methods to access the instance environment is by using the name
+#' environment of the parent of the object environment. Thus, methods can not
+#' access variables of the object environment directly, but can access
+#' variables of the parent of the object environment directly. The designed
+#' way for methods to access the object environment is by using the name
 #' "self", this name can be changed by specifying a string in `self_name`.
 #' The default name of the container is "method_env_". This also can be changed
-#' by specifying a string in `container_name`. An instance can have multiple
+#' by specifying a string in `container_name`. An object can have multiple
 #' containers, but every container is recommended to contain only one self
 #' reference.
 #' \cr
@@ -21,13 +21,13 @@
 #' Warning will be raised if the container contains contents other than the
 #' self reference.
 #'
-#' @param env Environment. Instance environment.
+#' @param env Environment. Object environment.
 #' @param ... Named Functions. Functions needs to be provided in named format,
 #' like `a = function() 1`.
 #' @param container_name Character. Name of the container. Methods will be
 #' executed inside this container.
 #' @param self_name Character. Name of the self reference. Methods needs to use
-#' this name to access the instance environment.
+#' this name to access the object environment.
 #' @return No return value, called for side effects.
 #'
 #' @examples
@@ -36,8 +36,23 @@
 #'
 #' e <- new.env()
 #' e$x <- 1
+#'
+#' # Register the method `aa` for environment `e` with `self_name = "self"`
 #' register_method(e, aa = a, self_name = "self")
 #'
+#' # There is an environment `method_env_` in the environment `e`
+#' names(e)
+#'
+#' # The container is empty (except `self`)
+#' names(e$method_env_)
+#'
+#' # `self` is a reference of `e`
+#' identical(e, e$method_env_$self)
+#'
+#' # The method `aa` will be evaluated in the container
+#' identical(environment(e$aa), e$method_env_)
+#'
+#' # Therefore, `self$x` is a reference of variable `x` of the environment `e`
 #' e$aa()
 #'
 #' @export
@@ -47,7 +62,7 @@ register_method <- function(env, ..., container_name = "method_env_", self_name 
   # Capture function call
   fn_list <- as.list(sys.call())
 
-  # `env` must be provided
+  # `env` must be an environment
   if (!is.environment(env)) stop("`env` is not an environment!")
 
   # `container_name` and `self_name` must be provided as characters
@@ -69,7 +84,7 @@ register_method <- function(env, ..., container_name = "method_env_", self_name 
     # Check if self exists
     if (self_name %in% names(env[[container_name]])) {
 
-      # Check if self point to env
+      # Check if self points to the instance environment
       if (!identical(env[[container_name]][[self_name]], env)) stop(self_name, " exists, but it is not the same as the provided environment! Consider remove it.")
 
     } else {
@@ -111,7 +126,7 @@ register_method <- function(env, ..., container_name = "method_env_", self_name 
     # Check whether it is a function
     if (!is.function(eval_fn)) stop("`", as.expression(fn_list[[i]]), "` is not a function!")
 
-    # Bind it to the target environment
+    # Bind it to the container of the instance environment
     env[[fn_names[i]]] <- eval_fn
     bind_fn_2_env(env[[container_name]], env[[fn_names[i]]])
   }
@@ -140,16 +155,26 @@ register_method <- function(env, ..., container_name = "method_env_", self_name 
 #' @examples
 #'
 #' # Define a derived class constructor
-#' myclass <- function(..., env = new.env(parent = parent.frame())) {
-#'   env <- inherit(env, BASE, "myclass", ...)
+#' MY_CLASS <- function(..., env = new.env(parent = parent.frame())) {
 #'
+#'   # Declare inheritance
+#'   env <- inherit(env, BASE, "MY_CLASS", ...)
+#'
+#'   # Methods of this derived class
 #'   myfunc_ <- function() 1 + 1
 #'
+#'   # Register the method
 #'   register_method(env, myfunc = myfunc_)
+#'
+#'   # Return the instance environment
 #'   return(env)
 #' }
 #'
-#' register_class_ctor(myclass, "myclass", parent = BASE)
+#' # Register the class constructor
+#' register_class_ctor(MY_CLASS, "MY_CLASS", parent = BASE)
+#'
+#' # Check the class information
+#' attr(MY_CLASS, "pseudo_oop_class")
 #' @export
 
 register_class_ctor <- function(cls, cls_name, parent = NULL, ...) {
@@ -164,17 +189,51 @@ register_class_ctor <- function(cls, cls_name, parent = NULL, ...) {
 #'
 #' This function construct an instance by using the provided class constructor,
 #' then get the method from the instance and set its evaluation environment to
-#' the container of the provided instance environment.
+#' the container of the provided object environment.
 #'
 #' If the body of the method depends on the arguments passed to the class
 #' constructor, those values needs to be provided in `...`.
 #'
-#' @param env Environment. The instance environment.
+#' @param env Environment. The object environment.
 #' @param cls Function. The class constructor.
 #' @param method_name Character. The method name.
 #' @param ... Arguments passed to the class constructor.
-#' @param container_name Character. Container name of the instance environment.
+#' @param container_name Character. Container name of the object environment.
 #' @return The class method.
+#'
+#' @examples
+#'
+#' # Define a derived class constructor
+#' MY_CLASS <- function(..., env = new.env(parent = parent.frame())) {
+#'
+#'   # Declare inheritance
+#'   env <- inherit(env, BASE, "MY_CLASS", ...)
+#'
+#'   # Methods of this derived class
+#'   string_ <- function() "(MY_CLASS object)"
+#'
+#'   # Register the method
+#'   register_method(env, string = string_)
+#'
+#'   # Return the instance environment
+#'   return(env)
+#' }
+#'
+#' # Register the class constructor
+#' register_class_ctor(MY_CLASS, "MY_CLASS", parent = BASE)
+#'
+#' # Init an instance
+#' my_instance <- MY_CLASS()
+#'
+#' my_instance$string()
+#'
+#' # Get the `string()` method from `BASE` class
+#' BASE_string <- class_method(my_instance, BASE, "string")
+#'
+#' BASE_string
+#'
+#' BASE_string()
+#'
 #' @export
 
 class_method <- function(env, cls, method_name, ..., container_name = "method_env_") {
@@ -189,27 +248,28 @@ class_method <- function(env, cls, method_name, ..., container_name = "method_en
   bind_fn_2_env(env[[container_name]], target_method)
 
   # remove the instance
-  rm(new_instance)
+  rm(new_instance, envir = environment())
 
   return(target_method)
 }
 
 # is_instance -------------------------------------------------------------
 
-#' Check whether an environment is an instance built by a class constructor
+#' Check whether an object environment is an instance built by a class constructor
 #'
-#' This function returns `True` if the environment is an instance built by a
-#' class constructor by checking the attribute "pseudo_oop_class"
+#' This function returns `True` if the object environment is an instance built
+#' by a class constructor by checking the attribute "pseudo_oop_class"
 #' of the class constructor.
 #'
 #' This function only works if the class constructor is registered.
 #'
-#' @param env Environment. The instance environment.
+#' @param env Environment. The object environment.
 #' @param cls Function. The class constructor.
 #' @return `TRUE` or `FALSE`.
 #'
 #' @examples
 #'
+#' # Init a `BASE` instance
 #' tt <- BASE()
 #' is_instance(tt, BASE)
 #'
@@ -238,18 +298,25 @@ is_instance <- function(env, cls) {
 #' @examples
 #'
 #' # Define a derived class constructor
-#' myclass <- function(..., env = new.env(parent = parent.frame())) {
-#'   env <- inherit(env, BASE, "myclass", ...)
+#' MY_CLASS <- function(..., env = new.env(parent = parent.frame())) {
 #'
-#'   myfunc_ <- function() 1 + 1
+#'   # Declare inheritance
+#'   env <- inherit(env, BASE, "MY_CLASS", ...)
 #'
-#'   register_method(env, myfunc = myfunc_)
+#'   # Methods of this derived class
+#'   string_ <- function() "(MY_CLASS object)"
+#'
+#'   # Register the method
+#'   register_method(env, string = string_)
+#'
+#'   # Return the instance environment
 #'   return(env)
 #' }
 #'
-#' register_class_ctor(myclass, "myclass", parent = BASE)
+#' # Register the class constructor
+#' register_class_ctor(MY_CLASS, "MY_CLASS", parent = BASE)
 #'
-#' is_subclass(myclass, BASE)
+#' is_subclass(MY_CLASS, BASE)
 #'
 #' @seealso [register_class_ctor()]
 #'
@@ -279,16 +346,29 @@ is_subclass <- function(child_cls, parent_cls) {
 #' @examples
 #'
 #' # Define a derived class constructor
-#' myclass <- function(..., env = new.env(parent = parent.frame())) {
-#'   env <- inherit(env, BASE, "myclass", ...)
+#' MY_CLASS <- function(..., env = new.env(parent = parent.frame())) {
 #'
+#'   # Declare inheritance
+#'   env <- inherit(env, BASE, "MY_CLASS", ...)
+#'
+#'   # Methods of this derived class
 #'   myfunc_ <- function() 1 + 1
 #'
+#'   # Register the method
 #'   register_method(env, myfunc = myfunc_)
+#'
+#'   # Return the instance environment
 #'   return(env)
 #' }
 #'
-#' register_class_ctor(myclass, "myclass", parent = BASE)
+#' # Register the class constructor
+#' register_class_ctor(MY_CLASS, "MY_CLASS", parent = BASE)
+#'
+#' # Init an instance
+#' my_instance <- MY_CLASS()
+#'
+#' # Some methods are inherited from `BASE`
+#' my_instance$methods()
 #'
 #' @export
 
@@ -339,7 +419,9 @@ inherit <- function(env, parent, child_name, ...) {
 #'
 #' @examples
 #'
+#' # Init an `BASE` instance
 #' base_instance <- BASE(name = "a")
+#'
 #' base_instance
 #' base_instance$methods()
 #'

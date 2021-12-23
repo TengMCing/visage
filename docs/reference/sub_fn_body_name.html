@@ -48,7 +48,7 @@ body, and drops all the attributes."><!-- mathjax --><script src="https://cdnjs.
 
     <div class="ref-description">
     <p>This function substitute all <code>old_names</code> with <code>new_names</code> in a function
-body, and drops all the attributes.</p>
+body, <strong>and drops all the attributes</strong>.</p>
     </div>
 
     <div id="ref-usage">
@@ -79,12 +79,12 @@ body, and drops all the attributes.</p>
 <span class="r-in"><span class="va">a</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="va">self</span><span class="op">$</span><span class="va">x</span> <span class="op">+</span> <span class="va">self</span><span class="op">$</span><span class="va">y</span></span>
 <span class="r-in"><span class="va">a</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function() self$x + self$y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7fb6bf3e2ed0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7fb0b53b0130&gt;</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">sub_fn_body_name</span><span class="op">(</span><span class="va">a</span>, <span class="st">"self"</span>, <span class="st">"this"</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function () </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> this$x + this$y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7fb6bf3e2ed0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7fb0b53b0130&gt;</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>

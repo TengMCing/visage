@@ -18,7 +18,7 @@ A function.
 }
 \description{
 This function substitute all \code{old_names} with \code{new_names} in a function
-body, and drops all the attributes.
+body, \strong{and drops all the attributes}.
 }
 \examples{
 

@@ -2,12 +2,12 @@
 % Please edit documentation in R/oop.R
 \name{is_instance}
 \alias{is_instance}
-\title{Check whether an environment is an instance built by a class constructor}
+\title{Check whether an object environment is an instance built by a class constructor}
 \usage{
 is_instance(env, cls)
 }
 \arguments{
-\item{env}{Environment. The instance environment.}
+\item{env}{Environment. The object environment.}
 
 \item{cls}{Function. The class constructor.}
 }
@@ -15,8 +15,8 @@ is_instance(env, cls)
 \code{TRUE} or \code{FALSE}.
 }
 \description{
-This function returns \code{True} if the environment is an instance built by a
-class constructor by checking the attribute "pseudo_oop_class"
+This function returns \code{True} if the object environment is an instance built
+by a class constructor by checking the attribute "pseudo_oop_class"
 of the class constructor.
 }
 \details{
@@ -24,6 +24,7 @@ This function only works if the class constructor is registered.
 }
 \examples{
 
+# Init a `BASE` instance
 tt <- BASE()
 is_instance(tt, BASE)
 
