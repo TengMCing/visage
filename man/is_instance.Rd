@@ -12,7 +12,7 @@ is_instance(env, cls)
 \item{cls}{Function. The class constructor.}
 }
 \value{
-True or False.
+\code{TRUE} or \code{FALSE}.
 }
 \description{
 This function returns \code{True} if the environment is an instance built by a
@@ -27,4 +27,7 @@ This function only works if the class constructor is registered.
 tt <- BASE()
 is_instance(tt, BASE)
 
+}
+\seealso{
+\code{\link[=register_class_ctor]{register_class_ctor()}}
 }
