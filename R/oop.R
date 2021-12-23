@@ -125,7 +125,8 @@ register_method <- function(env, ..., container_name = "method_env_", self_name 
 #' Register class constructor
 #'
 #' This function save the class information in the `pseudo_oop_class` attribute
-#' of the class constructor.
+#' of the class constructor. The registration affects the functionality of
+#' [is_subclass()] and [is_instance()].
 #'
 #' This function needs to be called followed by the definition of the class
 #' constructor.
@@ -138,7 +139,7 @@ register_method <- function(env, ..., container_name = "method_env_", self_name 
 #'
 #' @examples
 #'
-#' # Define a derived class
+#' # Define a derived class constructor
 #' myclass <- function(..., env = new.env(parent = parent.frame())) {
 #'   env <- inherit(env, BASE, "myclass", ...)
 #'
@@ -214,6 +215,25 @@ sub_self_name <- function(fn, old_name, new_name) {
 
 # is_instance -------------------------------------------------------------
 
+#' Check whether an environment is an instance built by a class constructor
+#'
+#' This function returns `True` if the environment is an instance built by a
+#' class constructor by checking the attribute "pseudo_oop_class"
+#' of the class constructor.
+#'
+#' This function only works if the class constructor is registered.
+#'
+#' @param env Environment. The instance environment.
+#' @param cls Function. The class constructor.
+#' @return True or False.
+#'
+#' @examples
+#'
+#' tt <- BASE()
+#' is_instance(tt, BASE)
+#'
+#' @export
+
 is_instance <- function(env, cls) {
   attr(cls, "pseudo_oop_class")[1] == env$type
 }
@@ -227,6 +247,37 @@ is_subclass <- function(child_cls, parent_cls) {
 
 # inherit -----------------------------------------------------------------
 
+#' Declare inheritance inside a class constructor
+#'
+#' This function builds an instance of the parent class, with updated
+#' class information.
+#'
+#' This function is assumed to be run inside a class constructor directly.
+#' Otherwise, user needs to reset the `init_call` attribute by
+#' calling `env$init_call <- sys.call()` inside the constructor directly.
+#'
+#' @param env Environment. The instance environment.
+#' @param parent Function. The parent class constructor.
+#' @param child_name Character. The derived class name.
+#' @param ... Arguments passed to the parent class constructor.
+#' @return A parent class instance with updated class information.
+#'
+#' @examples
+#'
+#' # Define a derived class constructor
+#' myclass <- function(..., env = new.env(parent = parent.frame())) {
+#'   env <- inherit(env, BASE, "myclass", ...)
+#'
+#'   myfunc_ <- function() 1 + 1
+#'
+#'   register_method(env, myfunc = myfunc_)
+#'   return(env)
+#' }
+#'
+#' register_class_ctor(myclass, "myclass", parent = BASE)
+#'
+#' @export
+
 inherit <- function(env, parent, child_name, ...) {
 
   # Init a parent instance
@@ -239,7 +290,7 @@ inherit <- function(env, parent, child_name, ...) {
   child$type <- env$class[1]
 
   # Reset the call
-  # Warning: this only works if inherit is called within a class constructor
+  # Warning: this only works if inherit is called within a class constructor directly
   child$init_call <- sys.call(which = 1)
 
   return(child)

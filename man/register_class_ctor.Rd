@@ -20,7 +20,8 @@ No return value, called for side effects.
 }
 \description{
 This function save the class information in the \code{pseudo_oop_class} attribute
-of the class constructor.
+of the class constructor. The registration affects the functionality of
+\code{\link[=is_subclass]{is_subclass()}} and \code{\link[=is_instance]{is_instance()}}.
 }
 \details{
 This function needs to be called followed by the definition of the class
@@ -28,7 +29,7 @@ constructor.
 }
 \examples{
 
-# Define a derived class
+# Define a derived class constructor
 myclass <- function(..., env = new.env(parent = parent.frame())) {
   env <- inherit(env, BASE, "myclass", ...)
 

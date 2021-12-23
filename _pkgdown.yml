@@ -14,7 +14,9 @@ reference:
   contents:
   - register_method
   - register_class_ctor
+  - inherit
   - class_method
+  - is_instance
   - BASE
   - print.pseudo_oop
 - title: "utilties"
