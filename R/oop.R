@@ -225,12 +225,14 @@ sub_self_name <- function(fn, old_name, new_name) {
 #'
 #' @param env Environment. The instance environment.
 #' @param cls Function. The class constructor.
-#' @return True or False.
+#' @return `TRUE` or `FALSE`.
 #'
 #' @examples
 #'
 #' tt <- BASE()
 #' is_instance(tt, BASE)
+#'
+#' @seealso [register_class_ctor()]
 #'
 #' @export
 
@@ -240,6 +242,37 @@ is_instance <- function(env, cls) {
 
 
 # is_subclass -------------------------------------------------------------
+
+#' Check whether a class is a subclass of another class
+#'
+#' This function returns `TRUE` if the class is a subclass of another class by
+#' checking the attribute "pseduo_oop_class" of the class constructors.
+#'
+#' This function only works if both class constructors are registered.
+#'
+#' @param child_cls Function. Child class constructor.
+#' @param parent_cls Function. Parent class constructor.
+#' @return `TRUE` or `FALSE`.
+#'
+#' @examples
+#'
+#' # Define a derived class constructor
+#' myclass <- function(..., env = new.env(parent = parent.frame())) {
+#'   env <- inherit(env, BASE, "myclass", ...)
+#'
+#'   myfunc_ <- function() 1 + 1
+#'
+#'   register_method(env, myfunc = myfunc_)
+#'   return(env)
+#' }
+#'
+#' register_class_ctor(myclass, "myclass", parent = BASE)
+#'
+#' is_subclass(myclass, BASE)
+#'
+#' @seealso [register_class_ctor()]
+#'
+#' @export
 
 is_subclass <- function(child_cls, parent_cls) {
   attr(parent_cls, "pseudo_oop_class")[1] %in% attr(child_cls, "pseudo_oop_class")[-1]

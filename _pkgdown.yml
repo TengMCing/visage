@@ -17,6 +17,7 @@ reference:
   - inherit
   - class_method
   - is_instance
+  - is_subclass
   - BASE
   - print.pseudo_oop
 - title: "utilties"
