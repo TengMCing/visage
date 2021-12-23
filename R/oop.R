@@ -120,6 +120,35 @@ register_method <- function(env, ..., container_name = "method_env_", self_name 
 
 # register_class_ctor -----------------------------------------------------
 
+#' Register class constructor
+#'
+#' This function save the class information in the `pseudo_oop_class` attribute
+#' of the class constructor.
+#'
+#' This function needs to be called followed by the definition of the class
+#' constructor.
+#'
+#' @param cls Function. The class constructor.
+#' @param cls_name Character. Class name of the class constructor.
+#' @param parent Function. The parent class constructor.
+#' @param ... ignored.
+#' @return No return value, called for side effects.
+#'
+#' @examples
+#'
+#' # Define a derived class
+#' myclass <- function(..., env = new.env(parent = parent.frame())) {
+#'   env <- inherit(env, BASE, "myclass", ...)
+#'
+#'   myfunc_ <- function() 1 + 1
+#'
+#'   register_method(env, myfunc = myfunc_)
+#'   return(env)
+#' }
+#'
+#' register_class_ctor(myclass, "myclass", parent = BASE)
+#' @export
+
 register_class_ctor <- function(cls, cls_name, parent = NULL, ...) {
   eval(substitute(attr(cls, "pseudo_oop_class") <- c(cls_name, attr(parent, "pseudo_oop_class"))),
        envir = parent.frame())
