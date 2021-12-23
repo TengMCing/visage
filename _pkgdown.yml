@@ -13,6 +13,7 @@ reference:
     Functions for building a pseudo OOP system
   contents:
   - register_method
+  - register_class_ctor
   - print.pseudo_oop
   - BASE
 - title: "utilties"
