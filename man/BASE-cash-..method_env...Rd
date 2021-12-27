@@ -9,4 +9,8 @@ A container where methods will be executed.
 \examples{
 
 BASE$..method_env..
+
+# Inherit from BASE
+TEST <- new_class(BASE, class_name = "TEST")
+TEST$..method_env..
 }

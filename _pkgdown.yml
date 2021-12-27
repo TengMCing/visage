@@ -28,7 +28,13 @@ reference:
   - BASE$..len..
   - BASE$..dict..
   - BASE$..str..
+  - BASE$..methods..
+  - BASE$..new..
+  - BASE$..init..
+  - BASE$instantiation
   - BASE$has_attr
+  - BASE$get_attr
+  - BASE$set_attr
 - title: "Utilties"
   desc: >
     Utility functions

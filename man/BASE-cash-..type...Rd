@@ -9,4 +9,8 @@ A string.
 \examples{
 
 BASE$..type..
+
+# Inherit from BASE
+TEST <- new_class(BASE, class_name = "TEST")
+TEST$..type..
 }

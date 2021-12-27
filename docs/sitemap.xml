@@ -22,6 +22,9 @@
     <loc>/reference/BASE-cash-..dict...html</loc>
   </url>
   <url>
+    <loc>/reference/BASE-cash-..init...html</loc>
+  </url>
+  <url>
     <loc>/reference/BASE-cash-..instantiated...html</loc>
   </url>
   <url>
@@ -31,13 +34,28 @@
     <loc>/reference/BASE-cash-..method_env...html</loc>
   </url>
   <url>
+    <loc>/reference/BASE-cash-..methods...html</loc>
+  </url>
+  <url>
+    <loc>/reference/BASE-cash-..new...html</loc>
+  </url>
+  <url>
     <loc>/reference/BASE-cash-..str...html</loc>
   </url>
   <url>
     <loc>/reference/BASE-cash-..type...html</loc>
   </url>
   <url>
+    <loc>/reference/BASE-cash-get_attr.html</loc>
+  </url>
+  <url>
     <loc>/reference/BASE-cash-has_attr.html</loc>
+  </url>
+  <url>
+    <loc>/reference/BASE-cash-instantiation.html</loc>
+  </url>
+  <url>
+    <loc>/reference/BASE-cash-set_attr.html</loc>
   </url>
   <url>
     <loc>/reference/BASE.html</loc>

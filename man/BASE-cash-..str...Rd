@@ -12,4 +12,12 @@ This function returns a string representation of the object.
 \examples{
 
 BASE$..str..()
+
+# Inherit from BASE
+TEST <- new_class(BASE, class_name = "TEST")
+TEST$..str..()
+
+# Instantiation
+test <- BASE$instantiation()
+test$..str..()
 }
