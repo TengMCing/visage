@@ -23,11 +23,12 @@ reference:
   - BASE
   - BASE$..type..
   - BASE$..class..
-  - BASE$..len..
   - BASE$..method_env..
   - BASE$..instantiated..
+  - BASE$..len..
   - BASE$..dict..
   - BASE$..str..
+  - BASE$has_attr
 - title: "Utilties"
   desc: >
     Utility functions
