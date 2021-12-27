@@ -4,12 +4,12 @@
 \alias{new_class}
 \title{Define a new class}
 \usage{
-new_class(env = new.env(parent = parent.frame()), ..., class_name = NULL)
+new_class(..., env = new.env(parent = parent.frame()), class_name = NULL)
 }
 \arguments{
-\item{env}{Environment. The new class environment.}
-
 \item{...}{Environments. Parent class environments.}
+
+\item{env}{Environment. The new class environment.}
 
 \item{class_name}{Name of the new class.}
 }

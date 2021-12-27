@@ -9,4 +9,11 @@ User could override this method in derived class.
 \examples{
 
 BASE$..len..()
+
+# Inherit from BASE
+TEST <- new_class(BASE, class_name = "TEST")
+
+# Override the `..len..` method
+register_method(TEST, ..len.. = function() 1)
+TEST$..len..()
 }

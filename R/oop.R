@@ -167,8 +167,8 @@ print.oop <- function(x, ...) {
 #' Parents can be provided in `...`, where methods and attributes will be
 #' overrided by the left classes.
 #'
-#' @param env Environment. The new class environment.
 #' @param ... Environments. Parent class environments.
+#' @param env Environment. The new class environment.
 #' @param class_name Name of the new class.
 #' @return A class environment with S3 class "oop".
 #'
@@ -179,7 +179,7 @@ print.oop <- function(x, ...) {
 #'
 #' @export
 
-new_class <- function(env = new.env(parent = parent.frame()), ..., class_name = NULL) {
+new_class <- function(..., env = new.env(parent = parent.frame()), class_name = NULL) {
 
   # Class should has a name
   if (is.null(class_name)) stop("`class_name` is null!")
@@ -278,7 +278,7 @@ class_BASE <- function(env = new.env(parent = parent.frame())) {
   self <- NULL
 
   # Define a new class
-  new_class(env, class_name = "BASE")
+  new_class(env = env, class_name = "BASE")
 
   # Default instantiation method
   instantiation_ <- function(..., env = new.env(parent = parent.frame())) {
@@ -296,7 +296,7 @@ class_BASE <- function(env = new.env(parent = parent.frame())) {
   new_ <- function(env = new.env(parent = parent.frame()), init_call = sys.call()) {
 
     # Copy all the methods and attributes from the class/instance
-    # except the container, the instantiation method, init_call, and the parent environments
+    # except the container, the instantiation method, init_call
     copy_attr(env, self, avoid = c("..method_env..",
                                    "instantiation",
                                    "..init_call..",
@@ -366,7 +366,7 @@ class_BASE <- function(env = new.env(parent = parent.frame())) {
 #   self <- NULL
 #
 #   # Class attributes
-#   new_class(env, ..., class_name = "DER")
+#   new_class(..., env = env, class_name = "DER")
 #
 #   init_ <- function() {
 #     print(1)

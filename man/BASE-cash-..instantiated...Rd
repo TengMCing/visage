@@ -9,4 +9,8 @@ Whether or not the object is an instance.
 \examples{
 
 BASE$..instantiated..
+
+# Instantiation
+test <- BASE$instantiation()
+test$..instantiated..
 }

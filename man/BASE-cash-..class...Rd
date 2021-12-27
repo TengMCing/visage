@@ -9,4 +9,8 @@ A string vector.
 \examples{
 
 BASE$..class..
+
+# Inherit from BASE
+TEST <- new_class(BASE, class_name = "TEST")
+TEST$..class..
 }

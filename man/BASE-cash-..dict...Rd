@@ -12,4 +12,8 @@ This function returns all names in the environment.
 \examples{
 
 BASE$..dict..()
+
+# Instantiation
+test <- BASE$instantiation()
+test$..dict..()
 }
