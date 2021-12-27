@@ -1,1 +1,1 @@
-BASE_ <- BASE()
+BASE <- class_BASE()
