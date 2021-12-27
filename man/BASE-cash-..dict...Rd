@@ -2,9 +2,12 @@
 % Please edit documentation in R/zzz.R
 \name{BASE$..dict..}
 \alias{BASE$..dict..}
-\title{All names in the class environment}
+\title{All names in the class or instance environment}
+\value{
+A vector of string.
+}
 \description{
-This function returns all names in the class environment.
+This function returns all names in the environment.
 }
 \examples{
 

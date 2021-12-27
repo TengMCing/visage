@@ -147,10 +147,10 @@ register_method <- function(env, ..., container_name = "..method_env..", self_na
 #' @export
 
 print.oop <- function(x, ...) {
-  if ("..string.." %in% names(x)) {
-    cli::cli_h3(x$..string..())
+  if ("..str.." %in% names(x)) {
+    cli::cli_h3(x$..str..())
   } else {
-    cli::cli_h3("<object>")
+    cli::cli_h3("<unknown object>")
   }
 
   return(invisible(NULL))
@@ -334,7 +334,13 @@ class_BASE <- function(env = new.env(parent = parent.frame())) {
 
   repr_ <- function() deparse(self$..init_call..)
 
-  string_ <- function() paste0("<", self$..class..[1], " object>")
+  string_ <- function() {
+    if (self$..instantiated..) {
+      return(paste0("<", self$..class..[1], " object>"))
+    } else {
+      return(paste0("<", self$..class..[1], " class>"))
+    }
+  }
 
   register_method(env,
                   instantiation = instantiation_,
@@ -346,7 +352,7 @@ class_BASE <- function(env = new.env(parent = parent.frame())) {
                   get_attr = get_attr_,
                   ..dict.. = dict_,
                   ..repr.. = repr_,
-                  ..string.. = string_,
+                  ..str.. = string_,
                   ..len.. = len_)
   return(env)
 }
