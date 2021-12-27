@@ -332,9 +332,9 @@ class_BASE <- function(env = new.env(parent = parent.frame())) {
 
   len_ <- function() NULL
 
-  repr_ <- function() deparse(self$init_call)
+  repr_ <- function() deparse(self$..init_call..)
 
-  string_ <- function() paste0("<", self$class[1], " object>")
+  string_ <- function() paste0("<", self$..class..[1], " object>")
 
   register_method(env,
                   instantiation = instantiation_,

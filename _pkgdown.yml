@@ -16,6 +16,14 @@ reference:
   - copy_attr
   - new_class
   - print.oop
+- title: "BASE"
+  desc: >
+    BASE class
+  contents:
+  - BASE
+  - BASE$..dict..
+  - BASE$..class..
+  - BASE$..type..
 - title: "utilties"
   desc: >
     Utility functions
