@@ -1,6 +1,6 @@
 Package: visage
 Title: Visual Inference for Linear Regression Diagnostics
-Version: 0.0.0.9004
+Version: 0.0.0.9005
 Authors@R: 
     person(given = "Weihao",
            family = "Li",
