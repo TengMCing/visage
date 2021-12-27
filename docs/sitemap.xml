@@ -16,16 +16,7 @@
     <loc>/index.html</loc>
   </url>
   <url>
-    <loc>/reference/BASE.html</loc>
-  </url>
-  <url>
     <loc>/reference/bind_fn_2_env.html</loc>
-  </url>
-  <url>
-    <loc>/reference/bind_fns_2_env.html</loc>
-  </url>
-  <url>
-    <loc>/reference/calc_comb_p_value.html</loc>
   </url>
   <url>
     <loc>/reference/calc_p_value.html</loc>
@@ -37,19 +28,10 @@
     <loc>/reference/calc_p_value_multi.html</loc>
   </url>
   <url>
-    <loc>/reference/class_method.html</loc>
-  </url>
-  <url>
     <loc>/reference/copy_attr.html</loc>
   </url>
   <url>
     <loc>/reference/define_pkg_fn.html</loc>
-  </url>
-  <url>
-    <loc>/reference/define_pkg_fns.html</loc>
-  </url>
-  <url>
-    <loc>/reference/define_pkg_funcs.html</loc>
   </url>
   <url>
     <loc>/reference/eval_p_value.html</loc>
@@ -58,19 +40,10 @@
     <loc>/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/inherit.html</loc>
+    <loc>/reference/new_class.html</loc>
   </url>
   <url>
-    <loc>/reference/is_instance.html</loc>
-  </url>
-  <url>
-    <loc>/reference/is_subclass.html</loc>
-  </url>
-  <url>
-    <loc>/reference/print.pseudo_oop.html</loc>
-  </url>
-  <url>
-    <loc>/reference/register_class_ctor.html</loc>
+    <loc>/reference/print.oop.html</loc>
   </url>
   <url>
     <loc>/reference/register_method.html</loc>

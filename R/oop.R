@@ -135,384 +135,68 @@ register_method <- function(env, ..., container_name = "..method_env..", self_na
 }
 
 
-# register_class_ctor -----------------------------------------------------
+# print.oop --------------------------------------------------------
 
-#' Register class constructor
-#'
-#' This function save the class information in the `pseudo_oop_class` attribute
-#' of the class constructor. The registration affects the functionality of
-#' [is_subclass()] and [is_instance()].
-#'
-#' This function needs to be called followed by the definition of the class
-#' constructor.
-#'
-#' @param cls Function. The class constructor.
-#' @param cls_name Character. Class name of the class constructor.
-#' @param parent Function. The parent class constructor.
-#' @param ... ignored.
-#' @return No return value, called for side effects.
-#'
-#' @examples
-#'
-#' # Define a derived class constructor
-#' MY_CLASS <- function(..., env = new.env(parent = parent.frame())) {
-#'
-#'   # Declare inheritance
-#'   env <- inherit(env, BASE, "MY_CLASS", ...)
-#'
-#'   # Methods of this derived class
-#'   myfunc_ <- function() 1 + 1
-#'
-#'   # Register the method
-#'   register_method(env, myfunc = myfunc_)
-#'
-#'   # Return the instance environment
-#'   return(env)
-#' }
-#'
-#' # Register the class constructor
-#' register_class_ctor(MY_CLASS, "MY_CLASS", parent = BASE)
-#'
-#' # Check the class information
-#' attr(MY_CLASS, "pseudo_oop_class")
-#' @export
-
-register_class_ctor <- function(cls, cls_name, parent = NULL, ...) {
-  eval(substitute(attr(cls, "pseudo_oop_class") <- c(cls_name, attr(parent, "pseudo_oop_class"))),
-       envir = parent.frame())
-}
-
-
-# class_method ------------------------------------------------------------
-
-#' Get the class method
-#'
-#' This function construct an instance by using the provided class constructor,
-#' then get the method from the instance and set its evaluation environment to
-#' the container of the provided object environment.
-#'
-#' If the body of the method depends on the arguments passed to the class
-#' constructor, those values needs to be provided in `...`.
-#'
-#' @param env Environment. The object environment.
-#' @param cls Function. The class constructor.
-#' @param method_name Character. The method name.
-#' @param ... Arguments passed to the class constructor.
-#' @param container_name Character. Container name of the object environment.
-#' @return The class method.
-#'
-#' @examples
-#'
-#' # Define a derived class constructor
-#' MY_CLASS <- function(..., env = new.env(parent = parent.frame())) {
-#'
-#'   # Declare inheritance
-#'   env <- inherit(env, BASE, "MY_CLASS", ...)
-#'
-#'   # Methods of this derived class
-#'   string_ <- function() "(MY_CLASS object)"
-#'
-#'   # Register the method
-#'   register_method(env, string = string_)
-#'
-#'   # Return the instance environment
-#'   return(env)
-#' }
-#'
-#' # Register the class constructor
-#' register_class_ctor(MY_CLASS, "MY_CLASS", parent = BASE)
-#'
-#' # Init an instance
-#' my_instance <- MY_CLASS()
-#'
-#' my_instance$string()
-#'
-#' # Get the `string()` method from `BASE` class
-#' BASE_string <- class_method(my_instance, BASE, "string")
-#'
-#' BASE_string
-#'
-#' BASE_string()
-#'
-#' @export
-
-class_method <- function(env, cls, method_name, ..., container_name = "..method_env..") {
-
-  # Init a class instance
-  new_instance <- cls(..., env = new.env(parent = env))
-
-  # Get the target method
-  target_method <- new_instance[[method_name]]
-
-  # Change the function env to target container
-  bind_fn_2_env(env[[container_name]], target_method)
-
-  # remove the instance
-  rm(new_instance, envir = environment())
-
-  return(target_method)
-}
-
-# is_instance -------------------------------------------------------------
-
-#' Check whether an object environment is an instance built by a class constructor
-#'
-#' This function returns `True` if the object environment is an instance built
-#' by a class constructor by checking the attribute "pseudo_oop_class"
-#' of the class constructor.
-#'
-#' This function only works if the class constructor is registered.
-#'
-#' @param env Environment. The object environment.
-#' @param cls Function. The class constructor.
-#' @return `TRUE` or `FALSE`.
-#'
-#' @examples
-#'
-#' # Init a `BASE` instance
-#' tt <- BASE()
-#' is_instance(tt, BASE)
-#'
-#' @seealso [register_class_ctor()]
-#'
-#' @export
-
-is_instance <- function(env, cls) {
-  attr(cls, "pseudo_oop_class")[1] == env$type
-}
-
-
-# is_subclass -------------------------------------------------------------
-
-#' Check whether a class is a subclass of another class
-#'
-#' This function returns `TRUE` if the class is a subclass of another class by
-#' checking the attribute "pseduo_oop_class" of the class constructors.
-#'
-#' This function only works if both class constructors are registered.
-#'
-#' @param child_cls Function. Child class constructor.
-#' @param parent_cls Function. Parent class constructor.
-#' @return `TRUE` or `FALSE`.
-#'
-#' @examples
-#'
-#' # Define a derived class constructor
-#' MY_CLASS <- function(..., env = new.env(parent = parent.frame())) {
-#'
-#'   # Declare inheritance
-#'   env <- inherit(env, BASE, "MY_CLASS", ...)
-#'
-#'   # Methods of this derived class
-#'   string_ <- function() "(MY_CLASS object)"
-#'
-#'   # Register the method
-#'   register_method(env, string = string_)
-#'
-#'   # Return the instance environment
-#'   return(env)
-#' }
-#'
-#' # Register the class constructor
-#' register_class_ctor(MY_CLASS, "MY_CLASS", parent = BASE)
-#'
-#' is_subclass(MY_CLASS, BASE)
-#'
-#' @seealso [register_class_ctor()]
-#'
-#' @export
-
-is_subclass <- function(child_cls, parent_cls) {
-  attr(parent_cls, "pseudo_oop_class")[1] %in% attr(child_cls, "pseudo_oop_class")[-1]
-}
-
-# inherit -----------------------------------------------------------------
-
-#' Declare inheritance inside a class constructor
-#'
-#' This function builds an instance of the parent class, with updated
-#' class information.
-#'
-#' This function is assumed to be run inside a class constructor directly.
-#' Otherwise, user needs to reset the `init_call` attribute by
-#' calling `env$init_call <- sys.call()` inside the constructor directly.
-#'
-#' @param env Environment. The instance environment.
-#' @param parent Function. The parent class constructor.
-#' @param child_name Character. The derived class name.
-#' @param ... Arguments passed to the parent class constructor.
-#' @return A parent class instance with updated class information.
-#'
-#' @examples
-#'
-#' # Define a derived class constructor
-#' MY_CLASS <- function(..., env = new.env(parent = parent.frame())) {
-#'
-#'   # Declare inheritance
-#'   env <- inherit(env, BASE, "MY_CLASS", ...)
-#'
-#'   # Methods of this derived class
-#'   myfunc_ <- function() 1 + 1
-#'
-#'   # Register the method
-#'   register_method(env, myfunc = myfunc_)
-#'
-#'   # Return the instance environment
-#'   return(env)
-#' }
-#'
-#' # Register the class constructor
-#' register_class_ctor(MY_CLASS, "MY_CLASS", parent = BASE)
-#'
-#' # Init an instance
-#' my_instance <- MY_CLASS()
-#'
-#' # Some methods are inherited from `BASE`
-#' my_instance$methods()
-#'
-#' @export
-
-inherit <- function(env, parent, child_name, ...) {
-
-  # Init a parent instance
-  child <- parent(..., env = env)
-
-  # Push the child class name
-  child$class <- c(child_name, env$class)
-
-  # Set the child instance type
-  child$type <- env$class[1]
-
-  # Reset the call
-  # Warning: this only works if inherit is called within a class constructor directly
-  child$init_call <- sys.call(which = 1)
-
-  return(child)
-}
-
-# BASE --------------------------------------------------------------------
-
-#' Base class constructor
-#'
-#' This class includes some basic methods and attributes.
-#'
-#' The base class provides the following attributes and methods:
-#' \itemize{
-#'   \item \code{class} : Class list.
-#'   \item \code{type} : Class.
-#'   \item \code{doc} : Doc string.
-#'   \item \code{init_call} : The call that init this instance.
-#'   \item \code{methods()} : Get all method names.
-#'   \item \code{has_attr(attr_name)} : Whether the instance has the attribute.
-#'   \item \code{set_attr(attr_name, attr_val)} : Set value for an attribute.
-#'   \item \code{get_attr(attr_name)} : Get the value of an attribute.
-#'   \item \code{del_attr(attr_name)} : Delete an attribute.
-#'   \item \code{list_attr()} : Get all attributes name.
-#'   \item \code{len()} : Length of the instance.
-#'   \item \code{repr()} : Representation of an object.
-#'   \item \code{string()} : String pepresentation of an object.
-#' }
-#'
-#' @param ... Values that will be stored in the instance environment.
-#' @param env Environment. The instance environment.
-#' @return An environment with S3 class "pseudo_oop".
-#'
-#' @examples
-#'
-#' # Init an `BASE` instance
-#' base_instance <- BASE(name = "a")
-#'
-#' base_instance
-#' base_instance$methods()
-#'
-#' @export
-BASE <- function(..., env = new.env(parent = parent.frame())) {
-
-  # Pass CMD check
-  self <- NULL
-
-  list2env(list(...), envir = env)
-
-  env$class <- c("BASE")
-  env$type <- env$class[1]
-  env$doc <- ""
-  env$init_call <- sys.call()
-
-  methods_ <- function() names(self)[unlist(lapply(names(self), function(x) is.function(self[[x]])))]
-
-  has_attr_ <- function(attr_name) attr_name %in% names(self)
-
-  set_attr_ <- function(attr_name, attr_val) self[[attr_name]] <- attr_val
-
-  get_attr_ <- function(attr_name) self[[attr_name]]
-
-  del_attr <- function(attr_name) if (attr_name %in% names(self)) rm(attr_name, envir = self)
-
-  list_attr_ <- function() names(self)
-
-  len_ <- function() NULL
-
-  repr_ <- function() deparse(self$init_call)
-
-  string_ <- function() paste0("<", self$class[1], " object>")
-
-  register_method(env,
-                  methods = methods_,
-                  has_attr = has_attr_,
-                  set_attr = set_attr_,
-                  get_attr = get_attr_,
-                  list_attr = list_attr_,
-                  repr = repr_,
-                  string = string_,
-                  len = len_)
-
-  class(env) <- "pseudo_oop"
-  return(env)
-}
-
-register_class_ctor(BASE, "BASE")
-
-
-
-# print.pseudo_oop --------------------------------------------------------
-
-#' S3 method of printing `pseudo_oop` object
+#' S3 method of printing `oop` object
 #'
 #' This function print the string representation of the object.
 #'
-#' @param x `pseudo_oop` object.
+#' @param x `oop` object.
 #' @param ... ignored.
 #' @return No return value, called for side effects.
 #' @export
 
-print.pseudo_oop <- function(x, ...) {
-  cli::cli_h3(x$string())
+print.oop <- function(x, ...) {
+  if ("..string.." %in% names(x)) {
+    cli::cli_h3(x$..string..())
+  } else {
+    cli::cli_h3("<object>")
+  }
+
   return(invisible(NULL))
 }
 
 
-
 # new_class ---------------------------------------------------------------
 
+#' Define a new class
+#'
+#' This function declare a new class, and copies attributes and methods from
+#' parent classes.
+#'
+#' Parents can be provided in `...`, where methods and attributes will be
+#' overrided by the left classes.
+#'
+#' @param env Environment. The new class environment.
+#' @param ... Environments. Parent class environments.
+#' @param class_name Name of the new class.
+#' @return A class environment with S3 class "oop".
+#'
+#' @examples
+#' MYCLASS <- new_class(class_name = "MYCLASS")
+#' MYCLASS
+#' names(MYCLASS)
+#'
+#' @export
 
 new_class <- function(env = new.env(parent = parent.frame()), ..., class_name = NULL) {
 
   # Class should has a name
   if (is.null(class_name)) stop("`class_name` is null!")
 
-  # Parent classes provided by `...`
-  env$..parents.. <- list(...)
   env$..class.. <- c()
 
   # Methods will be overrided by the left classes
-  for (parent in rev(env$..parents..)) {
+  for (parent in rev(list(...))) {
+
+    if (parent$..instantiated..) stop("Parent is not a class!")
+
     env$..class.. <- c(env$..class.., parent$..class..)
 
     # Copy all the methods and attributes from the class/instance
     # except the container, the init_call, and the class information
     copy_attr(env, parent, avoid = c("..method_env..",
                                      "..init_call..",
-                                     "..parents..",
                                      "..class..",
                                      "..type..",
                                      "..instantiated.."))
@@ -523,90 +207,9 @@ new_class <- function(env = new.env(parent = parent.frame()), ..., class_name = 
   env$..instantiated.. <- FALSE
 
   # Set S3 class
-  class(env) <- "pseudo_oop_v2"
+  class(env) <- "oop"
 
   # Return the class
-  return(env)
-}
-
-# BASE --------------------------------------------------------------------
-
-class_BASE <- function(env = new.env(parent = parent.frame())) {
-
-  # Pass CMD check
-  self <- NULL
-
-  # Define a new class
-  new_class(env, class_name = "BASE")
-
-  # Default instantiation method
-  instantiation_ <- function(..., env = new.env(parent = parent.frame())) {
-
-    # Create an new object, called the class `..new..` method
-    self$..new..(env = env, init_call = sys.call())
-
-    # Init, called the object `..init..` method
-    env$..init..(...)
-
-    # `instantiation` method should return the environment by convention
-    return(env)
-  }
-
-  new_ <- function(env = new.env(parent = parent.frame()), init_call = sys.call()) {
-
-    # Copy all the methods and attributes from the class/instance
-    # except the container, the instantiation method, and the init_call
-    copy_attr(env, self, avoid = c("..method_env..",
-                                   "instantiation",
-                                   "..init_call..",
-                                   "..instantiated.."))
-
-    # Set the `init_call`
-    env$..init_call.. <- init_call
-
-    # Mark the object as an instance
-    env$..instantiated.. <- TRUE
-
-    # Set the S3 class
-    class(env) <- "pseudo_oop_v2"
-
-    # `..new..` method should return the environment by convention
-    return(env)
-  }
-
-  # Default init method
-  init_ <- function(...) return(invisible(NULL))
-
-  methods_ <- function() names(self)[unlist(lapply(names(self), function(x) is.function(self[[x]])))]
-
-  has_attr_ <- function(attr_name) attr_name %in% names(self)
-
-  set_attr_ <- function(attr_name, attr_val) self[[attr_name]] <- attr_val
-
-  get_attr_ <- function(attr_name) self[[attr_name]]
-
-  del_attr <- function(attr_name) if (attr_name %in% names(self)) rm(attr_name, envir = self)
-
-  dict_ <- function() names(self)
-
-  len_ <- function() NULL
-
-  repr_ <- function() deparse(self$init_call)
-
-  string_ <- function() paste0("<", self$class[1], " object>")
-
-  register_method(env,
-                  instantiation = instantiation_,
-                  ..new.. = new_,
-                  ..init.. = init_,
-                  ..methods.. = methods_,
-                  has_attr = has_attr_,
-                  set_attr = set_attr_,
-                  get_attr = get_attr_,
-                  ..dict.. = dict_,
-                  ..repr.. = repr_,
-                  ..string.. = string_,
-                  ..len.. = len_)
   return(env)
 }
 
@@ -667,10 +270,89 @@ copy_attr <- function(env, ..., avoid = c("..method_env..", "..init_call..")) {
   }
 }
 
+# BASE --------------------------------------------------------------------
 
-#
-#
-# BASE <- class_BASE()
+class_BASE <- function(env = new.env(parent = parent.frame())) {
+
+  # Pass CMD check
+  self <- NULL
+
+  # Define a new class
+  new_class(env, class_name = "BASE")
+
+  # Default instantiation method
+  instantiation_ <- function(..., env = new.env(parent = parent.frame())) {
+
+    # Create an new object, called the class `..new..` method
+    self$..new..(env = env, init_call = sys.call())
+
+    # Init, called the object `..init..` method
+    env$..init..(...)
+
+    # `instantiation` method should return the environment by convention
+    return(env)
+  }
+
+  new_ <- function(env = new.env(parent = parent.frame()), init_call = sys.call()) {
+
+    # Copy all the methods and attributes from the class/instance
+    # except the container, the instantiation method, init_call, and the parent environments
+    copy_attr(env, self, avoid = c("..method_env..",
+                                   "instantiation",
+                                   "..init_call..",
+                                   "..instantiated.."))
+
+    # Set the `init_call`
+    env$..init_call.. <- init_call
+
+    # Mark the object as an instance
+    env$..instantiated.. <- TRUE
+
+    # Set the S3 class
+    class(env) <- "oop"
+
+    # `..new..` method should return the environment by convention
+    return(env)
+  }
+
+  # Default init method
+  init_ <- function(...) return(invisible(NULL))
+
+  methods_ <- function() names(self)[unlist(lapply(names(self), function(x) is.function(self[[x]])))]
+
+  has_attr_ <- function(attr_name) attr_name %in% names(self)
+
+  set_attr_ <- function(attr_name, attr_val) self[[attr_name]] <- attr_val
+
+  get_attr_ <- function(attr_name) self[[attr_name]]
+
+  del_attr <- function(attr_name) if (attr_name %in% names(self)) rm(attr_name, envir = self)
+
+  dict_ <- function() names(self)
+
+  len_ <- function() NULL
+
+  repr_ <- function() deparse(self$init_call)
+
+  string_ <- function() paste0("<", self$class[1], " object>")
+
+  register_method(env,
+                  instantiation = instantiation_,
+                  ..new.. = new_,
+                  ..init.. = init_,
+                  ..methods.. = methods_,
+                  has_attr = has_attr_,
+                  set_attr = set_attr_,
+                  get_attr = get_attr_,
+                  ..dict.. = dict_,
+                  ..repr.. = repr_,
+                  ..string.. = string_,
+                  ..len.. = len_)
+  return(env)
+}
+
+
+
 #
 # class_DER <- function(..., env = new.env(parent = parent.frame())) {
 #
