@@ -5,12 +5,8 @@
 \title{Class name}
 \description{
 A string.
-
-A string vector.
 }
 \examples{
 
 BASE$..type..
-
-BASE$..class..
 }

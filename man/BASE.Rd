@@ -5,12 +5,12 @@
 \alias{BASE}
 \title{BASE class environment}
 \format{
-
+An environment with S3 class \code{oop}.
 }
 \usage{
 BASE
 }
 \description{
-This class provides essential methods.
+This class provides essential attributes and methods.
 }
 \keyword{datasets}

@@ -1,5 +1,5 @@
 reference:
-- title: "p-value"
+- title: "P-value"
   desc: >
     Functions for caculating p-value in a visual test
   contents:
@@ -21,10 +21,14 @@ reference:
     BASE class
   contents:
   - BASE
-  - BASE$..dict..
-  - BASE$..class..
   - BASE$..type..
-- title: "utilties"
+  - BASE$..class..
+  - BASE$..len..
+  - BASE$..method_env..
+  - BASE$..instantiated..
+  - BASE$..dict..
+  - BASE$..str..
+- title: "Utilties"
   desc: >
     Utility functions
   contents:
