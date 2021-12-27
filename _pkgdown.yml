@@ -20,6 +20,12 @@ reference:
   - is_subclass
   - BASE
   - print.pseudo_oop
+- title: "pseudo OOP V2"
+  desc: >
+    Functions for building a pseudo OOP system - Version 2
+  contents:
+  - register_method
+  - copy_attr
 - title: "utilties"
   desc: >
     Utility functions

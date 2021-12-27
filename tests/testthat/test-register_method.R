@@ -29,11 +29,11 @@ test_that("register_method container_name works", {
 test_that("register_method container (env) error works", {
   a <- function() self$x
   e <- new.env()
-  e$method_env_ <- 1
+  e$..method_env.. <- 1
   e$x <- 0
 
   expect_error(register_method(e, a = a),
-               "method_env_ exists, but it is not an environment! Consider remove it.",
+               "..method_env.. exists, but it is not an environment! Consider remove it.",
                ignore.case = TRUE)
 })
 
@@ -41,19 +41,19 @@ test_that("register_method container (diff env) error works", {
   a <- function() self$x
   e <- new.env()
   d <- new.env()
-  e$method_env_ <- new.env(parent = d)
+  e$..method_env.. <- new.env(parent = d)
   e$x <- 0
 
   expect_error(register_method(e, a = a),
-               "method_env_ exists, but it is not a child of the parent of the instance environment! Consider remove it.",
+               "..method_env.. exists, but it is not a child of the parent of the instance environment! Consider remove it.",
                ignore.case = TRUE)
 })
 
 test_that("register_method container warning works", {
   a <- function() self$x
   e <- new.env()
-  e$method_env_ <- new.env(parent = parent.env(e))
-  e$method_env_$b <- 1
+  e$..method_env.. <- new.env(parent = parent.env(e))
+  e$..method_env..$b <- 1
   e$x <- 0
 
   expect_warning(register_method(e, a = a),
@@ -73,8 +73,8 @@ test_that("register_method self_name works", {
 test_that("register_method self_name error works", {
   a <- function() this$x
   e <- new.env()
-  e$method_env_ <- new.env(parent = parent.env(e))
-  e$method_env_$self <- new.env()
+  e$..method_env.. <- new.env(parent = parent.env(e))
+  e$..method_env..$self <- new.env()
   e$x <- 0
 
   expect_error(register_method(e, a = a, self_name = "self"),

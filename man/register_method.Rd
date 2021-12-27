@@ -4,7 +4,12 @@
 \alias{register_method}
 \title{Register method for an object environment}
 \usage{
-register_method(env, ..., container_name = "method_env_", self_name = "self")
+register_method(
+  env,
+  ...,
+  container_name = "..method_env..",
+  self_name = "self"
+)
 }
 \arguments{
 \item{env}{Environment. Object environment.}
@@ -31,7 +36,7 @@ access variables of the object environment directly, but can access
 variables of the parent of the object environment directly. The designed
 way for methods to access the object environment is by using the name
 "self", this name can be changed by specifying a string in \code{self_name}.
-The default name of the container is "method_env_". This also can be changed
+The default name of the container is "..method_env..". This also can be changed
 by specifying a string in \code{container_name}. An object can have multiple
 containers, but every container is recommended to contain only one self
 reference.
@@ -52,17 +57,17 @@ e$x <- 1
 # Register the method `aa` for environment `e` with `self_name = "self"`
 register_method(e, aa = a, self_name = "self")
 
-# There is an environment `method_env_` in the environment `e`
+# There is an environment `..method_env..` in the environment `e`
 names(e)
 
 # The container is empty (except `self`)
-names(e$method_env_)
+names(e$..method_env..)
 
 # `self` is a reference to `e`
-identical(e, e$method_env_$self)
+identical(e, e$..method_env..$self)
 
 # The method `aa` will be evaluated in the container
-identical(environment(e$aa), e$method_env_)
+identical(environment(e$aa), e$..method_env..)
 
 # Therefore, `self$x` is a reference to variable `x` of the environment `e`
 e$aa()
