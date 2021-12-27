@@ -164,9 +164,9 @@ BASE$get_attr
 #'
 #' @examples
 #'
-#' BASE$set_attr("test", 1)
-#'
-#' BASE$test
+#' test <- BASE$instantiation()
+#' test$set_attr("x", 1)
+#' test$x
 BASE$set_attr
 
 #' List all methods of a class or an instance

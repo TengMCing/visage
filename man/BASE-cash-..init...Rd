@@ -4,7 +4,7 @@
 \alias{BASE$..init..}
 \title{Initialization method}
 \arguments{
-\item{...}{Ignored.}
+\item{...}{Ignored by \code{BASE}, but user can define their owns.}
 }
 \value{
 No return value, called for side effects.

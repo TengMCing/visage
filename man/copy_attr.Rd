@@ -18,11 +18,19 @@ No return value, called for side effects.
 }
 \description{
 This function copy attributes and methods from classes or instances to
-classes or instances.
+class or instance.
 }
 \details{
 Multiple classes or instances can be provided in \code{...}, where the right one
 will override the left one if they have the same attribute or method name.
 Attributes or methods that don't want to be copied can be specified in
 \code{avoid}.
+}
+\examples{
+
+test <- new.env()
+names(BASE)
+copy_attr(test, BASE, avoid = c("..method_env.."))
+names(test)
+
 }

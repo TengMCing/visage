@@ -177,6 +177,11 @@ print.oop <- function(x, ...) {
 #' MYCLASS
 #' names(MYCLASS)
 #'
+#' # Inhert from BASE class
+#' TEST <- new_class(BASE, class_name = "TEST")
+#' TEST
+#' names(TEST)
+#'
 #' @export
 
 new_class <- function(..., env = new.env(parent = parent.frame()), class_name = NULL) {
@@ -220,7 +225,7 @@ new_class <- function(..., env = new.env(parent = parent.frame()), class_name = 
 #' Copy attributes and methods from classes or instances
 #'
 #' This function copy attributes and methods from classes or instances to
-#' classes or instances.
+#' class or instance.
 #'
 #' Multiple classes or instances can be provided in `...`, where the right one
 #' will override the left one if they have the same attribute or method name.
@@ -231,6 +236,13 @@ new_class <- function(..., env = new.env(parent = parent.frame()), class_name = 
 #' @param ... Environments. Source environments.
 #' @param avoid Character. Names that don't want to be copied.
 #' @return No return value, called for side effects.
+#'
+#' @examples
+#'
+#' test <- new.env()
+#' names(BASE)
+#' copy_attr(test, BASE, avoid = c("..method_env.."))
+#' names(test)
 #'
 #' @export
 
