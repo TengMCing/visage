@@ -16,7 +16,7 @@ This function sets the value of an attribute or a method.
 }
 \examples{
 
-BASE$set_attr("test", 1)
-
-BASE$test
+test <- BASE$instantiation()
+test$set_attr("x", 1)
+test$x
 }

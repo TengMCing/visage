@@ -29,4 +29,9 @@ MYCLASS <- new_class(class_name = "MYCLASS")
 MYCLASS
 names(MYCLASS)
 
+# Inhert from BASE class
+TEST <- new_class(BASE, class_name = "TEST")
+TEST
+names(TEST)
+
 }
