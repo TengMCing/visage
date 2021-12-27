@@ -4,7 +4,7 @@
 \alias{class_method}
 \title{Get the class method}
 \usage{
-class_method(env, cls, method_name, ..., container_name = "method_env_")
+class_method(env, cls, method_name, ..., container_name = "..method_env..")
 }
 \arguments{
 \item{env}{Environment. The object environment.}

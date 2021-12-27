@@ -10,7 +10,7 @@
 #' variables of the parent of the object environment directly. The designed
 #' way for methods to access the object environment is by using the name
 #' "self", this name can be changed by specifying a string in `self_name`.
-#' The default name of the container is "method_env_". This also can be changed
+#' The default name of the container is "..method_env..". This also can be changed
 #' by specifying a string in `container_name`. An object can have multiple
 #' containers, but every container is recommended to contain only one self
 #' reference.
@@ -40,24 +40,24 @@
 #' # Register the method `aa` for environment `e` with `self_name = "self"`
 #' register_method(e, aa = a, self_name = "self")
 #'
-#' # There is an environment `method_env_` in the environment `e`
+#' # There is an environment `..method_env..` in the environment `e`
 #' names(e)
 #'
 #' # The container is empty (except `self`)
-#' names(e$method_env_)
+#' names(e$..method_env..)
 #'
 #' # `self` is a reference to `e`
-#' identical(e, e$method_env_$self)
+#' identical(e, e$..method_env..$self)
 #'
 #' # The method `aa` will be evaluated in the container
-#' identical(environment(e$aa), e$method_env_)
+#' identical(environment(e$aa), e$..method_env..)
 #'
 #' # Therefore, `self$x` is a reference to variable `x` of the environment `e`
 #' e$aa()
 #'
 #' @export
 
-register_method <- function(env, ..., container_name = "method_env_", self_name = "self") {
+register_method <- function(env, ..., container_name = "..method_env..", self_name = "self") {
 
   # Capture function call
   fn_list <- as.list(sys.call())
@@ -236,7 +236,7 @@ register_class_ctor <- function(cls, cls_name, parent = NULL, ...) {
 #'
 #' @export
 
-class_method <- function(env, cls, method_name, ..., container_name = "method_env_") {
+class_method <- function(env, cls, method_name, ..., container_name = "..method_env..") {
 
   # Init a class instance
   new_instance <- cls(..., env = new.env(parent = env))
@@ -492,4 +492,205 @@ print.pseudo_oop <- function(x, ...) {
 
 
 
+# new_class ---------------------------------------------------------------
 
+
+new_class <- function(env = new.env(parent = parent.frame()), ..., class_name = NULL) {
+
+  # Class should has a name
+  if (is.null(class_name)) stop("`class_name` is null!")
+
+  # Parent classes provided by `...`
+  env$..parents.. <- list(...)
+  env$..class.. <- c()
+
+  # Methods will be overrided by the left classes
+  for (parent in rev(env$..parents..)) {
+    env$..class.. <- c(env$..class.., parent$..class..)
+
+    # Copy all the methods and attributes from the class/instance
+    # except the container, the init_call, and the class information
+    copy_attr(env, parent, avoid = c("..method_env..",
+                                     "..init_call..",
+                                     "..parents..",
+                                     "..class..",
+                                     "..type..",
+                                     "..instantiated.."))
+  }
+
+  env$..class.. <- c(class_name, env$..class..)
+  env$..type.. <- class_name
+  env$..instantiated.. <- FALSE
+
+  # Set S3 class
+  class(env) <- "pseudo_oop_v2"
+
+  # Return the class
+  return(env)
+}
+
+# BASE --------------------------------------------------------------------
+
+class_BASE <- function(env = new.env(parent = parent.frame())) {
+
+  # Pass CMD check
+  self <- NULL
+
+  # Define a new class
+  new_class(env, class_name = "BASE")
+
+  # Default instantiation method
+  instantiation_ <- function(..., env = new.env(parent = parent.frame())) {
+
+    # Create an new object, called the class `..new..` method
+    self$..new..(env = env, init_call = sys.call())
+
+    # Init, called the object `..init..` method
+    env$..init..(...)
+
+    # `instantiation` method should return the environment by convention
+    return(env)
+  }
+
+  new_ <- function(env = new.env(parent = parent.frame()), init_call = sys.call()) {
+
+    # Copy all the methods and attributes from the class/instance
+    # except the container, the instantiation method, and the init_call
+    copy_attr(env, self, avoid = c("..method_env..",
+                                   "instantiation",
+                                   "..init_call..",
+                                   "..instantiated.."))
+
+    # Set the `init_call`
+    env$..init_call.. <- init_call
+
+    # Mark the object as an instance
+    env$..instantiated.. <- TRUE
+
+    # Set the S3 class
+    class(env) <- "pseudo_oop_v2"
+
+    # `..new..` method should return the environment by convention
+    return(env)
+  }
+
+  # Default init method
+  init_ <- function(...) return(invisible(NULL))
+
+  methods_ <- function() names(self)[unlist(lapply(names(self), function(x) is.function(self[[x]])))]
+
+  has_attr_ <- function(attr_name) attr_name %in% names(self)
+
+  set_attr_ <- function(attr_name, attr_val) self[[attr_name]] <- attr_val
+
+  get_attr_ <- function(attr_name) self[[attr_name]]
+
+  del_attr <- function(attr_name) if (attr_name %in% names(self)) rm(attr_name, envir = self)
+
+  dict_ <- function() names(self)
+
+  len_ <- function() NULL
+
+  repr_ <- function() deparse(self$init_call)
+
+  string_ <- function() paste0("<", self$class[1], " object>")
+
+  register_method(env,
+                  instantiation = instantiation_,
+                  ..new.. = new_,
+                  ..init.. = init_,
+                  ..methods.. = methods_,
+                  has_attr = has_attr_,
+                  set_attr = set_attr_,
+                  get_attr = get_attr_,
+                  ..dict.. = dict_,
+                  ..repr.. = repr_,
+                  ..string.. = string_,
+                  ..len.. = len_)
+  return(env)
+}
+
+
+
+# copy_attr ---------------------------------------------------------------
+
+#' Copy attributes and methods from classes or instances
+#'
+#' This function copy attributes and methods from classes or instances to
+#' classes or instances.
+#'
+#' Multiple classes or instances can be provided in `...`, where the right one
+#' will override the left one if they have the same attribute or method name.
+#' Attributes or methods that don't want to be copied can be specified in
+#' `avoid`.
+#'
+#' @param env Environment. The destination environment.
+#' @param ... Environments. Source environments.
+#' @param avoid Character. Names that don't want to be copied.
+#' @return No return value, called for side effects.
+#'
+#' @export
+
+copy_attr <- function(env, ..., avoid = c("..method_env..", "..init_call..")) {
+
+  if (!is.environment(env)) stop("`env` is not an environment!")
+
+  # get list of classes
+  class_list <- list(...)
+
+  if (length(class_list) == 0) stop("At least provide one source to copy from!")
+
+  for (cls in class_list) {
+
+    method_list <- list()
+    attr_list <- list()
+
+    # get list of methods
+    for (method_name in cls$..methods..()) {
+      if (method_name %in% avoid) next
+      method_list[[method_name]] <- cls[[method_name]]
+    }
+
+    # get list of attributes
+    for (attr_name in setdiff(cls$..dict..(), cls$..methods..())) {
+      if (attr_name %in% avoid) next
+      attr_list[[attr_name]] <- cls[[attr_name]]
+    }
+
+    method_list$env <- env
+
+    # bind methods to the target container
+    do.call(register_method, method_list)
+
+    # set attributes
+    list2env(attr_list, envir = env)
+  }
+}
+
+
+#
+#
+# BASE <- class_BASE()
+#
+# class_DER <- function(..., env = new.env(parent = parent.frame())) {
+#
+#   # Pass CMD check
+#   self <- NULL
+#
+#   # Class attributes
+#   new_class(env, ..., class_name = "DER")
+#
+#   init_ <- function() {
+#     print(1)
+#     print(self)
+#     self$test <- 1
+#   }
+#
+#   register_method(env, ..init.. = init_)
+#
+#   return(env)
+# }
+#
+# DER <- class_DER(BASE)
+#
+# tt <- DER$instantiation()

@@ -50,7 +50,12 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">register_method</span><span class="op">(</span><span class="va">env</span>, <span class="va">...</span>, container_name <span class="op">=</span> <span class="st">"method_env_"</span>, self_name <span class="op">=</span> <span class="st">"self"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">register_method</span><span class="op">(</span>
+  <span class="va">env</span>,
+  <span class="va">...</span>,
+  container_name <span class="op">=</span> <span class="st">"..method_env.."</span>,
+  self_name <span class="op">=</span> <span class="st">"self"</span>
+<span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -79,7 +84,7 @@ access variables of the object environment directly, but can access
 variables of the parent of the object environment directly. The designed
 way for methods to access the object environment is by using the name
 "self", this name can be changed by specifying a string in <code>self_name</code>.
-The default name of the container is "method_env_". This also can be changed
+The default name of the container is "..method_env..". This also can be changed
 by specifying a string in <code>container_name</code>. An object can have multiple
 containers, but every container is recommended to contain only one self
 reference.
@@ -101,20 +106,20 @@ self reference.</p>
 <span class="r-in"><span class="co"># Register the method `aa` for environment `e` with `self_name = "self"`</span></span>
 <span class="r-in"><span class="fu">register_method</span><span class="op">(</span><span class="va">e</span>, aa <span class="op">=</span> <span class="va">a</span>, self_name <span class="op">=</span> <span class="st">"self"</span><span class="op">)</span></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="co"># There is an environment `method_env_` in the environment `e`</span></span>
+<span class="r-in"><span class="co"># There is an environment `..method_env..` in the environment `e`</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">e</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "x"           "method_env_" "aa"         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "x"              "..method_env.." "aa"            </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># The container is empty (except `self`)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">e</span><span class="op">$</span><span class="va">method_env_</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">e</span><span class="op">$</span><span class="va">..method_env..</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "self"</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># `self` is a reference to `e`</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">e</span>, <span class="va">e</span><span class="op">$</span><span class="va">method_env_</span><span class="op">$</span><span class="va">self</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">e</span>, <span class="va">e</span><span class="op">$</span><span class="va">..method_env..</span><span class="op">$</span><span class="va">self</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># The method `aa` will be evaluated in the container</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="va">e</span><span class="op">$</span><span class="va">aa</span><span class="op">)</span>, <span class="va">e</span><span class="op">$</span><span class="va">method_env_</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="va">e</span><span class="op">$</span><span class="va">aa</span><span class="op">)</span>, <span class="va">e</span><span class="op">$</span><span class="va">..method_env..</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Therefore, `self$x` is a reference to variable `x` of the environment `e`</span></span>
