@@ -29,17 +29,6 @@ BASE$..type..
 #' BASE$..class..
 BASE$..class..
 
-#' Length of the class or the instance
-#'
-#' @name BASE$..len..
-#'
-#' @description User could override this method in derived class.
-#'
-#' @examples
-#'
-#' BASE$..len..()
-BASE$..len..
-
 #' The container
 #'
 #' @name BASE$..method_env..
@@ -85,3 +74,30 @@ BASE$..dict..
 #'
 #' BASE$..str..()
 BASE$..str..
+
+#' Length of the class or the instance
+#'
+#' @name BASE$..len..
+#'
+#' @description User could override this method in derived class.
+#'
+#' @examples
+#'
+#' BASE$..len..()
+BASE$..len..
+
+#' Whether or not an attribute or method exists
+#'
+#' @name BASE$has_attr
+#'
+#' @description This function checks whether or not an attribute or method
+#' exists.
+#' @param attr_name Character. Attribute name.
+#' @return True or FALSE.
+#'
+#' @examples
+#'
+#' BASE$has_attr("test")
+#'
+#' BASE$has_attr("..len..")
+BASE$has_attr
