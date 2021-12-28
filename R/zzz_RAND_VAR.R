@@ -27,3 +27,29 @@ RAND_VAR <- class_RAND_VAR()
 #' test$prm
 #' test$dist
 RAND_VAR$..init..
+
+#' Expectation of the random variable
+#'
+#' @name RAND_VAR$E
+#'
+#' @description Expectation of the random variable.
+#' User could override this method in derived class.
+#' @return NA
+#'
+#' @examples
+#'
+#' RAND_VAR$E()
+RAND_VAR$E
+
+#' Variance of the random variable
+#'
+#' @name RAND_VAR$Var
+#'
+#' @description Variance of the random variable.
+#' User could override this method in derived class.
+#' @return NA
+#'
+#' @examples
+#'
+#' RAND_VAR$Var()
+RAND_VAR$Var
