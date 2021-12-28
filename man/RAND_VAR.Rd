@@ -14,4 +14,11 @@ RAND_VAR
 This is the base class of random variable, inherited from
 \link{BASE}.
 }
+\seealso{
+Parent class: \link{BASE}
+\cr
+\cr
+New methods: \link{RAND_VAR$..init..}, \link{RAND_VAR$..str..},
+\link{RAND_VAR$E}, \link{RAND_VAR$Var}
+}
 \keyword{datasets}
