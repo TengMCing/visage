@@ -19,26 +19,41 @@ class_RAND_VAR <- function(env = new.env(parent = parent.frame())) {
 
   Var_ <- function() NA
 
-  string_ <- function() {
+  str_ <- function() {
     if (self$..instantiated..) {
       init_string <- paste0("<", self$..type.., " object>")
     } else {
       init_string <- paste0("<", self$..type.., " class>")
     }
 
-    con_string <- paste0(names(self$prm), ": ", round(unlist(self$prm), 3), collapse = ", ")
+    con_string <- ""
+    if (length(self$prm) > 0) con_string <- paste0(names(self$prm),
+                                                   ": ",
+                                                   round(unlist(self$prm), 3),
+                                                   collapse = ", ")
 
     paste0(init_string, "\n [", con_string, "]")
   }
 
   register_method(env,
                   ..init.. = init_,
+                  ..str.. = str_,
                   E = E_,
                   Var = Var_)
 
   return(env)
 }
 
+
+# RAND_VAR_UNIFORM --------------------------------------------------------
+
+class_RAND_VAR_UNIFORM <- function(env = new.env(parent = parent.frame())) {
+
+  # Pass CMD check
+  self <- NULL
+
+  #
+}
 
 #
 # # RAND_VAR ----------------------------------------------------------------

@@ -10,9 +10,10 @@ reference:
   - eval_p_value
 - title: "OOP"
   desc: >
-    Functions for building a OOP system
+    Functions for building an OOP system
   contents:
   - register_method
+  - use_method
   - copy_attr
   - new_class
   - print.oop

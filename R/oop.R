@@ -282,6 +282,37 @@ copy_attr <- function(env, ..., avoid = c("..method_env..", "..init_call..")) {
   }
 }
 
+
+# use_method --------------------------------------------------------------
+
+#' Use a method in an object environment
+#'
+#' This function makes a copy of the function, then set the evaluation
+#' environment to the container of the object environment.
+#'
+#' @param env Environment. Object.
+#' @param fn Function. Method.
+#' @param container_name Character. Name of the container.
+#' @return A method.
+#'
+#' @examples
+#'
+#' test <- RAND_VAR$instantiation(dist = "uniform", prm = list(a = 1, b = 2))
+#' test$..str..()
+#'
+#' # Use method `..str..` from BASE class
+#' use_method(test, BASE$..str..)()
+#'
+#' @export
+use_method <- function(env, fn, container_name = "..method_env..") {
+
+  if (!is.function(fn)) stop("`fn` is not a function!")
+
+  # Bind function copy to the target environment
+  bind_fn_2_env(env[[container_name]], fn)
+  return(fn)
+}
+
 # BASE --------------------------------------------------------------------
 
 class_BASE <- function(env = new.env(parent = parent.frame())) {
@@ -346,7 +377,7 @@ class_BASE <- function(env = new.env(parent = parent.frame())) {
 
   repr_ <- function() deparse(self$..init_call..)
 
-  string_ <- function() {
+  str_ <- function() {
     if (self$..instantiated..) {
       return(paste0("<", self$..type.., " object>"))
     } else {
@@ -364,7 +395,7 @@ class_BASE <- function(env = new.env(parent = parent.frame())) {
                   get_attr = get_attr_,
                   ..dict.. = dict_,
                   ..repr.. = repr_,
-                  ..str.. = string_,
+                  ..str.. = str_,
                   ..len.. = len_)
   return(env)
 }
