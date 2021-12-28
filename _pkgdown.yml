@@ -40,6 +40,7 @@ reference:
     Random variable class
   contents:
   - RAND_VAR
+  - RAND_VAR$..init..
 - title: "Utilties"
   desc: >
     Utility functions
