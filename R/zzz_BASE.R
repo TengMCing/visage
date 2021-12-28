@@ -108,7 +108,6 @@ BASE$..str..
 #' @name BASE$..len..
 #'
 #' @description User could override this method in derived class.
-#'
 #' @examples
 #'
 #' BASE$..len..()
@@ -214,9 +213,10 @@ BASE$..init..
 #' the container, and the instantiation method. Then, the `..init_call..` attribute
 #' will be set to the current system call, and the `..instantiated..` attribute
 #' will be set to `TRUE`. Notice, the `..init..` method will not run.
-#' @param env Environment. The instance environment.
+#' @param env Environment. The instance environment. Default is
+#' `env = new.env(parent = parent.frame())`.
 #' @param init_call Call. Contents of the `..init_call..`. It is recommended to
-#' use the default value.
+#' use the default value. Default is `init_call = sys.call()`.
 #' @return An instance environment.
 #'
 #' @examples

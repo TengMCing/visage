@@ -44,7 +44,7 @@ will be set to TRUE. Notice, the ..init.. method will not run."><!-- mathjax -->
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Build a new instance from a class or an instance</h1>
-    <small class="dont-index">Source: <a href="https://github.com/TengMCing/visage/blob/HEAD/R/zzz.R" class="external-link"><code>R/zzz.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/TengMCing/visage/blob/HEAD/R/zzz_BASE.R" class="external-link"><code>R/zzz_BASE.R</code></a></small>
     <div class="hidden name"><code>BASE-cash-..new...Rd</code></div>
     </div>
 
@@ -59,10 +59,11 @@ will be set to <code>TRUE</code>. Notice, the <code>..init..</code> method will 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>env</dt>
-<dd><p>Environment. The instance environment.</p></dd>
+<dd><p>Environment. The instance environment. Default is
+<code>env = new.env(parent = parent.frame())</code>.</p></dd>
 <dt>init_call</dt>
 <dd><p>Call. Contents of the <code>..init_call..</code>. It is recommended to
-use the default value.</p></dd>
+use the default value. Default is <code>init_call = sys.call()</code>.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>

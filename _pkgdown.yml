@@ -16,7 +16,7 @@ reference:
   - copy_attr
   - new_class
   - print.oop
-- title: "BASE"
+- title: "Base class"
   desc: >
     BASE class
   contents:
@@ -35,6 +35,11 @@ reference:
   - BASE$has_attr
   - BASE$get_attr
   - BASE$set_attr
+- title: "Random variable class"
+  desc: >
+    Random variable class
+  contents:
+  - RAND_VAR
 - title: "Utilties"
   desc: >
     Utility functions

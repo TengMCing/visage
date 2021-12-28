@@ -348,9 +348,9 @@ class_BASE <- function(env = new.env(parent = parent.frame())) {
 
   string_ <- function() {
     if (self$..instantiated..) {
-      return(paste0("<", self$..class..[1], " object>"))
+      return(paste0("<", self$..type.., " object>"))
     } else {
-      return(paste0("<", self$..class..[1], " class>"))
+      return(paste0("<", self$..type.., " class>"))
     }
   }
 
@@ -368,29 +368,3 @@ class_BASE <- function(env = new.env(parent = parent.frame())) {
                   ..len.. = len_)
   return(env)
 }
-
-
-
-#
-# class_DER <- function(..., env = new.env(parent = parent.frame())) {
-#
-#   # Pass CMD check
-#   self <- NULL
-#
-#   # Class attributes
-#   new_class(..., env = env, class_name = "DER")
-#
-#   init_ <- function() {
-#     print(1)
-#     print(self)
-#     self$test <- 1
-#   }
-#
-#   register_method(env, ..init.. = init_)
-#
-#   return(env)
-# }
-#
-# DER <- class_DER(BASE)
-#
-# tt <- DER$instantiation()

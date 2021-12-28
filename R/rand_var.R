@@ -1,3 +1,43 @@
+# RAND_VAR ----------------------------------------------------------------
+
+class_RAND_VAR <- function(env = new.env(parent = parent.frame())) {
+
+  # Pass CMD check
+  self <- NULL
+
+  new_class(BASE, env = env, class_name = "RAND_VAR")
+
+  init_ <- function(dist = "uniform", prm = list()) {
+    self$dist <- dist
+    if (!is.list(prm)) stop("`prm` is not a list!")
+    self$prm <- prm
+  }
+
+  E_ <- function() NA
+
+  Var_ <- function() NA
+
+  string_ <- function() {
+    if (self$..instantiated..) {
+      init_string <- paste0("<", self$..type.., " object>")
+    } else {
+      init_string <- paste0("<", self$..type.., " class>")
+    }
+
+    con_string <- paste0(names(self$prm), ": ", round(unlist(self$prm), 3), collapse = ", ")
+
+    paste0(init_string, "\n [", con_string, "]")
+  }
+
+  register_method(env,
+                  ..init.. = init_,
+                  E = E_,
+                  Var = Var_)
+
+  return(env)
+}
+
+
 #
 # # RAND_VAR ----------------------------------------------------------------
 #
