@@ -4,6 +4,13 @@
 #'
 #' @description This class provides essential attributes and methods.
 #' @format An environment with S3 class `oop`.
+#' @seealso Attributes: [BASE$..type..], [BASE$..class..], [BASE$..method_env..],
+#' [BASE$..instantiated..]
+#' \cr
+#' \cr
+#' Methods: [BASE$..dict..], [BASE$..str..], [BASE$..len..],
+#' [BASE$has_attr], [BASE$get_attr], [BASE$set_attr], [BASE$..methods..],
+#' [BASE$..init..], [BASE$..new..], [BASE$instantiation]
 #' @export
 BASE <- class_BASE()
 

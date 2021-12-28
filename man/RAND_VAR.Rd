@@ -11,6 +11,7 @@ An environment with S3 class \code{oop}.
 RAND_VAR
 }
 \description{
-This is the base class of random variable.
+This is the base class of random variable, inherited from
+\link{BASE}.
 }
 \keyword{datasets}

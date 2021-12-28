@@ -11,6 +11,8 @@ class_RAND_VAR <- function(env = new.env(parent = parent.frame())) {
     self$dist <- dist
     if (!is.list(prm)) stop("`prm` is not a list!")
     self$prm <- prm
+
+    return(invisible(NULL))
   }
 
   E_ <- function() NA
