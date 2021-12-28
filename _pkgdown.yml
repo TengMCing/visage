@@ -41,6 +41,7 @@ reference:
   contents:
   - RAND_VAR
   - RAND_VAR$..init..
+  - RAND_VAR$..str..
   - RAND_VAR$E
   - RAND_VAR$Var
 - title: "Utilties"
