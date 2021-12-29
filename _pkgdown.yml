@@ -53,6 +53,13 @@ reference:
   - RAND_UNIFORM
   - RAND_UNIFORM$..init..
   - RAND_UNIFORM$gen
+- subtitle: "Random normal variable class"
+  desc: >
+    Random normal variable class
+  contents:
+  - RAND_NORMAL
+  - RAND_NORMAL$..init..
+  - RAND_NORMAL$gen
 - title: "Utilties"
   desc: >
     Utility functions

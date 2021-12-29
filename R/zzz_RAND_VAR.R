@@ -96,8 +96,6 @@ RAND_VAR$..str..
 
 # RAND_UNIFORM ------------------------------------------------------------
 
-
-
 #' RAND_UNIFORM class environment
 #'
 #' @name RAND_UNIFORM
@@ -144,3 +142,54 @@ RAND_UNIFORM$..init..
 #' test <- RAND_UNIFORM$instantiation(a = 1, b = 2)
 #' test$gen(10)
 RAND_UNIFORM$gen
+
+
+
+# RAND_NORMAL -------------------------------------------------------------
+
+#' RAND_NORMAL class environment
+#'
+#' @name RAND_NORMAL
+#'
+#' @description This is the class of the normal random variable, inherited from
+#' [RAND_VAR].
+#' @format An environment with S3 class `oop`.
+#' @seealso Parent class: [RAND_VAR]
+#' \cr
+#' \cr
+#' New methods: [RAND_NORMAL$..init..], [RAND_NORMAL$gen],
+#' RAND_NORMAL$E, RAND_NORMAL$Var
+#' @export
+RAND_NORMAL <- class_RAND_NORMAL()
+
+#' Initialization method
+#'
+#' @name RAND_NORMAL$..init..
+#'
+#' @description This function will be called after an instance is built. User
+#' input will be stored in the environment.
+#' @param mu Numeric.
+#' @param sigma Numeric.
+#' @return No return value, called for side effects.
+#'
+#' @examples
+#'
+#' # Instantiation
+#' test <- RAND_NORMAL$instantiation(mu = 1, sigma = 2)
+#' test
+RAND_NORMAL$..init..
+
+#' Generate random values
+#'
+#' @name RAND_NORMAL$gen
+#'
+#' @description This function generates random values from the random variable.
+#' @param n Integer. Number of observations.
+#' @return A vector of numeric values.
+#' @seealso [stats::rnorm()]
+#'
+#' @examples
+#'
+#' test <- RAND_NORMAL$instantiation(mu = 1, sigma = 2)
+#' test$gen(10)
+RAND_NORMAL$gen
