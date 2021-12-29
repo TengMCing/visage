@@ -117,8 +117,8 @@ RAND_UNIFORM <- class_RAND_UNIFORM()
 #'
 #' @description This function will be called after an instance is built. User
 #' input will be stored in the environment.
-#' @param a Numeric.
-#' @param b Numeric.
+#' @param a Numeric. Lower bound.
+#' @param b Numeric. Upper bound.
 #' @return No return value, called for side effects.
 #'
 #' @examples
@@ -168,8 +168,8 @@ RAND_NORMAL <- class_RAND_NORMAL()
 #'
 #' @description This function will be called after an instance is built. User
 #' input will be stored in the environment.
-#' @param mu Numeric.
-#' @param sigma Numeric.
+#' @param mu Numeric. Mean.
+#' @param sigma Numeric. Standard deviation.
 #' @return No return value, called for side effects.
 #'
 #' @examples
@@ -193,3 +193,53 @@ RAND_NORMAL$..init..
 #' test <- RAND_NORMAL$instantiation(mu = 1, sigma = 2)
 #' test$gen(10)
 RAND_NORMAL$gen
+
+
+# RAND_LOGNORMAL ----------------------------------------------------------
+
+#' RAND_LOGNORMAL class environment
+#'
+#' @name RAND_LOGNORMAL
+#'
+#' @description This is the class of the log-normal random variable, inherited from
+#' [RAND_VAR].
+#' @format An environment with S3 class `oop`.
+#' @seealso Parent class: [RAND_VAR]
+#' \cr
+#' \cr
+#' New methods: [RAND_LOGNORMAL$..init..], [RAND_LOGNORMAL$gen],
+#' RAND_LOGNORMAL$E, RAND_LOGNORMAL$Var
+#' @export
+RAND_LOGNORMAL <- class_RAND_LOGNORMAL()
+
+#' Initialization method
+#'
+#' @name RAND_LOGNORMAL$..init..
+#'
+#' @description This function will be called after an instance is built. User
+#' input will be stored in the environment.
+#' @param mu Numeric. Mean of the log of the random variable.
+#' @param sigma Numeric. Standard deviation of the log the random variable.
+#' @return No return value, called for side effects.
+#'
+#' @examples
+#'
+#' # Instantiation
+#' test <- RAND_LOGNORMAL$instantiation(mu = 1, sigma = 2)
+#' test
+RAND_LOGNORMAL$..init..
+
+#' Generate random values
+#'
+#' @name RAND_LOGNORMAL$gen
+#'
+#' @description This function generates random values from the random variable.
+#' @param n Integer. Number of observations.
+#' @return A vector of numeric values.
+#' @seealso [stats::rlnorm()]
+#'
+#' @examples
+#'
+#' test <- RAND_LOGNORMAL$instantiation(mu = 1, sigma = 2)
+#' test$gen(10)
+RAND_LOGNORMAL$gen
