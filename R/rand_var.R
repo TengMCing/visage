@@ -15,6 +15,8 @@ class_RAND_VAR <- function(env = new.env(parent = parent.frame())) {
     return(invisible(NULL))
   }
 
+  gen_ <- function(n) NA
+
   E_ <- function() NA
 
   Var_ <- function() NA
@@ -32,6 +34,8 @@ class_RAND_VAR <- function(env = new.env(parent = parent.frame())) {
                                                    round(unlist(self$prm), 3),
                                                    collapse = ", ")
 
+    if (con_string == "") return(init_string)
+
     paste0(init_string, "\n [", con_string, "]")
   }
 
@@ -39,7 +43,8 @@ class_RAND_VAR <- function(env = new.env(parent = parent.frame())) {
                   ..init.. = init_,
                   ..str.. = str_,
                   E = E_,
-                  Var = Var_)
+                  Var = Var_,
+                  gen = gen_)
 
   return(env)
 }
@@ -52,7 +57,94 @@ class_RAND_VAR_UNIFORM <- function(env = new.env(parent = parent.frame())) {
   # Pass CMD check
   self <- NULL
 
-  #
+  new_class(RAND_VAR, env = env, class_name = "RAND_VAR_UNIFORM")
+
+  init_ <- function(a = 0, b = 1) {
+
+    # Use the parent class `..init..` method
+    use_method(self, RAND_VAR$..init..)(dist = "uniform",
+                                        prm = list(a = a, b = b))
+
+    return(invisible(NULL))
+  }
+
+  gen_ <- function(n) {
+    stats::runif(n, self$prm$a, self$prm$b)
+  }
+
+  E_ <- function() (self$prm$a + self$prm$b)/2
+
+  Var_ <- function() (self$prm$b - self$prm$a)^2/12
+
+  register_method(env, ..init.. = init_, gen = gen_, E = E_, Var = Var_)
+
+  return(env)
+}
+
+
+# RAND_VAR_NORMAL ---------------------------------------------------------
+
+class_RAND_VAR_NORMAL <- function(env = new.env(parent = parent.frame())) {
+
+  # Pass CMD check
+  self <- NULL
+
+  # Inherit from RAND_VAR class
+  new_class(RAND_VAR, env = env, class_name = "RAND_VAR_NORMAL")
+
+  init_ <- function(mu = 0, sigma = 1) {
+
+    # Use the parent class `..init..` method
+    use_method(self, RAND_VAR$..init..)(dist = "normal",
+                                        prm = list(mu = mu, sigma = sigma))
+
+    return(invisible(NULL))
+  }
+
+  gen_ <- function(n) {
+    stats::rnorm(n, self$prm$mu, self$prm$sigma)
+  }
+
+  E_ <- function() self$prm$mu
+
+  Var_ <- function() self$prm$sigma^2
+
+  register_method(env, ..init.. = init_, gen = gen_, E = E_, Var = Var_)
+
+  return(env)
+}
+
+
+# RAND_VAR_LOGNORMAL ------------------------------------------------------
+
+class_RAND_VAR_LOGNORMAL <- function(env = new.env(parent = parent.frame())) {
+
+  # Pass CMD check
+  self <- NULL
+
+  # Inherit from RAND_VAR class
+  new_class(RAND_VAR, env = env, class_name = "RAND_VAR_LOGNORMAL")
+
+  init_ <- function(mu = 0, sigma = 1) {
+
+    # Use the parent class `..init..` method
+    use_method(self, RAND_VAR$..init..)(dist = "lognormal",
+                                        prm = list(mu = mu, sigma = sigma))
+
+    return(invisible(NULL))
+  }
+
+  gen_ <- function(n) {
+    stats::rlnorm(n, self$prm$mu, self$prm$sigma)
+  }
+
+  E_ <- function() exp(self$prm$mu + self$prm$sigma^2/2)
+
+  Var_ <- function() (exp(self$prm$sigma^2) - 1) * exp(2 * self$prm$mu + self$prm$sigma^2)
+
+  register_method(env, ..init.. = init_, gen = gen_, E = E_, Var = Var_)
+
+  return(env)
 }
 
 #
@@ -123,30 +215,6 @@ class_RAND_VAR_UNIFORM <- function(env = new.env(parent = parent.frame())) {
 # register_class_ctor(RAND_VAR_UNIFORM, "RAND_VAR_UNIFORM", parent = RAND_VAR)
 #
 #
-# # RAND_VAR_NORMAL ---------------------------------------------------------
-#
-# RAND_VAR_NORMAL <- function(mean, sd, ..., env = new.env(parent = parent.frame())) {
-#
-#   # Pass CMD check
-#   self <- NULL
-#
-#   # Inherit from RAND_VAR class
-#   env <- inherit(env, RAND_VAR, "RAND_VAR_NORMAL", dist = "normal", ...)
-#   env$prm$mean <- mean
-#   env$prm$sd <- sd
-#
-#   gen_ <- function(n) {
-#     stats::rnorm(n, self$prm$mean, self$prm$sd)
-#   }
-#
-#   E_ <- function() self$prm$mean
-#
-#   Var_ <- function() self$prm$sd^2
-#
-#   register_method(env, gen = gen_, E = E_, Var = Var_)
-#
-#   return(env)
-# }
 #
 # register_class_ctor(RAND_VAR_NORMAL, "RAND_VAR_NORMAL", parent = RAND_VAR)
 #
@@ -163,13 +231,7 @@ class_RAND_VAR_UNIFORM <- function(env = new.env(parent = parent.frame())) {
 #   env$prm$mean <- mean
 #   env$prm$sd <- sd
 #
-#   gen_ <- function(n) {
-#     stats::rlnorm(n, self$prm$mean, self$prm$sd)
-#   }
-#
-#   E_ <- function() exp(self$prm$mean + self$prm$sd^2/2)
-#
-#   Var_ <- function() (exp(self$prm$sd^2) - 1) * exp(2 * self$prm$mean + self$prm$sd^2)
+
 #
 #   register_method(env, gen = gen_, E = E_, Var = Var_)
 #
