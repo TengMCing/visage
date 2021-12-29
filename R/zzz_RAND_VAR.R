@@ -59,6 +59,19 @@ RAND_VAR$E
 #' RAND_VAR$Var()
 RAND_VAR$Var
 
+#' Generate random values
+#'
+#' @name RAND_VAR$gen
+#'
+#' @description This function generates random values from the random variable.
+#' @param n Integer. Number of observations.
+#' @return NA. User needs to define their own `gen` method in derived class.
+#'
+#' @examples
+#'
+#' RAND_VAR$gen(10)
+RAND_VAR$gen
+
 #' String representation of the object
 #'
 #' @name RAND_VAR$..str..

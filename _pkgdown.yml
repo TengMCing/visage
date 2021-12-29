@@ -45,6 +45,7 @@ reference:
   - RAND_VAR$..str..
   - RAND_VAR$E
   - RAND_VAR$Var
+  - RAND_VAR$gen
 - title: "Utilties"
   desc: >
     Utility functions
