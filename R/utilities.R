@@ -151,7 +151,6 @@ bind_fn_2_env <- function(env, ...) {
 #' @seealso [body()]
 #'
 #' @export
-
 sub_fn_body_name <- function(fn, old_name, new_name) {
 
   # Check if names are characters

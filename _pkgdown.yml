@@ -46,6 +46,13 @@ reference:
   - RAND_VAR$E
   - RAND_VAR$Var
   - RAND_VAR$gen
+- subtitle: "Random uniform variable class"
+  desc: >
+    Random uniform variable class
+  contents:
+  - RAND_UNIFORM
+  - RAND_UNIFORM$..init..
+  - RAND_UNIFORM$gen
 - title: "Utilties"
   desc: >
     Utility functions
