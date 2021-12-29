@@ -117,8 +117,8 @@ RAND_UNIFORM <- class_RAND_UNIFORM()
 #'
 #' @description This function will be called after an instance is built. User
 #' input will be stored in the environment.
-#' @param a Numeric. Lower bound.
-#' @param b Numeric. Upper bound.
+#' @param a Numeric. Lower bound. Default is 0.
+#' @param b Numeric. Upper bound. Default is 1.
 #' @return No return value, called for side effects.
 #'
 #' @examples
@@ -168,8 +168,8 @@ RAND_NORMAL <- class_RAND_NORMAL()
 #'
 #' @description This function will be called after an instance is built. User
 #' input will be stored in the environment.
-#' @param mu Numeric. Mean.
-#' @param sigma Numeric. Standard deviation.
+#' @param mu Numeric. Mean. Default is 0.
+#' @param sigma Numeric. Standard deviation. Default is 1.
 #' @return No return value, called for side effects.
 #'
 #' @examples
@@ -218,8 +218,9 @@ RAND_LOGNORMAL <- class_RAND_LOGNORMAL()
 #'
 #' @description This function will be called after an instance is built. User
 #' input will be stored in the environment.
-#' @param mu Numeric. Mean of the log of the random variable.
+#' @param mu Numeric. Mean of the log of the random variable. Default is 0.
 #' @param sigma Numeric. Standard deviation of the log the random variable.
+#' Default is 1.
 #' @return No return value, called for side effects.
 #'
 #' @examples
@@ -243,3 +244,56 @@ RAND_LOGNORMAL$..init..
 #' test <- RAND_LOGNORMAL$instantiation(mu = 1, sigma = 2)
 #' test$gen(10)
 RAND_LOGNORMAL$gen
+
+
+
+# RAND_UNIFORM_D ----------------------------------------------------------
+
+
+#' RAND_UNIFORM_D class environment
+#'
+#' @name RAND_UNIFORM_D
+#'
+#' @description This is the class of the discrete uniform random variable, inherited from
+#' [RAND_VAR].
+#' @format An environment with S3 class `oop`.
+#' @seealso Parent class: [RAND_VAR]
+#' \cr
+#' \cr
+#' New methods: [RAND_UNIFORM_D$..init..], [RAND_UNIFORM_D$gen],
+#' RAND_UNIFORM_D$E, RAND_UNIFORM_D$Var
+#' @export
+RAND_UNIFORM_D <- class_RAND_UNIFORM_D()
+
+#' Initialization method
+#'
+#' @name RAND_UNIFORM_D$..init..
+#'
+#' @description This function will be called after an instance is built. User
+#' input will be stored in the environment.
+#' @param a Numeric. Lower bound. Default is 0.
+#' @param b Numeric. Upper bound. Default is 1.
+#' @param k Integer. Number of unique discrete values. Default is 5.
+#' @return No return value, called for side effects.
+#'
+#' @examples
+#'
+#' # Instantiation
+#' test <- RAND_UNIFORM_D$instantiation(a = 1, b = 2, k = 3)
+#' test
+RAND_UNIFORM_D$..init..
+
+#' Generate random values
+#'
+#' @name RAND_UNIFORM_D$gen
+#'
+#' @description This function generates random values from the random variable.
+#' @param n Integer. Number of observations.
+#' @return A vector of numeric values.
+#' @seealso [stats::runif()], [sample()]
+#'
+#' @examples
+#'
+#' test <- RAND_UNIFORM_D$instantiation(a = 1, b = 2, k = 2)
+#' test$gen(10)
+RAND_UNIFORM_D$gen

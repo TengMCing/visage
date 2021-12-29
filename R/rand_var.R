@@ -149,6 +149,40 @@ class_RAND_LOGNORMAL <- function(env = new.env(parent = parent.frame())) {
   return(env)
 }
 
+
+# RAND_UNIFORM_D ----------------------------------------------------------
+
+class_RAND_UNIFORM_D <- function(env = new.env(parent = parent.frame())) {
+
+  # Pass CMD check
+  self <- NULL
+
+  # Inherit from RAND_VAR class
+  new_class(RAND_VAR, env = env, class_name = "RAND_UNIFORM_D")
+
+  init_ <- function(a = 0, b = 1, k = 5) {
+
+    # Use the parent class `..init..` method
+    use_method(self, RAND_VAR$..init..)(dist = "discrete uniform",
+                                        prm = list(a = a, b = b, k = k))
+
+    return(invisible(NULL))
+  }
+
+  gen_ <- function(n) {
+    cand <- stats::runif(self$prm$k, self$prm$a, self$prm$b)
+    sample(cand, n, replace = TRUE)
+  }
+
+  E_ <- function() (self$prm$a + self$prm$b)/2
+
+  Var_ <- function() (self$prm$b - self$prm$a)^2/12
+
+  register_method(env, ..init.. = init_, gen = gen_, E = E_, Var = Var_)
+
+  return(env)
+}
+
 #
 # # RAND_VAR ----------------------------------------------------------------
 #

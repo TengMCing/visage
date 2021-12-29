@@ -4,9 +4,10 @@
 \alias{RAND_LOGNORMAL$..init..}
 \title{Initialization method}
 \arguments{
-\item{mu}{Numeric. Mean of the log of the random variable.}
+\item{mu}{Numeric. Mean of the log of the random variable. Default is 0.}
 
-\item{sigma}{Numeric. Standard deviation of the log the random variable.}
+\item{sigma}{Numeric. Standard deviation of the log the random variable.
+Default is 1.}
 }
 \value{
 No return value, called for side effects.

@@ -53,6 +53,13 @@ reference:
   - RAND_UNIFORM
   - RAND_UNIFORM$..init..
   - RAND_UNIFORM$gen
+- subtitle: "Random discrete uniform variable class"
+  desc: >
+    Random discrete uniform variable class
+  contents:
+  - RAND_UNIFORM_D
+  - RAND_UNIFORM_D$..init..
+  - RAND_UNIFORM_D$gen
 - subtitle: "Random normal variable class"
   desc: >
     Random normal variable class
