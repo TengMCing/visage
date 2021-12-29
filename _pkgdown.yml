@@ -60,6 +60,13 @@ reference:
   - RAND_NORMAL
   - RAND_NORMAL$..init..
   - RAND_NORMAL$gen
+- subtitle: "Random log-normal variable class"
+  desc: >
+    Random log-normal variable class
+  contents:
+  - RAND_LOGNORMAL
+  - RAND_LOGNORMAL$..init..
+  - RAND_LOGNORMAL$gen
 - title: "Utilties"
   desc: >
     Utility functions

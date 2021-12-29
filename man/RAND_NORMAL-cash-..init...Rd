@@ -4,9 +4,9 @@
 \alias{RAND_NORMAL$..init..}
 \title{Initialization method}
 \arguments{
-\item{mu}{Numeric.}
+\item{mu}{Numeric. Mean.}
 
-\item{sigma}{Numeric.}
+\item{sigma}{Numeric. Standard deviation.}
 }
 \value{
 No return value, called for side effects.
