@@ -4,9 +4,9 @@
 \alias{RAND_UNIFORM$..init..}
 \title{Initialization method}
 \arguments{
-\item{a}{Numeric. Lower bound.}
+\item{a}{Numeric. Lower bound. Default is 0.}
 
-\item{b}{Numeric. Upper bound.}
+\item{b}{Numeric. Upper bound. Default is 1.}
 }
 \value{
 No return value, called for side effects.
