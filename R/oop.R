@@ -56,7 +56,6 @@
 #' e$aa()
 #'
 #' @export
-
 register_method <- function(env, ..., container_name = "..method_env..", self_name = "self") {
 
   # Capture function call
@@ -145,7 +144,6 @@ register_method <- function(env, ..., container_name = "..method_env..", self_na
 #' @param ... ignored.
 #' @return No return value, called for side effects.
 #' @export
-
 print.oop <- function(x, ...) {
   if ("..str.." %in% names(x)) {
     cli::cli_h3(x$..str..())
@@ -183,7 +181,6 @@ print.oop <- function(x, ...) {
 #' names(TEST)
 #'
 #' @export
-
 new_class <- function(..., env = new.env(parent = parent.frame()), class_name = NULL) {
 
   # Class should has a name
@@ -245,7 +242,6 @@ new_class <- function(..., env = new.env(parent = parent.frame()), class_name = 
 #' names(test)
 #'
 #' @export
-
 copy_attr <- function(env, ..., avoid = c("..method_env..", "..init_call..")) {
 
   if (!is.environment(env)) stop("`env` is not an environment!")

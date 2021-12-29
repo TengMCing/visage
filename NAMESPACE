@@ -2,6 +2,7 @@
 
 S3method(print,oop)
 export(BASE)
+export(RAND_UNIFORM)
 export(RAND_VAR)
 export(bind_fn_2_env)
 export(calc_p_value)

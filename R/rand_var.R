@@ -50,14 +50,16 @@ class_RAND_VAR <- function(env = new.env(parent = parent.frame())) {
 }
 
 
-# RAND_VAR_UNIFORM --------------------------------------------------------
+# RAND_UNIFORM ------------------------------------------------------------
 
-class_RAND_VAR_UNIFORM <- function(env = new.env(parent = parent.frame())) {
+
+
+class_RAND_UNIFORM <- function(env = new.env(parent = parent.frame())) {
 
   # Pass CMD check
   self <- NULL
 
-  new_class(RAND_VAR, env = env, class_name = "RAND_VAR_UNIFORM")
+  new_class(RAND_VAR, env = env, class_name = "RAND_UNIFORM")
 
   init_ <- function(a = 0, b = 1) {
 
@@ -81,16 +83,17 @@ class_RAND_VAR_UNIFORM <- function(env = new.env(parent = parent.frame())) {
   return(env)
 }
 
+# RAND_NORMAL -------------------------------------------------------------
 
-# RAND_VAR_NORMAL ---------------------------------------------------------
 
-class_RAND_VAR_NORMAL <- function(env = new.env(parent = parent.frame())) {
+
+class_RAND_NORMAL <- function(env = new.env(parent = parent.frame())) {
 
   # Pass CMD check
   self <- NULL
 
   # Inherit from RAND_VAR class
-  new_class(RAND_VAR, env = env, class_name = "RAND_VAR_NORMAL")
+  new_class(RAND_VAR, env = env, class_name = "RAND_NORMAL")
 
   init_ <- function(mu = 0, sigma = 1) {
 
@@ -114,16 +117,15 @@ class_RAND_VAR_NORMAL <- function(env = new.env(parent = parent.frame())) {
   return(env)
 }
 
+# RAND_LOGNORMAL ----------------------------------------------------------
 
-# RAND_VAR_LOGNORMAL ------------------------------------------------------
-
-class_RAND_VAR_LOGNORMAL <- function(env = new.env(parent = parent.frame())) {
+class_RAND_LOGNORMAL <- function(env = new.env(parent = parent.frame())) {
 
   # Pass CMD check
   self <- NULL
 
   # Inherit from RAND_VAR class
-  new_class(RAND_VAR, env = env, class_name = "RAND_VAR_LOGNORMAL")
+  new_class(RAND_VAR, env = env, class_name = "RAND_LOGNORMAL")
 
   init_ <- function(mu = 0, sigma = 1) {
 
@@ -185,15 +187,15 @@ class_RAND_VAR_LOGNORMAL <- function(env = new.env(parent = parent.frame())) {
 #
 #
 #
-# # RAND_VAR_UNIFORM --------------------------------------------------------
+# # RAND_UNIFORM --------------------------------------------------------
 #
-# RAND_VAR_UNIFORM <- function(a, b, ..., env = new.env(parent = parent.frame())) {
+# RAND_UNIFORM <- function(a, b, ..., env = new.env(parent = parent.frame())) {
 #
 #   # Pass CMD check
 #   self <- NULL
 #
 #   # Inherit from RAND_VAR class
-#   env <- inherit(env, RAND_VAR, "RAND_VAR_UNIFORM", dist = "uniform", ...)
+#   env <- inherit(env, RAND_VAR, "RAND_UNIFORM", dist = "uniform", ...)
 #   env$prm$a <- a
 #   env$prm$b <- b
 #
@@ -212,7 +214,7 @@ class_RAND_VAR_LOGNORMAL <- function(env = new.env(parent = parent.frame())) {
 #   return(env)
 # }
 #
-# register_class_ctor(RAND_VAR_UNIFORM, "RAND_VAR_UNIFORM", parent = RAND_VAR)
+# register_class_ctor(RAND_UNIFORM, "RAND_UNIFORM", parent = RAND_VAR)
 #
 #
 #
@@ -241,15 +243,15 @@ class_RAND_VAR_LOGNORMAL <- function(env = new.env(parent = parent.frame())) {
 # register_class_ctor(RAND_VAR_LOGNORMAL, "RAND_VAR_LOGNORMAL", parent = RAND_VAR)
 #
 #
-# # RAND_VAR_UNIFORM_D ------------------------------------------------------
+# # RAND_UNIFORM_D ------------------------------------------------------
 #
-# RAND_VAR_UNIFORM_D <- function(a, b, k, ..., env = new.env(parent = parent.frame())) {
+# RAND_UNIFORM_D <- function(a, b, k, ..., env = new.env(parent = parent.frame())) {
 #
 #   # Pass CMD check
 #   self <- NULL
 #
 #   # Inherit from RAND_VAR class
-#   env <- inherit(env, RAND_VAR, "RAND_VAR_UNIFORM_D", dist = "uniform_discrete", ...)
+#   env <- inherit(env, RAND_VAR, "RAND_UNIFORM_D", dist = "uniform_discrete", ...)
 #   env$prm$a <- a
 #   env$prm$b <- b
 #   env$prm$k <- k
@@ -268,4 +270,4 @@ class_RAND_VAR_LOGNORMAL <- function(env = new.env(parent = parent.frame())) {
 #   return(env)
 # }
 #
-# register_class_ctor(RAND_VAR_UNIFORM_D, "RAND_VAR_UNIFORM_D", parent = RAND_VAR)
+# register_class_ctor(RAND_UNIFORM_D, "RAND_UNIFORM_D", parent = RAND_VAR)

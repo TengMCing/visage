@@ -1,3 +1,8 @@
+
+# RAND_VAR ----------------------------------------------------------------
+
+
+
 #' RAND_VAR class environment
 #'
 #' @name RAND_VAR
@@ -69,7 +74,7 @@ RAND_VAR$Var
 #'
 #' @examples
 #'
-#' RAND_VAR$gen(10)
+#' test <- RAND_VAR$gen(10)
 RAND_VAR$gen
 
 #' String representation of the object
@@ -86,3 +91,56 @@ RAND_VAR$gen
 #' test <- RAND_VAR$instantiation(dist = "uniform", prm = list(a = 1, b = 2))
 #' test$..str..()
 RAND_VAR$..str..
+
+
+
+# RAND_UNIFORM ------------------------------------------------------------
+
+
+
+#' RAND_UNIFORM class environment
+#'
+#' @name RAND_UNIFORM
+#'
+#' @description This is the class of the uniform random variable, inherited from
+#' [RAND_VAR].
+#' @format An environment with S3 class `oop`.
+#' @seealso Parent class: [RAND_VAR]
+#' \cr
+#' \cr
+#' New methods: [RAND_UNIFORM$..init..], [RAND_UNIFORM$gen],
+#' RAND_UNIFORM$E, RAND_UNIFORM$Var
+#' @export
+RAND_UNIFORM <- class_RAND_UNIFORM()
+
+#' Initialization method
+#'
+#' @name RAND_UNIFORM$..init..
+#'
+#' @description This function will be called after an instance is built. User
+#' input will be stored in the environment.
+#' @param a Numeric.
+#' @param b Numeric.
+#' @return No return value, called for side effects.
+#'
+#' @examples
+#'
+#' # Instantiation
+#' test <- RAND_UNIFORM$instantiation(a = 1, b = 2)
+#' test
+RAND_UNIFORM$..init..
+
+#' Generate random values
+#'
+#' @name RAND_UNIFORM$gen
+#'
+#' @description This function generates random values from the random variable.
+#' @param n Integer. Number of observations.
+#' @return A vector of numeric values.
+#' @seealso [stats::runif()]
+#'
+#' @examples
+#'
+#' test <- RAND_UNIFORM$instantiation(a = 1, b = 2)
+#' test$gen(10)
+RAND_UNIFORM$gen
