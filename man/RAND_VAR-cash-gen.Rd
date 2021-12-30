@@ -5,6 +5,8 @@
 \title{Generate random values}
 \arguments{
 \item{n}{Integer. Number of observations.}
+
+\item{...}{Ignored.}
 }
 \value{
 NA. User needs to define their own \code{gen} method in derived class.

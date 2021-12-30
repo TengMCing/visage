@@ -70,6 +70,7 @@ RAND_VAR$Var
 #'
 #' @description This function generates random values from the random variable.
 #' @param n Integer. Number of observations.
+#' @param ... Ignored.
 #' @return NA. User needs to define their own `gen` method in derived class.
 #'
 #' @examples
@@ -134,6 +135,7 @@ RAND_UNIFORM$..init..
 #'
 #' @description This function generates random values from the random variable.
 #' @param n Integer. Number of observations.
+#' @param ... Ignored.
 #' @return A vector of numeric values.
 #' @seealso [stats::runif()]
 #'
@@ -185,6 +187,7 @@ RAND_NORMAL$..init..
 #'
 #' @description This function generates random values from the random variable.
 #' @param n Integer. Number of observations.
+#' @param ... Ignored.
 #' @return A vector of numeric values.
 #' @seealso [stats::rnorm()]
 #'
@@ -236,6 +239,7 @@ RAND_LOGNORMAL$..init..
 #'
 #' @description This function generates random values from the random variable.
 #' @param n Integer. Number of observations.
+#' @param ... Ignored.
 #' @return A vector of numeric values.
 #' @seealso [stats::rlnorm()]
 #'
@@ -289,6 +293,7 @@ RAND_UNIFORM_D$..init..
 #'
 #' @description This function generates random values from the random variable.
 #' @param n Integer. Number of observations.
+#' @param ... Ignored.
 #' @return A vector of numeric values.
 #' @seealso [stats::runif()], [sample()]
 #'

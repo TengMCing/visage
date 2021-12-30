@@ -15,7 +15,7 @@ class_RAND_VAR <- function(env = new.env(parent = parent.frame())) {
     return(invisible(NULL))
   }
 
-  gen_ <- function(n) NA
+  gen_ <- function(n, ...) NA
 
   E_ <- function() NA
 
@@ -70,7 +70,7 @@ class_RAND_UNIFORM <- function(env = new.env(parent = parent.frame())) {
     return(invisible(NULL))
   }
 
-  gen_ <- function(n) {
+  gen_ <- function(n, ...) {
     stats::runif(n, self$prm$a, self$prm$b)
   }
 
@@ -104,7 +104,7 @@ class_RAND_NORMAL <- function(env = new.env(parent = parent.frame())) {
     return(invisible(NULL))
   }
 
-  gen_ <- function(n) {
+  gen_ <- function(n, ...) {
     stats::rnorm(n, self$prm$mu, self$prm$sigma)
   }
 
@@ -136,7 +136,7 @@ class_RAND_LOGNORMAL <- function(env = new.env(parent = parent.frame())) {
     return(invisible(NULL))
   }
 
-  gen_ <- function(n) {
+  gen_ <- function(n, ...) {
     stats::rlnorm(n, self$prm$mu, self$prm$sigma)
   }
 
@@ -169,7 +169,7 @@ class_RAND_UNIFORM_D <- function(env = new.env(parent = parent.frame())) {
     return(invisible(NULL))
   }
 
-  gen_ <- function(n) {
+  gen_ <- function(n, ...) {
     cand <- stats::runif(self$prm$k, self$prm$a, self$prm$b)
     sample(cand, n, replace = TRUE)
   }
