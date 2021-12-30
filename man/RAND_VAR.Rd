@@ -18,6 +18,9 @@ This is the base class of random variable, inherited from
 Parent class: \link{BASE}
 \cr
 \cr
+New attributes: \link{RAND_VAR$dist}, \link{RAND_VAR$prm}
+\cr
+\cr
 New methods: \link{RAND_VAR$..init..}, \link{RAND_VAR$..str..},
 \link{RAND_VAR$E}, \link{RAND_VAR$Var}
 }

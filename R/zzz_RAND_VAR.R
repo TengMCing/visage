@@ -13,10 +13,41 @@
 #' @seealso Parent class: [BASE]
 #' \cr
 #' \cr
+#' New attributes: [RAND_VAR$dist], [RAND_VAR$prm]
+#' \cr
+#' \cr
 #' New methods: [RAND_VAR$..init..], [RAND_VAR$..str..],
 #' [RAND_VAR$E], [RAND_VAR$Var]
 #' @export
 RAND_VAR <- class_RAND_VAR()
+
+#' Distribution name
+#'
+#' @name RAND_VAR$dist
+#'
+#' @description A string, will be initialized after an instance is built.
+#'
+#' @examples
+#'
+#' # Instantiation
+#' test <- RAND_VAR$instantiation(dist = "uniform", prm = list(a = 1, b = 2))
+#' test$prm
+#' test$dist
+RAND_VAR$dist
+
+#' List of parameters
+#'
+#' @name RAND_VAR$prm
+#'
+#' @description A list, will be initialized after an instance is built.
+#'
+#' @examples
+#'
+#' # Instantiation
+#' test <- RAND_VAR$instantiation(dist = "uniform", prm = list(a = 1, b = 2))
+#' test$prm
+#' test$dist
+RAND_VAR$prm
 
 #' Initialization method
 #'
