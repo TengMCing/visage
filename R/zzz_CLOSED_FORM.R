@@ -15,7 +15,7 @@
 #' [CLOSED_FORM$sym_type], [CLOSED_FORM$expr]
 #' \cr
 #' \cr
-#' New methods: [CLOSED_FORM$..init..], CLOSED_FORM$..str..,
+#' New methods: [CLOSED_FORM$..init..], [CLOSED_FORM$..str..],
 #' CLOSED_FORM$compute, CLOSED_FORM$gen, CLOSED_FORM$gen_rhs,
 #' CLOSED_FORM$ast
 #' @export
@@ -151,3 +151,17 @@ CLOSED_FORM$expr
 #'
 #' cf2
 CLOSED_FORM$..init..
+
+#' String representation of the object
+#'
+#' @name CLOSED_FORM$..str..
+#'
+#' @description This function returns a string representation of the object.
+#' @return A string.
+#'
+#' @examples
+#'
+#' test <- CLOSED_FORM$instantiation(~1+1)
+#' test$..str..()
+CLOSED_FORM$..str..
+

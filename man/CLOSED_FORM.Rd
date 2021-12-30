@@ -22,7 +22,7 @@ New attributes: \link{CLOSED_FORM$sym}, \link{CLOSED_FORM$sym_name},
 \link{CLOSED_FORM$sym_type}, \link{CLOSED_FORM$expr}
 \cr
 \cr
-New methods: \link{CLOSED_FORM$..init..}, CLOSED_FORM$..str..,
+New methods: \link{CLOSED_FORM$..init..}, \link{CLOSED_FORM$..str..},
 CLOSED_FORM$compute, CLOSED_FORM$gen, CLOSED_FORM$gen_rhs,
 CLOSED_FORM$ast
 }
