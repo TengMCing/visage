@@ -8,7 +8,7 @@ A list, will be initialized after an instance is built.
 }
 \examples{
 
-# Constant
+# Constant variable
 a <- 1
 
 # Random uniform variable

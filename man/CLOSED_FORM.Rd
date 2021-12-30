@@ -18,8 +18,8 @@ This is the base class of closed form expression, inherited from
 Parent class: \link{BASE}
 \cr
 \cr
-New attributes: \link{CLOSED_FORM$sym}, CLOSED_FORM$sym_name,
-CLOSED_FORM$type, CLOSED_FORM$expr
+New attributes: \link{CLOSED_FORM$sym}, \link{CLOSED_FORM$sym_name},
+\link{CLOSED_FORM$sym_type}, CLOSED_FORM$expr
 \cr
 \cr
 New methods: CLOSED_FORM$..init.., CLOSED_FORM$..str..,

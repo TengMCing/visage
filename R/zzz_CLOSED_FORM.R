@@ -11,8 +11,8 @@
 #' @seealso Parent class: [BASE]
 #' \cr
 #' \cr
-#' New attributes: [CLOSED_FORM$sym], CLOSED_FORM$sym_name,
-#' CLOSED_FORM$type, CLOSED_FORM$expr
+#' New attributes: [CLOSED_FORM$sym], [CLOSED_FORM$sym_name],
+#' [CLOSED_FORM$sym_type], [CLOSED_FORM$expr]
 #' \cr
 #' \cr
 #' New methods: CLOSED_FORM$..init.., CLOSED_FORM$..str..,
@@ -29,7 +29,7 @@ CLOSED_FORM <- class_CLOSED_FORM()
 #'
 #' @examples
 #'
-#' # Constant
+#' # Constant variable
 #' a <- 1
 #'
 #' # Random uniform variable
@@ -83,3 +83,31 @@ CLOSED_FORM$sym_name
 #'
 #' @seealso Examples and usages: [CLOSED_FORM$sym]
 CLOSED_FORM$sym_type
+
+#' Expression extracted from the provided formula
+#'
+#' @name CLOSED_FORM$expr
+#'
+#' @description A language object.
+#'
+#' @examples
+#'
+#' # Constant variable
+#' a <- 1
+#'
+#' # Random uniform variable
+#' b <- RAND_UNIFORM$instantiation()
+#'
+#' # Define a closed form expression
+#' cf <- CLOSED_FORM$instantiation(omit~omit~3 * (exp(a) + b))
+#'
+#' # Only the right hand side of the last `~` will be kept
+#' cf$expr
+#'
+#' d <- RAND_NORMAL$instantiation()
+#'
+#' # Define a closed form expression with another closed form expression
+#' cf2 <- CLOSED_FORM$instantiation(~cf + 3 * d)
+#'
+#' cf2$expr
+CLOSED_FORM$expr
