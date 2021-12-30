@@ -16,7 +16,7 @@
 #' \cr
 #' \cr
 #' New methods: [CLOSED_FORM$..init..], [CLOSED_FORM$..str..],
-#' CLOSED_FORM$compute, CLOSED_FORM$gen, CLOSED_FORM$gen_rhs,
+#' [CLOSED_FORM$compute], [CLOSED_FORM$gen], [CLOSED_FORM$gen_rhs],
 #' CLOSED_FORM$ast
 #' @export
 CLOSED_FORM <- class_CLOSED_FORM()
@@ -165,3 +165,88 @@ CLOSED_FORM$..init..
 #' test$..str..()
 CLOSED_FORM$..str..
 
+#' Compute the expression without generating any random values
+#'
+#' @name CLOSED_FORM$compute
+#'
+#' @description This function computes a deterministic expression.
+#' @return Numeric value.
+#'
+#' @examples
+#'
+#' test <- CLOSED_FORM$instantiation(~1+mean(c(1,2,3)))
+#' test$compute()
+CLOSED_FORM$compute
+
+#' Generating random values from the expression
+#'
+#' @name CLOSED_FORM$gen
+#'
+#' @description This function generates random values from the expression.
+#' Random values will be generated independtly as long as they don't share
+#' the same symbol in the expression.
+#' @param n Integer. Number of observations.
+#' @param rhs Boolean. Whether or not to keep the right hand side values of the
+#' expression.
+#' @return Numeric values.
+#'
+#' @examples
+#'
+#' # Constant variable
+#' a <- 1
+#'
+#' # Random uniform variable
+#' b <- RAND_UNIFORM$instantiation()
+#'
+#' # Define a closed form expression
+#' cf <- CLOSED_FORM$instantiation(~3 * (exp(a) + b))
+#'
+#' # Generate 5 values
+#' cf$gen(5)
+#'
+#' # Generate 5 values, and keep RHS
+#' cf$gen(5, rhs = TRUE)
+#'
+#' d <- RAND_NORMAL$instantiation()
+#'
+#' # Define a closed form expression with another closed form expression
+#' cf2 <- CLOSED_FORM$instantiation(~cf + 3 * d)
+#'
+#' # Generate 5 values
+#' cf2$gen(5)
+#'
+#' # Generate 5 values, and keep RHS
+#' cf2$gen(5, rhs = TRUE)
+#'
+#' # Define a closed form expression with two random variables of the same name
+#' cf3 <- CLOSED_FORM$instantiation(~d * d)
+#'
+#' # Both `d` will share the same values
+#' cf3$gen(5, rhs = TRUE)
+#'
+#' # Define a closed form expression with two closed form expressions of the same name
+#' cf4 <- CLOSED_FORM$instantiation(~cf3 * cf3)
+#'
+#' # Both `cf3` will share the same values, both `d` will share the same values as well
+#' cf4$gen(5, rhs = TRUE)
+#'
+#' # Define a closed form expression with two different closed form expressions,
+#' # but contains same random variables
+#' cf5 <- CLOSED_FORM$instantiation(~cf3 * cf4)
+#'
+#' # Both `d` in `cf3` will share the same value, but is different with `d` in `cf4`
+#' cf5$gen(5, rhs = TRUE)
+CLOSED_FORM$gen
+
+#' Generating random values from the expression with right hand side being kept
+#'
+#' @name CLOSED_FORM$gen_rhs
+#'
+#' @description This function generates random values from the expression
+#' with right hand side being kept. Random values will be generated
+#' independently as long as they don't share the same symbol in the expression.
+#' @param n Integer. Number of observations.
+#' @return Numeric values.
+#'
+#' @seealso [CLOSED_FORM$gen]
+CLOSED_FORM$gen_rhs

@@ -23,7 +23,7 @@ New attributes: \link{CLOSED_FORM$sym}, \link{CLOSED_FORM$sym_name},
 \cr
 \cr
 New methods: \link{CLOSED_FORM$..init..}, \link{CLOSED_FORM$..str..},
-CLOSED_FORM$compute, CLOSED_FORM$gen, CLOSED_FORM$gen_rhs,
+\link{CLOSED_FORM$compute}, \link{CLOSED_FORM$gen}, \link{CLOSED_FORM$gen_rhs},
 CLOSED_FORM$ast
 }
 \keyword{datasets}
