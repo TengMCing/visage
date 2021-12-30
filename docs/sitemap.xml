@@ -109,7 +109,13 @@
     <loc>/reference/RAND_VAR-cash-Var.html</loc>
   </url>
   <url>
+    <loc>/reference/RAND_VAR-cash-dist.html</loc>
+  </url>
+  <url>
     <loc>/reference/RAND_VAR-cash-gen.html</loc>
+  </url>
+  <url>
+    <loc>/reference/RAND_VAR-cash-prm.html</loc>
   </url>
   <url>
     <loc>/reference/RAND_VAR.html</loc>
