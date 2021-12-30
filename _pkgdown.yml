@@ -87,6 +87,9 @@ reference:
   - CLOSED_FORM$expr
   - CLOSED_FORM$..init..
   - CLOSED_FORM$..str..
+  - CLOSED_FORM$compute
+  - CLOSED_FORM$gen
+  - CLOSED_FORM$gen_rhs
 - title: "Utilties"
   desc: >
     Utility functions
