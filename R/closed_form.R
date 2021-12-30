@@ -187,4 +187,3 @@ class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
   return(env)
 }
 
-# CLOSED_FORM <- class_CLOSED_FORM()
