@@ -86,6 +86,7 @@ reference:
   - CLOSED_FORM$sym_type
   - CLOSED_FORM$expr
   - CLOSED_FORM$..init..
+  - CLOSED_FORM$..str..
 - title: "Utilties"
   desc: >
     Utility functions
