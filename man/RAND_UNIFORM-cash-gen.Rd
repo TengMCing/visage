@@ -5,6 +5,8 @@
 \title{Generate random values}
 \arguments{
 \item{n}{Integer. Number of observations.}
+
+\item{...}{Ignored.}
 }
 \value{
 A vector of numeric values.
