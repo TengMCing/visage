@@ -41,6 +41,8 @@ reference:
     Random variable class
   contents:
   - RAND_VAR
+  - RAND_VAR$dist
+  - RAND_VAR$prm
   - RAND_VAR$..init..
   - RAND_VAR$..str..
   - RAND_VAR$E
