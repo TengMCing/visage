@@ -81,6 +81,9 @@ reference:
     Closed form expression class
   contents:
   - CLOSED_FORM
+  - CLOSED_FORM$sym
+  - CLOSED_FORM$sym_name
+  - CLOSED_FORM$sym_type
 - title: "Utilties"
   desc: >
     Utility functions
