@@ -15,7 +15,7 @@
 #' [CLOSED_FORM$sym_type], [CLOSED_FORM$expr]
 #' \cr
 #' \cr
-#' New methods: CLOSED_FORM$..init.., CLOSED_FORM$..str..,
+#' New methods: [CLOSED_FORM$..init..], CLOSED_FORM$..str..,
 #' CLOSED_FORM$compute, CLOSED_FORM$gen, CLOSED_FORM$gen_rhs,
 #' CLOSED_FORM$ast
 #' @export
@@ -111,3 +111,43 @@ CLOSED_FORM$sym_type
 #'
 #' cf2$expr
 CLOSED_FORM$expr
+
+#' Initialization method
+#'
+#' @name CLOSED_FORM$..init..
+#'
+#' @description This function will be called after an instance is built. User
+#' input will be stored in the environment. Any expressions can be provided,
+#' as long as they can be computed in the current environment.
+#' \cr
+#' \cr
+#' Random variables will be replaced with a vector of random values when is
+#' called by the `gen` method.
+#' \cr
+#' \cr
+#' Hierarchical closed form expression will also be replaced with a vector of
+#' values when is called by the `gen` method.
+#' @param epxr Formula. Only the right hand side of the last `~` will be kept as
+#' the final expression.
+#' @return No return value, called for side effects.
+#'
+#' @examples
+#'
+#' # Constant variable
+#' a <- 1
+#'
+#' # Random uniform variable
+#' b <- RAND_UNIFORM$instantiation()
+#'
+#' # Define a closed form expression
+#' cf <- CLOSED_FORM$instantiation(~3 * (exp(a) + b))
+#'
+#' cf
+#'
+#' d <- RAND_NORMAL$instantiation()
+#'
+#' # Define a closed form expression with another closed form expression
+#' cf2 <- CLOSED_FORM$instantiation(~cf + 3 * d)
+#'
+#' cf2
+CLOSED_FORM$..init..
