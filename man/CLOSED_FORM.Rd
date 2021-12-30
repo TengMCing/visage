@@ -24,6 +24,6 @@ New attributes: \link{CLOSED_FORM$sym}, \link{CLOSED_FORM$sym_name},
 \cr
 New methods: \link{CLOSED_FORM$..init..}, \link{CLOSED_FORM$..str..},
 \link{CLOSED_FORM$compute}, \link{CLOSED_FORM$gen}, \link{CLOSED_FORM$gen_rhs},
-CLOSED_FORM$ast
+\link{CLOSED_FORM$ast}
 }
 \keyword{datasets}

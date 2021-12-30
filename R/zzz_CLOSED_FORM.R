@@ -17,7 +17,7 @@
 #' \cr
 #' New methods: [CLOSED_FORM$..init..], [CLOSED_FORM$..str..],
 #' [CLOSED_FORM$compute], [CLOSED_FORM$gen], [CLOSED_FORM$gen_rhs],
-#' CLOSED_FORM$ast
+#' [CLOSED_FORM$ast]
 #' @export
 CLOSED_FORM <- class_CLOSED_FORM()
 
@@ -250,3 +250,17 @@ CLOSED_FORM$gen
 #'
 #' @seealso [CLOSED_FORM$gen]
 CLOSED_FORM$gen_rhs
+
+#' Abstract syntax tree of the expression
+#'
+#' @name CLOSED_FORM$ast
+#'
+#' @description This function returns the abstract syntax tree of the exrpession
+#' @param expr Language. Any quoted expression.
+#' @return A list.
+#'
+#' @examples
+#'
+#' CLOSED_FORM$ast(quote(a + b))
+#' CLOSED_FORM$ast(quote(exp(a) + b^2))
+CLOSED_FORM$ast
