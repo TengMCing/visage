@@ -76,6 +76,11 @@ reference:
   - RAND_LOGNORMAL
   - RAND_LOGNORMAL$..init..
   - RAND_LOGNORMAL$gen
+- title: "Closed form expression class"
+  desc: >
+    Closed form expression class
+  contents:
+  - CLOSED_FORM
 - title: "Utilties"
   desc: >
     Utility functions

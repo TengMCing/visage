@@ -2,6 +2,7 @@
 
 S3method(print,oop)
 export(BASE)
+export(CLOSED_FORM)
 export(RAND_LOGNORMAL)
 export(RAND_NORMAL)
 export(RAND_UNIFORM)
