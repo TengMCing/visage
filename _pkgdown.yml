@@ -41,10 +41,10 @@ reference:
     Random variable class
   contents:
   - RAND_VAR
-  - RAND_VAR$dist
-  - RAND_VAR$prm
   - RAND_VAR$..init..
   - RAND_VAR$..str..
+  - RAND_VAR$dist
+  - RAND_VAR$prm
   - RAND_VAR$E
   - RAND_VAR$Var
   - RAND_VAR$gen
@@ -81,15 +81,15 @@ reference:
     Closed form expression class
   contents:
   - CLOSED_FORM
+  - CLOSED_FORM$..init..
+  - CLOSED_FORM$..str..
+  - CLOSED_FORM$ast
   - CLOSED_FORM$sym
   - CLOSED_FORM$sym_name
   - CLOSED_FORM$sym_type
   - CLOSED_FORM$expr
-  - CLOSED_FORM$..init..
-  - CLOSED_FORM$..str..
   - CLOSED_FORM$compute
   - CLOSED_FORM$gen
-  - CLOSED_FORM$ast
 - title: "Utilties"
   desc: >
     Utility functions
