@@ -6,7 +6,7 @@
 \arguments{
 \item{n}{Integer. Number of observations.}
 
-\item{rhs}{Boolean. Whether or not to keep the right hand side values of the
+\item{rhs_val}{Boolean. Whether or not to keep the right hand side values of the
 expression.}
 }
 \value{
@@ -14,7 +14,7 @@ Numeric values.
 }
 \description{
 This function generates random values from the expression.
-Random values will be generated independtly as long as they don't share
+Random values will be generated independently as long as they don't share
 the same symbol in the expression.
 }
 \examples{
@@ -32,7 +32,7 @@ cf <- CLOSED_FORM$instantiation(~3 * (exp(a) + b))
 cf$gen(5)
 
 # Generate 5 values, and keep RHS
-cf$gen(5, rhs = TRUE)
+cf$gen(5, rhs_val = TRUE)
 
 d <- RAND_NORMAL$instantiation()
 
@@ -43,24 +43,24 @@ cf2 <- CLOSED_FORM$instantiation(~cf + 3 * d)
 cf2$gen(5)
 
 # Generate 5 values, and keep RHS
-cf2$gen(5, rhs = TRUE)
+cf2$gen(5, rhs_val = TRUE)
 
 # Define a closed form expression with two random variables of the same name
-cf3 <- CLOSED_FORM$instantiation(~d * d)
+cf3 <- CLOSED_FORM$instantiation(~d + d)
 
 # Both `d` will share the same values
-cf3$gen(5, rhs = TRUE)
+cf3$gen(5, rhs_val = TRUE)
 
 # Define a closed form expression with two closed form expressions of the same name
-cf4 <- CLOSED_FORM$instantiation(~cf3 * cf3)
+cf4 <- CLOSED_FORM$instantiation(~cf3 + cf3)
 
 # Both `cf3` will share the same values, both `d` will share the same values as well
-cf4$gen(5, rhs = TRUE)
+cf4$gen(5, rhs_val = TRUE)
 
 # Define a closed form expression with two different closed form expressions,
 # but contains same random variables
-cf5 <- CLOSED_FORM$instantiation(~cf3 * cf4)
+cf5 <- CLOSED_FORM$instantiation(~cf3 + cf4)
 
-# Both `d` in `cf3` will share the same value, but is different with `d` in `cf4`
-cf5$gen(5, rhs = TRUE)
+# Both `d` in `cf3` and `cf4` will share the same value
+cf5$gen(5, rhs_val = TRUE)
 }

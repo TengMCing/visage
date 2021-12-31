@@ -89,7 +89,6 @@ reference:
   - CLOSED_FORM$..str..
   - CLOSED_FORM$compute
   - CLOSED_FORM$gen
-  - CLOSED_FORM$gen_rhs
   - CLOSED_FORM$ast
 - title: "Utilties"
   desc: >
