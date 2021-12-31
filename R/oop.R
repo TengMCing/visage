@@ -371,7 +371,7 @@ class_BASE <- function(env = new.env(parent = parent.frame())) {
 
   len_ <- function() NULL
 
-  repr_ <- function() deparse(self$..init_call..)
+  repr_ <- function() paste(deparse(self$..init_call.., width.cutoff = 500L), collapse = " ")
 
   str_ <- function() {
     if (self$..instantiated..) {

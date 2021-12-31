@@ -12,8 +12,8 @@ No return value, called for side effects.
 }
 \description{
 This function will be called after an instance is built. User
-input will be stored in the environment. Any expressions can be provided,
-as long as they can be computed in the current environment.
+input will be stored in the environment. Any simple expressions can be provided,
+as long as all the symbols exist in the current environment.
 \cr
 \cr
 Random variables will be replaced with a vector of random values when is

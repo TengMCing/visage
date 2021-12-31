@@ -17,7 +17,7 @@ class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
     if (!'formula' %in% class(expr)) stop("`expr` is not a formula!")
 
     # Only keeps the RHS of the last "~" character
-    self$expr <- str2lang(gsub("^.*~", "", deparse(expr)))
+    self$expr <- str2lang(gsub("^.*~", "", paste(deparse(expr, width.cutoff = 500L), collapse = " ")))
 
     # Save all the symbols and symbol types
     self$sym <- list()
@@ -84,37 +84,50 @@ class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
     eval(self$expr, envir = self$var)
   }
 
-# gen_rhs -----------------------------------------------------------------
+# gen ---------------------------------------------------------------------
 
-  gen_rhs_ <- function(n) {
+  gen_ <- function(n, rhs_val = FALSE, computed = NULL) {
+
     # If there is no random variables, then repeat the result for n times
     if (!"rand_var or closed_form" %in% unlist(self$sym_type)) {
+      if (!rhs_val) return(rep(self$compute(), n))
       return(list(lhs = rep(self$compute(), n), rhs = list()))
     }
 
-    # A list that store all the pre-evaluated values
+    # A list that the expression needs to be evaluated at
     value_list <- self$sym
 
-    # A list that store all the random values
+    # A list that stores all the computed random values, or computed expression which contains random variables
     rhs <- list()
+    if (!is.null(computed)) {
+      rhs <- computed
+    }
 
-    # Symbols that needs to be pre-evaluated
-    rand_index <- which(unlist(self$sym_type) == "rand_var or closed_form")
-    rand_name <- unlist(self$sym_name)[rand_index]
+    # Symbols that needs to be evaluated
+    rand_name <- unlist(self$sym_name)[which(unlist(self$sym_type) == "rand_var or closed_form")]
 
     for (i in rand_name) {
 
+      # Skip computed values or computed expressions
+      if (!is.null(rhs[[i]])) {
+        value_list[[i]] <- rhs[[i]]
+        next
+        }
+
       # Use the `gen` method to generate random values
-      # If symbol is a closed form object
       if ("CLOSED_FORM" %in% self$sym[[i]]$..class..) {
 
-        gen_value <- self$sym[[i]]$gen(n, rhs = TRUE)
+        # Pass the computed values to avoid re-computation of the same variable or expression
+        gen_value <- self$sym[[i]]$gen(n, rhs_val = TRUE, computed = rhs)
 
         # Store the pre-evaluated left hand side result
         value_list[[i]] <- gen_value$lhs
 
-        # Store the random values
-        rhs[[i]] <- gen_value$rhs
+        # Update RHS
+        rhs <- gen_value$rhs
+
+        # Also keep a record in the computed list
+        rhs[[i]] <- gen_value$lhs
 
       } else {
 
@@ -130,43 +143,15 @@ class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
     # Evaluate the expression in the pre-evaluated list
     lhs <- eval(self$expr, envir = value_list)
 
+    if (!rhs_val) return(lhs)
     return(list(lhs = lhs, rhs = rhs))
-  }
-
-# gen ---------------------------------------------------------------------
-
-  gen_ <- function(n, rhs = FALSE) {
-
-    if (rhs) return(self$gen_rhs(n))
-
-    # If there is no random variables, then repeat the result for n times
-    if (!"rand_var or closed_form" %in% unlist(self$sym_type)) {
-      return(rep(self$compute(), n))
-    }
-
-    # A list that store all the pre-evaluated values
-    value_list <- self$sym
-
-    # Symbols that needs to be pre-evaluated
-    rand_index <- which(unlist(self$sym_type) == "rand_var or closed_form")
-    rand_name <- unlist(self$sym_name)[rand_index]
-
-    for (i in rand_name) {
-
-      # Use the `gen` method to generate random values
-      gen_value <- self$sym[[i]]$gen(n)
-
-      value_list[[i]] <- gen_value
-    }
-
-    return(eval(self$expr, envir = value_list))
   }
 
 # str ---------------------------------------------------------------------
 
   str_ <- function() {
     result <- use_method(self, BASE$..str..)()
-    result <- paste0(result, "\n EXPR = ", deparse(self$expr))
+    result <- paste0(result, "\n EXPR = ", paste(deparse(self$expr, width.cutoff = 500L), collapse =  " "))
     rand_index <- which(unlist(self$sym_type) == "rand_var or closed_form")
     for (i in rand_index) {
       con_string <- gsub("\n", "\n   ", self$sym[[i]]$..str..(), fixed = TRUE)
@@ -181,8 +166,7 @@ class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
                   ..str.. = str_,
                   ast = ast_,
                   compute = compute_,
-                  gen = gen_,
-                  gen_rhs = gen_rhs_)
+                  gen = gen_)
 
   return(env)
 }
