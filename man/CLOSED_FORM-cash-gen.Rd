@@ -7,15 +7,19 @@
 \item{n}{Integer. Number of observations.}
 
 \item{rhs_val}{Boolean. Whether or not to keep the right hand side values of the
-expression.}
+expression. Default is \code{FALSE}.}
+
+\item{computed}{List. Default is \code{NULL}. If it is provided, random variables
+or random closed form expression will use the values from the list, which
+makes the expression potentially deterministic.}
 }
 \value{
 Numeric values.
 }
 \description{
 This function generates random values from the expression.
-Random values will be generated independently as long as they don't share
-the same symbol in the expression.
+Random values or closed form expression will share the same value as long
+as they have the same name.
 }
 \examples{
 
@@ -63,4 +67,7 @@ cf5 <- CLOSED_FORM$instantiation(~cf3 + cf4)
 
 # Both `d` in `cf3` and `cf4` will share the same value
 cf5$gen(5, rhs_val = TRUE)
+
+# Control the value of `d`
+cf5$gen(5, rhs_val = TRUE, computed = list(d = 1))
 }
