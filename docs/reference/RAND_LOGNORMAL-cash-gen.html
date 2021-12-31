@@ -54,8 +54,12 @@
     <h2>Arguments</h2>
     <dl><dt>n</dt>
 <dd><p>Integer. Number of observations.</p></dd>
-<dt>...</dt>
-<dd><p>Ignored.</p></dd>
+<dt>mu</dt>
+<dd><p>Numeric. If it is provided and has length <code>n</code>, values will be used in
+each realization.</p></dd>
+<dt>sigma</dt>
+<dd><p>Numeric. If it is provided and has length <code>n</code>, values will be used in
+each realization.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -71,8 +75,11 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="va">test</span> <span class="op">&lt;-</span> <span class="va">RAND_LOGNORMAL</span><span class="op">$</span><span class="fu">instantiation</span><span class="op">(</span>mu <span class="op">=</span> <span class="fl">1</span>, sigma <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">test</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  23.5356536   0.5845999   1.4550325 172.4485232  12.0984001   2.4713186</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7]   0.4339059   1.9398105   8.1772961   0.3272946</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  5.60993091  0.23141821  1.67249224  0.09832099 13.04180081  0.94509219</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] 49.75365448  4.17796933 10.82608381  0.49040944</span>
+<span class="r-in"></span>
+<span class="r-in"><span class="va">test</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span><span class="fl">3</span>, mu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, sigma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.134594 2.253490 1.149088</span>
 </code></pre></div>
     </div>
   </div>

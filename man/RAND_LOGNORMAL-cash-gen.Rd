@@ -6,7 +6,11 @@
 \arguments{
 \item{n}{Integer. Number of observations.}
 
-\item{...}{Ignored.}
+\item{mu}{Numeric. If it is provided and has length \code{n}, values will be used in
+each realization.}
+
+\item{sigma}{Numeric. If it is provided and has length \code{n}, values will be used in
+each realization.}
 }
 \value{
 A vector of numeric values.
@@ -18,6 +22,8 @@ This function generates random values from the random variable.
 
 test <- RAND_LOGNORMAL$instantiation(mu = 1, sigma = 2)
 test$gen(10)
+
+test$gen(3, mu = c(0,1,2), sigma = c(1,2,3))
 }
 \seealso{
 \code{\link[stats:Lognormal]{stats::rlnorm()}}

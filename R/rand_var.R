@@ -70,8 +70,17 @@ class_RAND_UNIFORM <- function(env = new.env(parent = parent.frame())) {
     return(invisible(NULL))
   }
 
-  gen_ <- function(n, ...) {
-    stats::runif(n, self$prm$a, self$prm$b)
+  gen_ <- function(n, a = NULL, b = NULL) {
+
+    if (is.null(a)) a <- self$prm$a
+    if (is.null(b)) b <- self$prm$b
+
+    if (length(a) == 1 & length(b) == 1) return(stats::runif(n, a, b))
+
+    if (length(a) == 1) a <- rep(a, n)
+    if (length(b) == 1) b <- rep(b, n)
+
+    unlist(lapply(1:n, function(i) stats::runif(1, a[i], b[i])))
   }
 
   E_ <- function() (self$prm$a + self$prm$b)/2
@@ -104,8 +113,17 @@ class_RAND_NORMAL <- function(env = new.env(parent = parent.frame())) {
     return(invisible(NULL))
   }
 
-  gen_ <- function(n, ...) {
-    stats::rnorm(n, self$prm$mu, self$prm$sigma)
+  gen_ <- function(n, mu = NULL, sigma = NULL) {
+
+    if (is.null(mu)) mu <- self$prm$mu
+    if (is.null(sigma)) sigma <- self$prm$sigma
+
+    if (length(mu) == 1 & length(sigma) == 1) return(stats::rnorm(n, mu, sigma))
+
+    if (length(mu) == 1) mu <- rep(mu, n)
+    if (length(sigma) == 1) sigma <- rep(sigma, n)
+
+    unlist(lapply(1:n, function(i) stats::rnorm(1, mu[i], sigma[i])))
   }
 
   E_ <- function() self$prm$mu
@@ -136,8 +154,17 @@ class_RAND_LOGNORMAL <- function(env = new.env(parent = parent.frame())) {
     return(invisible(NULL))
   }
 
-  gen_ <- function(n, ...) {
-    stats::rlnorm(n, self$prm$mu, self$prm$sigma)
+  gen_ <- function(n, mu = NULL, sigma = NULL) {
+
+    if (is.null(mu)) mu <- self$prm$mu
+    if (is.null(sigma)) sigma <- self$prm$sigma
+
+    if (length(mu) == 1 & length(sigma) == 1) return(stats::rlnorm(n, mu, sigma))
+
+    if (length(mu) == 1) mu <- rep(mu, n)
+    if (length(sigma) == 1) sigma <- rep(sigma, n)
+
+    unlist(lapply(1:n, function(i) stats::rlnorm(1, mu[i], sigma[i])))
   }
 
   E_ <- function() exp(self$prm$mu + self$prm$sigma^2/2)
@@ -169,9 +196,25 @@ class_RAND_UNIFORM_D <- function(env = new.env(parent = parent.frame())) {
     return(invisible(NULL))
   }
 
-  gen_ <- function(n, ...) {
-    cand <- stats::runif(self$prm$k, self$prm$a, self$prm$b)
-    sample(cand, n, replace = TRUE)
+  gen_ <- function(n, a = NULL, b = NULL, k = NULL) {
+
+    if (is.null(a)) a <- self$prm$a
+    if (is.null(b)) b <- self$prm$b
+    if (is.null(k)) k <- self$prm$k
+
+    if (length(a) == 1 & length(b) == 1 & length(k) == 1) {
+      cand <- stats::runif(k, a, b)
+      sample(cand, n, replace = TRUE)
+    }
+
+    if (length(a) == 1) a <- rep(a, n)
+    if (length(b) == 1) b <- rep(b, n)
+    if (length(k) == 1) k <- rep(k, n)
+
+    unlist(lapply(1:n, function(i) {
+      cand <- stats::runif(k[i], a[i], b[i])
+      sample(cand, 1, replace = TRUE)
+      }))
   }
 
   E_ <- function() (self$prm$a + self$prm$b)/2
