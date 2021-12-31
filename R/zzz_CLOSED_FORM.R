@@ -117,7 +117,13 @@ CLOSED_FORM$expr
 #'
 #' @description This function will be called after an instance is built. User
 #' input will be stored in the environment. Any simple expressions can be provided,
-#' as long as all the symbols exist in the current environment.
+#' as long as all the symbols exist in the current environment. Note that this
+#' function tries to evaluate **ALL the atomic symbols** in the expression during
+#' initialization, and store the values in the object. Hence, calls like
+#' `a$b` will also be decomposed as `$`, `a` and `b`, where `b` will be
+#' interpreted as **a variable "b" exists in the current environment**. Therefore,
+#' use `~a[["b"]]` instead of `~a$b`. And pre-define function like
+#' `myfun = function() 1`, then use it in the expression `~myfun()`.
 #' \cr
 #' \cr
 #' Random variables will be replaced with a vector of random values when is
