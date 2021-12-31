@@ -6,7 +6,11 @@
 \arguments{
 \item{n}{Integer. Number of observations.}
 
-\item{...}{Ignored.}
+\item{a}{Numeric. If it is provided and has length \code{n}, values will be used in
+each realization.}
+
+\item{b}{Numeric. If it is provided and has length \code{n}, values will be used in
+each realization.}
 }
 \value{
 A vector of numeric values.
@@ -18,6 +22,8 @@ This function generates random values from the random variable.
 
 test <- RAND_UNIFORM$instantiation(a = 1, b = 2)
 test$gen(10)
+
+test$gen(3, a = c(1,2,3), b = c(2,3,4))
 }
 \seealso{
 \code{\link[stats:Uniform]{stats::runif()}}

@@ -166,7 +166,10 @@ RAND_UNIFORM$..init..
 #'
 #' @description This function generates random values from the random variable.
 #' @param n Integer. Number of observations.
-#' @param ... Ignored.
+#' @param a Numeric. If it is provided and has length `n`, values will be used in
+#' each realization.
+#' @param b Numeric. If it is provided and has length `n`, values will be used in
+#' each realization.
 #' @return A vector of numeric values.
 #' @seealso [stats::runif()]
 #'
@@ -174,6 +177,8 @@ RAND_UNIFORM$..init..
 #'
 #' test <- RAND_UNIFORM$instantiation(a = 1, b = 2)
 #' test$gen(10)
+#'
+#' test$gen(3, a = c(1,2,3), b = c(2,3,4))
 RAND_UNIFORM$gen
 
 
@@ -218,7 +223,10 @@ RAND_NORMAL$..init..
 #'
 #' @description This function generates random values from the random variable.
 #' @param n Integer. Number of observations.
-#' @param ... Ignored.
+#' @param mu Numeric. If it is provided and has length `n`, values will be used in
+#' each realization.
+#' @param sigma Numeric. If it is provided and has length `n`, values will be used in
+#' each realization.
 #' @return A vector of numeric values.
 #' @seealso [stats::rnorm()]
 #'
@@ -226,6 +234,8 @@ RAND_NORMAL$..init..
 #'
 #' test <- RAND_NORMAL$instantiation(mu = 1, sigma = 2)
 #' test$gen(10)
+#'
+#' test$gen(3, mu = c(0,1,2), sigma = c(1,2,4))
 RAND_NORMAL$gen
 
 
@@ -270,7 +280,10 @@ RAND_LOGNORMAL$..init..
 #'
 #' @description This function generates random values from the random variable.
 #' @param n Integer. Number of observations.
-#' @param ... Ignored.
+#' @param mu Numeric. If it is provided and has length `n`, values will be used in
+#' each realization.
+#' @param sigma Numeric. If it is provided and has length `n`, values will be used in
+#' each realization.
 #' @return A vector of numeric values.
 #' @seealso [stats::rlnorm()]
 #'
@@ -278,6 +291,8 @@ RAND_LOGNORMAL$..init..
 #'
 #' test <- RAND_LOGNORMAL$instantiation(mu = 1, sigma = 2)
 #' test$gen(10)
+#'
+#' test$gen(3, mu = c(0,1,2), sigma = c(1,2,3))
 RAND_LOGNORMAL$gen
 
 
@@ -324,7 +339,12 @@ RAND_UNIFORM_D$..init..
 #'
 #' @description This function generates random values from the random variable.
 #' @param n Integer. Number of observations.
-#' @param ... Ignored.
+#' @param a Numeric. If it is provided and has length `n`, values will be used in
+#' each realization.
+#' @param b Numeric. If it is provided and has length `n`, values will be used in
+#' each realization.
+#' @param k Numeric. If it is provided and has length `n`, values will be used in
+#' each realization.
 #' @return A vector of numeric values.
 #' @seealso [stats::runif()], [sample()]
 #'
@@ -332,4 +352,6 @@ RAND_UNIFORM_D$..init..
 #'
 #' test <- RAND_UNIFORM_D$instantiation(a = 1, b = 2, k = 2)
 #' test$gen(10)
+#'
+#' test$gen(3, a = c(1,2,3), b = c(2,3,4), k = 1)
 RAND_UNIFORM_D$gen
