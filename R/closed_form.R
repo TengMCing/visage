@@ -38,19 +38,18 @@ class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
         # Get the value of the symbol from the environment
         self$sym[[sym]] <- eval(sym, envir = env)
 
+        # Mark the symbol as "other"
+        self$sym_type[[sym]] <- "other"
+
         # If it is an `oop` object
         if ("oop" %in% class(self$sym[[sym]])) {
 
-          # And it has the method `gen`
-          if (is.function(self$sym[[sym]]$gen)) {
+          # And it has the method `gen` and it is an instance
+          if (is.function(self$sym[[sym]]$gen) & self$sym[[sym]]$..instantiated..) {
 
             # Then mark it as random variable or closed form
             self$sym_type[[sym]] <- "rand_var or closed_form"
           }
-        } else {
-
-          # Otherwise, mark it as other
-          self$sym_type[[sym]] <- "other"
         }
       }
 
@@ -81,7 +80,7 @@ class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
   compute_ <- function() {
 
     # Compute the closed form expression without generating any random values via `gen` method
-    eval(self$expr, envir = self$var)
+    eval(self$expr, envir = self$sym)
   }
 
 # gen ---------------------------------------------------------------------
@@ -112,7 +111,7 @@ class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
       if (!is.null(rhs[[i]])) {
         value_list[[i]] <- rhs[[i]]
         next
-        }
+      }
 
       # Use the `gen` method to generate random values
       if ("CLOSED_FORM" %in% self$sym[[i]]$..class..) {
