@@ -8,7 +8,7 @@ reference:
   - calc_p_value_comb
   - calc_p_value_multi
   - eval_p_value
-- title: "OOP"
+- title: "OOP tools"
   desc: >
     Functions for building an OOP system
   contents:
@@ -17,6 +17,11 @@ reference:
   - copy_attr
   - new_class
   - print.oop
+- title: "Portals to class instantiation methods"
+  desc: >
+    Functions to build an instance
+  contents:
+  - base_
 - title: "Base class"
   desc: >
     BASE class

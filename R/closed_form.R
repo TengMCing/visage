@@ -146,6 +146,13 @@ class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
     return(list(lhs = lhs, rhs = rhs))
   }
 
+
+# as_dataframe ------------------------------------------------------------
+
+ as_dataframe_ <- function(dat, lhs = ".lhs") {
+   cbind(`names<-`(data.frame(.lhs = dat$lhs), lhs), as.data.frame(dat$rhs))
+ }
+
 # str ---------------------------------------------------------------------
 
   str_ <- function() {
@@ -169,6 +176,7 @@ class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
                   ..str.. = str_,
                   ast = ast_,
                   compute = compute_,
+                  as_dataframe = as_dataframe_,
                   gen = gen_)
 
   return(env)
