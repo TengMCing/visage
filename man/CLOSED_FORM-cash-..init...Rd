@@ -4,7 +4,7 @@
 \alias{CLOSED_FORM$..init..}
 \title{Initialization method}
 \arguments{
-\item{epxr}{Formula. Only the right hand side of the last \code{~} will be kept as
+\item{expr}{Formula. Only the right hand side of the last \code{~} will be kept as
 the final expression.}
 }
 \value{

@@ -132,7 +132,7 @@ CLOSED_FORM$expr
 #' \cr
 #' Hierarchical closed form expression will also be replaced with a vector of
 #' values when is called by the `gen` method.
-#' @param epxr Formula. Only the right hand side of the last `~` will be kept as
+#' @param expr Formula. Only the right hand side of the last `~` will be kept as
 #' the final expression.
 #' @return No return value, called for side effects.
 #'

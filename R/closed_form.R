@@ -8,7 +8,6 @@ class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
 
   new_class(BASE, env = env, class_name = "CLOSED_FORM")
 
-
 # init --------------------------------------------------------------------
 
   init_ <- function(expr) {
