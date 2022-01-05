@@ -95,6 +95,7 @@ reference:
   - CLOSED_FORM$expr
   - CLOSED_FORM$compute
   - CLOSED_FORM$gen
+  - CLOSED_FORM$as_dataframe
 - title: "Visual inference linear model class"
   desc: >
     Visual inference linear model class
