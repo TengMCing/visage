@@ -95,6 +95,11 @@ reference:
   - CLOSED_FORM$expr
   - CLOSED_FORM$compute
   - CLOSED_FORM$gen
+- title: "Visual inference linear model class"
+  desc: >
+    Visual inference linear model class
+  contents:
+  - VI_MODEL
 - title: "Utilties"
   desc: >
     Utility functions
