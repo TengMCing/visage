@@ -152,6 +152,7 @@ class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
 
    # Check whether is a vector or a list
    if (is.atomic(dat)) return(`names<-`(data.frame(.lhs = dat), lhs))
+   if (length(dat$rhs) == 0) return(`names<-`(data.frame(.lhs = dat$lhs), lhs))
    cbind(`names<-`(data.frame(.lhs = dat$lhs), lhs), as.data.frame(dat$rhs))
  }
 

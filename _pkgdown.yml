@@ -101,6 +101,7 @@ reference:
     Visual inference linear model class
   contents:
   - VI_MODEL
+  - VI_MODEL$prm
 - title: "Utilties"
   desc: >
     Utility functions

@@ -18,11 +18,11 @@ inherited from \link{BASE}.
 Parent class: \link{BASE}
 \cr
 \cr
-New attributes: VI_MODEL$prm, VI_MODEL$prm_type, VI_MODEL$..cache..,
+New attributes: \link{VI_MODEL$prm}, VI_MODEL$prm_type, VI_MODEL$..cache..,
 VI_MODEL$formula, VI_MODEL$null_formula, VI_MODEL$alt_formula
 \cr
 \cr
-New methods: CLOSED_FORM$..init.., CLOSED_FORM$..str..,
-CLOSED_FORM$compute, CLOSED_FORM$gen, CLOSED_FORM$ast
+New methods: VI_MODEL$..init.., VI_MODEL$..str..,
+VI_MODEL$compute, CLOSED_FORM$gen, CLOSED_FORM$ast
 }
 \keyword{datasets}

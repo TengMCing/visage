@@ -85,16 +85,16 @@ makes the expression potentially deterministic.</p></dd>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Generate 5 values</span></span>
 <span class="r-in"><span class="va">cf</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 10.894910  8.483414 10.742744  8.527665 11.035049</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  8.404349  9.747796  8.363312  9.140859 10.576679</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Generate 5 values, and keep RHS</span></span>
 <span class="r-in"><span class="va">cf</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span><span class="fl">5</span>, rhs_val <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $lhs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 10.239596 10.015338  9.930370  8.586752  8.187900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  8.360035  9.603151  8.861958 10.135613 11.085084</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rhs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rhs$b</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.69491694 0.62016423 0.59184136 0.14396878 0.01101803</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.06839646 0.48276844 0.23570403 0.66025568 0.97674619</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"></span>
@@ -105,22 +105,22 @@ makes the expression potentially deterministic.</p></dd>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Generate 5 values</span></span>
 <span class="r-in"><span class="va">cf2</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  5.303980 11.039621  3.109313 12.618713  9.536795</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  8.563612  9.200085 13.258481  6.350939 10.124176</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Generate 5 values, and keep RHS</span></span>
 <span class="r-in"><span class="va">cf2</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span><span class="fl">5</span>, rhs_val <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $lhs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8.957806 7.195726 8.360213 7.167968 9.521663</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  3.873936  1.956822  7.957746  9.887515 11.044012</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rhs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rhs$b</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4421652 0.8850594 0.1261303 0.6527459 0.9816537</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.003710517 0.063194050 0.455737088 0.193450156 0.828552579</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rhs$cf</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  9.481341 10.810024  8.533236 10.113083 11.099806</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  8.165977  8.344428  9.522057  8.735196 10.640503</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rhs$d</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.17451180 -1.20476593 -0.05767451 -0.98170506 -0.52604779</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -1.4306803 -2.1292020 -0.5214369  0.3841064  0.1345028</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"></span>
@@ -130,11 +130,11 @@ makes the expression potentially deterministic.</p></dd>
 <span class="r-in"><span class="co"># Both `d` will share the same values</span></span>
 <span class="r-in"><span class="va">cf3</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span><span class="fl">5</span>, rhs_val <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $lhs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  2.2166963 -0.7690226  0.6897635  1.2909091  0.1090786</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  1.512128 -1.956682 -1.992330 -1.231243 -3.228502</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rhs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rhs$d</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  1.10834816 -0.38451129  0.34488175  0.64545453  0.05453928</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.7560642 -0.9783412 -0.9961652 -0.6156214 -1.6142508</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"></span>
@@ -144,14 +144,14 @@ makes the expression potentially deterministic.</p></dd>
 <span class="r-in"><span class="co"># Both `cf3` will share the same values, both `d` will share the same values as well</span></span>
 <span class="r-in"><span class="va">cf4</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span><span class="fl">5</span>, rhs_val <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $lhs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -5.1934864 -3.0943924 10.1486139 -0.1012362  4.1880750</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  -6.1978726 -11.6404243   0.4345447   3.6109804  -3.8054934</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rhs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rhs$d</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -1.29837159 -0.77359810  2.53715347 -0.02530905  1.04701875</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -1.5494681 -2.9101061  0.1086362  0.9027451 -0.9513733</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rhs$cf3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -2.5967432 -1.5471962  5.0743069 -0.0506181  2.0940375</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -3.0989363 -5.8202122  0.2172724  1.8054902 -1.9027467</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"></span>
@@ -162,17 +162,17 @@ makes the expression potentially deterministic.</p></dd>
 <span class="r-in"><span class="co"># Both `d` in `cf3` and `cf4` will share the same value</span></span>
 <span class="r-in"><span class="va">cf5</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span><span class="fl">5</span>, rhs_val <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $lhs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  3.9472542  9.0015336  0.1527773 -5.7874584  2.3285594</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.9722759 -1.3531232 -4.4537095  7.1383862 -2.4570787</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rhs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rhs$d</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.65787570  1.50025560  0.02546289 -0.96457640  0.38809323</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.1620460 -0.2255205 -0.7422849  1.1897310 -0.4095131</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rhs$cf3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  1.31575140  3.00051120  0.05092578 -1.92915279  0.77618646</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.3240920 -0.4510411 -1.4845698  2.3794621 -0.8190262</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rhs$cf4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  2.6315028  6.0010224  0.1018516 -3.8583056  1.5523729</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.6481839 -0.9020821 -2.9691397  4.7589242 -1.6380524</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"></span>

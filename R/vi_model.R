@@ -16,27 +16,57 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
 
 # init --------------------------------------------------------------------
 
-  init_ <- function(formula = NULL, null_formula = NULL, alt_formula = NULL) {
+  init_ <- function(prm = list(), prm_type = list(), formula = self$formula) {
+
+    self$prm <- prm
+    self$prm_type <- prm_type
+
+    if (is.null(formula)) {
+      stop("`formula` is missing! Unable to create `y`.")
+    } else {
+
+      # Update the formula
+      self$set_formula(formula = formula)
+    }
+
+    # Assign values of `prm` into current environment
+    list2env(prm, envir = environment())
+
+    # Change the environment of the formula to the current environment
+    environment(formula) <- environment()
+
+    # Set the y variable
+    self$prm$y <- closed_form(formula, env = new.env(parent = parent.env(self)))
+  }
+
+# set_formula -------------------------------------------------------------
+
+  set_formula_ <- function(formula = NULL, null_formula = NULL, alt_formula = NULL) {
 
     # Define DGP
-    self$formula <- formula
+    if (!is.null(formula)) {
+      self$formula <- formula
+      environment(self$formula) <- self
+    }
 
     # Define wrong model fit
-    self$null_formula <- null_formula
+    if (!is.null(null_formula)) {
+      self$null_formula <- null_formula
+      environment(self$null_formula) <- self
+    }
 
     # Define correct model fit
-    self$alt_formula <- alt_formula
-
-    environment(self$formula) <- self
-    environment(self$null_formula) <- self
-    environment(self$alt_formula) <- self
+    if (!is.null(alt_formula)) {
+      self$alt_formula <- alt_formula
+      environment(self$alt_formula) <- self
+    }
   }
 
 # gen ---------------------------------------------------------------------
 
   gen_ <- function(n, fit_model = FALSE, test = FALSE) {
 
-    # Generate the data frame containing y, x, z, e
+    # Generate the data frame from the expression
     dat <- CLOSED_FORM$as_dataframe(self$prm$y$gen(n, rhs_val = TRUE), "y")
 
     # If requires residuals and fitted values, fit the model
@@ -46,6 +76,7 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
       dat$.fitted <- mod$fitted.values
     }
 
+    # If requires test statistics, get the test results
     if (test) {
       test_results <- self$test(dat)
       dat$test_name <- test_results$name
@@ -60,8 +91,8 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
 
   gen_lineup_ <- function(n, k = 20, pos = NULL) {
 
-    # Generate data with fitted values and residuals
-    dat <- self$gen(n, fit_model = TRUE)
+    # Generate data with fitted values and residuals and test results
+    dat <- self$gen(n, fit_model = TRUE, test = TRUE)
 
     # Get the model
     mod <- self$fit(dat)
@@ -111,6 +142,12 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
     # Update the random y
     dat$y <- dat$.resid + .fitted
 
+    # Get the test result from the updated data
+    test_results <- self$test(dat)
+    dat$test_name <- test_results$name
+    dat$statistic <- test_results$statistic
+    dat$p_value <- test_results$p_value
+
     # Label the data as null data
     dat$null <- TRUE
 
@@ -131,6 +168,8 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
     if (missing(dat) && (formula == self$..cache..$formula) && cache) {
       return(self$..cache..$mod)
     }
+
+    if (is.null(formula)) stop("`formula` is missing! Can't fit the model.")
 
     # Correct the environment of the formula
     environment(formula) <- environment()
@@ -221,6 +260,9 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
       ggplot2::facet_wrap(~k)
   }
 
+# str ---------------------------------------------------------------------
+
+
   str_ <- function() {
 
     if (!self$..instantiated..) {
@@ -242,6 +284,7 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
   register_method(env,
                   ..init.. = init_,
                   ..str.. = str_,
+                  set_formula = set_formula_,
                   gen = gen_,
                   test = test_,
                   fit = fit_,
@@ -265,10 +308,10 @@ class_HIGHER_ORDER_MODEL <- function(env = new.env(parent = parent.frame())) {
 
   new_class(VI_MODEL, env = env, class_name = "HIGHER_ORDER_MODEL")
 
-  # Run the init method from VI_MODEL, but for the class
-  use_method(env, VI_MODEL$..init..)(formula = y ~ 1 + (2-c) * x + c * z + a * (((2-c) * x)^2 + (c * z)^2) + b * (((2-c) * x)^3 + (c * z)^3) + e,
-                                     null_formula = y ~ x + z,
-                                     alt_formula = y ~ x + I(x^2) + I(x^3) + z + I(z^2) + I(z^3))
+  # Run the `set_formula` method for the class
+  env$set_formula(formula = y ~ 1 + (2-c) * x + c * z + a * (((2-c) * x)^2 + (c * z)^2) + b * (((2-c) * x)^3 + (c * z)^3) + e,
+                  null_formula = y ~ x + z,
+                  alt_formula = y ~ x + I(x^2) + I(x^3) + z + I(z^2) + I(z^3))
 
 # init --------------------------------------------------------------------
 
@@ -276,22 +319,11 @@ class_HIGHER_ORDER_MODEL <- function(env = new.env(parent = parent.frame())) {
                     x = rand_uniform(env = new.env(parent = parent.env(self))),
                     z = rand_uniform(env = new.env(parent = parent.env(self))),
                     e = rand_normal(env = new.env(parent = parent.env(self)))) {
-    self$prm$a <- a
-    self$prm_type$a <- "other"
-    self$prm$b <- b
-    self$prm_type$b <- "other"
-    self$prm$c <- c
-    self$prm_type$c <- "other"
-    self$prm$x <- x
-    self$prm_type$x <- "rand_var or closed_form"
-    self$prm$z <- z
-    self$prm_type$x <- "rand_var or closed_form"
-    self$prm$e <- e
-    self$prm_type$x <- "rand_var or closed_form"
 
-    f <- self$formula
-    environment(f) <- environment()
-    self$prm$y <- closed_form(f, env = new.env(parent = parent.env(self)))
+    use_method(self, VI_MODEL$..init..)(
+      prm = list(a = a, b = b, c = c, x = x, z = z, e = e),
+      prm_type = list(a = "other", b = "other", c = "other", x = "rand_var or closed_form", z = "rand_var or closed_form", e = "rand_var or closed_form")
+      )
   }
 
 # register_method ---------------------------------------------------------
