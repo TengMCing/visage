@@ -246,7 +246,7 @@ copy_attr <- function(env, ..., avoid = c("..method_env..", "..init_call..")) {
 
   if (!is.environment(env)) stop("`env` is not an environment!")
 
-  # get list of classes
+  # Get list of classes
   class_list <- list(...)
 
   if (length(class_list) == 0) stop("At least provide one source to copy from!")
@@ -256,24 +256,29 @@ copy_attr <- function(env, ..., avoid = c("..method_env..", "..init_call..")) {
     method_list <- list()
     attr_list <- list()
 
-    # get list of methods
+    # Get list of methods
     for (method_name in cls$..methods..()) {
       if (method_name %in% avoid) next
       method_list[[method_name]] <- cls[[method_name]]
     }
 
-    # get list of attributes
+    # Get list of attributes
     for (attr_name in setdiff(cls$..dict..(), cls$..methods..())) {
       if (attr_name %in% avoid) next
       attr_list[[attr_name]] <- cls[[attr_name]]
+
+      # Check whether or not it is a formula
+      if ("formula" %in% class(attr_list[[attr_name]])) {
+        environment(attr_list[[attr_name]]) <- env
+      }
     }
 
     method_list$env <- env
 
-    # bind methods to the target container
+    # Bind methods to the target container
     do.call(register_method, method_list)
 
-    # set attributes
+    # Set attributes
     list2env(attr_list, envir = env)
   }
 }
