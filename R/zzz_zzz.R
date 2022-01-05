@@ -34,3 +34,7 @@ rand_lognormal <- RAND_LOGNORMAL$instantiation
 #' @describeIn portal [CLOSED_FORM]
 #' @export
 closed_form <- CLOSED_FORM$instantiation
+
+#' @describeIn portal [VI_MODEL]
+#' @export
+vi_model <- VI_MODEL$instantiation

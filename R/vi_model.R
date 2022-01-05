@@ -9,6 +9,7 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
   new_class(BASE, env = env, class_name = "VI_MODEL")
 
   env$prm <- list()
+  env$prm_type <- list()
 
   # Define a place holder for cached model, data and null formula
   env$..cache.. <- list(dat = NULL, formula = NULL, mod = NULL)
@@ -62,7 +63,7 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
     # Generate data with fitted values and residuals
     dat <- self$gen(n, fit_model = TRUE)
 
-    # Use the cached model
+    # Get the model
     mod <- self$fit(dat)
 
     # Generate a random position for the true plot
@@ -124,10 +125,10 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
 
 # fit ---------------------------------------------------------------------
 
-  fit_ <- function(dat = self$..cache..$dat, formula = self$null_formula, ...) {
+  fit_ <- function(dat = self$..cache..$dat, formula = self$null_formula, cache = FALSE, ...) {
 
     # If the dat is not provided and the formula is the same, then return the cached model
-    if (missing(dat) && (formula == self$..cache..$formula)) {
+    if (missing(dat) && (formula == self$..cache..$formula) && cache) {
       return(self$..cache..$mod)
     }
 
@@ -138,10 +139,12 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
     mod <- eval(substitute(stats::lm(formula = formula, data = dat, ...)))
 
     # Cache the model, data and the formula
-    self$..cache..$mod <- mod
-    self$..cache..$formula <- formula
-    environment(self$..cache..$formula) <- self
-    self$..cache..$dat <- dat
+    if (cache) {
+      self$..cache..$mod <- mod
+      self$..cache..$formula <- formula
+      environment(self$..cache..$formula) <- self
+      self$..cache..$dat <- dat
+    }
 
     return(mod)
   }
@@ -218,11 +221,27 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
       ggplot2::facet_wrap(~k)
   }
 
+  str_ <- function() {
+
+    if (!self$..instantiated..) {
+      return(paste0("<", self$..type.., " class>"))
+    }
+
+    results <- use_method(self$prm$y, CLOSED_FORM$..str..)()
+    results <- paste0("<", self$..type.., " object>\n ",
+                      gsub("<CLOSED_FORM object>\n EXPR", "y", results, fixed = TRUE))
+
+    for (i in names(self$prm_type)[self$prm_type == "other"]) results <- paste0(results, "\n  - ", i, ": ", self$prm[[i]])
+
+    results
+  }
+
 
 # register_method ---------------------------------------------------------
 
   register_method(env,
                   ..init.. = init_,
+                  ..str.. = str_,
                   gen = gen_,
                   test = test_,
                   fit = fit_,
@@ -242,7 +261,7 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
 class_HIGHER_ORDER_MODEL <- function(env = new.env(parent = parent.frame())) {
 
   # Pass CMD check
-  .fitted <- .resid <- self <- NULL
+  self <- NULL
 
   new_class(VI_MODEL, env = env, class_name = "HIGHER_ORDER_MODEL")
 
@@ -258,11 +277,17 @@ class_HIGHER_ORDER_MODEL <- function(env = new.env(parent = parent.frame())) {
                     z = rand_uniform(env = new.env(parent = parent.env(self))),
                     e = rand_normal(env = new.env(parent = parent.env(self)))) {
     self$prm$a <- a
+    self$prm_type$a <- "other"
     self$prm$b <- b
+    self$prm_type$b <- "other"
     self$prm$c <- c
+    self$prm_type$c <- "other"
     self$prm$x <- x
+    self$prm_type$x <- "rand_var or closed_form"
     self$prm$z <- z
+    self$prm_type$x <- "rand_var or closed_form"
     self$prm$e <- e
+    self$prm_type$x <- "rand_var or closed_form"
 
     f <- self$formula
     environment(f) <- environment()
