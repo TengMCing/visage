@@ -16,7 +16,7 @@
 #' \cr
 #' \cr
 #' New methods: [VI_MODEL$..init..], [VI_MODEL$..str..], [VI_MODEL$set_formula],
-#' [VI_MODEL$gen], [VI_MODEL$test], [VI_MODEL$fit]
+#' [VI_MODEL$gen], [VI_MODEL$test], [VI_MODEL$fit], [VI_MODEL$plot_resid]
 #' @export
 VI_MODEL <- class_VI_MODEL()
 
@@ -345,6 +345,28 @@ VI_MODEL$test
 #'
 #' test$fit(test$gen(100000), formula = y ~ x + I(x^2))
 VI_MODEL$fit
+
+#' Plot the residuals vs fitted values plot
+#'
+#' @name VI_MODEL$plot_resid
+#'
+#' @description This function generate a residuals vs fitted values plot.
+#' @param dat Data frame. A data frame containing `.resid` and `.fitted`.
+#' @return A ggplot.
+#'
+#' @examples
+#'
+#' # Instantiation
+#' x <- rand_uniform()
+#' e <- rand_normal()
+#' test <- vi_model(prm = list(x = x, e = e),
+#'                  prm_type = list(x = "r", e = "r"),
+#'                  formula = y ~ 1 + x + 10 * x^2 + e,
+#'                  null_formula = y ~ x,
+#'                  alt_formula = y ~ x + I(x^2))
+#'
+#' test$plot_resid(test$gen(1000, fit_model = TRUE))
+VI_MODEL$plot_resid
 
 
 HIGHER_ORDER_MODEL <- class_HIGHER_ORDER_MODEL()
