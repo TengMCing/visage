@@ -101,23 +101,24 @@ reference:
     Visual inference linear model class
   contents:
   - VI_MODEL
+  - VI_MODEL$..init..
+  - VI_MODEL$..str..
+  - VI_MODEL$..cache..
   - VI_MODEL$prm
   - VI_MODEL$prm_type
-  - VI_MODEL$..cache..
   - VI_MODEL$formula
   - VI_MODEL$null_formula
   - VI_MODEL$alt_formula
-  - VI_MODEL$..init..
-  - VI_MODEL$..str..
   - VI_MODEL$set_formula
-  - VI_MODEL$gen
   - VI_MODEL$test
   - VI_MODEL$fit
-  - VI_MODEL$plot_resid
+  - VI_MODEL$gen
+  - VI_MODEL$gen_lineup
+  - VI_MODEL$null_resid
   - VI_MODEL$plot
+  - VI_MODEL$plot_resid
   - VI_MODEL$plot_lineup
   - VI_MODEL$rss
-  - VI_MODEL$null_resid
 - title: "Utilties"
   desc: >
     Utility functions

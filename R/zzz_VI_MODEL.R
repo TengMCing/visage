@@ -17,7 +17,8 @@
 #' \cr
 #' New methods: [VI_MODEL$..init..], [VI_MODEL$..str..], [VI_MODEL$set_formula],
 #' [VI_MODEL$gen], [VI_MODEL$test], [VI_MODEL$fit], [VI_MODEL$plot_resid],
-#' [VI_MODEL$plot], [VI_MODEL$plot_lineup], [VI_MODEL$rss]
+#' [VI_MODEL$plot], [VI_MODEL$plot_lineup], [VI_MODEL$rss],
+#' [VI_MODEL$null_resid], [VI_MODEL$gen_lineup]
 #' @export
 VI_MODEL <- class_VI_MODEL()
 
@@ -498,18 +499,30 @@ VI_MODEL$rss
 #' test$null_resid(dat, test$fit(dat), test = TRUE)
 VI_MODEL$null_resid
 
+#' Generating random values from the expression of `y`, and forms a lineup
+#'
+#' @name VI_MODEL$gen_lineup
+#'
+#' @description This function generates random values from the expression of
+#' `y`, and keeps all the right hand side information in a data frame.
+#' @param n Integer. Number of observations.
+#' @param k Integer. Number of plots in the lineup. Default is `k = 20`.
+#' @param pos Integer. Position of the true data plot. Default is `pos = NULL`,
+#' which means the position is random.
+#' @return A data frame.
+#'
+#' @examples
+#'
+#' # Instantiation
+#' x <- rand_uniform()
+#' e <- rand_normal()
+#' test <- vi_model(prm = list(x = x, e = e),
+#'                  prm_type = list(x = "r", e = "r"),
+#'                  formula = y ~ 1 + x + x^2 + e,
+#'                  null_formula = y ~ x,
+#'                  alt_formula = y ~ x + I(x^2))
+#'
+#' test$gen_lineup(10, k = 3)
+VI_MODEL$gen_lineup
+
 HIGHER_ORDER_MODEL <- class_HIGHER_ORDER_MODEL()
-
-
-# ..init.. = init_,
-# ..str.. = str_,
-# set_formula = set_formula_,
-# gen = gen_,
-# test = test_,
-# fit = fit_,
-# plot_resid = plot_resid_,
-# plot = plot_,
-# plot_lineup = plot_lineup_,
-# rss = rss_,
-# null_resid = null_resid_,
-# gen_lineup = gen_lineup_
