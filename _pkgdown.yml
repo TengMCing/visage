@@ -112,6 +112,7 @@ reference:
   - VI_MODEL$set_formula
   - VI_MODEL$gen
   - VI_MODEL$test
+  - VI_MODEL$fit
 - title: "Utilties"
   desc: >
     Utility functions
