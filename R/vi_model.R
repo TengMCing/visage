@@ -16,7 +16,7 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
 
 # init --------------------------------------------------------------------
 
-  init_ <- function(prm = list(), prm_type = list(), formula = self$formula) {
+  init_ <- function(prm = list(), prm_type = list(), formula = self$formula, null_formula = NULL, alt_formula = NULL) {
 
     self$prm <- prm
     self$prm_type <- prm_type
@@ -26,7 +26,7 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
     } else {
 
       # Update the formula
-      self$set_formula(formula = formula)
+      self$set_formula(formula, null_formula, alt_formula)
     }
 
     # Assign values of `prm` into current environment
@@ -273,7 +273,7 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
     results <- paste0("<", self$..type.., " object>\n ",
                       gsub("<CLOSED_FORM object>\n EXPR", "y", results, fixed = TRUE))
 
-    for (i in names(self$prm_type)[self$prm_type == "other"]) results <- paste0(results, "\n  - ", i, ": ", self$prm[[i]])
+    for (i in names(self$prm_type)[self$prm_type == "o"]) results <- paste0(results, "\n  - ", i, ": ", self$prm[[i]])
 
     results
   }
@@ -322,7 +322,10 @@ class_HIGHER_ORDER_MODEL <- function(env = new.env(parent = parent.frame())) {
 
     use_method(self, VI_MODEL$..init..)(
       prm = list(a = a, b = b, c = c, x = x, z = z, e = e),
-      prm_type = list(a = "other", b = "other", c = "other", x = "rand_var or closed_form", z = "rand_var or closed_form", e = "rand_var or closed_form")
+      prm_type = list(a = "o", b = "o", c = "o", x = "r", z = "r", e = "r"),
+      formula = self$formula,
+      null_formula = self$null_formula,
+      alt_formula = self$alt_formula
       )
   }
 

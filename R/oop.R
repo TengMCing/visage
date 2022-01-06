@@ -266,11 +266,6 @@ copy_attr <- function(env, ..., avoid = c("..method_env..", "..init_call..")) {
     for (attr_name in setdiff(cls$..dict..(), cls$..methods..())) {
       if (attr_name %in% avoid) next
       attr_list[[attr_name]] <- cls[[attr_name]]
-
-      # Check whether or not it is a formula
-      if ("formula" %in% class(attr_list[[attr_name]])) {
-        environment(attr_list[[attr_name]]) <- env
-      }
     }
 
     method_list$env <- env
