@@ -18,9 +18,9 @@ x <- rand_uniform()
 e <- rand_normal()
 test <- vi_model(prm = list(x = x, e = e),
                  prm_type = list(x = "r", e = "r"),
-                 formula = y~x+x^2+e,
-                 null_formula = y~x,
-                 alt_formula = y~x+I(x^2))
+                 formula = y ~ 1 + x + x^2 + e,
+                 null_formula = y ~ x,
+                 alt_formula = y ~ x + I(x^2))
 
 test$..str..()
 }
