@@ -15,8 +15,8 @@
 #' [VI_MODEL$formula], [VI_MODEL$null_formula], [VI_MODEL$alt_formula]
 #' \cr
 #' \cr
-#' New methods: [VI_MODEL$..init..], [VI_MODEL$..str..],
-#' VI_MODEL$compute, CLOSED_FORM$gen, CLOSED_FORM$ast
+#' New methods: [VI_MODEL$..init..], [VI_MODEL$..str..], [VI_MODEL$set_formula],
+#' [VI_MODEL$gen], [VI_MODEL$test], [VI_MODEL$fit]
 #' @export
 VI_MODEL <- class_VI_MODEL()
 
@@ -316,6 +316,35 @@ VI_MODEL$gen
 #'
 #' test$test(dat, alt_formula = y ~ x + I(x^3))
 VI_MODEL$test
+
+#' Test the null model against the alternative model
+#'
+#' @name VI_MODEL$fit
+#'
+#' @description This function fit a linear model by using `stats::lm`.
+#' @param dat Data frame. A data frame containing all variables needed by the
+#' `formula`. Default is `dat = self$..cache..$dat`.
+#' @param formula Formula. Formula for fitting the model. Default
+#' is `formula = self$null_formula`.
+#' @param cache Boolean. Whether or not to cache the model. Default is `FALSE`.
+#' @param ... Arguments passed to `stats::lm`.
+#' @return A fitted linear model.
+#'
+#' @examples
+#'
+#' # Instantiation
+#' x <- rand_uniform()
+#' e <- rand_normal()
+#' test <- vi_model(prm = list(x = x, e = e),
+#'                  prm_type = list(x = "r", e = "r"),
+#'                  formula = y ~ 1 + x + x^2 + e,
+#'                  null_formula = y ~ x,
+#'                  alt_formula = y ~ x + I(x^2))
+#'
+#' test$fit(test$gen(100000))
+#'
+#' test$fit(test$gen(100000), formula = y ~ x + I(x^2))
+VI_MODEL$fit
 
 
 HIGHER_ORDER_MODEL <- class_HIGHER_ORDER_MODEL()
