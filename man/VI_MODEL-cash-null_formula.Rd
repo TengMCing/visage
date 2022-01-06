@@ -24,5 +24,5 @@ test$null_formula
 test$fit(test$gen(10))
 
 # F-test also needs to use the null model
-test$test(test$gen(10))
+test$test(test$gen(1000))
 }

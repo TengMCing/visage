@@ -133,7 +133,7 @@ VI_MODEL$formula
 #' test$fit(test$gen(10))
 #'
 #' # F-test also needs to use the null model
-#' test$test(test$gen(10))
+#' test$test(test$gen(1000))
 VI_MODEL$null_formula
 
 #' Formula for fitting the alternative model
@@ -160,7 +160,7 @@ VI_MODEL$null_formula
 #' test$fit(test$gen(10), test$alt_formula)
 #'
 #' # F-test also needs to use the alternative model
-#' test$test(test$gen(10))
+#' test$test(test$gen(1000))
 VI_MODEL$alt_formula
 
 #' Initialization method
@@ -283,6 +283,39 @@ VI_MODEL$set_formula
 #'
 #' test$gen(10, test = TRUE)
 VI_MODEL$gen
+
+#' Test the null model against the alternative model
+#'
+#' @name VI_MODEL$test
+#'
+#' @description This function test the null model against the alternative model.
+#' In this class, the test is a F-test computed using [stats::anova]. Derived
+#' classes may have their own test procedures.
+#' @param dat Data frame. A data frame containing all variables needed by the
+#' `null_formula` and `alt_formula`.
+#' @param null_formula Formula. Formula for fitting the null model. Default
+#' is `null_formula = self$null_formula`.
+#' @param alt_formula Formula. Formula for fitting the alternative model.
+#' Default is `alt_formula = self$alt_formula`.
+#' @return A list containing the test name, the test statistic and the p-value.
+#'
+#' @examples
+#'
+#' # Instantiation
+#' x <- rand_uniform()
+#' e <- rand_normal()
+#' test <- vi_model(prm = list(x = x, e = e),
+#'                  prm_type = list(x = "r", e = "r"),
+#'                  formula = y ~ 1 + x + x^2 + e,
+#'                  null_formula = y ~ x,
+#'                  alt_formula = y ~ x + I(x^2))
+#'
+#'
+#' dat <- test$gen(100000)
+#' test$test(dat)
+#'
+#' test$test(dat, alt_formula = y ~ x + I(x^3))
+VI_MODEL$test
 
 
 HIGHER_ORDER_MODEL <- class_HIGHER_ORDER_MODEL()
