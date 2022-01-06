@@ -114,6 +114,9 @@ reference:
   - VI_MODEL$test
   - VI_MODEL$fit
   - VI_MODEL$plot_resid
+  - VI_MODEL$plot
+  - VI_MODEL$plot_lineup
+  - VI_MODEL$rss
 - title: "Utilties"
   desc: >
     Utility functions
