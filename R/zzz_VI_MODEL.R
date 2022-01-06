@@ -33,7 +33,7 @@ VI_MODEL <- class_VI_MODEL()
 #' e <- rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
-#'                  formula = y~x+x^2+e)
+#'                  formula = y ~ 1 + x + x^2 + e)
 #' test$prm
 VI_MODEL$prm
 
@@ -56,7 +56,7 @@ VI_MODEL$prm
 #' e <- rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
-#'                  formula = y~x+x^2+e)
+#'                  formula = y ~ 1 + x + x^2 + e)
 #' test$prm_type
 VI_MODEL$prm_type
 
@@ -74,9 +74,9 @@ VI_MODEL$prm_type
 #' e <- rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
-#'                  formula = y~x+x^2+e,
-#'                  null_formula = y~x,
-#'                  alt_formula = y~x+I(x^2))
+#'                  formula = y ~ 1 + x + x^2 + e,
+#'                  null_formula = y ~ x,
+#'                  alt_formula = y ~ x + I(x^2))
 #'
 #' # Turn on cache
 #' test$fit(test$gen(10), cache = TRUE)
@@ -98,9 +98,9 @@ VI_MODEL$..cache..
 #' e <- rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
-#'                  formula = y~x+x^2+e,
-#'                  null_formula = y~x,
-#'                  alt_formula = y~x+I(x^2))
+#'                  formula = y ~ 1 + x + x^2 + e,
+#'                  null_formula = y ~ x,
+#'                  alt_formula = y ~ x + I(x^2))
 #'
 #' # A formula with environment equals to `test`
 #' test$formula
@@ -122,9 +122,9 @@ VI_MODEL$formula
 #' e <- rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
-#'                  formula = y~x+x^2+e,
-#'                  null_formula = y~x,
-#'                  alt_formula = y~x+I(x^2))
+#'                  formula = y ~ 1 + x + x^2 + e,
+#'                  null_formula = y ~ x,
+#'                  alt_formula = y ~ x + I(x^2))
 #'
 #' # A formula with environment equals to `test`
 #' test$null_formula
@@ -149,9 +149,9 @@ VI_MODEL$null_formula
 #' e <- rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
-#'                  formula = y~x+x^2+e,
-#'                  null_formula = y~x,
-#'                  alt_formula = y~x+I(x^2))
+#'                  formula = y ~ 1 + x + x^2 + e,
+#'                  null_formula = y ~ x,
+#'                  alt_formula = y ~ x + I(x^2))
 #'
 #' # A formula with environment equals to `test`
 #' test$alt_formula
@@ -192,9 +192,9 @@ VI_MODEL$alt_formula
 #' e <- rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
-#'                  formula = y~x+x^2+e,
-#'                  null_formula = y~x,
-#'                  alt_formula = y~x+I(x^2))
+#'                  formula = y ~ 1 + x + x^2 + e,
+#'                  null_formula = y ~ x,
+#'                  alt_formula = y ~ x + I(x^2))
 #'
 #' test
 VI_MODEL$..init..
@@ -215,12 +215,43 @@ VI_MODEL$..init..
 #' e <- rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
-#'                  formula = y~x+x^2+e,
-#'                  null_formula = y~x,
-#'                  alt_formula = y~x+I(x^2))
+#'                  formula = y ~ 1 + x + x^2 + e,
+#'                  null_formula = y ~ x,
+#'                  alt_formula = y ~ x + I(x^2))
 #'
 #' test$..str..()
 VI_MODEL$..str..
+
+#' Set formula for y, null model or alternative model
+#'
+#' @name VI_MODEL$set_formula
+#'
+#' @description This function store the formula in the environment, and lets
+#' them points to the environment. It is not recommended to modify the formula
+#' of `y` after the instance has been built, which may create confusion.
+#' @param formula Formula. This will be passed to `CLOSED_FORM$instantiation` to
+#' define a closed form expression for `y`. Default is `formula = NULL`.
+#' @param null_formula Formula. Formula for fitting the null model. Default is
+#' `NULL`.
+#' @param alt_formula Formula. Formula for fitting the alternative model.
+#' Default is `NULL`.
+#' @return No return value, called for side effects.
+#'
+#' @examples
+#'
+#' # Instantiation
+#' x <- rand_uniform()
+#' e <- rand_normal()
+#' test <- vi_model(prm = list(x = x, e = e),
+#'                  prm_type = list(x = "r", e = "r"),
+#'                  formula = y ~ 1 + x + x^2 + e,
+#'                  null_formula = y ~ x,
+#'                  alt_formula = y ~ x + I(x^2))
+#'
+#' test$set_formula(alt_formula = y ~ x + I(x^3))
+#' test$alt_formula
+VI_MODEL$set_formula
+
 
 HIGHER_ORDER_MODEL <- class_HIGHER_ORDER_MODEL()
 

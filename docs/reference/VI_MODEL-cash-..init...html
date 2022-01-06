@@ -88,14 +88,14 @@ Default is <code>NULL</code>.</p></dd>
 <span class="r-in"><span class="va">e</span> <span class="op">&lt;-</span> <span class="fu"><a href="portal.html">rand_normal</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">test</span> <span class="op">&lt;-</span> <span class="fu"><a href="portal.html">vi_model</a></span><span class="op">(</span>prm <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, e <span class="op">=</span> <span class="va">e</span><span class="op">)</span>,</span>
 <span class="r-in">                 prm_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"r"</span>, e <span class="op">=</span> <span class="st">"r"</span><span class="op">)</span>,</span>
-<span class="r-in">                 formula <span class="op">=</span> <span class="va">y</span><span class="op">~</span><span class="va">x</span><span class="op">+</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">+</span><span class="va">e</span>,</span>
-<span class="r-in">                 null_formula <span class="op">=</span> <span class="va">y</span><span class="op">~</span><span class="va">x</span>,</span>
-<span class="r-in">                 alt_formula <span class="op">=</span> <span class="va">y</span><span class="op">~</span><span class="va">x</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in">                 formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">x</span> <span class="op">+</span> <span class="va">x</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">e</span>,</span>
+<span class="r-in">                 null_formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="va">x</span>,</span>
+<span class="r-in">                 alt_formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="va">x</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">test</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── &lt;VI_MODEL object&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> y = x + x^2 + e</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> y = 1 + x + x^2 + e</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  - x: &lt;RAND_UNIFORM object&gt;</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>    [a: 0, b: 1]</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  - e: &lt;RAND_NORMAL object&gt;</span>

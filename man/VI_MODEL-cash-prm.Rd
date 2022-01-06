@@ -13,6 +13,6 @@ x <- rand_uniform()
 e <- rand_normal()
 test <- vi_model(prm = list(x = x, e = e),
                  prm_type = list(x = "r", e = "r"),
-                 formula = y~x+x^2+e)
+                 formula = y ~ 1 + x + x^2 + e)
 test$prm
 }
