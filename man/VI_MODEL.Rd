@@ -19,10 +19,10 @@ Parent class: \link{BASE}
 \cr
 \cr
 New attributes: \link{VI_MODEL$prm}, \link{VI_MODEL$prm_type}, \link{VI_MODEL$..cache..},
-\link{VI_MODEL$formula}, \link{VI_MODEL$null_formula}, VI_MODEL$alt_formula
+\link{VI_MODEL$formula}, \link{VI_MODEL$null_formula}, \link{VI_MODEL$alt_formula}
 \cr
 \cr
-New methods: VI_MODEL$..init.., VI_MODEL$..str..,
+New methods: \link{VI_MODEL$..init..}, VI_MODEL$..str..,
 VI_MODEL$compute, CLOSED_FORM$gen, CLOSED_FORM$ast
 }
 \keyword{datasets}

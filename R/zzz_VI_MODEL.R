@@ -12,10 +12,10 @@
 #' \cr
 #' \cr
 #' New attributes: [VI_MODEL$prm], [VI_MODEL$prm_type], [VI_MODEL$..cache..],
-#' [VI_MODEL$formula], [VI_MODEL$null_formula], VI_MODEL$alt_formula
+#' [VI_MODEL$formula], [VI_MODEL$null_formula], [VI_MODEL$alt_formula]
 #' \cr
 #' \cr
-#' New methods: VI_MODEL$..init.., VI_MODEL$..str..,
+#' New methods: [VI_MODEL$..init..], VI_MODEL$..str..,
 #' VI_MODEL$compute, CLOSED_FORM$gen, CLOSED_FORM$ast
 #' @export
 VI_MODEL <- class_VI_MODEL()
@@ -157,4 +157,53 @@ VI_MODEL$null_formula
 #' test$test(test$gen(10))
 VI_MODEL$alt_formula
 
+#' Initialization method
+#'
+#' @name VI_MODEL$..init..
+#'
+#' @description This function will be called after an instance is built. User
+#' input will be stored in the environment. The response variable of this model
+#' is `y`.
+#' @param prm Named List. A list of random variables or closed form expressions that
+#' needs to be used while constructing `y`. Constant parameters could also be
+#' supplied.
+#' @param prm_type Named List. A list of characters denoting the type of the
+#' parameters. "r" stands for random variable or closed form used in the
+#' expression of `y`, "o" stands for others. This value only affects the
+#' string representation of the object.
+#' @param formula Formula. This will be passed to `CLOSED_FORM$instantiation` to
+#' define a closed form expression for `y`. Default is `formula = self$formula`.
+#' @param null_formula Formula. Formula for fitting the null model. Default is
+#' `NULL`.
+#' @param alt_formula Formula. Formula for fitting the alternative model.
+#' Default is `NULL`.
+#' @return No return value, called for side effects.
+#'
+#' @examples
+#'
+#' # Instantiation
+#' x <- RAND_UNIFORM$instantiation()
+#' test <- VI_MODEL$instantiation(prm = list(x = x),
+#'                                prm_type = list(x = "r"),
+#'                                formula = y~x+x^2,
+#'                                null_formula = y~x,
+#'                                alt_formula = y~x+I(x^2))
+#'
+#' test
+VI_MODEL$..init..
+
 HIGHER_ORDER_MODEL <- class_HIGHER_ORDER_MODEL()
+
+
+# ..init.. = init_,
+# ..str.. = str_,
+# set_formula = set_formula_,
+# gen = gen_,
+# test = test_,
+# fit = fit_,
+# plot_resid = plot_resid_,
+# plot = plot_,
+# plot_lineup = plot_lineup_,
+# rss = rss_,
+# null_resid = null_resid_,
+# gen_lineup = gen_lineup_
