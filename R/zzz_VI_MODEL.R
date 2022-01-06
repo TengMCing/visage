@@ -16,7 +16,8 @@
 #' \cr
 #' \cr
 #' New methods: [VI_MODEL$..init..], [VI_MODEL$..str..], [VI_MODEL$set_formula],
-#' [VI_MODEL$gen], [VI_MODEL$test], [VI_MODEL$fit], [VI_MODEL$plot_resid]
+#' [VI_MODEL$gen], [VI_MODEL$test], [VI_MODEL$fit], [VI_MODEL$plot_resid],
+#' [VI_MODEL$plot], [VI_MODEL$plot_lineup], [VI_MODEL$rss]
 #' @export
 VI_MODEL <- class_VI_MODEL()
 
@@ -365,9 +366,107 @@ VI_MODEL$fit
 #'                  null_formula = y ~ x,
 #'                  alt_formula = y ~ x + I(x^2))
 #'
+#' # Residual plot of the null model
 #' test$plot_resid(test$gen(1000, fit_model = TRUE))
 VI_MODEL$plot_resid
 
+#' Plot the fitted model
+#'
+#' @name VI_MODEL$plot
+#'
+#' @description This function generates plot for fitted model.
+#' @param dat Data frame. A data frame containing correspoding variables.
+#' @param type Character. "resid": [VI_MODEL$plot_resid]. Default is
+#' `type = "resid"`.
+#' @param theme ggtheme. A ggplot theme object.
+#' @param remove_axis Boolean. Whether or not to remove the axis. Default is
+#' `remove_axis = FALSE`.
+#' @param remove_legend Boolean. Whether or not to remove the legend. Default is
+#' `remove_legend = FALSE`.
+#' @param remove_grid_line Boolean. Whether or not to remove the grid lines.
+#' Default is `remove_grid_line = FALSE`.
+#' @param add_zero_line Boolean. Whether or not to add a zero horizontal line.
+#' Default is `add_zero_line = TRUE`.
+#' @return A ggplot.
+#'
+#' @examples
+#'
+#' # Instantiation
+#' x <- rand_uniform()
+#' e <- rand_normal()
+#' test <- vi_model(prm = list(x = x, e = e),
+#'                  prm_type = list(x = "r", e = "r"),
+#'                  formula = y ~ 1 + x + 10 * x^2 + e,
+#'                  null_formula = y ~ x,
+#'                  alt_formula = y ~ x + I(x^2))
+#'
+#' # Residual plot of the null model
+#' test$plot(test$gen(1000, fit_model = TRUE), type = "resid")
+#'
+#' # Customize the plot
+#' test$plot(test$gen(1000, fit_model = TRUE),
+#'           type = "resid",
+#'           theme = ggplot2::theme_light(),
+#'           remove_axis = TRUE,
+#'           remove_grid_line = TRUE,
+#'           add_zero_line = TRUE)
+VI_MODEL$plot
+
+#' Plot the lineup
+#'
+#' @name VI_MODEL$plot_lineup
+#'
+#' @description This function plots the lineup.
+#' @param dat Data frame. A data frame containing correspoding variables.
+#' @param type Character. "resid": [VI_MODEL$plot_resid]. Default is
+#' `type = "resid"`.
+#' @param ... Arguments passed to [VI_MODEL$plot]
+#' @return A ggplot.
+#'
+#' @examples
+#'
+#' # Instantiation
+#' x <- rand_uniform()
+#' e <- rand_normal()
+#' test <- vi_model(prm = list(x = x, e = e),
+#'                  prm_type = list(x = "r", e = "r"),
+#'                  formula = y ~ 1 + x + 10 * x^2 + e,
+#'                  null_formula = y ~ x,
+#'                  alt_formula = y ~ x + I(x^2))
+#'
+#' # Lineup of residual plots
+#' test$plot_lineup(test$gen_lineup(100), type = "resid")
+#'
+#' # Customize the plot
+#' test$plot_lineup(test$gen_lineup(100),
+#'                  type = "resid",
+#'                  theme = ggplot2::theme_light(),
+#'                  remove_axis = TRUE,
+#'                  remove_grid_line = TRUE,
+#'                  add_zero_line = TRUE)
+VI_MODEL$plot_lineup
+
+#' Residual sum of square of a fitted model
+#'
+#' @name VI_MODEL$rss
+#'
+#' @description This function returns the residual sum of square of a fitted
+#' model.
+#' @return Numeric value.
+#'
+#' @examples
+#'
+#' # Instantiation
+#' x <- rand_uniform()
+#' e <- rand_normal()
+#' test <- vi_model(prm = list(x = x, e = e),
+#'                  prm_type = list(x = "r", e = "r"),
+#'                  formula = y ~ 1 + x + x^2 + e,
+#'                  null_formula = y ~ x,
+#'                  alt_formula = y ~ x + I(x^2))
+#'
+#' test$rss(test$fit(test$gen(100)))
+VI_MODEL$rss
 
 HIGHER_ORDER_MODEL <- class_HIGHER_ORDER_MODEL()
 

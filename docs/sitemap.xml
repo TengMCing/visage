@@ -178,6 +178,12 @@
     <loc>/reference/VI_MODEL-cash-null_formula.html</loc>
   </url>
   <url>
+    <loc>/reference/VI_MODEL-cash-plot.html</loc>
+  </url>
+  <url>
+    <loc>/reference/VI_MODEL-cash-plot_lineup.html</loc>
+  </url>
+  <url>
     <loc>/reference/VI_MODEL-cash-plot_resid.html</loc>
   </url>
   <url>
@@ -185,6 +191,9 @@
   </url>
   <url>
     <loc>/reference/VI_MODEL-cash-prm_type.html</loc>
+  </url>
+  <url>
+    <loc>/reference/VI_MODEL-cash-rss.html</loc>
   </url>
   <url>
     <loc>/reference/VI_MODEL-cash-set_formula.html</loc>

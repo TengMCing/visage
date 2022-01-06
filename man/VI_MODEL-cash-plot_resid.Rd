@@ -23,5 +23,6 @@ test <- vi_model(prm = list(x = x, e = e),
                  null_formula = y ~ x,
                  alt_formula = y ~ x + I(x^2))
 
+# Residual plot of the null model
 test$plot_resid(test$gen(1000, fit_model = TRUE))
 }
