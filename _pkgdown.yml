@@ -119,6 +119,15 @@ reference:
   - VI_MODEL$plot_resid
   - VI_MODEL$plot_lineup
   - VI_MODEL$rss
+- subtitle: "Visual inference higher order linear model class"
+  desc: >
+    Visual inference higher order linear model class
+  contents:
+  - HIGHER_ORDER_MODEL
+  - HIGHER_ORDER_MODEL$..init..
+  - HIGHER_ORDER_MODEL$formula
+  - HIGHER_ORDER_MODEL$null_formula
+  - HIGHER_ORDER_MODEL$alt_formula
 - title: "Utilties"
   desc: >
     Utility functions

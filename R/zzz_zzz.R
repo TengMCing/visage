@@ -38,3 +38,7 @@ closed_form <- CLOSED_FORM$instantiation
 #' @describeIn portal [VI_MODEL]
 #' @export
 vi_model <- VI_MODEL$instantiation
+
+#' @describeIn portal [HIGHER_ORDER_MODEL]
+#' @export
+higher_order_model <- HIGHER_ORDER_MODEL$instantiation
