@@ -525,4 +525,98 @@ VI_MODEL$null_resid
 #' test$gen_lineup(10, k = 3)
 VI_MODEL$gen_lineup
 
+
+# HIGHER_ORDER_MODEL ------------------------------------------------------
+
+#' HIGHER_ORDER_MODEL class environment
+#'
+#' @name HIGHER_ORDER_MODEL
+#'
+#' @description This is the class of visual inference higher order linear model,
+#' inherited from [VI_MODEL].
+#' @format An environment with S3 class `oop`.
+#' @seealso Parent class: [VI_MODEL]
+#' \cr
+#' \cr
+#' New attributes: [HIGHER_ORDER_MODEL$formula],
+#' [HIGHER_ORDER_MODEL$null_formula], [HIGHER_ORDER_MODEL$alt_formula],
+#' \cr
+#' \cr
+#' New methods: [HIGHER_ORDER_MODEL$..init..]
+#' @export
 HIGHER_ORDER_MODEL <- class_HIGHER_ORDER_MODEL()
+
+#' Closed form expression of `y`
+#'
+#' @name HIGHER_ORDER_MODEL$formula
+#'
+#' @description A formula, will be passed to `CLOSED_FORM$instantiation` to
+#' define a closed form expression for `y`.
+#'
+#' @examples
+#'
+#' HIGHER_ORDER_MODEL$formula
+HIGHER_ORDER_MODEL$formula
+
+#' Formula for fitting the null model
+#'
+#' @name HIGHER_ORDER_MODEL$null_formula
+#'
+#' @description Formula for fitting the null model.
+#'
+#' @examples
+#'
+#' HIGHER_ORDER_MODEL$null_formula
+HIGHER_ORDER_MODEL$null_formula
+
+#' Formula for fitting the alternative model
+#'
+#' @name HIGHER_ORDER_MODEL$alt_formula
+#'
+#' @description Formula for fitting the alternative model.
+#'
+#' @examples
+#'
+#' HIGHER_ORDER_MODEL$alt_formula
+HIGHER_ORDER_MODEL$alt_formula
+
+#' Initialization method
+#'
+#' @name HIGHER_ORDER_MODEL$..init..
+#'
+#' @description This function will be called after an instance is built. User
+#' input will be stored in the environment. The response variable of this model
+#' is `y`. The formula of y is defined in [HIGHER_ORDER_MODEL$formula], the null
+#' formula is defined in [HIGHER_ORDER_MODEL$null_formula], the alternative is
+#' defined in [HIGHER_ORDER_MODEL$alt_formula].
+#' @param a Numeric. Default is `a = 1`.
+#' @param b Numeric. Default is `b = 1`.
+#' @param c Numeric. Default is `c = 1`.
+#' @param x Random variable or closed form expression. Default is
+#' `x = rand_uniform(env = new.env(parent = parent.env(self)))`.
+#' @param z Random variable or closed form expression. Default is
+#' `z = rand_uniform(env = new.env(parent = parent.env(self)))`.
+#' @param e Random variable or closed form expression. Default is
+#' `e = rand_normal(env = new.env(parent = parent.env(self)))`.
+#' @return No return value, called for side effects.
+#'
+#' @examples
+#'
+#' # Instantiation
+#' x <- rand_uniform()
+#' z <- rand_uniform()
+#' e <- rand_normal()
+#'
+#' test <- higher_order_model(a = 200, b = 200, c = 1, x = x, z = z, e = e)
+#'
+#' test
+#'
+#' # Generate data
+#' test$gen(10)
+#'
+#' # Generate lineup
+#' test$gen_lineup(10, k = 3)
+#'
+#' # Plot the lineup
+#' test$plot_lineup(test$gen_lineup(100))
+HIGHER_ORDER_MODEL$..init..
