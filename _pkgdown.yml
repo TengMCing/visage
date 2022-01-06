@@ -102,6 +102,9 @@ reference:
   contents:
   - VI_MODEL
   - VI_MODEL$prm
+  - VI_MODEL$prm_type
+  - VI_MODEL$..cache..
+  - VI_MODEL$formula
 - title: "Utilties"
   desc: >
     Utility functions

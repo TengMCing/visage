@@ -18,8 +18,8 @@ inherited from \link{BASE}.
 Parent class: \link{BASE}
 \cr
 \cr
-New attributes: \link{VI_MODEL$prm}, VI_MODEL$prm_type, VI_MODEL$..cache..,
-VI_MODEL$formula, VI_MODEL$null_formula, VI_MODEL$alt_formula
+New attributes: \link{VI_MODEL$prm}, \link{VI_MODEL$prm_type}, \link{VI_MODEL$..cache..},
+\link{VI_MODEL$formula}, VI_MODEL$null_formula, VI_MODEL$alt_formula
 \cr
 \cr
 New methods: VI_MODEL$..init.., VI_MODEL$..str..,
