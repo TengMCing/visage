@@ -117,6 +117,7 @@ reference:
   - VI_MODEL$plot
   - VI_MODEL$plot_lineup
   - VI_MODEL$rss
+  - VI_MODEL$null_resid
 - title: "Utilties"
   desc: >
     Utility functions

@@ -127,6 +127,9 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
     # Get the fitted values
     .fitted <- mod$fitted.values
 
+    # Get the original RSS
+    old_rss <- self$rss(mod)
+
     # Get the number of observations
     n <- length(.fitted)
 
@@ -137,7 +140,7 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
     mod <- stats::update(mod, data = dat)
 
     # Update the residuals of the data frame
-    dat$.resid <- mod$residuals * sqrt(self$rss(mod)/self$rss(mod))
+    dat$.resid <- mod$residuals * sqrt(old_rss/self$rss(mod))
 
     # Update the random y
     dat$y <- dat$.resid + .fitted
