@@ -96,7 +96,7 @@
           <p class="section-desc"></p><p>Functions to build an instance</p>
         </th>
       </tr></tbody><tbody><tr><td>
-          <p><code><a href="portal.html">base_()</a></code> <code><a href="portal.html">rand_var()</a></code> <code><a href="portal.html">rand_uniform()</a></code> <code><a href="portal.html">rand_uniform_d()</a></code> <code><a href="portal.html">rand_normal()</a></code> <code><a href="portal.html">rand_lognormal()</a></code> <code><a href="portal.html">closed_form()</a></code> <code><a href="portal.html">vi_model()</a></code> <code><a href="portal.html">higher_order_model()</a></code> </p>
+          <p><code><a href="portal.html">base_()</a></code> <code><a href="portal.html">rand_var()</a></code> <code><a href="portal.html">rand_uniform()</a></code> <code><a href="portal.html">rand_uniform_d()</a></code> <code><a href="portal.html">rand_normal()</a></code> <code><a href="portal.html">rand_lognormal()</a></code> <code><a href="portal.html">closed_form()</a></code> <code><a href="portal.html">vi_model()</a></code> <code><a href="portal.html">cubic_model()</a></code> <code><a href="portal.html">heter_model()</a></code> </p>
         </td>
         <td><p>Portals to class instantiation methods</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
@@ -392,29 +392,65 @@
         </td>
         <td><p>Residual sum of square of a fitted model</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
-          <h3 id="visual-inference-higher-order-linear-model-class">Visual inference higher order linear model class <a href="#visual-inference-higher-order-linear-model-class" class="anchor" aria-hidden="true"></a></h3>
-          <p class="section-desc"></p><p>Visual inference higher order linear model class</p>
+          <h3 id="visual-inference-cubic-linear-model-class">Visual inference cubic linear model class <a href="#visual-inference-cubic-linear-model-class" class="anchor" aria-hidden="true"></a></h3>
+          <p class="section-desc"></p><p>Visual inference cubic linear model class</p>
         </th>
       </tr></tbody><tbody><tr><td>
-          <p><code><a href="HIGHER_ORDER_MODEL.html">HIGHER_ORDER_MODEL</a></code> </p>
+          <p><code><a href="CUBIC_MODEL.html">CUBIC_MODEL</a></code> </p>
         </td>
-        <td><p>HIGHER_ORDER_MODEL class environment</p></td>
+        <td><p>CUBIC_MODEL class environment</p></td>
       </tr><tr><td>
-          <p><code><a href="HIGHER_ORDER_MODEL-cash-..init...html">HIGHER_ORDER_MODEL$..init..</a></code> </p>
+          <p><code><a href="CUBIC_MODEL-cash-..init...html">CUBIC_MODEL$..init..</a></code> </p>
         </td>
         <td><p>Initialization method</p></td>
       </tr><tr><td>
-          <p><code><a href="HIGHER_ORDER_MODEL-cash-formula.html">HIGHER_ORDER_MODEL$formula</a></code> </p>
+          <p><code><a href="CUBIC_MODEL-cash-formula.html">CUBIC_MODEL$formula</a></code> </p>
         </td>
         <td><p>Closed form expression of <code>y</code></p></td>
       </tr><tr><td>
-          <p><code><a href="HIGHER_ORDER_MODEL-cash-null_formula.html">HIGHER_ORDER_MODEL$null_formula</a></code> </p>
+          <p><code><a href="CUBIC_MODEL-cash-null_formula.html">CUBIC_MODEL$null_formula</a></code> </p>
         </td>
         <td><p>Formula for fitting the null model</p></td>
       </tr><tr><td>
-          <p><code><a href="HIGHER_ORDER_MODEL-cash-alt_formula.html">HIGHER_ORDER_MODEL$alt_formula</a></code> </p>
+          <p><code><a href="CUBIC_MODEL-cash-alt_formula.html">CUBIC_MODEL$alt_formula</a></code> </p>
         </td>
         <td><p>Formula for fitting the alternative model</p></td>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h3 id="visual-inference-heteroskedasticity-linear-model-class">Visual inference heteroskedasticity linear model class <a href="#visual-inference-heteroskedasticity-linear-model-class" class="anchor" aria-hidden="true"></a></h3>
+          <p class="section-desc"></p><p>Visual inference heteroskedasticity linear model class</p>
+        </th>
+      </tr></tbody><tbody><tr><td>
+          <p><code><a href="HETER_MODEL.html">HETER_MODEL</a></code> </p>
+        </td>
+        <td><p>HETER_MODEL class environment</p></td>
+      </tr><tr><td>
+          <p><code><a href="HETER_MODEL-cash-..init...html">HETER_MODEL$..init..</a></code> </p>
+        </td>
+        <td><p>Initialization method</p></td>
+      </tr><tr><td>
+          <p><code><a href="HETER_MODEL-cash-formula.html">HETER_MODEL$formula</a></code> </p>
+        </td>
+        <td><p>Closed form expression of <code>y</code></p></td>
+      </tr><tr><td>
+          <p><code><a href="HETER_MODEL-cash-null_formula.html">HETER_MODEL$null_formula</a></code> </p>
+        </td>
+        <td><p>Formula for fitting the null model</p></td>
+      </tr><tr><td>
+          <p><code><a href="HETER_MODEL-cash-alt_formula.html">HETER_MODEL$alt_formula</a></code> </p>
+        </td>
+        <td><p>Formula for fitting the alternative model</p></td>
+      </tr><tr><td>
+          <p><code><a href="HETER_MODEL-cash-sigma_quote_formula.html">HETER_MODEL$sigma_quote_formula</a></code> </p>
+        </td>
+        <td><p>Quoted formula for constructing <code>sigma</code></p></td>
+      </tr><tr><td>
+          <p><code><a href="HETER_MODEL-cash-e_quote_formula.html">HETER_MODEL$e_quote_formula</a></code> </p>
+        </td>
+        <td><p>Quoted formula for constructing <code>e</code></p></td>
+      </tr><tr><td>
+          <p><code><a href="HETER_MODEL-cash-test.html">HETER_MODEL$test</a></code> </p>
+        </td>
+        <td><p>Test the null model</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="utilties">Utilties <a href="#utilties" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p><p>Utility functions</p>

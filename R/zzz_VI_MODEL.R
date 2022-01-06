@@ -526,69 +526,69 @@ VI_MODEL$null_resid
 VI_MODEL$gen_lineup
 
 
-# HIGHER_ORDER_MODEL ------------------------------------------------------
+# CUBIC_MODEL -------------------------------------------------------------
 
-#' HIGHER_ORDER_MODEL class environment
+#' CUBIC_MODEL class environment
 #'
-#' @name HIGHER_ORDER_MODEL
+#' @name CUBIC_MODEL
 #'
-#' @description This is the class of visual inference higher order linear model,
+#' @description This is the class of visual inference cubic linear model,
 #' inherited from [VI_MODEL].
 #' @format An environment with S3 class `oop`.
 #' @seealso Parent class: [VI_MODEL]
 #' \cr
 #' \cr
-#' New attributes: [HIGHER_ORDER_MODEL$formula],
-#' [HIGHER_ORDER_MODEL$null_formula], [HIGHER_ORDER_MODEL$alt_formula],
+#' New attributes: [CUBIC_MODEL$formula],
+#' [CUBIC_MODEL$null_formula], [CUBIC_MODEL$alt_formula],
 #' \cr
 #' \cr
-#' New methods: [HIGHER_ORDER_MODEL$..init..]
+#' New methods: [CUBIC_MODEL$..init..]
 #' @export
-HIGHER_ORDER_MODEL <- class_HIGHER_ORDER_MODEL()
+CUBIC_MODEL <- class_CUBIC_MODEL()
 
 #' Closed form expression of `y`
 #'
-#' @name HIGHER_ORDER_MODEL$formula
+#' @name CUBIC_MODEL$formula
 #'
 #' @description A formula, will be passed to `CLOSED_FORM$instantiation` to
 #' define a closed form expression for `y`.
 #'
 #' @examples
 #'
-#' HIGHER_ORDER_MODEL$formula
-HIGHER_ORDER_MODEL$formula
+#' CUBIC_MODEL$formula
+CUBIC_MODEL$formula
 
 #' Formula for fitting the null model
 #'
-#' @name HIGHER_ORDER_MODEL$null_formula
+#' @name CUBIC_MODEL$null_formula
 #'
 #' @description Formula for fitting the null model.
 #'
 #' @examples
 #'
-#' HIGHER_ORDER_MODEL$null_formula
-HIGHER_ORDER_MODEL$null_formula
+#' CUBIC_MODEL$null_formula
+CUBIC_MODEL$null_formula
 
 #' Formula for fitting the alternative model
 #'
-#' @name HIGHER_ORDER_MODEL$alt_formula
+#' @name CUBIC_MODEL$alt_formula
 #'
 #' @description Formula for fitting the alternative model.
 #'
 #' @examples
 #'
-#' HIGHER_ORDER_MODEL$alt_formula
-HIGHER_ORDER_MODEL$alt_formula
+#' CUBIC_MODEL$alt_formula
+CUBIC_MODEL$alt_formula
 
 #' Initialization method
 #'
-#' @name HIGHER_ORDER_MODEL$..init..
+#' @name CUBIC_MODEL$..init..
 #'
 #' @description This function will be called after an instance is built. User
 #' input will be stored in the environment. The response variable of this model
-#' is `y`. The formula of y is defined in [HIGHER_ORDER_MODEL$formula], the null
-#' formula is defined in [HIGHER_ORDER_MODEL$null_formula], the alternative is
-#' defined in [HIGHER_ORDER_MODEL$alt_formula].
+#' is `y`. The formula of y is defined in [CUBIC_MODEL$formula], the null
+#' formula is defined in [CUBIC_MODEL$null_formula], the alternative is
+#' defined in [CUBIC_MODEL$alt_formula].
 #' @param a Numeric. Default is `a = 1`.
 #' @param b Numeric. Default is `b = 1`.
 #' @param c Numeric. Default is `c = 1`.
@@ -608,7 +608,7 @@ HIGHER_ORDER_MODEL$alt_formula
 #' z <- rand_uniform()
 #' e <- rand_normal()
 #'
-#' test <- higher_order_model(a = 200, b = 200, c = 1, x = x, z = z, e = e)
+#' test <- cubic_model(a = 200, b = 200, c = 1, x = x, z = z, e = e)
 #'
 #' test
 #'
@@ -620,7 +620,143 @@ HIGHER_ORDER_MODEL$alt_formula
 #'
 #' # Plot the lineup
 #' test$plot_lineup(test$gen_lineup(100))
-HIGHER_ORDER_MODEL$..init..
+CUBIC_MODEL$..init..
 
 
-HETEROSKEDASTICITY_MODEL <- class_HETEROSKEDASTICITY_MODEL()
+# HETER_MODEL -------------------------------------------------------------
+
+
+#' HETER_MODEL class environment
+#'
+#' @name HETER_MODEL
+#'
+#' @description This is the class of visual inference heteroskedasticity
+#' linear model, inherited from [VI_MODEL].
+#' @format An environment with S3 class `oop`.
+#' @seealso Parent class: [VI_MODEL]
+#' \cr
+#' \cr
+#' New attributes: [HETER_MODEL$formula],
+#' [HETER_MODEL$null_formula],
+#' [HETER_MODEL$alt_formula],
+#' [HETER_MODEL$sigma_quote_formula],
+#' [HETER_MODEL$e_quote_formula]
+#' \cr
+#' \cr
+#' New methods: [VI_MODEL$..init..], [VI_MODEL$test]
+#' @export
+HETER_MODEL <- class_HETER_MODEL()
+
+
+#' Closed form expression of `y`
+#'
+#' @name HETER_MODEL$formula
+#'
+#' @description A formula, will be passed to `CLOSED_FORM$instantiation` to
+#' define a closed form expression for `y`.
+#'
+#' @examples
+#'
+#' HETER_MODEL$formula
+HETER_MODEL$formula
+
+#' Formula for fitting the null model
+#'
+#' @name HETER_MODEL$null_formula
+#'
+#' @description Formula for fitting the null model.
+#'
+#' @examples
+#'
+#' HETER_MODEL$null_formula
+HETER_MODEL$null_formula
+
+#' Formula for fitting the alternative model
+#'
+#' @name HETER_MODEL$alt_formula
+#'
+#' @description Formula for fitting the alternative model.
+#'
+#' @examples
+#'
+#' HETER_MODEL$alt_formula
+HETER_MODEL$alt_formula
+
+#' Quoted formula for constructing `sigma`
+#'
+#' @name HETER_MODEL$sigma_quote_formula
+#'
+#' @description Quoted formula for constructing `sigma`.
+#'
+#' @examples
+#'
+#' HETER_MODEL$sigma_quote_formula
+HETER_MODEL$sigma_quote_formula
+
+#' Quoted formula for constructing `e`
+#'
+#' @name HETER_MODEL$e_quote_formula
+#'
+#' @description Quoted formula for constructing `e`.
+#'
+#' @examples
+#'
+#' HETER_MODEL$e_quote_formula
+HETER_MODEL$e_quote_formula
+
+#' Initialization method
+#'
+#' @name HETER_MODEL$..init..
+#'
+#' @description This function will be called after an instance is built. User
+#' input will be stored in the environment. The response variable of this model
+#' is `y`. The formula of y is defined in [HETER_MODEL$formula],
+#' the null formula is defined in [HETER_MODEL$null_formula],
+#' the alternative is defined in [HETER_MODEL$alt_formula].
+#' @param a Numeric. Default is `a = 0`.
+#' @param b Numeric. Default is `b = 1`.
+#' @param x Random variable or closed form expression. Default is
+#' `x = rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
+#' @return No return value, called for side effects.
+#'
+#' @examples
+#'
+#' # Instantiation
+#' test <- heter_model(a = 0, b = 20)
+#'
+#' test
+#'
+#' # Generate data
+#' test$gen(10)
+#'
+#' # Generate lineup
+#' test$gen_lineup(10, k = 3)
+#'
+#' # Plot the lineup
+#' test$plot_lineup(test$gen_lineup(100))
+HETER_MODEL$..init..
+
+#' Test the null model
+#'
+#' @name HETER_MODEL$test
+#'
+#' @description This function test the null model.
+#' In this class, the test is a BP-test computed using [lmtest::bptest]. The
+#' variance formula is `~ x + I(x^2)`.
+#' @param dat Data frame. A data frame containing all variables needed by the
+#' `null_formula`.
+#' @param null_formula Formula. Formula for fitting the null model. Default
+#' is `null_formula = self$null_formula`.
+#' @return A list containing the test name, the test statistic and the p-value.
+#'
+#' @examples
+#'
+#' # Instantiation
+#' x <- rand_uniform()
+#' e <- rand_normal()
+#' test <- heter_model(a = 0, b = 100)
+#'
+#'
+#' dat <- test$gen(100000)
+#' test$test(dat)
+HETER_MODEL$test

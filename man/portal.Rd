@@ -10,7 +10,8 @@
 \alias{rand_lognormal}
 \alias{closed_form}
 \alias{vi_model}
-\alias{higher_order_model}
+\alias{cubic_model}
+\alias{heter_model}
 \title{Portals to class instantiation methods}
 \usage{
 base_(..., env = new.env(parent = parent.frame()))
@@ -29,7 +30,9 @@ closed_form(..., env = new.env(parent = parent.frame()))
 
 vi_model(..., env = new.env(parent = parent.frame()))
 
-higher_order_model(..., env = new.env(parent = parent.frame()))
+cubic_model(..., env = new.env(parent = parent.frame()))
+
+heter_model(..., env = new.env(parent = parent.frame()))
 }
 \arguments{
 \item{...}{Arguments passed to \code{init} method.}
@@ -57,6 +60,8 @@ These functions are the same as \code{class$instantiation}.
 
 \item \code{vi_model}: \link{VI_MODEL}
 
-\item \code{higher_order_model}: \link{HIGHER_ORDER_MODEL}
+\item \code{cubic_model}: \link{CUBIC_MODEL}
+
+\item \code{heter_model}: \link{HETER_MODEL}
 }}
 

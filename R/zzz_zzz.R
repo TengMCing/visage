@@ -39,6 +39,10 @@ closed_form <- CLOSED_FORM$instantiation
 #' @export
 vi_model <- VI_MODEL$instantiation
 
-#' @describeIn portal [HIGHER_ORDER_MODEL]
+#' @describeIn portal [CUBIC_MODEL]
 #' @export
-higher_order_model <- HIGHER_ORDER_MODEL$instantiation
+cubic_model <- CUBIC_MODEL$instantiation
+
+#' @describeIn portal [HETER_MODEL]
+#' @export
+heter_model <- HETER_MODEL$instantiation
