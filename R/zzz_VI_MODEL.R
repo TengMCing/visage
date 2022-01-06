@@ -592,12 +592,13 @@ HIGHER_ORDER_MODEL$alt_formula
 #' @param a Numeric. Default is `a = 1`.
 #' @param b Numeric. Default is `b = 1`.
 #' @param c Numeric. Default is `c = 1`.
+#' @param sigma Positive numeric. Default is `sigma = 1`.
 #' @param x Random variable or closed form expression. Default is
-#' `x = rand_uniform(env = new.env(parent = parent.env(self)))`.
+#' `x = rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
 #' @param z Random variable or closed form expression. Default is
-#' `z = rand_uniform(env = new.env(parent = parent.env(self)))`.
+#' `z = rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
 #' @param e Random variable or closed form expression. Default is
-#' `e = rand_normal(env = new.env(parent = parent.env(self)))`.
+#' `e = rand_normal(0, sigma, env = new.env(parent = parent.env(self)))`.
 #' @return No return value, called for side effects.
 #'
 #' @examples
@@ -620,3 +621,6 @@ HIGHER_ORDER_MODEL$alt_formula
 #' # Plot the lineup
 #' test$plot_lineup(test$gen_lineup(100))
 HIGHER_ORDER_MODEL$..init..
+
+
+HETEROSKEDASTICITY_MODEL <- class_HETEROSKEDASTICITY_MODEL()
