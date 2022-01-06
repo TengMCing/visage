@@ -24,5 +24,5 @@ test$alt_formula
 test$fit(test$gen(10), test$alt_formula)
 
 # F-test also needs to use the alternative model
-test$test(test$gen(10))
+test$test(test$gen(1000))
 }
