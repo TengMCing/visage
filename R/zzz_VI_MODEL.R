@@ -15,7 +15,7 @@
 #' [VI_MODEL$formula], [VI_MODEL$null_formula], [VI_MODEL$alt_formula]
 #' \cr
 #' \cr
-#' New methods: [VI_MODEL$..init..], VI_MODEL$..str..,
+#' New methods: [VI_MODEL$..init..], [VI_MODEL$..str..],
 #' VI_MODEL$compute, CLOSED_FORM$gen, CLOSED_FORM$ast
 #' @export
 VI_MODEL <- class_VI_MODEL()
@@ -198,6 +198,29 @@ VI_MODEL$alt_formula
 #'
 #' test
 VI_MODEL$..init..
+
+#' String representation of the object
+#'
+#' @name VI_MODEL$..str..
+#'
+#' @description This function returns a string representation of the object.
+#' @return A string.
+#'
+#' @examples
+#'
+#' VI_MODEL$..str..()
+#'
+#' # Instantiation
+#' x <- rand_uniform()
+#' e <- rand_normal()
+#' test <- vi_model(prm = list(x = x, e = e),
+#'                  prm_type = list(x = "r", e = "r"),
+#'                  formula = y~x+x^2+e,
+#'                  null_formula = y~x,
+#'                  alt_formula = y~x+I(x^2))
+#'
+#' test$..str..()
+VI_MODEL$..str..
 
 HIGHER_ORDER_MODEL <- class_HIGHER_ORDER_MODEL()
 
