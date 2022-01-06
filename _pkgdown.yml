@@ -119,15 +119,27 @@ reference:
   - VI_MODEL$plot_resid
   - VI_MODEL$plot_lineup
   - VI_MODEL$rss
-- subtitle: "Visual inference higher order linear model class"
+- subtitle: "Visual inference cubic linear model class"
   desc: >
-    Visual inference higher order linear model class
+    Visual inference cubic linear model class
   contents:
-  - HIGHER_ORDER_MODEL
-  - HIGHER_ORDER_MODEL$..init..
-  - HIGHER_ORDER_MODEL$formula
-  - HIGHER_ORDER_MODEL$null_formula
-  - HIGHER_ORDER_MODEL$alt_formula
+  - CUBIC_MODEL
+  - CUBIC_MODEL$..init..
+  - CUBIC_MODEL$formula
+  - CUBIC_MODEL$null_formula
+  - CUBIC_MODEL$alt_formula
+- subtitle: "Visual inference heteroskedasticity linear model class"
+  desc: >
+    Visual inference heteroskedasticity linear model class
+  contents:
+  - HETER_MODEL
+  - HETER_MODEL$..init..
+  - HETER_MODEL$formula
+  - HETER_MODEL$null_formula
+  - HETER_MODEL$alt_formula
+  - HETER_MODEL$sigma_quote_formula
+  - HETER_MODEL$e_quote_formula
+  - HETER_MODEL$test
 - title: "Utilties"
   desc: >
     Utility functions

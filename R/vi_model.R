@@ -302,14 +302,14 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
 }
 
 
-# HIGHER_ORDER_MODEL ------------------------------------------------------
+# CUBIC_MODEL -------------------------------------------------------------
 
-class_HIGHER_ORDER_MODEL <- function(env = new.env(parent = parent.frame())) {
+class_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
 
   # Pass CMD check
   self <- NULL
 
-  new_class(VI_MODEL, env = env, class_name = "HIGHER_ORDER_MODEL")
+  new_class(VI_MODEL, env = env, class_name = "CUBIC_MODEL")
 
   # Run the `set_formula` method for the class
   env$set_formula(formula = y ~ 1 + (2-c) * x + c * z + a * (((2-c) * x)^2 + (c * z)^2) + b * (((2-c) * x)^3 + (c * z)^3) + e,
@@ -323,6 +323,7 @@ class_HIGHER_ORDER_MODEL <- function(env = new.env(parent = parent.frame())) {
                     z = rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
                     e = rand_normal(0, sigma, env = new.env(parent = parent.env(self)))) {
 
+    # Use the init method from the VI_MODEL class
     use_method(self, VI_MODEL$..init..)(
       prm = list(a = a, b = b, c = c, sigma = sigma, x = x, z = z, e = e),
       prm_type = list(a = "o", b = "o", c = "o", sigma = "o", x = "r", z = "r", e = "r"),
@@ -339,20 +340,24 @@ class_HIGHER_ORDER_MODEL <- function(env = new.env(parent = parent.frame())) {
   return(env)
 }
 
+# HETER_MODEL -------------------------------------------------------------
 
-# HETEROSKEDASTICITY_MODEL ------------------------------------------------
 
-class_HETEROSKEDASTICITY_MODEL <- function(env = new.env(parent = parent.frame())) {
+class_HETER_MODEL <- function(env = new.env(parent = parent.frame())) {
 
   # Pass CMD check
   self <- NULL
 
-  new_class(VI_MODEL, env = env, class_name = "HETEROSKEDASTICITY_MODEL")
+  new_class(VI_MODEL, env = env, class_name = "HETER_MODEL")
 
   # Run the `set_formula` method for the class
   env$set_formula(formula = y ~ 1 + x + e,
                   null_formula = y ~ x,
                   alt_formula = NULL)
+
+  # Define the
+  env$sigma_quote_formula <- quote(sigma ~ sqrt(1 + (2 - abs(a)) * (x - a)^2 * b))
+  env$e_quote_formula <- quote(e ~ RAND_NORMAL[["gen"]](length(sigma), mu = 0, sigma = sigma))
 
 
 # init --------------------------------------------------------------------
@@ -360,11 +365,13 @@ class_HETEROSKEDASTICITY_MODEL <- function(env = new.env(parent = parent.frame()
   init_ <- function(a = 0, b = 1,
                     x = rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))) {
 
-    sigma <- closed_form(~sqrt(1 + (2 - abs(a)) * (x - a)^2 * b),
-                         env = new.env(parent = parent.env(self)))
-    e <- closed_form(~RAND_NORMAL[["gen"]](length(x), mu = 0, sigma = sigma),
-                     env = new.env(parent = parent.env(self)))
+    # `sigma` is a random variable which depends on `x`
+    sigma <- closed_form(eval(self$sigma_quote_formula), env = new.env(parent = parent.env(self)))
 
+    # `e` is a random variable which depends on `sigma`
+    e <- closed_form(eval(self$e_quote_formula), env = new.env(parent = parent.env(self)))
+
+    # Use the init method from the VI_MODEL class
     use_method(self, VI_MODEL$..init..)(
       prm = list(a = a, b = b, x = x, sigma = sigma, e = e),
       prm_type = list(a = "o", b = "o", x = "r", sigma = "r", e = "r"),
@@ -379,16 +386,19 @@ class_HETEROSKEDASTICITY_MODEL <- function(env = new.env(parent = parent.frame()
 
   test_ <- function(dat, null_formula = self$null_formula) {
 
+    # Get the null model
     mod <- self$fit(dat)
 
+    # construct proxy variables
     tmp_data <- data.frame(x = dat$x)
     tmp_data$xs <- tmp_data$x^2
 
-    this_bp_test <- lmtest::bptest(mod, varformula = ~ x + xs, data = tmp_data)
+    # Run the BP test
+    bp_test <- lmtest::bptest(mod, varformula = ~ x + xs, data = tmp_data)
 
     return(list(name = "BP-test",
-                statistic = unname(this_bp_test$statistic),
-                p_value = unname(this_bp_test$p.value)))
+                statistic = unname(bp_test$statistic),
+                p_value = unname(bp_test$p.value)))
   }
 
 
