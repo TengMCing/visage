@@ -23,6 +23,6 @@ New attributes: \link{VI_MODEL$prm}, \link{VI_MODEL$prm_type}, \link{VI_MODEL$..
 \cr
 \cr
 New methods: \link{VI_MODEL$..init..}, \link{VI_MODEL$..str..}, \link{VI_MODEL$set_formula},
-\link{VI_MODEL$gen}, \link{VI_MODEL$test}, \link{VI_MODEL$fit}
+\link{VI_MODEL$gen}, \link{VI_MODEL$test}, \link{VI_MODEL$fit}, \link{VI_MODEL$plot_resid}
 }
 \keyword{datasets}

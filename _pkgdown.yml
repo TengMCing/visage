@@ -113,6 +113,7 @@ reference:
   - VI_MODEL$gen
   - VI_MODEL$test
   - VI_MODEL$fit
+  - VI_MODEL$plot_resid
 - title: "Utilties"
   desc: >
     Utility functions
