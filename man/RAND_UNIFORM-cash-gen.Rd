@@ -20,7 +20,7 @@ This function generates random values from the random variable.
 }
 \examples{
 
-test <- RAND_UNIFORM$instantiation(a = 1, b = 2)
+test <- rand_uniform(a = 1, b = 2)
 test$gen(10)
 
 test$gen(3, a = c(1,2,3), b = c(2,3,4))

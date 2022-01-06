@@ -33,10 +33,10 @@ CLOSED_FORM <- class_CLOSED_FORM()
 #' a <- 1
 #'
 #' # Random uniform variable
-#' b <- RAND_UNIFORM$instantiation()
+#' b <- rand_uniform()
 #'
 #' # Define a closed form expression
-#' cf <- CLOSED_FORM$instantiation(~3 * (exp(a) + b))
+#' cf <- closed_form(~3 * (exp(a) + b))
 #'
 #' cf
 #'
@@ -49,10 +49,10 @@ CLOSED_FORM <- class_CLOSED_FORM()
 #' # Get the list of symbol types
 #' cf$sym_type
 #'
-#' d <- RAND_NORMAL$instantiation()
+#' d <- rand_normal()
 #'
 #' # Define a closed form expression with another closed form expression
-#' cf2 <- CLOSED_FORM$instantiation(~cf + 3 * d)
+#' cf2 <- closed_form(~cf + 3 * d)
 #'
 #' cf2
 #'
@@ -96,18 +96,18 @@ CLOSED_FORM$sym_type
 #' a <- 1
 #'
 #' # Random uniform variable
-#' b <- RAND_UNIFORM$instantiation()
+#' b <- rand_uniform()
 #'
 #' # Define a closed form expression
-#' cf <- CLOSED_FORM$instantiation(omit~omit~3 * (exp(a) + b))
+#' cf <- closed_form(omit~omit~3 * (exp(a) + b))
 #'
 #' # Only the right hand side of the last `~` will be kept
 #' cf$expr
 #'
-#' d <- RAND_NORMAL$instantiation()
+#' d <- rand_normal()
 #'
 #' # Define a closed form expression with another closed form expression
-#' cf2 <- CLOSED_FORM$instantiation(~cf + 3 * d)
+#' cf2 <- closed_form(~cf + 3 * d)
 #'
 #' cf2$expr
 CLOSED_FORM$expr
@@ -143,17 +143,17 @@ CLOSED_FORM$expr
 #' a <- 1
 #'
 #' # Random uniform variable
-#' b <- RAND_UNIFORM$instantiation()
+#' b <- rand_uniform()
 #'
 #' # Define a closed form expression
-#' cf <- CLOSED_FORM$instantiation(~3 * (exp(a) + b))
+#' cf <- closed_form(~3 * (exp(a) + b))
 #'
 #' cf
 #'
-#' d <- RAND_NORMAL$instantiation()
+#' d <- rand_normal()
 #'
 #' # Define a closed form expression with another closed form expression
-#' cf2 <- CLOSED_FORM$instantiation(~cf + 3 * d)
+#' cf2 <- closed_form(~cf + 3 * d)
 #'
 #' cf2
 CLOSED_FORM$..init..
@@ -167,7 +167,9 @@ CLOSED_FORM$..init..
 #'
 #' @examples
 #'
-#' test <- CLOSED_FORM$instantiation(~1+1)
+#' CLOSED_FORM$..str..()
+#'
+#' test <- closed_form(~1+1)
 #' test$..str..()
 CLOSED_FORM$..str..
 
@@ -180,7 +182,7 @@ CLOSED_FORM$..str..
 #'
 #' @examples
 #'
-#' test <- CLOSED_FORM$instantiation(~1+mean(c(1,2,3)))
+#' test <- closed_form(~1+mean(c(1,2,3)))
 #' test$compute()
 CLOSED_FORM$compute
 
@@ -205,10 +207,10 @@ CLOSED_FORM$compute
 #' a <- 1
 #'
 #' # Random uniform variable
-#' b <- RAND_UNIFORM$instantiation()
+#' b <- rand_uniform()
 #'
 #' # Define a closed form expression
-#' cf <- CLOSED_FORM$instantiation(~3 * (exp(a) + b))
+#' cf <- closed_form(~3 * (exp(a) + b))
 #'
 #' # Generate 5 values
 #' cf$gen(5)
@@ -216,10 +218,10 @@ CLOSED_FORM$compute
 #' # Generate 5 values, and keep RHS
 #' cf$gen(5, rhs_val = TRUE)
 #'
-#' d <- RAND_NORMAL$instantiation()
+#' d <- rand_normal()
 #'
 #' # Define a closed form expression with another closed form expression
-#' cf2 <- CLOSED_FORM$instantiation(~cf + 3 * d)
+#' cf2 <- closed_form(~cf + 3 * d)
 #'
 #' # Generate 5 values
 #' cf2$gen(5)
@@ -228,20 +230,20 @@ CLOSED_FORM$compute
 #' cf2$gen(5, rhs_val = TRUE)
 #'
 #' # Define a closed form expression with two random variables of the same name
-#' cf3 <- CLOSED_FORM$instantiation(~d + d)
+#' cf3 <- closed_form(~d + d)
 #'
 #' # Both `d` will share the same values
 #' cf3$gen(5, rhs_val = TRUE)
 #'
 #' # Define a closed form expression with two closed form expressions of the same name
-#' cf4 <- CLOSED_FORM$instantiation(~cf3 + cf3)
+#' cf4 <- closed_form(~cf3 + cf3)
 #'
 #' # Both `cf3` will share the same values, both `d` will share the same values as well
 #' cf4$gen(5, rhs_val = TRUE)
 #'
 #' # Define a closed form expression with two different closed form expressions,
 #' # but contains same random variables
-#' cf5 <- CLOSED_FORM$instantiation(~cf3 + cf4)
+#' cf5 <- closed_form(~cf3 + cf4)
 #'
 #' # Both `d` in `cf3` and `cf4` will share the same value
 #' cf5$gen(5, rhs_val = TRUE)
@@ -280,10 +282,10 @@ CLOSED_FORM$ast
 #' a <- 1
 #'
 #' # Random uniform variable
-#' b <- RAND_UNIFORM$instantiation()
+#' b <- rand_uniform()
 #'
 #' # Define a closed form expression
-#' cf <- CLOSED_FORM$instantiation(~3 * (exp(a) + b))
+#' cf <- closed_form(~3 * (exp(a) + b))
 #'
 #' # Generate data
 #' result1 <- cf$gen(10)

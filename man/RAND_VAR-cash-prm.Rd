@@ -9,7 +9,7 @@ A list, will be initialized after an instance is built.
 \examples{
 
 # Instantiation
-test <- RAND_VAR$instantiation(dist = "uniform", prm = list(a = 1, b = 2))
+test <- rand_var(dist = "uniform", prm = list(a = 1, b = 2))
 test$prm
 test$dist
 }

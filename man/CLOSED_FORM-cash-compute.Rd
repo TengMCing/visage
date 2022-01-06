@@ -11,6 +11,6 @@ This function computes a deterministic expression.
 }
 \examples{
 
-test <- CLOSED_FORM$instantiation(~1+mean(c(1,2,3)))
+test <- closed_form(~1+mean(c(1,2,3)))
 test$compute()
 }

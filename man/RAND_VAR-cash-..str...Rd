@@ -13,6 +13,6 @@ This function returns a string representation of the object.
 
 RAND_VAR$..str..()
 
-test <- RAND_VAR$instantiation(dist = "uniform", prm = list(a = 1, b = 2))
+test <- rand_var(dist = "uniform", prm = list(a = 1, b = 2))
 test$..str..()
 }

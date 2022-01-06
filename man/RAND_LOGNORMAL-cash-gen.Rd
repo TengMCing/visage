@@ -20,7 +20,7 @@ This function generates random values from the random variable.
 }
 \examples{
 
-test <- RAND_LOGNORMAL$instantiation(mu = 1, sigma = 2)
+test <- rand_lognormal(mu = 1, sigma = 2)
 test$gen(10)
 
 test$gen(3, mu = c(0,1,2), sigma = c(1,2,3))

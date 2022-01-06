@@ -58,10 +58,10 @@
 <span class="r-in"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Random uniform variable</span></span>
-<span class="r-in"><span class="va">b</span> <span class="op">&lt;-</span> <span class="va">RAND_UNIFORM</span><span class="op">$</span><span class="fu">instantiation</span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="portal.html">rand_uniform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Define a closed form expression</span></span>
-<span class="r-in"><span class="va">cf</span> <span class="op">&lt;-</span> <span class="va">CLOSED_FORM</span><span class="op">$</span><span class="fu">instantiation</span><span class="op">(</span><span class="op">~</span><span class="fl">3</span> <span class="op">*</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span> <span class="op">+</span> <span class="va">b</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">cf</span> <span class="op">&lt;-</span> <span class="fu"><a href="portal.html">closed_form</a></span><span class="op">(</span><span class="op">~</span><span class="fl">3</span> <span class="op">*</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span> <span class="op">+</span> <span class="va">b</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">cf</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
@@ -135,10 +135,10 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "rand_var or closed_form"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"></span>
-<span class="r-in"><span class="va">d</span> <span class="op">&lt;-</span> <span class="va">RAND_NORMAL</span><span class="op">$</span><span class="fu">instantiation</span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="portal.html">rand_normal</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Define a closed form expression with another closed form expression</span></span>
-<span class="r-in"><span class="va">cf2</span> <span class="op">&lt;-</span> <span class="va">CLOSED_FORM</span><span class="op">$</span><span class="fu">instantiation</span><span class="op">(</span><span class="op">~</span><span class="va">cf</span> <span class="op">+</span> <span class="fl">3</span> <span class="op">*</span> <span class="va">d</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">cf2</span> <span class="op">&lt;-</span> <span class="fu"><a href="portal.html">closed_form</a></span><span class="op">(</span><span class="op">~</span><span class="va">cf</span> <span class="op">+</span> <span class="fl">3</span> <span class="op">*</span> <span class="va">d</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">cf2</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>

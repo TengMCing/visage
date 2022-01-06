@@ -19,6 +19,6 @@ input will be stored in the environment.
 \examples{
 
 # Instantiation
-test <- RAND_LOGNORMAL$instantiation(mu = 1, sigma = 2)
+test <- rand_lognormal(mu = 1, sigma = 2)
 test
 }

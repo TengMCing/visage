@@ -35,17 +35,17 @@ values when is called by the \code{gen} method.
 a <- 1
 
 # Random uniform variable
-b <- RAND_UNIFORM$instantiation()
+b <- rand_uniform()
 
 # Define a closed form expression
-cf <- CLOSED_FORM$instantiation(~3 * (exp(a) + b))
+cf <- closed_form(~3 * (exp(a) + b))
 
 cf
 
-d <- RAND_NORMAL$instantiation()
+d <- rand_normal()
 
 # Define a closed form expression with another closed form expression
-cf2 <- CLOSED_FORM$instantiation(~cf + 3 * d)
+cf2 <- closed_form(~cf + 3 * d)
 
 cf2
 }
