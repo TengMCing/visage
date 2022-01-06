@@ -110,6 +110,7 @@ reference:
   - VI_MODEL$..init..
   - VI_MODEL$..str..
   - VI_MODEL$set_formula
+  - VI_MODEL$gen
 - title: "Utilties"
   desc: >
     Utility functions

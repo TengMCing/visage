@@ -252,6 +252,38 @@ VI_MODEL$..str..
 #' test$alt_formula
 VI_MODEL$set_formula
 
+#' Generating random values from the expression of `y`
+#'
+#' @name VI_MODEL$gen
+#'
+#' @description This function generates random values from the expression of
+#' `y`, and keeps all the right hand side information in a data frame.
+#' @param n Integer. Number of observations.
+#' @param fit_model Boolean. Whether or not to fit a null model to obtain the
+#' fitted values and the residuals. Default is `FALSE`.
+#' @param test Boolean. Whether or not to test the null model against the
+#' alternative model to obtain the test statistic and the p-value.
+#' Default is `FALSE`.
+#' @return A data frame.
+#'
+#' @examples
+#'
+#' # Instantiation
+#' x <- rand_uniform()
+#' e <- rand_normal()
+#' test <- vi_model(prm = list(x = x, e = e),
+#'                  prm_type = list(x = "r", e = "r"),
+#'                  formula = y ~ 1 + x + x^2 + e,
+#'                  null_formula = y ~ x,
+#'                  alt_formula = y ~ x + I(x^2))
+#'
+#' test$gen(10)
+#'
+#' test$gen(10, fit_model = TRUE)
+#'
+#' test$gen(10, test = TRUE)
+VI_MODEL$gen
+
 
 HIGHER_ORDER_MODEL <- class_HIGHER_ORDER_MODEL()
 
