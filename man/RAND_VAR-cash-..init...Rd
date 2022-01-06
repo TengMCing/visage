@@ -20,7 +20,7 @@ input will be stored in the environment.
 RAND_VAR$..init..
 
 # Instantiation
-test <- RAND_VAR$instantiation(dist = "uniform", prm = list(a = 1, b = 2))
+test <- rand_var(dist = "uniform", prm = list(a = 1, b = 2))
 test$prm
 test$dist
 }

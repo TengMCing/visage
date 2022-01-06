@@ -33,12 +33,13 @@ is \code{y}.
 \examples{
 
 # Instantiation
-x <- RAND_UNIFORM$instantiation()
-test <- VI_MODEL$instantiation(prm = list(x = x),
-                               prm_type = list(x = "r"),
-                               formula = y~x+x^2,
-                               null_formula = y~x,
-                               alt_formula = y~x+I(x^2))
+x <- rand_uniform()
+e <- rand_normal()
+test <- vi_model(prm = list(x = x, e = e),
+                 prm_type = list(x = "r", e = "r"),
+                 formula = y~x+x^2+e,
+                 null_formula = y~x,
+                 alt_formula = y~x+I(x^2))
 
 test
 }

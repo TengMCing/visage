@@ -73,13 +73,13 @@ each realization.</p></dd>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="va">test</span> <span class="op">&lt;-</span> <span class="va">RAND_LOGNORMAL</span><span class="op">$</span><span class="fu">instantiation</span><span class="op">(</span>mu <span class="op">=</span> <span class="fl">1</span>, sigma <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">test</span> <span class="op">&lt;-</span> <span class="fu"><a href="portal.html">rand_lognormal</a></span><span class="op">(</span>mu <span class="op">=</span> <span class="fl">1</span>, sigma <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">test</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 27.03356752 11.84667303  1.06372023 42.82982941  0.62601444 54.13397955</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7]  0.06966547  0.14883145 80.15300574  3.71200696</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 30.1307564 58.3806057  4.0494528  3.4205689  5.1713949  4.9640131</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7]  0.1403607  0.4066298  0.7179794  7.7001891</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">test</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span><span class="fl">3</span>, mu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, sigma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]   0.6536395   0.5619870 538.3716921</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.6741075 0.1414474 1.0464931</span>
 </code></pre></div>
     </div>
   </div>

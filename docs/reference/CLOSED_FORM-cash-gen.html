@@ -78,101 +78,101 @@ makes the expression potentially deterministic.</p></dd>
 <span class="r-in"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Random uniform variable</span></span>
-<span class="r-in"><span class="va">b</span> <span class="op">&lt;-</span> <span class="va">RAND_UNIFORM</span><span class="op">$</span><span class="fu">instantiation</span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="portal.html">rand_uniform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Define a closed form expression</span></span>
-<span class="r-in"><span class="va">cf</span> <span class="op">&lt;-</span> <span class="va">CLOSED_FORM</span><span class="op">$</span><span class="fu">instantiation</span><span class="op">(</span><span class="op">~</span><span class="fl">3</span> <span class="op">*</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span> <span class="op">+</span> <span class="va">b</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">cf</span> <span class="op">&lt;-</span> <span class="fu"><a href="portal.html">closed_form</a></span><span class="op">(</span><span class="op">~</span><span class="fl">3</span> <span class="op">*</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span> <span class="op">+</span> <span class="va">b</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Generate 5 values</span></span>
 <span class="r-in"><span class="va">cf</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 10.424698  9.716130  8.692861  9.371112  9.087651</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  9.502056 10.653477 10.970743  8.371979  9.837864</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Generate 5 values, and keep RHS</span></span>
 <span class="r-in"><span class="va">cf</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span><span class="fl">5</span>, rhs_val <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $lhs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 10.517418  8.221414  9.308136 10.824770  9.857672</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  8.571623 10.823801  9.065854  9.947432  8.408049</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rhs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rhs$b</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.78752405 0.02218938 0.38443010 0.88997496 0.56760898</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.13892587 0.88965188 0.30366950 0.59752895 0.08440124</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"></span>
-<span class="r-in"><span class="va">d</span> <span class="op">&lt;-</span> <span class="va">RAND_NORMAL</span><span class="op">$</span><span class="fu">instantiation</span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="portal.html">rand_normal</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Define a closed form expression with another closed form expression</span></span>
-<span class="r-in"><span class="va">cf2</span> <span class="op">&lt;-</span> <span class="va">CLOSED_FORM</span><span class="op">$</span><span class="fu">instantiation</span><span class="op">(</span><span class="op">~</span><span class="va">cf</span> <span class="op">+</span> <span class="fl">3</span> <span class="op">*</span> <span class="va">d</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">cf2</span> <span class="op">&lt;-</span> <span class="fu"><a href="portal.html">closed_form</a></span><span class="op">(</span><span class="op">~</span><span class="va">cf</span> <span class="op">+</span> <span class="fl">3</span> <span class="op">*</span> <span class="va">d</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Generate 5 values</span></span>
 <span class="r-in"><span class="va">cf2</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 10.91800  8.81154 15.79236 10.77229 15.01834</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8.530361 5.920705 8.960236 7.268945 8.269825</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Generate 5 values, and keep RHS</span></span>
 <span class="r-in"><span class="va">cf2</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span><span class="fl">5</span>, rhs_val <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $lhs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  7.149142  9.754648  4.518631  3.923113 15.860837</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 9.823129 7.587846 8.963992 9.215597 6.839796</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rhs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rhs$b</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.8857730 0.2197367 0.1688148 0.1163695 0.9827962</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2667388 0.4057261 0.6475382 0.9300815 0.3106119</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rhs$cf</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 10.812165  8.814056  8.661290  8.503954 11.103234</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  8.955062  9.372024 10.097460 10.945090  9.086681</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rhs$d</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -1.2210077  0.3135309 -1.3808862 -1.5269469  1.5858677</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.2893558 -0.5947261 -0.3778227 -0.5764978 -0.7489618</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Define a closed form expression with two random variables of the same name</span></span>
-<span class="r-in"><span class="va">cf3</span> <span class="op">&lt;-</span> <span class="va">CLOSED_FORM</span><span class="op">$</span><span class="fu">instantiation</span><span class="op">(</span><span class="op">~</span><span class="va">d</span> <span class="op">+</span> <span class="va">d</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">cf3</span> <span class="op">&lt;-</span> <span class="fu"><a href="portal.html">closed_form</a></span><span class="op">(</span><span class="op">~</span><span class="va">d</span> <span class="op">+</span> <span class="va">d</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Both `d` will share the same values</span></span>
 <span class="r-in"><span class="va">cf3</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span><span class="fl">5</span>, rhs_val <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $lhs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -1.315511 -3.632588 -4.113638 -1.293151 -1.308708</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  3.058276 -2.117009  1.434211  4.530163 -2.225894</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rhs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rhs$d</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.6577555 -1.8162940 -2.0568191 -0.6465756 -0.6543538</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  1.5291379 -1.0585046  0.7171056  2.2650816 -1.1129471</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Define a closed form expression with two closed form expressions of the same name</span></span>
-<span class="r-in"><span class="va">cf4</span> <span class="op">&lt;-</span> <span class="va">CLOSED_FORM</span><span class="op">$</span><span class="fu">instantiation</span><span class="op">(</span><span class="op">~</span><span class="va">cf3</span> <span class="op">+</span> <span class="va">cf3</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">cf4</span> <span class="op">&lt;-</span> <span class="fu"><a href="portal.html">closed_form</a></span><span class="op">(</span><span class="op">~</span><span class="va">cf3</span> <span class="op">+</span> <span class="va">cf3</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Both `cf3` will share the same values, both `d` will share the same values as well</span></span>
 <span class="r-in"><span class="va">cf4</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span><span class="fl">5</span>, rhs_val <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $lhs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  1.30223455 -2.38375454 -0.01076338 -2.17580065 -1.08965404</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  4.886852 -3.404485 -3.740766  4.412405 -8.625484</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rhs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rhs$d</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.325558638 -0.595938635 -0.002690846 -0.543950164 -0.272413510</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  1.2217130 -0.8511212 -0.9351915  1.1031012 -2.1563709</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rhs$cf3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.651117277 -1.191877271 -0.005381691 -1.087900327 -0.544827020</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  2.443426 -1.702242 -1.870383  2.206202 -4.312742</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Define a closed form expression with two different closed form expressions,</span></span>
 <span class="r-in"><span class="co"># but contains same random variables</span></span>
-<span class="r-in"><span class="va">cf5</span> <span class="op">&lt;-</span> <span class="va">CLOSED_FORM</span><span class="op">$</span><span class="fu">instantiation</span><span class="op">(</span><span class="op">~</span><span class="va">cf3</span> <span class="op">+</span> <span class="va">cf4</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">cf5</span> <span class="op">&lt;-</span> <span class="fu"><a href="portal.html">closed_form</a></span><span class="op">(</span><span class="op">~</span><span class="va">cf3</span> <span class="op">+</span> <span class="va">cf4</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Both `d` in `cf3` and `cf4` will share the same value</span></span>
 <span class="r-in"><span class="va">cf5</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span><span class="fl">5</span>, rhs_val <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $lhs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  1.622086 -3.116108 -1.130030 -3.027557 -2.229847</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  3.891647 -4.462788  1.575020 -7.107749  5.401252</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rhs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rhs$d</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.2703477 -0.5193514 -0.1883384 -0.5045928 -0.3716411</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.6486078 -0.7437980  0.2625033 -1.1846248  0.9002086</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rhs$cf3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  0.5406955 -1.0387027 -0.3766767 -1.0091855 -0.7432822</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  1.2972155 -1.4875960  0.5250067 -2.3692496  1.8004173</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $rhs$cf4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  1.0813910 -2.0774055 -0.7533534 -2.0183711 -1.4865644</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  2.594431 -2.975192  1.050013 -4.738499  3.600835</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"></span>

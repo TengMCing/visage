@@ -20,6 +20,6 @@ input will be stored in the environment.
 \examples{
 
 # Instantiation
-test <- RAND_UNIFORM_D$instantiation(a = 1, b = 2, k = 3)
+test <- rand_uniform_d(a = 1, b = 2, k = 3)
 test
 }

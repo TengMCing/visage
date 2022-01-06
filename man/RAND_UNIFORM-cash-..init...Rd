@@ -18,6 +18,6 @@ input will be stored in the environment.
 \examples{
 
 # Instantiation
-test <- RAND_UNIFORM$instantiation(a = 1, b = 2)
+test <- rand_uniform(a = 1, b = 2)
 test
 }

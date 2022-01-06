@@ -11,6 +11,8 @@ This function returns a string representation of the object.
 }
 \examples{
 
-test <- CLOSED_FORM$instantiation(~1+1)
+CLOSED_FORM$..str..()
+
+test <- closed_form(~1+1)
 test$..str..()
 }

@@ -15,9 +15,10 @@ be labelled as "o" as well.
 \examples{
 
 # Instantiation
-x <- RAND_UNIFORM$instantiation()
-test <- VI_MODEL$instantiation(prm = list(x = x),
-                               prm_type = list(x = "r"),
-                               formula = y~x+x^2)
+x <- rand_uniform()
+e <- rand_normal()
+test <- vi_model(prm = list(x = x, e = e),
+                 prm_type = list(x = "r", e = "r"),
+                 formula = y~x+x^2+e)
 test$prm_type
 }

@@ -71,26 +71,26 @@ data frame.</p>
 <span class="r-in"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Random uniform variable</span></span>
-<span class="r-in"><span class="va">b</span> <span class="op">&lt;-</span> <span class="va">RAND_UNIFORM</span><span class="op">$</span><span class="fu">instantiation</span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="portal.html">rand_uniform</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Define a closed form expression</span></span>
-<span class="r-in"><span class="va">cf</span> <span class="op">&lt;-</span> <span class="va">CLOSED_FORM</span><span class="op">$</span><span class="fu">instantiation</span><span class="op">(</span><span class="op">~</span><span class="fl">3</span> <span class="op">*</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span> <span class="op">+</span> <span class="va">b</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">cf</span> <span class="op">&lt;-</span> <span class="fu"><a href="portal.html">closed_form</a></span><span class="op">(</span><span class="op">~</span><span class="fl">3</span> <span class="op">*</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span> <span class="op">+</span> <span class="va">b</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Generate data</span></span>
 <span class="r-in"><span class="va">result1</span> <span class="op">&lt;-</span> <span class="va">cf</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">cf</span><span class="op">$</span><span class="fu">as_dataframe</span><span class="op">(</span><span class="va">result1</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         .lhs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   8.317409</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   8.821883</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   9.033498</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  10.152703</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  11.124873</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  10.401204</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  10.033179</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   8.978478</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  10.452229</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10  9.811570</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   9.142510</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   9.219873</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   8.659962</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  10.125906</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   8.945713</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   9.260493</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   9.993840</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   9.664157</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   8.418917</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  8.527664</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Generate data and keep the RHS</span></span>
 <span class="r-in"><span class="va">result2</span> <span class="op">&lt;-</span> <span class="va">cf</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span><span class="fl">10</span>, rhs_val <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -98,16 +98,16 @@ data frame.</p>
 <span class="r-in"><span class="co"># Specify the name</span></span>
 <span class="r-in"><span class="va">cf</span><span class="op">$</span><span class="fu">as_dataframe</span><span class="op">(</span><span class="va">result2</span>, lhs <span class="op">=</span> <span class="st">"y"</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            y         b</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   8.445035 0.0967299</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  10.065502 0.6368855</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  10.439536 0.7615635</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  10.431653 0.7589358</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  11.000612 0.9485888</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  10.318648 0.7212675</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   9.279510 0.3748882</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  10.602504 0.8158863</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9   9.672961 0.5060385</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10  9.668817 0.5046570</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   9.679466 0.5082069</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  10.364175 0.7364432</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   9.388769 0.4113079</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   9.857825 0.5676599</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   9.517530 0.4542281</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  10.107650 0.6509350</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  10.863656 0.9029367</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  10.236792 0.6939823</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   9.032800 0.2926516</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  8.412117 0.0857572</span>
 </code></pre></div>
     </div>
   </div>

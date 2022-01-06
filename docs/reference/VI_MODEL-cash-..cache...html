@@ -57,12 +57,13 @@ method.</p>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="co"># Instantiation</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">RAND_UNIFORM</span><span class="op">$</span><span class="fu">instantiation</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">test</span> <span class="op">&lt;-</span> <span class="va">VI_MODEL</span><span class="op">$</span><span class="fu">instantiation</span><span class="op">(</span>prm <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span><span class="op">)</span>,</span>
-<span class="r-in">                               prm_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"r"</span><span class="op">)</span>,</span>
-<span class="r-in">                               formula <span class="op">=</span> <span class="va">y</span><span class="op">~</span><span class="va">x</span><span class="op">+</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span>,</span>
-<span class="r-in">                               null_formula <span class="op">=</span> <span class="va">y</span><span class="op">~</span><span class="va">x</span>,</span>
-<span class="r-in">                               alt_formula <span class="op">=</span> <span class="va">y</span><span class="op">~</span><span class="va">x</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="portal.html">rand_uniform</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">e</span> <span class="op">&lt;-</span> <span class="fu"><a href="portal.html">rand_normal</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">test</span> <span class="op">&lt;-</span> <span class="fu"><a href="portal.html">vi_model</a></span><span class="op">(</span>prm <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, e <span class="op">=</span> <span class="va">e</span><span class="op">)</span>,</span>
+<span class="r-in">                 prm_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"r"</span>, e <span class="op">=</span> <span class="st">"r"</span><span class="op">)</span>,</span>
+<span class="r-in">                 formula <span class="op">=</span> <span class="va">y</span><span class="op">~</span><span class="va">x</span><span class="op">+</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">+</span><span class="va">e</span>,</span>
+<span class="r-in">                 null_formula <span class="op">=</span> <span class="va">y</span><span class="op">~</span><span class="va">x</span>,</span>
+<span class="r-in">                 alt_formula <span class="op">=</span> <span class="va">y</span><span class="op">~</span><span class="va">x</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Turn on cache</span></span>
 <span class="r-in"><span class="va">test</span><span class="op">$</span><span class="fu">fit</span><span class="op">(</span><span class="va">test</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>, cache <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -72,30 +73,32 @@ method.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Coefficients:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)            x  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    -0.04232      1.68335  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      0.2889       0.9682  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">test</span><span class="op">$</span><span class="va">..cache..</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            y         x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.8887181 0.5671074</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1.9306257 0.9766942</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  1.0782797 0.6525102</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  1.5056701 0.8250170</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  1.1836519 0.6973520</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  0.3256858 0.2587396</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  1.6571804 0.8810070</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  0.5395121 0.3885450</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  0.8599366 0.5535353</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 0.5348173 0.3858991</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             y         x          e</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  -0.1540174 0.1948337 -0.3868113</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   1.4847622 0.6516108  0.4085547</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   0.4879231 0.9406409 -1.3375232</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  -0.4847509 0.6016438 -1.4483699</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   1.8740128 0.6412924  0.8214645</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   2.9285662 0.7941341  1.5037832</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   1.4301092 0.3335077  0.9853741</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   0.4610215 0.1282348  0.3163426</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   0.4169761 0.5880651 -0.5169095</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  0.7621810 0.1666743  0.5677263</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> y ~ x</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── &lt;VI_MODEL object&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> y = x + x^2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> y = x + x^2 + e</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  - x: &lt;RAND_UNIFORM object&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>    [a: 0, b: 1] </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>    [a: 0, b: 1]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  - e: &lt;RAND_NORMAL object&gt;</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>    [mu: 0, sigma: 1] </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $mod</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -104,7 +107,7 @@ method.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Coefficients:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)            x  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    -0.04232      1.68335  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      0.2889       0.9682  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>

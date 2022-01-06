@@ -55,21 +55,24 @@
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="co"># Instantiation</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">RAND_UNIFORM</span><span class="op">$</span><span class="fu">instantiation</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">test</span> <span class="op">&lt;-</span> <span class="va">VI_MODEL</span><span class="op">$</span><span class="fu">instantiation</span><span class="op">(</span>prm <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span><span class="op">)</span>,</span>
-<span class="r-in">                               prm_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"r"</span><span class="op">)</span>,</span>
-<span class="r-in">                               formula <span class="op">=</span> <span class="va">y</span><span class="op">~</span><span class="va">x</span><span class="op">+</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span>,</span>
-<span class="r-in">                               null_formula <span class="op">=</span> <span class="va">y</span><span class="op">~</span><span class="va">x</span>,</span>
-<span class="r-in">                               alt_formula <span class="op">=</span> <span class="va">y</span><span class="op">~</span><span class="va">x</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="portal.html">rand_uniform</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">e</span> <span class="op">&lt;-</span> <span class="fu"><a href="portal.html">rand_normal</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">test</span> <span class="op">&lt;-</span> <span class="fu"><a href="portal.html">vi_model</a></span><span class="op">(</span>prm <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, e <span class="op">=</span> <span class="va">e</span><span class="op">)</span>,</span>
+<span class="r-in">                 prm_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"r"</span>, e <span class="op">=</span> <span class="st">"r"</span><span class="op">)</span>,</span>
+<span class="r-in">                 formula <span class="op">=</span> <span class="va">y</span><span class="op">~</span><span class="va">x</span><span class="op">+</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">+</span><span class="va">e</span>,</span>
+<span class="r-in">                 null_formula <span class="op">=</span> <span class="va">y</span><span class="op">~</span><span class="va">x</span>,</span>
+<span class="r-in">                 alt_formula <span class="op">=</span> <span class="va">y</span><span class="op">~</span><span class="va">x</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># A formula with environment equals to `test`</span></span>
 <span class="r-in"><span class="va">test</span><span class="op">$</span><span class="va">null_formula</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> y ~ x</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── &lt;VI_MODEL object&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> y = x + x^2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> y = x + x^2 + e</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  - x: &lt;RAND_UNIFORM object&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>    [a: 0, b: 1] </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>    [a: 0, b: 1]</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  - e: &lt;RAND_NORMAL object&gt;</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>    [mu: 0, sigma: 1] </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># By default, `fit` use the null formula</span></span>
 <span class="r-in"><span class="va">test</span><span class="op">$</span><span class="fu">fit</span><span class="op">(</span><span class="va">test</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
@@ -79,7 +82,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Coefficients:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)            x  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     -0.2481       2.1091  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     -0.2285       2.6917  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># F-test also needs to use the null model</span></span>
@@ -88,10 +91,10 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "F-test"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $statistic</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.653231e+30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2.597272</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $p_value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4.545769e-104</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1510829</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>

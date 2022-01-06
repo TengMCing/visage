@@ -21,10 +21,10 @@ data frame.
 a <- 1
 
 # Random uniform variable
-b <- RAND_UNIFORM$instantiation()
+b <- rand_uniform()
 
 # Define a closed form expression
-cf <- CLOSED_FORM$instantiation(~3 * (exp(a) + b))
+cf <- closed_form(~3 * (exp(a) + b))
 
 # Generate data
 result1 <- cf$gen(10)

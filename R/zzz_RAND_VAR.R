@@ -30,7 +30,7 @@ RAND_VAR <- class_RAND_VAR()
 #' @examples
 #'
 #' # Instantiation
-#' test <- RAND_VAR$instantiation(dist = "uniform", prm = list(a = 1, b = 2))
+#' test <- rand_var(dist = "uniform", prm = list(a = 1, b = 2))
 #' test$prm
 #' test$dist
 RAND_VAR$dist
@@ -44,7 +44,7 @@ RAND_VAR$dist
 #' @examples
 #'
 #' # Instantiation
-#' test <- RAND_VAR$instantiation(dist = "uniform", prm = list(a = 1, b = 2))
+#' test <- rand_var(dist = "uniform", prm = list(a = 1, b = 2))
 #' test$prm
 #' test$dist
 RAND_VAR$prm
@@ -64,7 +64,7 @@ RAND_VAR$prm
 #' RAND_VAR$..init..
 #'
 #' # Instantiation
-#' test <- RAND_VAR$instantiation(dist = "uniform", prm = list(a = 1, b = 2))
+#' test <- rand_var(dist = "uniform", prm = list(a = 1, b = 2))
 #' test$prm
 #' test$dist
 RAND_VAR$..init..
@@ -120,7 +120,7 @@ RAND_VAR$gen
 #'
 #' RAND_VAR$..str..()
 #'
-#' test <- RAND_VAR$instantiation(dist = "uniform", prm = list(a = 1, b = 2))
+#' test <- rand_var(dist = "uniform", prm = list(a = 1, b = 2))
 #' test$..str..()
 RAND_VAR$..str..
 
@@ -156,7 +156,7 @@ RAND_UNIFORM <- class_RAND_UNIFORM()
 #' @examples
 #'
 #' # Instantiation
-#' test <- RAND_UNIFORM$instantiation(a = 1, b = 2)
+#' test <- rand_uniform(a = 1, b = 2)
 #' test
 RAND_UNIFORM$..init..
 
@@ -175,7 +175,7 @@ RAND_UNIFORM$..init..
 #'
 #' @examples
 #'
-#' test <- RAND_UNIFORM$instantiation(a = 1, b = 2)
+#' test <- rand_uniform(a = 1, b = 2)
 #' test$gen(10)
 #'
 #' test$gen(3, a = c(1,2,3), b = c(2,3,4))
@@ -213,7 +213,7 @@ RAND_NORMAL <- class_RAND_NORMAL()
 #' @examples
 #'
 #' # Instantiation
-#' test <- RAND_NORMAL$instantiation(mu = 1, sigma = 2)
+#' test <- rand_normal(mu = 1, sigma = 2)
 #' test
 RAND_NORMAL$..init..
 
@@ -232,7 +232,7 @@ RAND_NORMAL$..init..
 #'
 #' @examples
 #'
-#' test <- RAND_NORMAL$instantiation(mu = 1, sigma = 2)
+#' test <- rand_normal(mu = 1, sigma = 2)
 #' test$gen(10)
 #'
 #' test$gen(3, mu = c(0,1,2), sigma = c(1,2,4))
@@ -270,7 +270,7 @@ RAND_LOGNORMAL <- class_RAND_LOGNORMAL()
 #' @examples
 #'
 #' # Instantiation
-#' test <- RAND_LOGNORMAL$instantiation(mu = 1, sigma = 2)
+#' test <- rand_lognormal(mu = 1, sigma = 2)
 #' test
 RAND_LOGNORMAL$..init..
 
@@ -289,7 +289,7 @@ RAND_LOGNORMAL$..init..
 #'
 #' @examples
 #'
-#' test <- RAND_LOGNORMAL$instantiation(mu = 1, sigma = 2)
+#' test <- rand_lognormal(mu = 1, sigma = 2)
 #' test$gen(10)
 #'
 #' test$gen(3, mu = c(0,1,2), sigma = c(1,2,3))
@@ -329,7 +329,7 @@ RAND_UNIFORM_D <- class_RAND_UNIFORM_D()
 #' @examples
 #'
 #' # Instantiation
-#' test <- RAND_UNIFORM_D$instantiation(a = 1, b = 2, k = 3)
+#' test <- rand_uniform_d(a = 1, b = 2, k = 3)
 #' test
 RAND_UNIFORM_D$..init..
 
@@ -350,7 +350,7 @@ RAND_UNIFORM_D$..init..
 #'
 #' @examples
 #'
-#' test <- RAND_UNIFORM_D$instantiation(a = 1, b = 2, k = 2)
+#' test <- rand_uniform_d(a = 1, b = 2, k = 2)
 #' test$gen(10)
 #'
 #' test$gen(3, a = c(1,2,3), b = c(2,3,4), k = 1)
