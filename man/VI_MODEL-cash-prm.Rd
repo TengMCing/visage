@@ -11,7 +11,7 @@ A list, will be initialized after an instance is built.
 # Instantiation
 x <- RAND_UNIFORM$instantiation()
 test <- VI_MODEL$instantiation(prm = list(x = x),
-                               prm_type = list(x = "rand_var or closed_form"),
+                               prm_type = list(x = "r"),
                                formula = y~x+x^2)
 test$prm
 }
