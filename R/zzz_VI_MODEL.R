@@ -12,7 +12,7 @@
 #' \cr
 #' \cr
 #' New attributes: [VI_MODEL$prm], [VI_MODEL$prm_type], [VI_MODEL$..cache..],
-#' [VI_MODEL$formula], VI_MODEL$null_formula, VI_MODEL$alt_formula
+#' [VI_MODEL$formula], [VI_MODEL$null_formula], VI_MODEL$alt_formula
 #' \cr
 #' \cr
 #' New methods: VI_MODEL$..init.., VI_MODEL$..str..,
@@ -73,7 +73,7 @@ VI_MODEL$prm_type
 #'                                prm_type = list(x = "r"),
 #'                                formula = y~x+x^2,
 #'                                null_formula = y~x,
-#'                                alt_formula = y~x+x^2)
+#'                                alt_formula = y~x+I(x^2))
 #'
 #' # Turn on cache
 #' test$fit(test$gen(10), cache = TRUE)
@@ -96,7 +96,7 @@ VI_MODEL$..cache..
 #'                                prm_type = list(x = "r"),
 #'                                formula = y~x+x^2,
 #'                                null_formula = y~x,
-#'                                alt_formula = y~x+x^2)
+#'                                alt_formula = y~x+I(x^2))
 #'
 #' # A formula with environment equals to `test`
 #' test$formula
@@ -104,5 +104,31 @@ VI_MODEL$..cache..
 #' # `y` has the same expression
 #' test$prm$y
 VI_MODEL$formula
+
+#' Formula for fitting the null model
+#'
+#' @name VI_MODEL$null_formula
+#'
+#' @description A formula, will be used to fit the null model.
+#'
+#' @examples
+#'
+#' # Instantiation
+#' x <- RAND_UNIFORM$instantiation()
+#' test <- VI_MODEL$instantiation(prm = list(x = x),
+#'                                prm_type = list(x = "r"),
+#'                                formula = y~x+x^2,
+#'                                null_formula = y~x,
+#'                                alt_formula = y~x+I(x^2))
+#'
+#' # A formula with environment equals to `test`
+#' test$null_formula
+#'
+#' # By default, `fit` use the null formula
+#' test$fit(test$gen(10))
+#'
+#' # F-test also needs to use the null model
+#' test$test(test$gen(10))
+VI_MODEL$null_formula
 
 HIGHER_ORDER_MODEL <- class_HIGHER_ORDER_MODEL()

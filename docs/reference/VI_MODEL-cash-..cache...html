@@ -62,7 +62,7 @@ method.</p>
 <span class="r-in">                               prm_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"r"</span><span class="op">)</span>,</span>
 <span class="r-in">                               formula <span class="op">=</span> <span class="va">y</span><span class="op">~</span><span class="va">x</span><span class="op">+</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span>,</span>
 <span class="r-in">                               null_formula <span class="op">=</span> <span class="va">y</span><span class="op">~</span><span class="va">x</span>,</span>
-<span class="r-in">                               alt_formula <span class="op">=</span> <span class="va">y</span><span class="op">~</span><span class="va">x</span><span class="op">+</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in">                               alt_formula <span class="op">=</span> <span class="va">y</span><span class="op">~</span><span class="va">x</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Turn on cache</span></span>
 <span class="r-in"><span class="va">test</span><span class="op">$</span><span class="fu">fit</span><span class="op">(</span><span class="va">test</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>, cache <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -72,22 +72,22 @@ method.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Coefficients:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)            x  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     -0.2362       2.0676  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     -0.2428       2.1149  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">test</span><span class="op">$</span><span class="va">..cache..</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dat</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             y          x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.06582869 0.06198638</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1.64873812 0.87794707</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  0.18003427 0.15576999</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  1.05666431 0.64309418</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  1.50290125 0.82397177</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  0.51918142 0.37702989</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  0.12418717 0.11170840</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  1.75267983 0.91516071</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  1.61643615 0.86617574</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 1.64105271 0.87515552</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.97080101 0.60489864</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1.36242011 0.76981105</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  1.02926041 0.63104395</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.38520104 0.29699501</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.91001349 0.57703922</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  0.09068174 0.08367948</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  1.26090758 0.72918981</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  0.66905307 0.45867255</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  0.11652626 0.10541412</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 0.06519097 0.06141871</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> y ~ x</span>
@@ -104,7 +104,7 @@ method.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Coefficients:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)            x  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     -0.2362       2.0676  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     -0.2428       2.1149  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
