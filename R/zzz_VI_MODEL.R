@@ -131,4 +131,30 @@ VI_MODEL$formula
 #' test$test(test$gen(10))
 VI_MODEL$null_formula
 
+#' Formula for fitting the alternative model
+#'
+#' @name VI_MODEL$alt_formula
+#'
+#' @description A formula, will be used to fit the alternative model.
+#'
+#' @examples
+#'
+#' # Instantiation
+#' x <- RAND_UNIFORM$instantiation()
+#' test <- VI_MODEL$instantiation(prm = list(x = x),
+#'                                prm_type = list(x = "r"),
+#'                                formula = y~x+x^2,
+#'                                null_formula = y~x,
+#'                                alt_formula = y~x+I(x^2))
+#'
+#' # A formula with environment equals to `test`
+#' test$alt_formula
+#'
+#' # Use alternative formula in `fit`
+#' test$fit(test$gen(10), test$alt_formula)
+#'
+#' # F-test also needs to use the alternative model
+#' test$test(test$gen(10))
+VI_MODEL$alt_formula
+
 HIGHER_ORDER_MODEL <- class_HIGHER_ORDER_MODEL()

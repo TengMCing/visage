@@ -106,6 +106,7 @@ reference:
   - VI_MODEL$..cache..
   - VI_MODEL$formula
   - VI_MODEL$null_formula
+  - VI_MODEL$alt_formula
 - title: "Utilties"
   desc: >
     Utility functions
