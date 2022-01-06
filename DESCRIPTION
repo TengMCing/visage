@@ -19,6 +19,7 @@ Imports:
     cli,
     dplyr,
     ggplot2,
+    lmtest,
     progress,
     stats,
     tibble,
