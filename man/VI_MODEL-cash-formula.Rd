@@ -15,7 +15,7 @@ test <- VI_MODEL$instantiation(prm = list(x = x),
                                prm_type = list(x = "r"),
                                formula = y~x+x^2,
                                null_formula = y~x,
-                               alt_formula = y~x+x^2)
+                               alt_formula = y~x+I(x^2))
 
 # A formula with environment equals to `test`
 test$formula

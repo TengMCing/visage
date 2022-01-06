@@ -62,7 +62,7 @@ define a closed form expression for <code>y</code>.</p>
 <span class="r-in">                               prm_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"r"</span><span class="op">)</span>,</span>
 <span class="r-in">                               formula <span class="op">=</span> <span class="va">y</span><span class="op">~</span><span class="va">x</span><span class="op">+</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span>,</span>
 <span class="r-in">                               null_formula <span class="op">=</span> <span class="va">y</span><span class="op">~</span><span class="va">x</span>,</span>
-<span class="r-in">                               alt_formula <span class="op">=</span> <span class="va">y</span><span class="op">~</span><span class="va">x</span><span class="op">+</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in">                               alt_formula <span class="op">=</span> <span class="va">y</span><span class="op">~</span><span class="va">x</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># A formula with environment equals to `test`</span></span>
 <span class="r-in"><span class="va">test</span><span class="op">$</span><span class="va">formula</span></span>
