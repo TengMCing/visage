@@ -3,7 +3,7 @@
 #' @name BASE
 #'
 #' @description This class provides essential attributes and methods.
-#' @format An environment with S3 class `oop`.
+#' @format An environment with S3 class `visage_oop`.
 #' @seealso Attributes: [BASE$..type..], [BASE$..class..], [BASE$..method_env..],
 #' [BASE$..instantiated..]
 #' \cr

@@ -136,15 +136,15 @@ register_method <- function(env, ..., container_name = "..method_env..", self_na
 
 # print.oop --------------------------------------------------------
 
-#' S3 method of printing `oop` object
+#' S3 method of printing `visage_oop` object
 #'
 #' This function print the string representation of the object.
 #'
-#' @param x `oop` object.
+#' @param x `visage_oop` object.
 #' @param ... ignored.
 #' @return No return value, called for side effects.
 #' @export
-print.oop <- function(x, ...) {
+print.visage_oop <- function(x, ...) {
   if ("..str.." %in% names(x)) {
     cli::cli_h3(x$..str..())
   } else {
@@ -168,7 +168,7 @@ print.oop <- function(x, ...) {
 #' @param ... Environments. Parent class environments.
 #' @param env Environment. The new class environment.
 #' @param class_name Name of the new class.
-#' @return A class environment with S3 class "oop".
+#' @return A class environment with S3 class "visage_oop".
 #'
 #' @examples
 #' MYCLASS <- new_class(class_name = "MYCLASS")
@@ -209,7 +209,7 @@ new_class <- function(..., env = new.env(parent = parent.frame()), class_name = 
   env$..instantiated.. <- FALSE
 
   # Set S3 class
-  class(env) <- "oop"
+  class(env) <- "visage_oop"
 
   # Return the class
   return(env)
@@ -348,7 +348,7 @@ class_BASE <- function(env = new.env(parent = parent.frame())) {
     env$..instantiated.. <- TRUE
 
     # Set the S3 class
-    class(env) <- "oop"
+    class(env) <- "visage_oop"
 
     # `..new..` method should return the environment by convention
     return(env)

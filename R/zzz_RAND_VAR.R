@@ -9,7 +9,7 @@
 #'
 #' @description This is the base class of random variable, inherited from
 #' [BASE].
-#' @format An environment with S3 class `oop`.
+#' @format An environment with S3 class `visage_oop`.
 #' @seealso Parent class: [BASE]
 #' \cr
 #' \cr
@@ -134,7 +134,7 @@ RAND_VAR$..str..
 #'
 #' @description This is the class of the uniform random variable, inherited from
 #' [RAND_VAR].
-#' @format An environment with S3 class `oop`.
+#' @format An environment with S3 class `visage_oop`.
 #' @seealso Parent class: [RAND_VAR]
 #' \cr
 #' \cr
@@ -191,7 +191,7 @@ RAND_UNIFORM$gen
 #'
 #' @description This is the class of the normal random variable, inherited from
 #' [RAND_VAR].
-#' @format An environment with S3 class `oop`.
+#' @format An environment with S3 class `visage_oop`.
 #' @seealso Parent class: [RAND_VAR]
 #' \cr
 #' \cr
@@ -247,7 +247,7 @@ RAND_NORMAL$gen
 #'
 #' @description This is the class of the log-normal random variable, inherited from
 #' [RAND_VAR].
-#' @format An environment with S3 class `oop`.
+#' @format An environment with S3 class `visage_oop`.
 #' @seealso Parent class: [RAND_VAR]
 #' \cr
 #' \cr
@@ -306,7 +306,7 @@ RAND_LOGNORMAL$gen
 #'
 #' @description This is the class of the discrete uniform random variable, inherited from
 #' [RAND_VAR].
-#' @format An environment with S3 class `oop`.
+#' @format An environment with S3 class `visage_oop`.
 #' @seealso Parent class: [RAND_VAR]
 #' \cr
 #' \cr

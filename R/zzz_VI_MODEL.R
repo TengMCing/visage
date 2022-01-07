@@ -7,7 +7,7 @@
 #'
 #' @description This is the base class of visual inference linear model,
 #' inherited from [BASE].
-#' @format An environment with S3 class `oop`.
+#' @format An environment with S3 class `visage_oop`.
 #' @seealso Parent class: [BASE]
 #' \cr
 #' \cr
@@ -558,7 +558,7 @@ VI_MODEL$gen_lineup
 #'
 #' @description This is the class of visual inference cubic linear model,
 #' inherited from [VI_MODEL].
-#' @format An environment with S3 class `oop`.
+#' @format An environment with S3 class `visage_oop`.
 #' @seealso Parent class: [VI_MODEL]
 #' \cr
 #' \cr
@@ -656,7 +656,7 @@ CUBIC_MODEL$..init..
 #'
 #' @description This is the class of visual inference heteroskedasticity
 #' linear model, inherited from [VI_MODEL].
-#' @format An environment with S3 class `oop`.
+#' @format An environment with S3 class `visage_oop`.
 #' @seealso Parent class: [VI_MODEL]
 #' \cr
 #' \cr
