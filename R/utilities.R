@@ -198,22 +198,24 @@ vi_model_dependencies <- as.list(unique(unlist(vi_model_dependencies)))
 
 
 
-#' Load functions from the visage into the current environment or search path
+#' Load functions from the visage into target environment or search path
 #'
 #' This function is critical when other packages want to use the visage OOP
-#' system, or user want to use the system without loading the entire namespace
-#' of the package into the search path, i.e, use functions like
-#' `x <- visage::rand_uniform()` without calling `library(visage)` first.
-#' Since this system is based on environment, any instance will only
+#' system. Since this OOP system is based on environment, any instance will only
 #' run on the environment they defined. So, function like [use_method] which
 #' only exists in the package environment can not be accessed by the instance,
 #' unless the function has been loaded into the current environment by calling
-#' `use_method <- visage::use_method`.
+#' `use_method <- visage::use_method`. This issue can usually be addressed by
+#' using the package name directly inside the method body like
+#' `this_method <- function() visage::use_method()`. However, if it is not
+#' possible, then this function helps loads corresponding function into target
+#' environment or search path.
 #'
 #' If it is used in a package, specify `package = TRUE`, this function will
 #' call [define_pkg_fn]. Otherwise, it will call [require] to attach the
 #' functions into the search path.
 #'
+#' @param env Environment. The target environment.
 #' @param package Boolean. Whether or not it is used in a package.
 #' @param reload Boolean. Whether or not to reload the namespace. Only works if
 #' `package = FALSE`.
@@ -225,7 +227,8 @@ vi_model_dependencies <- as.list(unique(unlist(vi_model_dependencies)))
 #' @return No return value, called for side effects.
 #'
 #' @export
-import_visage <- function(package = FALSE,
+import_visage <- function(env = parent.frame(),
+                          package = FALSE,
                           reload = FALSE,
                           import_oop = TRUE,
                           import_base = TRUE,
@@ -242,7 +245,7 @@ import_visage <- function(package = FALSE,
 
   if (package) {
     do.call(visage::define_pkg_fn, append(list(pkg = "visage"), final_list),
-          envir = parent.frame())
+            envir = env)
   } else {
     if (reload) do.call("detach", list(name = "package:visage", unload = TRUE))
     do.call("require", list(package = "visage", include.only = unlist(final_list)),
