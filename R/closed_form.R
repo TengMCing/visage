@@ -40,8 +40,8 @@ class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
         # Mark the symbol as "other"
         self$sym_type[[sym]] <- "other"
 
-        # If it is an `oop` object
-        if ("oop" %in% class(self$sym[[sym]])) {
+        # If it is an `visage_oop` object
+        if ("visage_oop" %in% class(self$sym[[sym]])) {
 
           # And it has the method `gen` and it is an instance
           if (is.function(self$sym[[sym]]$gen) & self$sym[[sym]]$..instantiated..) {

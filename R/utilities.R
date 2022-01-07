@@ -46,7 +46,7 @@ define_pkg_fn <- function(pkg, ...) {
   assign_list <- lapply(1:length(fn_list), function(i) {
 
     # Arguments in `...` must be symbols
-    if (!is.symbol(fn_list[[i]])) stop("`", as.expression(fn_list[[i]]), "` is not a symbol!")
+    if (!is.symbol(fn_list[[i]]) && !is.character(fn_list[[i]])) stop("`", as.expression(fn_list[[i]]), "` is not a symbol or a character!")
 
     # `Base` an `sum` are not used, they are here to pass the CMD check
     eval(substitute(`::`(base, sum),
@@ -168,3 +168,30 @@ sub_fn_body_name <- function(fn, old_name, new_name) {
 
   return(fn)
 }
+
+
+
+# import_visage_dependencies ----------------------------------------------
+
+
+# Create names of functions that other packages may need to use
+
+oop_dependencies <- c("register_method", "use_method", "copy_attr", "new_class", "print.visage_oop", "bind_fn_2_env")
+
+base_dependencies <- append(list("BASE", "base_"), oop_dependencies)
+
+rand_var_dependencies <- append(list("RAND_VAR", "rand_var",
+                                     "RAND_UNIFORM", "rand_uniform",
+                                     "RAND_NORMAL", "rand_normal",
+                                     "RAND_UNIFORM_D", "rand_uniform_d",
+                                     "RAND_LOGNORMAL", "rand_lognormal"),
+                                base_dependencies)
+
+closed_form_dependencies <- append(list("CLOSED_FORM", "closed_form"), base_dependencies)
+
+vi_model_dependencies <- append(append(list("VI_MODEL", "vi_model",
+                                     "CUBIC_MODEL", "cubic_model",
+                                     "HETER_MODEL", "heter_model"),
+                                     closed_form_dependencies), rand_var_dependencies)
+
+vi_model_dependencies <- as.list(unique(unlist(vi_model_dependencies)))

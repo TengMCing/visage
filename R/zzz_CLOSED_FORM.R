@@ -7,7 +7,7 @@
 #'
 #' @description This is the base class of closed form expression, inherited from
 #' [BASE].
-#' @format An environment with S3 class `oop`.
+#' @format An environment with S3 class `visage_oop`.
 #' @seealso Parent class: [BASE]
 #' \cr
 #' \cr
