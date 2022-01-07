@@ -133,8 +133,7 @@ register_method <- function(env, ..., container_name = "..method_env..", self_na
   return(invisible(NULL))
 }
 
-
-# print.oop --------------------------------------------------------
+# print.visage_oop --------------------------------------------------------
 
 #' S3 method of printing `visage_oop` object
 #'

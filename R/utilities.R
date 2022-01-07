@@ -171,12 +171,12 @@ sub_fn_body_name <- function(fn, old_name, new_name) {
 
 
 
-# import_visage_dependencies ----------------------------------------------
+# import_visage -----------------------------------------------------------
 
 
 # Create names of functions that other packages may need to use
 
-oop_dependencies <- c("register_method", "use_method", "copy_attr", "new_class", "print.visage_oop", "bind_fn_2_env")
+oop_dependencies <- c("register_method", "use_method", "copy_attr", "new_class", "bind_fn_2_env")
 
 base_dependencies <- append(list("BASE", "base_"), oop_dependencies)
 
@@ -195,3 +195,58 @@ vi_model_dependencies <- append(append(list("VI_MODEL", "vi_model",
                                      closed_form_dependencies), rand_var_dependencies)
 
 vi_model_dependencies <- as.list(unique(unlist(vi_model_dependencies)))
+
+
+
+#' Load functions from the visage into the current environment or search path
+#'
+#' This function is critical when other packages want to use the visage OOP
+#' system, or user want to use the system without loading the entire namespace
+#' of the package into the search path, i.e, use functions like
+#' `x <- visage::rand_uniform()` without calling `library(visage)` first.
+#' Since this system is based on environment, any instance will only
+#' run on the environment they defined. So, function like [use_method] which
+#' only exists in the package environment can not be accessed by the instance,
+#' unless the function has been loaded into the current environment by calling
+#' `use_method <- visage::use_method`.
+#'
+#' If it is used in a package, specify `package = TRUE`, this function will
+#' call [define_pkg_fn]. Otherwise, it will call [require] to attach the
+#' functions into the search path.
+#'
+#' @param package Boolean. Whether or not it is used in a package.
+#' @param reload Boolean. Whether or not to reload the namespace. Only works if
+#' `package = FALSE`.
+#' @param import_oop Boolean. Whether or not to import OOP tools.
+#' @param import_base Boolean. Whether or not to import BASE class.
+#' @param import_rand_var Boolean. Whether or not to import RAND_VAR classes.
+#' @param import_closed_form Boolean. Whether or not to import CLOSED_FORM class.
+#' @param import_vi_model Boolean. Whether or not to import VI_MODEL classes.
+#' @return No return value, called for side effects.
+#'
+#' @export
+import_visage <- function(package = FALSE,
+                          reload = FALSE,
+                          import_oop = TRUE,
+                          import_base = TRUE,
+                          import_rand_var = FALSE,
+                          import_closed_form = FALSE,
+                          import_vi_model = FALSE) {
+  final_list <- list()
+
+  if (import_oop) final_list <- append(final_list, oop_dependencies)
+  if (import_base) final_list <- append(final_list, base_dependencies)
+  if (import_rand_var) final_list <- append(final_list, rand_var_dependencies)
+  if (import_closed_form) final_list <- append(final_list, closed_form_dependencies)
+  if (import_vi_model) final_list <- append(final_list, vi_model_dependencies)
+
+  if (package) {
+    do.call(visage::define_pkg_fn, append(list(pkg = "visage"), final_list),
+          envir = parent.frame())
+  } else {
+    if (reload) do.call("detach", list(name = "package:visage", unload = TRUE))
+    do.call("require", list(package = "visage", include.only = unlist(final_list)),
+            envir = parent.frame())
+  }
+
+}

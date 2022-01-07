@@ -5,7 +5,7 @@
 \alias{CLOSED_FORM}
 \title{CLOSED_FORM class environment}
 \format{
-An environment with S3 class \code{oop}.
+An environment with S3 class \code{visage_oop}.
 }
 \usage{
 CLOSED_FORM

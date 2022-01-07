@@ -5,7 +5,7 @@
 \alias{RAND_UNIFORM_D}
 \title{RAND_UNIFORM_D class environment}
 \format{
-An environment with S3 class \code{oop}.
+An environment with S3 class \code{visage_oop}.
 }
 \usage{
 RAND_UNIFORM_D

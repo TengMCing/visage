@@ -10,6 +10,12 @@
     <loc>/LICENSE.html</loc>
   </url>
   <url>
+    <loc>/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>/articles/visage-OOP.html</loc>
+  </url>
+  <url>
     <loc>/authors.html</loc>
   </url>
   <url>
@@ -109,27 +115,6 @@
     <loc>/reference/CUBIC_MODEL.html</loc>
   </url>
   <url>
-    <loc>/reference/HETEROSKEDASTICITY_MODEL-cash-..init...html</loc>
-  </url>
-  <url>
-    <loc>/reference/HETEROSKEDASTICITY_MODEL-cash-alt_formula.html</loc>
-  </url>
-  <url>
-    <loc>/reference/HETEROSKEDASTICITY_MODEL-cash-e_quote_formula.html</loc>
-  </url>
-  <url>
-    <loc>/reference/HETEROSKEDASTICITY_MODEL-cash-formula.html</loc>
-  </url>
-  <url>
-    <loc>/reference/HETEROSKEDASTICITY_MODEL-cash-null_formula.html</loc>
-  </url>
-  <url>
-    <loc>/reference/HETEROSKEDASTICITY_MODEL-cash-sigma_quote_formula.html</loc>
-  </url>
-  <url>
-    <loc>/reference/HETEROSKEDASTICITY_MODEL.html</loc>
-  </url>
-  <url>
     <loc>/reference/HETER_MODEL-cash-..init...html</loc>
   </url>
   <url>
@@ -152,21 +137,6 @@
   </url>
   <url>
     <loc>/reference/HETER_MODEL.html</loc>
-  </url>
-  <url>
-    <loc>/reference/HIGHER_ORDER_MODEL-cash-..init...html</loc>
-  </url>
-  <url>
-    <loc>/reference/HIGHER_ORDER_MODEL-cash-alt_formula.html</loc>
-  </url>
-  <url>
-    <loc>/reference/HIGHER_ORDER_MODEL-cash-formula.html</loc>
-  </url>
-  <url>
-    <loc>/reference/HIGHER_ORDER_MODEL-cash-null_formula.html</loc>
-  </url>
-  <url>
-    <loc>/reference/HIGHER_ORDER_MODEL.html</loc>
   </url>
   <url>
     <loc>/reference/RAND_LOGNORMAL-cash-..init...html</loc>
@@ -310,6 +280,9 @@
     <loc>/reference/eval_p_value.html</loc>
   </url>
   <url>
+    <loc>/reference/import_visage.html</loc>
+  </url>
+  <url>
     <loc>/reference/index.html</loc>
   </url>
   <url>
@@ -319,7 +292,7 @@
     <loc>/reference/portal.html</loc>
   </url>
   <url>
-    <loc>/reference/print.oop.html</loc>
+    <loc>/reference/print.visage_oop.html</loc>
   </url>
   <url>
     <loc>/reference/register_method.html</loc>
