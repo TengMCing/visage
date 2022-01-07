@@ -21,17 +21,13 @@ library(visage)
 
 # Introduction and Background
 
-In this vignette, basic terminologies of OOP system will be discussed, the implementation of the visage OOP system
-
 ## OOP
 
 **OOP** stands for **object-oriented programming**, which is a programming paradigm based on **objects**. Usually, object is defined as a special type of data structure that can hold both **attributes** (data) and **methods** (associated behaviors). 
 
-**OOP** has been heavily used in R via the S3 system. However, users who have learned OOP in other languages are often dissatisfied with its syntax. This vignette introduces an OOP system provided by the `visage` package, which tries to implement a lightweight OOP system with python-like syntax in R using the "environment" language feature. This OOP system is developed primarily for the ease of designing, 
+**OOP** has been heavily used in R via the S3 system. However, users who have learned OOP in other languages are often dissatisfied with its syntax. This vignette introduces an OOP system provided by the `visage` package, which tries to implement a lightweight OOP system with python-like syntax in R using the "environment" language feature. This OOP system is developed primarily for the ease of designing, simulating, and evaluating visual inference experiment. 
 
-managing 
-
-Other OOP system such as R6 overcomes this problem, 
+There is another python-like OOP system in R called R6, which is also implemented using environment but in a different way. R6 is considered to be heavier than the visage OOP system, it provides many features that may not necessary needed by the user. However, if you are seeking a mature python-like OOP system at the moment, R6 is recommended. The visage OOP system is still experimental. 
 
 ## Class and instance
 

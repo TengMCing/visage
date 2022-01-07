@@ -90,14 +90,12 @@
 <div class="section level1">
 <h1 id="introduction-and-background">Introduction and Background<a class="anchor" aria-label="anchor" href="#introduction-and-background"></a>
 </h1>
-<p>In this vignette, basic terminologies of OOP system will be discussed, the implementation of the visage OOP system</p>
 <div class="section level2">
 <h2 id="oop">OOP<a class="anchor" aria-label="anchor" href="#oop"></a>
 </h2>
 <p><strong>OOP</strong> stands for <strong>object-oriented programming</strong>, which is a programming paradigm based on <strong>objects</strong>. Usually, object is defined as a special type of data structure that can hold both <strong>attributes</strong> (data) and <strong>methods</strong> (associated behaviors).</p>
-<p><strong>OOP</strong> has been heavily used in R via the S3 system. However, users who have learned OOP in other languages are often dissatisfied with its syntax. This vignette introduces an OOP system provided by the <code>visage</code> package, which tries to implement a lightweight OOP system with python-like syntax in R using the “environment” language feature. This OOP system is developed primarily for the ease of designing,</p>
-<p>managing</p>
-<p>Other OOP system such as R6 overcomes this problem,</p>
+<p><strong>OOP</strong> has been heavily used in R via the S3 system. However, users who have learned OOP in other languages are often dissatisfied with its syntax. This vignette introduces an OOP system provided by the <code>visage</code> package, which tries to implement a lightweight OOP system with python-like syntax in R using the “environment” language feature. This OOP system is developed primarily for the ease of designing, simulating, and evaluating visual inference experiment.</p>
+<p>There is another python-like OOP system in R called R6, which is also implemented using environment but in a different way. R6 is considered to be heavier than the visage OOP system, it provides many features that may not necessary needed by the user. However, if you are seeking a mature python-like OOP system at the moment, R6 is recommended. The visage OOP system is still experimental.</p>
 </div>
 <div class="section level2">
 <h2 id="class-and-instance">Class and instance<a class="anchor" aria-label="anchor" href="#class-and-instance"></a>
