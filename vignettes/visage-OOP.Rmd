@@ -1,0 +1,116 @@
+---
+title: "visage OOP system"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{visage-OOP}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(visage)
+```
+
+
+# Introduction and Background
+
+In this vignette, basic terminologies of OOP system will be discussed, the implementation of the visage OOP system
+
+## OOP
+
+**OOP** stands for **object-oriented programming**, which is a programming paradigm based on **objects**. Usually, object is defined as a special type of data structure that can hold both **attributes** (data) and **methods** (associated behaviors). 
+
+**OOP** has been heavily used in R via the S3 system. However, users who have learned OOP in other languages are often dissatisfied with its syntax. This vignette introduces an OOP system provided by the `visage` package, which tries to implement a lightweight OOP system with python-like syntax in R using the "environment" language feature. This OOP system is developed primarily for the ease of designing, 
+
+managing 
+
+Other OOP system such as R6 overcomes this problem, 
+
+## Class and instance
+
+Different kinds of objects are designed to belong to different **classes**. For example, data frame and list are designed to belong to two different S3 classes in R. This can be checked by using 
+
+```{r}
+class(data.frame())
+```
+
+and `class(list())`. However, if you call `unclass(data.frame())`, you will see that data frame is actually just a named list with some additional attributes, which means they are two of the similar kind. So, why would they belong to different S3 classes? It is because they are two different data structures and are expected to behave differently. Data frame is a two-dimensional like structure, while list is a dynamic array like data structure. In terms of the associated behaviors, one obvious example is data frame has the method `dim` to obtain the dimensions of the object, but list does not. 
+
+Objects are **instances** of classes. For example, if we define `a <- data.frame(b = 1)`, then `a` is an instance of class `data.frame` (checked by `is(a, "data.frame")`). Every instance has its own set of data and behaviors. If we define `b <- data.frame(a = 2, b = 2)`, then both `b` and `a` are instances of class `data.frame`, but they have different sets of data.
+
+## Inheritance and composition
+
+Though data frame and list are two different kinds of objects, they still have commonalities. In fact, the result of `extends("data.frame", "list")` shows that list is a super class of data frame (this is a bit controversial, see https://stackoverflow.com/questions/19607652/why-doesnt-classdata-frame-show-list-inheritance). In other words, data frame **inherits** from list in R. In OOP, **Inheritance** is probably the most famous and widely-used relationship. A class can inherit both attributes and methods from its parent class (super class or base class, these terms used interchangeably in most cases). This gives us the ability to define family tree like class system. 
+
+For example, we could define an `employee` class with two attributes `name` and `emp_id` and a method `string`, which is a function of giving a string representation of information about the employee. Then we could define another class called `manager`. Notice managers are still employees, so we also need to keep track of their names and IDs, and be able to print their information. Therefore, class `manager` needs to inherit attributes and methods from `employee`. Suppose we need the `manager` class to also be able to keep track of its team members, that means we need a new attribute called `team_members`, which typically would be a list of `employee` instances. This is called composition, which is the act of collecting several objects in one object.
+
+
+## Constructor, initializer and `self`
+
+If we use pseudo code (actually Python code) to illustrate this example, where the key word `class` is the starting point of a class definition, and key word `def` is the starting point of a function or method definition, then the `employee` and `manager` will look like this:
+
+```python
+class employee:
+    def __init__(self, name, emp_id):
+        self.name = name
+        self.emp_id = emp_id
+    
+    def string(self):
+      return self.emp_id + ' ' + self.name
+      
+class manager(employee):
+    def __init__(self, name, emp_id, team_members):
+        self.name = name
+        self.emp_id = emp_id
+        self.team_members = team_members
+```
+
+Let's first have a look at the class definition,
+
+```python
+class employee:
+```
+it starts with the key word `class`, followed by a class name. 
+
+In the `manager` class, 
+
+```python
+class manager(employee):
+```
+
+it includes the `employee` class in the round brackets, which means `employee` is its parent class.
+
+Under the class definition of `employee`, 
+
+```python
+class employee:
+    def __init__(self, name, emp_id):
+        self.name = name
+        self.emp_id = emp_id
+    
+    def string(self):
+      return self.emp_id + ' ' + self.name
+```
+
+there are two user defined methods. The `__init__` method is a special method, it is responsible for **initializing an object**, so it is often called **initializer**. The `__init__` method of the `employee` class takes 3 arguments, `self`, `name` and `emp_id`. Arguments `name` and `emp_id` are easy to understand, they are just data that you need to provide to initialize the object, just like `a = 1` in `data.frame(a = 1)`. 
+
+Argument `self` is special, it is **a reference to an object**. Therefore, the next line of code `self.name = name` can be interpreted as "assign the content of `name` to an attribute called `name` of the object `self`". However, where is `self` actually points to? The answer is, it depends. But for the purpose of this vignette, it is enough to interpret `self` as **a reference to an object itself**. It may sound confusing, 
+
+
+
+
+
+`class_name()` is responsible for building an instance of the corresponding class with provided information.
+
+```python
+John = employee(name = "John", emp_id = "1")
+Mike = employee(name = "Mike", emp_id = "2")
+Mary = manager(name = "Mary", emp_id = "3", team_members = [John, Mike])
+```

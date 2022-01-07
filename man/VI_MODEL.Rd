@@ -5,7 +5,7 @@
 \alias{VI_MODEL}
 \title{VI_MODEL class environment}
 \format{
-An environment with S3 class \code{oop}.
+An environment with S3 class \code{visage_oop}.
 }
 \usage{
 VI_MODEL

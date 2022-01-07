@@ -14,7 +14,7 @@ new_class(..., env = new.env(parent = parent.frame()), class_name = NULL)
 \item{class_name}{Name of the new class.}
 }
 \value{
-A class environment with S3 class "oop".
+A class environment with S3 class "visage_oop".
 }
 \description{
 This function declare a new class, and copies attributes and methods from
