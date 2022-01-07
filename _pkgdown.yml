@@ -117,6 +117,7 @@ reference:
   - VI_MODEL$null_resid
   - VI_MODEL$plot
   - VI_MODEL$plot_resid
+  - VI_MODEL$plot_qq
   - VI_MODEL$plot_lineup
   - VI_MODEL$rss
 - subtitle: "Visual inference cubic linear model class"

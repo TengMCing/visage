@@ -19,7 +19,8 @@ This function will be called after an instance is built. User
 input will be stored in the environment. The response variable of this model
 is \code{y}. The formula of y is defined in \link{HETER_MODEL$formula},
 the null formula is defined in \link{HETER_MODEL$null_formula},
-the alternative is defined in \link{HETER_MODEL$alt_formula}.
+the formula for \code{sigma} is defined in \link{HETER_MODEL$sigma_quote_formula},
+the formula for \code{e} is defined in \link{HETER_MODEL$e_quote_formula}.
 }
 \examples{
 
