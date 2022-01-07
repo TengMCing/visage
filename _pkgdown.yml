@@ -16,7 +16,7 @@ reference:
   - use_method
   - copy_attr
   - new_class
-  - print.oop
+  - print.visage_oop
 - title: "Portals to class instantiation methods"
   desc: >
     Functions to build an instance
