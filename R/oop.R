@@ -335,10 +335,10 @@ class_BASE <- function(env = new.env(parent = parent.frame())) {
 
     # Copy all the methods and attributes from the class/instance
     # except the container, the instantiation method, init_call
-    copy_attr(env, self, avoid = c("..method_env..",
-                                   "instantiation",
-                                   "..init_call..",
-                                   "..instantiated.."))
+    visage::copy_attr(env, self, avoid = c("..method_env..",
+                                           "instantiation",
+                                           "..init_call..",
+                                           "..instantiated.."))
 
     # Set the `init_call`
     env$..init_call.. <- init_call

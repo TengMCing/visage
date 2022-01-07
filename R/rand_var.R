@@ -64,8 +64,9 @@ class_RAND_UNIFORM <- function(env = new.env(parent = parent.frame())) {
   init_ <- function(a = 0, b = 1) {
 
     # Use the parent class `..init..` method
-    use_method(self, RAND_VAR$..init..)(dist = "uniform",
-                                        prm = list(a = a, b = b))
+    visage::use_method(self, visage::RAND_VAR$..init..)(
+      dist = "uniform",
+      prm = list(a = a, b = b))
 
     return(invisible(NULL))
   }
@@ -107,8 +108,9 @@ class_RAND_NORMAL <- function(env = new.env(parent = parent.frame())) {
   init_ <- function(mu = 0, sigma = 1) {
 
     # Use the parent class `..init..` method
-    use_method(self, RAND_VAR$..init..)(dist = "normal",
-                                        prm = list(mu = mu, sigma = sigma))
+    visage::use_method(self, visage::RAND_VAR$..init..)(
+      dist = "normal",
+      prm = list(mu = mu, sigma = sigma))
 
     return(invisible(NULL))
   }
@@ -148,8 +150,9 @@ class_RAND_LOGNORMAL <- function(env = new.env(parent = parent.frame())) {
   init_ <- function(mu = 0, sigma = 1) {
 
     # Use the parent class `..init..` method
-    use_method(self, RAND_VAR$..init..)(dist = "lognormal",
-                                        prm = list(mu = mu, sigma = sigma))
+    visage::use_method(self, visage::RAND_VAR$..init..)(
+      dist = "lognormal",
+      prm = list(mu = mu, sigma = sigma))
 
     return(invisible(NULL))
   }
@@ -190,8 +193,9 @@ class_RAND_UNIFORM_D <- function(env = new.env(parent = parent.frame())) {
   init_ <- function(a = 0, b = 1, k = 5) {
 
     # Use the parent class `..init..` method
-    use_method(self, RAND_VAR$..init..)(dist = "discrete uniform",
-                                        prm = list(a = a, b = b, k = k))
+    visage::use_method(self, visage::RAND_VAR$..init..)(
+      dist = "discrete uniform",
+      prm = list(a = a, b = b, k = k))
 
     return(invisible(NULL))
   }
