@@ -36,7 +36,7 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
     environment(formula) <- environment()
 
     # Set the y variable
-    self$prm$y <- closed_form(formula, env = new.env(parent = parent.env(self)))
+    self$prm$y <- visage::closed_form(formula, env = new.env(parent = parent.env(self)))
   }
 
 # set_formula -------------------------------------------------------------
@@ -67,7 +67,7 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
   gen_ <- function(n, fit_model = FALSE, test = FALSE) {
 
     # Generate the data frame from the expression
-    dat <- CLOSED_FORM$as_dataframe(self$prm$y$gen(n, rhs_val = TRUE), "y")
+    dat <- visage::CLOSED_FORM$as_dataframe(self$prm$y$gen(n, rhs_val = TRUE), "y")
 
     # If requires residuals and fitted values, fit the model
     if (fit_model) {
@@ -282,7 +282,7 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
       return(paste0("<", self$..type.., " class>"))
     }
 
-    results <- use_method(self$prm$y, CLOSED_FORM$..str..)()
+    results <- visage::use_method(self$prm$y, visage::CLOSED_FORM$..str..)()
     results <- paste0("<", self$..type.., " object>\n ",
                       gsub("<CLOSED_FORM object>\n EXPR", "y", results, fixed = TRUE))
 
@@ -330,12 +330,12 @@ class_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
 # init --------------------------------------------------------------------
 
   init_ <- function(a = 1, b = 1, c = 1, sigma = 1,
-                    x = rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
-                    z = rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
-                    e = rand_normal(0, sigma, env = new.env(parent = parent.env(self)))) {
+                    x = visage::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
+                    z = visage::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
+                    e = visage::rand_normal(0, sigma, env = new.env(parent = parent.env(self)))) {
 
     # Use the init method from the VI_MODEL class
-    use_method(self, VI_MODEL$..init..)(
+    visage::use_method(self, visage::VI_MODEL$..init..)(
       prm = list(a = a, b = b, c = c, sigma = sigma, x = x, z = z, e = e),
       prm_type = list(a = "o", b = "o", c = "o", sigma = "o", x = "r", z = "r", e = "r"),
       formula = self$formula,
@@ -374,16 +374,16 @@ class_HETER_MODEL <- function(env = new.env(parent = parent.frame())) {
 # init --------------------------------------------------------------------
 
   init_ <- function(a = 0, b = 1,
-                    x = rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))) {
+                    x = visage::rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))) {
 
     # `sigma` is a random variable which depends on `x`
-    sigma <- closed_form(eval(self$sigma_quote_formula), env = new.env(parent = parent.env(self)))
+    sigma <- visage::closed_form(eval(self$sigma_quote_formula), env = new.env(parent = parent.env(self)))
 
     # `e` is a random variable which depends on `sigma`
-    e <- closed_form(eval(self$e_quote_formula), env = new.env(parent = parent.env(self)))
+    e <- visage::closed_form(eval(self$e_quote_formula), env = new.env(parent = parent.env(self)))
 
     # Use the init method from the VI_MODEL class
-    use_method(self, VI_MODEL$..init..)(
+    visage::use_method(self, visage::VI_MODEL$..init..)(
       prm = list(a = a, b = b, x = x, sigma = sigma, e = e),
       prm_type = list(a = "o", b = "o", x = "r", sigma = "r", e = "r"),
       formula = self$formula,

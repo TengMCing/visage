@@ -163,7 +163,7 @@ class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
       return(paste0("<", self$..type.., " class>"))
     }
 
-    result <- use_method(self, BASE$..str..)()
+    result <- visage::use_method(self, visage::BASE$..str..)()
     result <- paste0(result, "\n EXPR = ", paste(deparse(self$expr, width.cutoff = 500L), collapse =  " "))
     rand_index <- which(unlist(self$sym_type) == "rand_var or closed_form")
     for (i in rand_index) {
