@@ -215,6 +215,15 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
   }
 
 
+# plot_qq -----------------------------------------------------------------
+
+  plot_qq_ <- function(dat) {
+    ggplot2::ggplot(dat) +
+      ggplot2::geom_qq_line(ggplot2::aes(sample = .resid)) +
+      ggplot2::geom_qq(ggplot2::aes(sample = .resid))
+  }
+
+
 # plot --------------------------------------------------------------------
 
   plot_ <- function(dat,
@@ -225,7 +234,8 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
                     remove_grid_line = FALSE,
                     add_zero_line = TRUE) {
     p <- switch(type,
-                "resid" = self$plot_resid(dat)) +
+                "resid" = self$plot_resid(dat),
+                "qq" = self$plot_qq(dat)) +
       theme
 
     if (add_zero_line) {
@@ -292,6 +302,7 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
                   test = test_,
                   fit = fit_,
                   plot_resid = plot_resid_,
+                  plot_qq = plot_qq_,
                   plot = plot_,
                   plot_lineup = plot_lineup_,
                   rss = rss_,

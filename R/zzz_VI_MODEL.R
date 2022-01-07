@@ -17,6 +17,7 @@
 #' \cr
 #' New methods: [VI_MODEL$..init..], [VI_MODEL$..str..], [VI_MODEL$set_formula],
 #' [VI_MODEL$gen], [VI_MODEL$test], [VI_MODEL$fit], [VI_MODEL$plot_resid],
+#' [VI_MODEL$plot_qq],
 #' [VI_MODEL$plot], [VI_MODEL$plot_lineup], [VI_MODEL$rss],
 #' [VI_MODEL$null_resid], [VI_MODEL$gen_lineup]
 #' @export
@@ -371,6 +372,29 @@ VI_MODEL$fit
 #' test$plot_resid(test$gen(1000, fit_model = TRUE))
 VI_MODEL$plot_resid
 
+#' Plot the residual Q-Q plot
+#'
+#' @name VI_MODEL$plot_qq
+#'
+#' @description This function generate a Q-Q plot for residuals.
+#' @param dat Data frame. A data frame containing `.resid`.
+#' @return A ggplot.
+#'
+#' @examples
+#'
+#' # Instantiation
+#' x <- rand_uniform()
+#' e <- rand_normal()
+#' test <- vi_model(prm = list(x = x, e = e),
+#'                  prm_type = list(x = "r", e = "r"),
+#'                  formula = y ~ 1 + x + 10 * x^2 + e,
+#'                  null_formula = y ~ x,
+#'                  alt_formula = y ~ x + I(x^2))
+#'
+#' # Residual plot of the null model
+#' test$plot_qq(test$gen(1000, fit_model = TRUE))
+VI_MODEL$plot_qq
+
 #' Plot the fitted model
 #'
 #' @name VI_MODEL$plot
@@ -643,7 +667,7 @@ CUBIC_MODEL$..init..
 #' [HETER_MODEL$e_quote_formula]
 #' \cr
 #' \cr
-#' New methods: [VI_MODEL$..init..], [VI_MODEL$test]
+#' New methods: [HETER_MODEL$..init..], [HETER_MODEL$test]
 #' @export
 HETER_MODEL <- class_HETER_MODEL()
 
@@ -712,7 +736,8 @@ HETER_MODEL$e_quote_formula
 #' input will be stored in the environment. The response variable of this model
 #' is `y`. The formula of y is defined in [HETER_MODEL$formula],
 #' the null formula is defined in [HETER_MODEL$null_formula],
-#' the alternative is defined in [HETER_MODEL$alt_formula].
+#' the formula for `sigma` is defined in [HETER_MODEL$sigma_quote_formula],
+#' the formula for `e` is defined in [HETER_MODEL$e_quote_formula].
 #' @param a Numeric. Default is `a = 0`.
 #' @param b Numeric. Default is `b = 1`.
 #' @param x Random variable or closed form expression. Default is
