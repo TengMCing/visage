@@ -394,3 +394,4 @@ class_BASE <- function(env = new.env(parent = parent.frame())) {
                   ..len.. = len_)
   return(env)
 }
+
