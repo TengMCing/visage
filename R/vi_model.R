@@ -379,6 +379,8 @@ class_HETER_MODEL <- function(env = new.env(parent = parent.frame())) {
     # `sigma` is a random variable which depends on `x`
     sigma <- visage::closed_form(eval(self$sigma_quote_formula), env = new.env(parent = parent.env(self)))
 
+    RAND_NORMAL <- visage::RAND_NORMAL
+
     # `e` is a random variable which depends on `sigma`
     e <- visage::closed_form(eval(self$e_quote_formula), env = new.env(parent = parent.env(self)))
 
