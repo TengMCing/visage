@@ -256,3 +256,7 @@ BASE$..new..
 #'
 #' base_instance$..dict..()
 BASE$instantiation
+
+
+
+BASE2 <- class_BASE2()
