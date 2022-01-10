@@ -85,72 +85,110 @@
 
     
     
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tengmcing.github.io/visage/" class="external-link">visage</a></span><span class="op">)</span></code></pre></div>
 <div class="section level1">
-<h1 id="introduction-and-background">Introduction and Background<a class="anchor" aria-label="anchor" href="#introduction-and-background"></a>
+<h1 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h1>
-<div class="section level2">
-<h2 id="oop">OOP<a class="anchor" aria-label="anchor" href="#oop"></a>
-</h2>
-<p><strong>OOP</strong> stands for <strong>object-oriented programming</strong>, which is a programming paradigm based on <strong>objects</strong>. Usually, object is defined as a special type of data structure that can hold both <strong>attributes</strong> (data) and <strong>methods</strong> (associated behaviors).</p>
 <p><strong>OOP</strong> has been heavily used in R via the S3 system. However, users who have learned OOP in other languages are often dissatisfied with its syntax. This vignette introduces an OOP system provided by the <code>visage</code> package, which tries to implement a lightweight OOP system with python-like syntax in R using the “environment” language feature. This OOP system is developed primarily for the ease of designing, simulating, and evaluating visual inference experiment.</p>
-<p>There is another python-like OOP system in R called R6, which is also implemented using environment but in a different way. R6 is considered to be heavier than the visage OOP system, it provides many features that may not necessary needed by the user. However, if you are seeking a mature python-like OOP system at the moment, R6 is recommended. The visage OOP system is still experimental.</p>
+<p>There is another OOP system in R called <a href="https://r6.r-lib.org/index.html" class="external-link">R6</a>, which is also implemented using environment but in a different way.</p>
 </div>
+<div class="section level1">
+<h1 id="structure-of-this-vignette">Structure of this vignette<a class="anchor" aria-label="anchor" href="#structure-of-this-vignette"></a>
+</h1>
+<p>The first section will review some essential concepts of OOP, if you are familiar with them, you can safely skip it.</p>
+</div>
+<div class="section level1">
+<h1 id="oop-concepts-review">OOP concepts review<a class="anchor" aria-label="anchor" href="#oop-concepts-review"></a>
+</h1>
+<p><strong>OOP</strong> stands for <strong>object-oriented programming</strong>, which is a programming paradigm based on <strong>objects</strong>. Usually, object is defined as a special type of data structure that can hold both <strong>attributes</strong> (data) and <strong>methods</strong> (associated behaviors).</p>
 <div class="section level2">
 <h2 id="class-and-instance">Class and instance<a class="anchor" aria-label="anchor" href="#class-and-instance"></a>
 </h2>
-<p>Different kinds of objects are designed to belong to different <strong>classes</strong>. For example, data frame and list are designed to belong to two different S3 classes in R. This can be checked by using</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<ul>
+<li>Different kinds of objects are designed to belong to different <strong>classes</strong>.</li>
+</ul>
+<p>Data frame and list are designed to belong to two different S3 classes in R. This can be checked by using <code>class(data.frame())</code> and <code>class(list())</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "data.frame"</span></code></pre></div>
-<p>and <code>class(list())</code>. However, if you call <code>unclass(data.frame())</code>, you will see that data frame is actually just a named list with some additional attributes, which means they are two of the similar kind. So, why would they belong to different S3 classes? It is because they are two different data structures and are expected to behave differently. Data frame is a two-dimensional like structure, while list is a dynamic array like data structure. In terms of the associated behaviors, one obvious example is data frame has the method <code>dim</code> to obtain the dimensions of the object, but list does not.</p>
-<p>Objects are <strong>instances</strong> of classes. For example, if we define <code>a &lt;- data.frame(b = 1)</code>, then <code>a</code> is an instance of class <code>data.frame</code> (checked by <code>is(a, "data.frame")</code>). Every instance has its own set of data and behaviors. If we define <code>b &lt;- data.frame(a = 2, b = 2)</code>, then both <code>b</code> and <code>a</code> are instances of class <code>data.frame</code>, but they have different sets of data.</p>
+<span class="co">#&gt; [1] "data.frame"</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] "list"</span></code></pre></div>
+<p>However, if you call <code>unclass(data.frame())</code>, you will see that data frame is actually just a named list with some additional attributes, which means they are two of the similar kind.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">unclass</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; named list()</span>
+<span class="co">#&gt; attr(,"row.names")</span>
+<span class="co">#&gt; integer(0)</span></code></pre></div>
+<p>So, why would they belong to different S3 classes? It is possibly because they are two different data structures and are expected to behave differently. Data frame is a two-dimensional-like structure, while list is a dynamic array-like data structure. In terms of the associated behaviors, one obvious example is data frame has the method <code>dim</code> to obtain the dimensions of the object, but list does not.</p>
+<ul>
+<li>Objects are <strong>instances</strong> of classes.</li>
+</ul>
+<p>Let <code>a &lt;- data.frame(b = 1)</code>, then <code>a</code> is an instance of class <code>data.frame</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">is</span><span class="op">(</span><span class="va">a</span>, <span class="st">"data.frame"</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+<p>Every instance has its own set of data and behaviors. Let <code>b &lt;- data.frame(a = 2, b = 2)</code>, then both <code>b</code> and <code>a</code> are instances of class <code>data.frame</code>, but they have different sets of data.</p>
 </div>
 <div class="section level2">
 <h2 id="inheritance-and-composition">Inheritance and composition<a class="anchor" aria-label="anchor" href="#inheritance-and-composition"></a>
 </h2>
-<p>Though data frame and list are two different kinds of objects, they still have commonalities. In fact, the result of <code>extends("data.frame", "list")</code> shows that list is a super class of data frame (this is a bit controversial, see <a href="https://stackoverflow.com/questions/19607652/why-doesnt-classdata-frame-show-list-inheritance" class="external-link uri">https://stackoverflow.com/questions/19607652/why-doesnt-classdata-frame-show-list-inheritance</a>). In other words, data frame <strong>inherits</strong> from list in R. In OOP, <strong>Inheritance</strong> is probably the most famous and widely-used relationship. A class can inherit both attributes and methods from its parent class (super class or base class, these terms used interchangeably in most cases). This gives us the ability to define family tree like class system.</p>
-<p>For example, we could define an <code>employee</code> class with two attributes <code>name</code> and <code>emp_id</code> and a method <code>string</code>, which is a function of giving a string representation of information about the employee. Then we could define another class called <code>manager</code>. Notice managers are still employees, so we also need to keep track of their names and IDs, and be able to print their information. Therefore, class <code>manager</code> needs to inherit attributes and methods from <code>employee</code>. Suppose we need the <code>manager</code> class to also be able to keep track of its team members, that means we need a new attribute called <code>team_members</code>, which typically would be a list of <code>employee</code> instances. This is called composition, which is the act of collecting several objects in one object.</p>
+<p>Though data frame and list are two different kinds of objects, they still have commonalities. In fact, the result of <code>extends("data.frame", "list")</code> shows that list is a super class of data frame (this is a bit controversial, see <a href="https://stackoverflow.com/questions/19607652/why-doesnt-classdata-frame-show-list-inheritance" class="external-link uri">https://stackoverflow.com/questions/19607652/why-doesnt-classdata-frame-show-list-inheritance</a>).</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">extends</span><span class="op">(</span><span class="st">"data.frame"</span>, <span class="st">"list"</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+<p>In other words, data frame <strong>inherits</strong> from list in R.</p>
+<ul>
+<li>In OOP, <strong>Inheritance</strong> is probably the most famous and widely-used relationship. A class can inherit both attributes and methods from its parent class.</li>
+</ul>
+<p>This gives us the ability to define family tree like class system.</p>
+<div class="section level3">
+<h3 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+</h3>
+<p>Suppose we need to design a simple management system for a company to record the salary of all employees, and provide mechanism to give pay raise. There are two kinds of staffs in this company, employee and manager. For manager, its team members also need to be recorded.</p>
+<p>For this system, we could first define an <code>employee</code> class with two attributes <code>emp_id</code> (employee ID) and <code>salary</code>, and a method <code>pay_raise</code>, which could raise the salary of an employee by a certain amount.</p>
+<p>Then, we need to define another class called <code>manager</code>. Note that managers are still employees, so we also need to keep track of their employee IDs and salary, and be able to give pay raise if needed. Therefore, it is clear that class <code>manager</code> needs to inherit from <code>employee</code>.</p>
+<p>Finally, to keep track of a manager’s team members, a new attribute called <code>team_members</code> is needed, which could be a list of <code>employee</code> objects.</p>
+<ul>
+<li>The act of collecting several objects in one object is called <strong>composition</strong>.</li>
+</ul>
+<p>In this example, both inheritance and composition are used.</p>
+</div>
 </div>
 <div class="section level2">
-<h2 id="constructor-initializer-and-self">Constructor, initializer and <code>self</code><a class="anchor" aria-label="anchor" href="#constructor-initializer-and-self"></a>
+<h2 id="constructor-and-initializer">Constructor and initializer<a class="anchor" aria-label="anchor" href="#constructor-and-initializer"></a>
 </h2>
-<p>If we use pseudo code (actually Python code) to illustrate this example, where the key word <code>class</code> is the starting point of a class definition, and key word <code>def</code> is the starting point of a function or method definition, then the <code>employee</code> and <code>manager</code> will look like this:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> employee:</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name, emp_id):</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.name <span class="op">=</span> name</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.emp_id <span class="op">=</span> emp_id</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> string(<span class="va">self</span>):</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> <span class="va">self</span>.emp_id <span class="op">+</span> <span class="st">' '</span> <span class="op">+</span> <span class="va">self</span>.name</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> manager(employee):</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name, emp_id, team_members):</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.name <span class="op">=</span> name</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.emp_id <span class="op">=</span> emp_id</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.team_members <span class="op">=</span> team_members</span></code></pre></div>
-<p>Let’s first have a look at the class definition,</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> employee:</span></code></pre></div>
-<p>it starts with the key word <code>class</code>, followed by a class name.</p>
-<p>In the <code>manager</code> class,</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> manager(employee):</span></code></pre></div>
-<p>it includes the <code>employee</code> class in the round brackets, which means <code>employee</code> is its parent class.</p>
-<p>Under the class definition of <code>employee</code>,</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> employee:</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name, emp_id):</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.name <span class="op">=</span> name</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.emp_id <span class="op">=</span> emp_id</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> string(<span class="va">self</span>):</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> <span class="va">self</span>.emp_id <span class="op">+</span> <span class="st">' '</span> <span class="op">+</span> <span class="va">self</span>.name</span></code></pre></div>
-<p>there are two user defined methods. The <code>__init__</code> method is a special method, it is responsible for <strong>initializing an object</strong>, so it is often called <strong>initializer</strong>. The <code>__init__</code> method of the <code>employee</code> class takes 3 arguments, <code>self</code>, <code>name</code> and <code>emp_id</code>. Arguments <code>name</code> and <code>emp_id</code> are easy to understand, they are just data that you need to provide to initialize the object, just like <code>a = 1</code> in <code>data.frame(a = 1)</code>.</p>
-<p>Argument <code>self</code> is special, it is <strong>a reference to an object</strong>. Therefore, the next line of code <code>self.name = name</code> can be interpreted as “assign the content of <code>name</code> to an attribute called <code>name</code> of the object <code>self</code>”. However, where is <code>self</code> actually points to? The answer is, it depends. But for the purpose of this vignette, it is enough to interpret <code>self</code> as <strong>a reference to an object itself</strong>. It may sound confusing,</p>
-<p><code>class_name()</code> is responsible for building an instance of the corresponding class with provided information.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>John <span class="op">=</span> employee(name <span class="op">=</span> <span class="st">"John"</span>, emp_id <span class="op">=</span> <span class="st">"1"</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>Mike <span class="op">=</span> employee(name <span class="op">=</span> <span class="st">"Mike"</span>, emp_id <span class="op">=</span> <span class="st">"2"</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>Mary <span class="op">=</span> manager(name <span class="op">=</span> <span class="st">"Mary"</span>, emp_id <span class="op">=</span> <span class="st">"3"</span>, team_members <span class="op">=</span> [John, Mike])</span></code></pre></div>
+<ul>
+<li><p><strong>Constructor</strong> is responsible for creating and initializing an object.</p></li>
+<li><p><strong>Initializer</strong> is responsible for running codes on the object after the object has been built.</p></li>
+</ul>
+<p>Therefore, initializer can only be run after the constructor. Conventionally, user input will be taken by the initializer.</p>
 </div>
+<div class="section level2">
+<h2 id="self">
+<code>self</code><a class="anchor" aria-label="anchor" href="#self"></a>
+</h2>
+<p>There is nothing special about <code>self</code>. It is just a conventional name used inside the body of method to refer to an object itself.</p>
+</div>
+</div>
+<div class="section level1">
+<h1 id="visage-oop-system">Visage OOP system<a class="anchor" aria-label="anchor" href="#visage-oop-system"></a>
+</h1>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">e</span> <span class="op">&lt;-</span> <span class="fu">visage</span><span class="fu">::</span><span class="fu"><a href="../reference/new_class.html">new_class</a></span><span class="op">(</span>class_name <span class="op">=</span> <span class="st">"new"</span><span class="op">)</span>
+<span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://lobstr.r-lib.org/reference/tree.html" class="external-link">tree</a></span><span class="op">(</span><span class="va">e</span><span class="op">)</span>
+<span class="co">#&gt; &lt;environment: 0x7f93b78b9060&gt;</span>
+<span class="co">#&gt; ├─..class..: <span style="color: #0000BB;">"new"</span></span>
+<span class="co">#&gt; ├─..type..: <span style="color: #0000BB;">"new"</span></span>
+<span class="co">#&gt; └─..instantiated..: <span style="color: #0000BB;">FALSE</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">visage</span><span class="fu">::</span><span class="fu"><a href="../reference/register_method.html">register_method</a></span><span class="op">(</span><span class="va">e</span>, a <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span>
+<span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://lobstr.r-lib.org/reference/tree.html" class="external-link">tree</a></span><span class="op">(</span><span class="va">e</span><span class="op">)</span>
+<span class="co">#&gt; &lt;environment: 0x7f93b78b9060&gt;</span>
+<span class="co">#&gt; ├─a: <span style="font-style: italic;">function()</span></span>
+<span class="co">#&gt; ├─..class..: <span style="color: #0000BB;">"new"</span></span>
+<span class="co">#&gt; ├─..type..: <span style="color: #0000BB;">"new"</span></span>
+<span class="co">#&gt; ├─..method_env..: &lt;environment: 0x7f93d731f918&gt;</span>
+<span class="co">#&gt; │ └─self: &lt;environment: 0x7f93b78b9060&gt; (Already seen)</span>
+<span class="co">#&gt; └─..instantiated..: <span style="color: #0000BB;">FALSE</span></span></code></pre></div>
 </div>
   </div>
 

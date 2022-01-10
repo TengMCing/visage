@@ -395,3 +395,60 @@ class_BASE <- function(env = new.env(parent = parent.frame())) {
   return(env)
 }
 
+
+#' Load functions from the visage into target environment or search path
+#'
+#' This function is critical when other packages want to use the visage OOP
+#' system. Since this OOP system is based on environment, any instance will only
+#' run on the environment they defined. So, function like [use_method] which
+#' only exists in the package environment can not be accessed by the instance,
+#' unless the function has been loaded into the current environment by calling
+#' `use_method <- visage::use_method`, or `require(visage)` or
+#' `library(visage)`. This issue can usually be addressed by
+#' using the package name directly inside the method body like
+#' `this_method <- function() visage::use_method()`. However, if it is not
+#' possible, then this function helps loads corresponding function into target
+#' environment or search path.
+#'
+#' If it is used in a package, specify `package = TRUE`, this function will
+#' call [define_pkg_fn]. Otherwise, it will call [require] to attach the
+#' functions into the search path.
+#'
+#' @param env Environment. The target environment.
+#' @param package Boolean. Whether or not it is used in a package.
+#' @param reload Boolean. Whether or not to reload the namespace. Only works if
+#' `package = FALSE`.
+#' @param import_oop Boolean. Whether or not to import OOP tools.
+#' @param import_base Boolean. Whether or not to import BASE class.
+#' @param import_rand_var Boolean. Whether or not to import RAND_VAR classes.
+#' @param import_closed_form Boolean. Whether or not to import CLOSED_FORM class.
+#' @param import_vi_model Boolean. Whether or not to import VI_MODEL classes.
+#' @return No return value, called for side effects.
+#'
+#' @export
+import_visage <- function(env = parent.frame(),
+                          package = FALSE,
+                          reload = FALSE,
+                          import_oop = TRUE,
+                          import_base = TRUE,
+                          import_rand_var = FALSE,
+                          import_closed_form = FALSE,
+                          import_vi_model = FALSE) {
+  final_list <- list()
+
+  if (import_oop) final_list <- append(final_list, oop_dependencies)
+  if (import_base) final_list <- append(final_list, base_dependencies)
+  if (import_rand_var) final_list <- append(final_list, rand_var_dependencies)
+  if (import_closed_form) final_list <- append(final_list, closed_form_dependencies)
+  if (import_vi_model) final_list <- append(final_list, vi_model_dependencies)
+
+  if (package) {
+    do.call(visage::define_pkg_fn, append(list(pkg = "visage"), final_list),
+            envir = env)
+  } else {
+    if (reload) do.call("detach", list(name = "package:visage", unload = TRUE))
+    do.call("require", list(package = "visage", include.only = unlist(final_list)),
+            envir = env)
+  }
+
+}

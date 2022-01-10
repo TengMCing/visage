@@ -4,7 +4,8 @@ system. Since this OOP system is based on environment, any instance will only
 run on the environment they defined. So, function like use_method which
 only exists in the package environment can not be accessed by the instance,
 unless the function has been loaded into the current environment by calling
-use_method &amp;lt;- visage::use_method. This issue can usually be addressed by
+use_method &amp;lt;- visage::use_method, or require(visage) or
+library(visage). This issue can usually be addressed by
 using the package name directly inside the method body like
 this_method &amp;lt;- function() visage::use_method(). However, if it is not
 possible, then this function helps loads corresponding function into target
@@ -60,7 +61,7 @@ environment or search path."><!-- mathjax --><script src="https://cdnjs.cloudfla
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Load functions from the visage into target environment or search path</h1>
-    <small class="dont-index">Source: <a href="https://github.com/TengMCing/visage/blob/HEAD/R/utilities.R" class="external-link"><code>R/utilities.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/TengMCing/visage/blob/HEAD/R/oop.R" class="external-link"><code>R/oop.R</code></a></small>
     <div class="hidden name"><code>import_visage.Rd</code></div>
     </div>
 
@@ -70,7 +71,8 @@ system. Since this OOP system is based on environment, any instance will only
 run on the environment they defined. So, function like <a href="use_method.html">use_method</a> which
 only exists in the package environment can not be accessed by the instance,
 unless the function has been loaded into the current environment by calling
-<code>use_method &lt;- visage::use_method</code>. This issue can usually be addressed by
+<code>use_method &lt;- visage::use_method</code>, or <code><a href="https://tengmcing.github.io/visage/" class="external-link">require(visage)</a></code> or
+<code><a href="https://tengmcing.github.io/visage/" class="external-link">library(visage)</a></code>. This issue can usually be addressed by
 using the package name directly inside the method body like
 <code>this_method &lt;- function() visage::use_method()</code>. However, if it is not
 possible, then this function helps loads corresponding function into target

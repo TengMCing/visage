@@ -259,4 +259,4 @@ BASE$instantiation
 
 
 
-BASE2 <- class_BASE2()
+# BASE2 <- class_BASE2()
