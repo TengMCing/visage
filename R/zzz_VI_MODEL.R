@@ -91,7 +91,7 @@ VI_MODEL$..cache..
 #'
 #' @name VI_MODEL$formula
 #'
-#' @description A formula, will be passed to `CLOSED_FORM$instantiation` to
+#' @description A quoted formula, will be passed to `CLOSED_FORM$instantiation` to
 #' define a closed form expression for `y`.
 #'
 #' @examples
@@ -116,7 +116,7 @@ VI_MODEL$formula
 #'
 #' @name VI_MODEL$null_formula
 #'
-#' @description A formula, will be used to fit the null model.
+#' @description A quoted formula, will be used to fit the null model.
 #'
 #' @examples
 #'
@@ -143,7 +143,7 @@ VI_MODEL$null_formula
 #'
 #' @name VI_MODEL$alt_formula
 #'
-#' @description A formula, will be used to fit the alternative model.
+#' @description A quoted formula, will be used to fit the alternative model.
 #'
 #' @examples
 #'
@@ -229,15 +229,10 @@ VI_MODEL$..str..
 #'
 #' @name VI_MODEL$set_formula
 #'
-#' @description This function store the formula in the environment, and lets
-#' them points to the environment. It is not recommended to modify the formula
+#' @description This function store the formula in the environment, and drops all
+#' attributes. It is not recommended to modify the formula
 #' of `y` after the instance has been built, which may create confusion.
-#' @param formula Formula. This will be passed to `CLOSED_FORM$instantiation` to
-#' define a closed form expression for `y`. Default is `formula = NULL`.
-#' @param null_formula Formula. Formula for fitting the null model. Default is
-#' `NULL`.
-#' @param alt_formula Formula. Formula for fitting the alternative model.
-#' Default is `NULL`.
+#' @param ... Formulas. Formulas with names.
 #' @return No return value, called for side effects.
 #'
 #' @examples
@@ -574,7 +569,7 @@ CUBIC_MODEL <- class_CUBIC_MODEL()
 #'
 #' @name CUBIC_MODEL$formula
 #'
-#' @description A formula, will be passed to `CLOSED_FORM$instantiation` to
+#' @description A quoted formula, will be passed to `CLOSED_FORM$instantiation` to
 #' define a closed form expression for `y`.
 #'
 #' @examples
@@ -586,7 +581,7 @@ CUBIC_MODEL$formula
 #'
 #' @name CUBIC_MODEL$null_formula
 #'
-#' @description Formula for fitting the null model.
+#' @description Quoted formula for fitting the null model.
 #'
 #' @examples
 #'
@@ -597,7 +592,7 @@ CUBIC_MODEL$null_formula
 #'
 #' @name CUBIC_MODEL$alt_formula
 #'
-#' @description Formula for fitting the alternative model.
+#' @description Quoted formula for fitting the alternative model.
 #'
 #' @examples
 #'
@@ -663,8 +658,8 @@ CUBIC_MODEL$..init..
 #' New attributes: [HETER_MODEL$formula],
 #' [HETER_MODEL$null_formula],
 #' [HETER_MODEL$alt_formula],
-#' [HETER_MODEL$sigma_quote_formula],
-#' [HETER_MODEL$e_quote_formula]
+#' [HETER_MODEL$sigma_formula],
+#' [HETER_MODEL$e_formula]
 #' \cr
 #' \cr
 #' New methods: [HETER_MODEL$..init..], [HETER_MODEL$test]
@@ -676,7 +671,7 @@ HETER_MODEL <- class_HETER_MODEL()
 #'
 #' @name HETER_MODEL$formula
 #'
-#' @description A formula, will be passed to `CLOSED_FORM$instantiation` to
+#' @description A quoted formula, will be passed to `CLOSED_FORM$instantiation` to
 #' define a closed form expression for `y`.
 #'
 #' @examples
@@ -688,7 +683,7 @@ HETER_MODEL$formula
 #'
 #' @name HETER_MODEL$null_formula
 #'
-#' @description Formula for fitting the null model.
+#' @description Quoted formula for fitting the null model.
 #'
 #' @examples
 #'
@@ -699,7 +694,7 @@ HETER_MODEL$null_formula
 #'
 #' @name HETER_MODEL$alt_formula
 #'
-#' @description Formula for fitting the alternative model.
+#' @description Quoted formula for fitting the alternative model.
 #'
 #' @examples
 #'
@@ -708,25 +703,25 @@ HETER_MODEL$alt_formula
 
 #' Quoted formula for constructing `sigma`
 #'
-#' @name HETER_MODEL$sigma_quote_formula
+#' @name HETER_MODEL$sigma_formula
 #'
 #' @description Quoted formula for constructing `sigma`.
 #'
 #' @examples
 #'
-#' HETER_MODEL$sigma_quote_formula
-HETER_MODEL$sigma_quote_formula
+#' HETER_MODEL$sigma_formula
+HETER_MODEL$sigma_formula
 
 #' Quoted formula for constructing `e`
 #'
-#' @name HETER_MODEL$e_quote_formula
+#' @name HETER_MODEL$e_formula
 #'
 #' @description Quoted formula for constructing `e`.
 #'
 #' @examples
 #'
-#' HETER_MODEL$e_quote_formula
-HETER_MODEL$e_quote_formula
+#' HETER_MODEL$e_formula
+HETER_MODEL$e_formula
 
 #' Initialization method
 #'
@@ -736,8 +731,8 @@ HETER_MODEL$e_quote_formula
 #' input will be stored in the environment. The response variable of this model
 #' is `y`. The formula of y is defined in [HETER_MODEL$formula],
 #' the null formula is defined in [HETER_MODEL$null_formula],
-#' the formula for `sigma` is defined in [HETER_MODEL$sigma_quote_formula],
-#' the formula for `e` is defined in [HETER_MODEL$e_quote_formula].
+#' the formula for `sigma` is defined in [HETER_MODEL$sigma_formula],
+#' the formula for `e` is defined in [HETER_MODEL$e_formula].
 #' @param a Numeric. Default is `a = 0`.
 #' @param b Numeric. Default is `b = 1`.
 #' @param x Random variable or closed form expression. Default is

@@ -26,14 +26,16 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
     } else {
 
       # Update the formula
-      self$set_formula(formula, null_formula, alt_formula)
+      self$set_formula(formula = formula,
+                       null_formula = null_formula,
+                       alt_formula = alt_formula)
     }
+
+    # Get the quoted formula, and eval in the current environment
+    formula <- eval(self$formula)
 
     # Assign values of `prm` into current environment
     list2env(prm, envir = environment())
-
-    # Change the environment of the formula to the current environment
-    environment(formula) <- environment()
 
     # Set the y variable
     self$prm$y <- visage::closed_form(formula, env = new.env(parent = parent.env(self)))
@@ -41,24 +43,18 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
 
 # set_formula -------------------------------------------------------------
 
-  set_formula_ <- function(formula = NULL, null_formula = NULL, alt_formula = NULL) {
+  set_formula_ <- function(...) {
 
-    # Define DGP
-    if (!is.null(formula)) {
-      self$formula <- formula
-      environment(self$formula) <- self
-    }
+    for_list <- list(...)
+    name_for_list <- names(for_list)
 
-    # Define wrong model fit
-    if (!is.null(null_formula)) {
-      self$null_formula <- null_formula
-      environment(self$null_formula) <- self
-    }
+    if (length(name_for_list) == 0) stop("No formula name is provided!")
 
-    # Define correct model fit
-    if (!is.null(alt_formula)) {
-      self$alt_formula <- alt_formula
-      environment(self$alt_formula) <- self
+    for (i in 1:length(for_list)) {
+      if (name_for_list[i] == "") stop("Formula needs to be provided with a name")
+
+      self[[name_for_list[i]]] <- for_list[[i]]
+      attributes(self[[name_for_list[i]]]) <- NULL
     }
   }
 
@@ -167,15 +163,15 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
 
   fit_ <- function(dat = self$..cache..$dat, formula = self$null_formula, cache = FALSE, ...) {
 
-    # If the dat is not provided and the formula is the same, then return the cached model
-    if (missing(dat) && (formula == self$..cache..$formula) && cache) {
-      return(self$..cache..$mod)
-    }
-
     if (is.null(formula)) stop("`formula` is missing! Can't fit the model.")
 
-    # Correct the environment of the formula
-    environment(formula) <- environment()
+    # Get rid of the environment and class attributes in case it is a formula
+    attributes(formula) <- NULL
+
+    # If the dat is not provided and the formula is the same, then return the cached model
+    if (cache && missing(dat) && (formula == self$..cache..$formula)) {
+      return(self$..cache..$mod)
+    }
 
     # Use `substitute` to let `lm` correctly record the call
     mod <- eval(substitute(stats::lm(formula = formula, data = dat, ...)))
@@ -184,7 +180,6 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
     if (cache) {
       self$..cache..$mod <- mod
       self$..cache..$formula <- formula
-      environment(self$..cache..$formula) <- self
       self$..cache..$dat <- dat
     }
 
@@ -364,12 +359,9 @@ class_HETER_MODEL <- function(env = new.env(parent = parent.frame())) {
   # Run the `set_formula` method for the class
   env$set_formula(formula = y ~ 1 + x + e,
                   null_formula = y ~ x,
-                  alt_formula = NULL)
-
-  # Define the
-  env$sigma_quote_formula <- quote(sigma ~ sqrt(1 + (2 - abs(a)) * (x - a)^2 * b))
-  env$e_quote_formula <- quote(e ~ RAND_NORMAL[["gen"]](length(sigma), mu = 0, sigma = sigma))
-
+                  alt_formula = NULL,
+                  sigma_formula = sigma ~ sqrt(1 + (2 - abs(a)) * (x - a)^2 * b),
+                  e_formula = e ~ RAND_NORMAL[["gen"]](length(sigma), mu = 0, sigma = sigma))
 
 # init --------------------------------------------------------------------
 
@@ -377,12 +369,12 @@ class_HETER_MODEL <- function(env = new.env(parent = parent.frame())) {
                     x = visage::rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))) {
 
     # `sigma` is a random variable which depends on `x`
-    sigma <- visage::closed_form(eval(self$sigma_quote_formula), env = new.env(parent = parent.env(self)))
+    sigma <- visage::closed_form(eval(self$sigma_formula), env = new.env(parent = parent.env(self)))
 
     RAND_NORMAL <- visage::RAND_NORMAL
 
     # `e` is a random variable which depends on `sigma`
-    e <- visage::closed_form(eval(self$e_quote_formula), env = new.env(parent = parent.env(self)))
+    e <- visage::closed_form(eval(self$e_formula), env = new.env(parent = parent.env(self)))
 
     # Use the init method from the VI_MODEL class
     visage::use_method(self, visage::VI_MODEL$..init..)(

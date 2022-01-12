@@ -4,7 +4,7 @@
 \alias{VI_MODEL$null_formula}
 \title{Formula for fitting the null model}
 \description{
-A formula, will be used to fit the null model.
+A quoted formula, will be used to fit the null model.
 }
 \examples{
 
