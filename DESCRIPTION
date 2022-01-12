@@ -1,6 +1,6 @@
 Package: visage
 Title: Visual Inference for Linear Regression Diagnostics
-Version: 0.0.0.9007
+Version: 0.0.0.9008
 Authors@R: 
     person(given = "Weihao",
            family = "Li",
@@ -19,7 +19,9 @@ Imports:
     cli,
     dplyr,
     ggplot2,
+    jsonlite,
     lmtest,
+    lobstr,
     progress,
     stats,
     tibble,

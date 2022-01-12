@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">visage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9007</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9008</span>
       </span>
     </div>
 
@@ -175,19 +175,19 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">e</span> <span class="op">&lt;-</span> <span class="fu">visage</span><span class="fu">::</span><span class="fu"><a href="../reference/new_class.html">new_class</a></span><span class="op">(</span>class_name <span class="op">=</span> <span class="st">"new"</span><span class="op">)</span>
 <span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://lobstr.r-lib.org/reference/tree.html" class="external-link">tree</a></span><span class="op">(</span><span class="va">e</span><span class="op">)</span>
-<span class="co">#&gt; &lt;environment: 0x7f93b78b9060&gt;</span>
+<span class="co">#&gt; &lt;environment: 0x7f8e27ffdea0&gt;</span>
 <span class="co">#&gt; ├─..class..: <span style="color: #0000BB;">"new"</span></span>
 <span class="co">#&gt; ├─..type..: <span style="color: #0000BB;">"new"</span></span>
 <span class="co">#&gt; └─..instantiated..: <span style="color: #0000BB;">FALSE</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">visage</span><span class="fu">::</span><span class="fu"><a href="../reference/register_method.html">register_method</a></span><span class="op">(</span><span class="va">e</span>, a <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span>
 <span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://lobstr.r-lib.org/reference/tree.html" class="external-link">tree</a></span><span class="op">(</span><span class="va">e</span><span class="op">)</span>
-<span class="co">#&gt; &lt;environment: 0x7f93b78b9060&gt;</span>
+<span class="co">#&gt; &lt;environment: 0x7f8e27ffdea0&gt;</span>
 <span class="co">#&gt; ├─a: <span style="font-style: italic;">function()</span></span>
 <span class="co">#&gt; ├─..class..: <span style="color: #0000BB;">"new"</span></span>
 <span class="co">#&gt; ├─..type..: <span style="color: #0000BB;">"new"</span></span>
-<span class="co">#&gt; ├─..method_env..: &lt;environment: 0x7f93d731f918&gt;</span>
-<span class="co">#&gt; │ └─self: &lt;environment: 0x7f93b78b9060&gt; (Already seen)</span>
+<span class="co">#&gt; ├─..method_env..: &lt;environment: 0x7f8e471c1d08&gt;</span>
+<span class="co">#&gt; │ └─self: &lt;environment: 0x7f8e27ffdea0&gt; (Already seen)</span>
 <span class="co">#&gt; └─..instantiated..: <span style="color: #0000BB;">FALSE</span></span></code></pre></div>
 </div>
   </div>

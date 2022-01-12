@@ -4,7 +4,7 @@
 \alias{VI_MODEL$alt_formula}
 \title{Formula for fitting the alternative model}
 \description{
-A formula, will be used to fit the alternative model.
+A quoted formula, will be used to fit the alternative model.
 }
 \examples{
 

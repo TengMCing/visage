@@ -4,7 +4,7 @@
 \alias{CUBIC_MODEL$formula}
 \title{Closed form expression of \code{y}}
 \description{
-A formula, will be passed to \code{CLOSED_FORM$instantiation} to
+A quoted formula, will be passed to \code{CLOSED_FORM$instantiation} to
 define a closed form expression for \code{y}.
 }
 \examples{

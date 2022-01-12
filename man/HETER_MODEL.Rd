@@ -21,8 +21,8 @@ Parent class: \link{VI_MODEL}
 New attributes: \link{HETER_MODEL$formula},
 \link{HETER_MODEL$null_formula},
 \link{HETER_MODEL$alt_formula},
-\link{HETER_MODEL$sigma_quote_formula},
-\link{HETER_MODEL$e_quote_formula}
+\link{HETER_MODEL$sigma_formula},
+\link{HETER_MODEL$e_formula}
 \cr
 \cr
 New methods: \link{HETER_MODEL$..init..}, \link{HETER_MODEL$test}

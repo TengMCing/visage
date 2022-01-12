@@ -4,21 +4,14 @@
 \alias{VI_MODEL$set_formula}
 \title{Set formula for y, null model or alternative model}
 \arguments{
-\item{formula}{Formula. This will be passed to \code{CLOSED_FORM$instantiation} to
-define a closed form expression for \code{y}. Default is \code{formula = NULL}.}
-
-\item{null_formula}{Formula. Formula for fitting the null model. Default is
-\code{NULL}.}
-
-\item{alt_formula}{Formula. Formula for fitting the alternative model.
-Default is \code{NULL}.}
+\item{...}{Formulas. Formulas with names.}
 }
 \value{
 No return value, called for side effects.
 }
 \description{
-This function store the formula in the environment, and lets
-them points to the environment. It is not recommended to modify the formula
+This function store the formula in the environment, and drops all
+attributes. It is not recommended to modify the formula
 of \code{y} after the instance has been built, which may create confusion.
 }
 \examples{

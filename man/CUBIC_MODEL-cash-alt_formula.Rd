@@ -4,7 +4,7 @@
 \alias{CUBIC_MODEL$alt_formula}
 \title{Formula for fitting the alternative model}
 \description{
-Formula for fitting the alternative model.
+Quoted formula for fitting the alternative model.
 }
 \examples{
 

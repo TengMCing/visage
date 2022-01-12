@@ -4,7 +4,7 @@
 \alias{CUBIC_MODEL$null_formula}
 \title{Formula for fitting the null model}
 \description{
-Formula for fitting the null model.
+Quoted formula for fitting the null model.
 }
 \examples{
 
