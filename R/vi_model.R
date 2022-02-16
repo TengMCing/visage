@@ -204,9 +204,9 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
 
 # plot_resid --------------------------------------------------------------
 
-  plot_resid_ <- function(dat) {
+  plot_resid_ <- function(dat, alpha = 1) {
     ggplot2::ggplot(dat) +
-      ggplot2::geom_point(ggplot2::aes(.fitted, .resid))
+      ggplot2::geom_point(ggplot2::aes(.fitted, .resid), alpha = alpha)
   }
 
 
@@ -224,12 +224,13 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
   plot_ <- function(dat,
                     type = "resid",
                     theme = ggplot2::theme_grey(),
+                    alpha = 1,
                     remove_axis = FALSE,
                     remove_legend = FALSE,
                     remove_grid_line = FALSE,
                     add_zero_line = TRUE) {
     p <- switch(type,
-                "resid" = self$plot_resid(dat),
+                "resid" = self$plot_resid(dat, alpha),
                 "qq" = self$plot_qq(dat)) +
       theme
 
@@ -339,9 +340,24 @@ class_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
       )
   }
 
+
+# E -----------------------------------------------------------------------
+
+  E_ <- function(dat) {
+    a <- self$prm$a
+    b <- self$prm$b
+    c <- self$prm$c
+    Xa <- as.matrix(data.frame(1, dat$x, dat$z))
+    Ra <- diag(nrow(dat)) - Xa %*% solve(t(Xa) %*% Xa) %*% t(Xa)
+    Xb <- as.matrix(data.frame(dat$x^2, dat$z^2, dat$x^3, dat$z^3))
+    beta_b <- matrix(c(a*(2-c)^2, a*c^2, b*(2-c)^3, b*c^3))
+
+    c(Ra %*% Xb %*% beta_b)
+  }
+
 # register_method ---------------------------------------------------------
 
-  register_method(env, ..init.. = init_)
+  register_method(env, ..init.. = init_, E = E_)
 
   return(env)
 }

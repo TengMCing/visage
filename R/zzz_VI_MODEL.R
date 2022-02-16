@@ -350,6 +350,7 @@ VI_MODEL$fit
 #'
 #' @description This function generate a residuals vs fitted values plot.
 #' @param dat Data frame. A data frame containing `.resid` and `.fitted`.
+#' @param alpha Numeric. Alpha of dot. Value between 0 and 1.
 #' @return A ggplot.
 #'
 #' @examples
@@ -399,6 +400,7 @@ VI_MODEL$plot_qq
 #' @param type Character. "resid": [VI_MODEL$plot_resid]. Default is
 #' `type = "resid"`.
 #' @param theme ggtheme. A ggplot theme object.
+#' @param alpha Numeric. Alpha of dot. Value between 0 and 1. Default is 1.
 #' @param remove_axis Boolean. Whether or not to remove the axis. Default is
 #' `remove_axis = FALSE`.
 #' @param remove_legend Boolean. Whether or not to remove the legend. Default is
@@ -561,7 +563,7 @@ VI_MODEL$gen_lineup
 #' [CUBIC_MODEL$null_formula], [CUBIC_MODEL$alt_formula],
 #' \cr
 #' \cr
-#' New methods: [CUBIC_MODEL$..init..]
+#' New methods: [CUBIC_MODEL$..init..], [CUBIC_MODEL$E]
 #' @export
 CUBIC_MODEL <- class_CUBIC_MODEL()
 
@@ -641,6 +643,25 @@ CUBIC_MODEL$alt_formula
 #' test$plot_lineup(test$gen_lineup(100))
 CUBIC_MODEL$..init..
 
+
+#' Expectation of the residuals
+#'
+#' @name CUBIC_MODEL$E
+#'
+#' @description This function calculate the expectation of the residuals by the
+#' use of the Frisch–Waugh–Lovell theorem.
+#' @param dat Dataframe/List. List contains variable `x` and `z`.
+#' @return A vector of numeric expectations.
+#'
+#' @examples
+#'
+#' mod <- cubic_model(-1, 1, 1, 0.5)
+#' dat <- mod$gen(1000, fit_model = TRUE)
+#' dat$exp <- mod$E(dat)
+#' mod$plot(dat) + ggplot2::geom_point(ggplot2::aes(.fitted, exp),
+#'                                  col = "red",
+#'                                  alpha = 0.6)
+CUBIC_MODEL$E
 
 # HETER_MODEL -------------------------------------------------------------
 

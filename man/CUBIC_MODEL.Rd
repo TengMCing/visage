@@ -22,6 +22,6 @@ New attributes: \link{CUBIC_MODEL$formula},
 \link{CUBIC_MODEL$null_formula}, \link{CUBIC_MODEL$alt_formula},
 \cr
 \cr
-New methods: \link{CUBIC_MODEL$..init..}
+New methods: \link{CUBIC_MODEL$..init..}, \link{CUBIC_MODEL$E}
 }
 \keyword{datasets}

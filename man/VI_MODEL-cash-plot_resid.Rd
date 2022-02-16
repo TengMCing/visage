@@ -5,6 +5,8 @@
 \title{Plot the residuals vs fitted values plot}
 \arguments{
 \item{dat}{Data frame. A data frame containing \code{.resid} and \code{.fitted}.}
+
+\item{alpha}{Numeric. Alpha of dot. Value between 0 and 1.}
 }
 \value{
 A ggplot.
