@@ -13,6 +13,8 @@
 
 \item{alpha}{Numeric. Alpha of dot. Value between 0 and 1. Default is 1.}
 
+\item{size}{Numeric. Size of dot. Value between 0 and 1. Default is 0.5.}
+
 \item{remove_axis}{Boolean. Whether or not to remove the axis. Default is
 \code{remove_axis = FALSE}.}
 
