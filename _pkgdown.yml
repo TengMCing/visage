@@ -127,6 +127,7 @@ reference:
   contents:
   - CUBIC_MODEL
   - CUBIC_MODEL$..init..
+  - CUBIC_MODEL$E
   - CUBIC_MODEL$formula
   - CUBIC_MODEL$null_formula
   - CUBIC_MODEL$alt_formula
