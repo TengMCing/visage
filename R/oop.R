@@ -255,14 +255,16 @@ copy_attr <- function(env, ..., avoid = c("..method_env..", "..init_call..")) {
     method_list <- list()
     attr_list <- list()
 
+    method_names <- names(cls)[unlist(lapply(names(cls), function(x) is.function(cls[[x]])))]
+
     # Get list of methods
-    for (method_name in cls$..methods..()) {
+    for (method_name in method_names) {
       if (method_name %in% avoid) next
       method_list[[method_name]] <- cls[[method_name]]
     }
 
     # Get list of attributes
-    for (attr_name in setdiff(cls$..dict..(), cls$..methods..())) {
+    for (attr_name in setdiff(names(cls), method_names)) {
       if (attr_name %in% avoid) next
       attr_list[[attr_name]] <- cls[[attr_name]]
     }
