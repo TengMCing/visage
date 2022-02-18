@@ -202,6 +202,11 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
   }
 
 
+# effect_size -------------------------------------------------------------
+
+  effect_size_ <- function(...) {}
+
+
 # plot_resid --------------------------------------------------------------
 
   plot_resid_ <- function(dat, alpha = 1, size = 0.5) {
@@ -298,6 +303,7 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
                   gen = gen_,
                   test = test_,
                   fit = fit_,
+                  effect_size = effect_size_,
                   plot_resid = plot_resid_,
                   plot_qq = plot_qq_,
                   plot = plot_,
@@ -356,9 +362,25 @@ class_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
     c(Ra %*% Xb %*% beta_b)
   }
 
+
+# effect_size -------------------------------------------------------------
+
+  effect_size_ <- function(dat) {
+    a <- self$prm$a
+    b <- self$prm$b
+    c <- self$prm$c
+    sigma <- self$prm$sigma
+    Xa <- as.matrix(data.frame(1, dat$x, dat$z))
+    Ra <- diag(nrow(dat)) - Xa %*% solve(t(Xa) %*% Xa) %*% t(Xa)
+    Xb <- as.matrix(data.frame(dat$x^2, dat$z^2, dat$x^3, dat$z^3))
+    beta_b <- matrix(c(a*(2-c)^2, a*c^2, b*(2-c)^3, b*c^3))
+
+    (1/nrow(dat)) * (1/sigma^2) * sum((diag(sqrt(diag(Ra))) %*% Xb %*% beta_b)^2)
+  }
+
 # register_method ---------------------------------------------------------
 
-  register_method(env, ..init.. = init_, E = E_)
+  register_method(env, ..init.. = init_, E = E_, effect_size = effect_size_)
 
   return(env)
 }
