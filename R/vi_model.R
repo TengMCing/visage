@@ -204,7 +204,7 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
 
 # effect_size -------------------------------------------------------------
 
-  effect_size_ <- function(...) {}
+  effect_size_ <- function(...) {NA}
 
 
 # plot_resid --------------------------------------------------------------

@@ -16,7 +16,8 @@
 #' \cr
 #' \cr
 #' New methods: [VI_MODEL$..init..], [VI_MODEL$..str..], [VI_MODEL$set_formula],
-#' [VI_MODEL$gen], [VI_MODEL$test], [VI_MODEL$fit], [VI_MODEL$plot_resid],
+#' [VI_MODEL$gen], [VI_MODEL$test], [VI_MODEL$fit], [VI_MODEL$effect_size],
+#' [VI_MODEL$plot_resid],
 #' [VI_MODEL$plot_qq],
 #' [VI_MODEL$plot], [VI_MODEL$plot_lineup], [VI_MODEL$rss],
 #' [VI_MODEL$null_resid], [VI_MODEL$gen_lineup]
@@ -344,6 +345,20 @@ VI_MODEL$test
 #' test$fit(test$gen(100000), formula = y ~ x + I(x^2))
 VI_MODEL$fit
 
+#' Compute the effect size of the simulated data or the defined model
+#'
+#' @name VI_MODEL$effect_size
+#'
+#' @description This function computes the effect size of the simulated data or
+#' the defined model. This is an abstract method.
+#' @param ... Derived class needs to override this method.
+#' @return NA
+#'
+#' @examples
+#'
+#' VI_MODEL$effect_size()
+VI_MODEL$effect_size
+
 #' Plot the residuals vs fitted values plot
 #'
 #' @name VI_MODEL$plot_resid
@@ -565,7 +580,8 @@ VI_MODEL$gen_lineup
 #' [CUBIC_MODEL$null_formula], [CUBIC_MODEL$alt_formula],
 #' \cr
 #' \cr
-#' New methods: [CUBIC_MODEL$..init..], [CUBIC_MODEL$E]
+#' New methods: [CUBIC_MODEL$..init..], [CUBIC_MODEL$E],
+#' [CUBIC_MODEL$effect_size]
 #' @export
 CUBIC_MODEL <- class_CUBIC_MODEL()
 
@@ -661,9 +677,24 @@ CUBIC_MODEL$..init..
 #' dat <- mod$gen(1000, fit_model = TRUE)
 #' dat$exp <- mod$E(dat)
 #' mod$plot(dat) + ggplot2::geom_point(ggplot2::aes(.fitted, exp),
-#'                                  col = "red",
-#'                                  alpha = 0.6)
+#'                                     col = "red",
+#'                                     alpha = 0.6)
 CUBIC_MODEL$E
+
+#' Compute the effect size of the simulated data
+#'
+#' @name CUBIC_MODEL$effect_size
+#'
+#' @description This function computes the effect size of the simulated data.
+#' @param dat Dataframe/List. List contains variable `x` and `z`.
+#' @return A numeric value.
+#'
+#' @examples
+#'
+#' mod <- cubic_model(-1, 1, 1, 0.5)
+#' dat <- mod$gen(1000, fit_model = TRUE)
+#' mod$effect_size(dat)
+CUBIC_MODEL$effect_size
 
 # HETER_MODEL -------------------------------------------------------------
 
