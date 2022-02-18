@@ -237,7 +237,7 @@ new_class <- function(..., env = new.env(parent = parent.frame()), class_name = 
 #'
 #' test <- new.env()
 #' names(BASE)
-#' copy_attr(test, BASE, avoid = c("..method_env.."))
+#' copy_attr(test, BASE, avoid = c("..method_env..", "..init_call..", "..dict.."))
 #' names(test)
 #'
 #' @export

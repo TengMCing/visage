@@ -13,9 +13,9 @@ reference:
     Functions for building an OOP system
   contents:
   - register_method
-  - use_method
-  - copy_attr
   - new_class
+  - copy_attr
+  - use_method
   - import_visage
   - print.visage_oop
 - title: "Portals to class instantiation methods"
@@ -113,6 +113,7 @@ reference:
   - VI_MODEL$set_formula
   - VI_MODEL$test
   - VI_MODEL$fit
+  - VI_MODEL$effect_size
   - VI_MODEL$gen
   - VI_MODEL$gen_lineup
   - VI_MODEL$null_resid
@@ -128,6 +129,7 @@ reference:
   - CUBIC_MODEL
   - CUBIC_MODEL$..init..
   - CUBIC_MODEL$E
+  - CUBIC_MODEL$effect_size
   - CUBIC_MODEL$formula
   - CUBIC_MODEL$null_formula
   - CUBIC_MODEL$alt_formula

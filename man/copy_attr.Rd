@@ -30,7 +30,7 @@ Attributes or methods that don't want to be copied can be specified in
 
 test <- new.env()
 names(BASE)
-copy_attr(test, BASE, avoid = c("..method_env.."))
+copy_attr(test, BASE, avoid = c("..method_env..", "..init_call..", "..dict.."))
 names(test)
 
 }

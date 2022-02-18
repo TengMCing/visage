@@ -19,6 +19,6 @@ mod <- cubic_model(-1, 1, 1, 0.5)
 dat <- mod$gen(1000, fit_model = TRUE)
 dat$exp <- mod$E(dat)
 mod$plot(dat) + ggplot2::geom_point(ggplot2::aes(.fitted, exp),
-                                 col = "red",
-                                 alpha = 0.6)
+                                    col = "red",
+                                    alpha = 0.6)
 }
