@@ -687,6 +687,10 @@ CUBIC_MODEL$E
 #'
 #' @description This function computes the effect size of the simulated data.
 #' @param dat Dataframe/List. List contains variable `x` and `z`.
+#' @param a Numeric. Default is `a = self$prm$a`.
+#' @param b Numeric. Default is `b = self$prm$b`.
+#' @param c Numeric. Default is `c = self$prm$c`.
+#' @param sigma Positive numeric. Default is `sigma = self$prm$sigma`.
 #' @return A numeric value.
 #'
 #' @examples
@@ -716,7 +720,8 @@ CUBIC_MODEL$effect_size
 #' [HETER_MODEL$e_formula]
 #' \cr
 #' \cr
-#' New methods: [HETER_MODEL$..init..], [HETER_MODEL$test]
+#' New methods: [HETER_MODEL$..init..], [HETER_MODEL$test],
+#' [HETER_MODEL$effect_size]
 #' @export
 HETER_MODEL <- class_HETER_MODEL()
 
@@ -834,3 +839,19 @@ HETER_MODEL$..init..
 #' dat <- test$gen(100000)
 #' test$test(dat)
 HETER_MODEL$test
+
+
+#' Compute the effect size of the simulated data
+#'
+#' @name HETER_MODEL$effect_size
+#'
+#' @description This function computes the effect size of the simulated data.
+#' @param dat Dataframe. The number of rows of the data frame will be used.
+#' @param b Numeric. Default is `b = self$prm$b`.
+#' @return A single numeric value.
+#'
+#' @examples
+#'
+#' mod <- heter_model(a = 0, b = 16)
+#' mod$effect_size(mod$gen(100))
+HETER_MODEL$effect_size

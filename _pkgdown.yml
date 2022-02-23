@@ -145,6 +145,7 @@ reference:
   - HETER_MODEL$sigma_formula
   - HETER_MODEL$e_formula
   - HETER_MODEL$test
+  - HETER_MODEL$effect_size
 - title: "Utilties"
   desc: >
     Utility functions

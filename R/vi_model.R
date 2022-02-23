@@ -365,11 +365,12 @@ class_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
 
 # effect_size -------------------------------------------------------------
 
-  effect_size_ <- function(dat) {
-    a <- self$prm$a
-    b <- self$prm$b
-    c <- self$prm$c
-    sigma <- self$prm$sigma
+  effect_size_ <- function(dat,
+                           a = self$prm$a,
+                           b = self$prm$b,
+                           c = self$prm$c,
+                           sigma = self$prm$sigma) {
+
     Xa <- as.matrix(data.frame(1, dat$x, dat$z))
     Ra <- diag(nrow(dat)) - Xa %*% solve(t(Xa) %*% Xa) %*% t(Xa)
     Xb <- as.matrix(data.frame(dat$x^2, dat$z^2, dat$x^3, dat$z^3))
@@ -446,9 +447,16 @@ class_HETER_MODEL <- function(env = new.env(parent = parent.frame())) {
   }
 
 
+# effect_size -------------------------------------------------------------
+
+  effect_size_ <- function(dat, b = self$prm$b) {
+    sqrt(nrow(dat)) * b
+  }
+
+
 # register_method ---------------------------------------------------------
 
-  register_method(env, ..init.. = init_, test = test_)
+  register_method(env, ..init.. = init_, test = test_, effect_size = effect_size_)
 
   return(env)
 }

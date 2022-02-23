@@ -64,6 +64,14 @@
     <h2>Arguments</h2>
     <dl><dt>dat</dt>
 <dd><p>Dataframe/List. List contains variable <code>x</code> and <code>z</code>.</p></dd>
+<dt>a</dt>
+<dd><p>Numeric. Default is <code>a = self$prm$a</code>.</p></dd>
+<dt>b</dt>
+<dd><p>Numeric. Default is <code>b = self$prm$b</code>.</p></dd>
+<dt>c</dt>
+<dd><p>Numeric. Default is <code>c = self$prm$c</code>.</p></dd>
+<dt>sigma</dt>
+<dd><p>Positive numeric. Default is <code>sigma = self$prm$sigma</code>.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -76,7 +84,7 @@
 <span class="r-in"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="portal.html">cubic_model</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0.5</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">mod</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span><span class="fl">1000</span>, fit_model <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">mod</span><span class="op">$</span><span class="fu">effect_size</span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3.831952</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3.766997</span>
 </code></pre></div>
     </div>
   </div>
