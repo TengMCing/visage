@@ -208,7 +208,7 @@ class_RAND_UNIFORM_D <- function(env = new.env(parent = parent.frame())) {
 
     if (length(a) == 1 & length(b) == 1 & length(k) == 1) {
       cand <- stats::runif(k, a, b)
-      sample(cand, n, replace = TRUE)
+      return(sample(cand, n, replace = TRUE))
     }
 
     if (length(a) == 1) a <- rep(a, n)

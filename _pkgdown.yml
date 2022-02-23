@@ -128,11 +128,11 @@ reference:
   contents:
   - CUBIC_MODEL
   - CUBIC_MODEL$..init..
-  - CUBIC_MODEL$E
-  - CUBIC_MODEL$effect_size
   - CUBIC_MODEL$formula
   - CUBIC_MODEL$null_formula
   - CUBIC_MODEL$alt_formula
+  - CUBIC_MODEL$E
+  - CUBIC_MODEL$effect_size
 - subtitle: "Visual inference heteroskedasticity linear model class"
   desc: >
     Visual inference heteroskedasticity linear model class
