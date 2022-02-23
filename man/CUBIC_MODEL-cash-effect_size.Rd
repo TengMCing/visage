@@ -5,6 +5,14 @@
 \title{Compute the effect size of the simulated data}
 \arguments{
 \item{dat}{Dataframe/List. List contains variable \code{x} and \code{z}.}
+
+\item{a}{Numeric. Default is \code{a = self$prm$a}.}
+
+\item{b}{Numeric. Default is \code{b = self$prm$b}.}
+
+\item{c}{Numeric. Default is \code{c = self$prm$c}.}
+
+\item{sigma}{Positive numeric. Default is \code{sigma = self$prm$sigma}.}
 }
 \value{
 A numeric value.
