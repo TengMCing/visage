@@ -266,7 +266,7 @@ CLOSED_FORM$gen
 #' CLOSED_FORM$ast(quote(exp(a) + b^2))
 CLOSED_FORM$ast
 
-#' Abstract syntax tree of the expression
+#' Transforming list to data frame
 #'
 #' @name CLOSED_FORM$as_dataframe
 #'
