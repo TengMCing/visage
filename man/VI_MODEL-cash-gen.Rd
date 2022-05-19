@@ -10,7 +10,11 @@
 fitted values and the residuals. Default is \code{FALSE}.}
 
 \item{test}{Boolean. Whether or not to test the null model against the
-alternative model to obtain the test statistic and the p-value.
+alternative model to obtain the test statistic and the p-value.}
+
+\item{computed}{List. Default is \code{NULL}. If it is provided, random variables
+or random closed form expression will use the values from the list, which
+makes the expression potentially deterministic.
 Default is \code{FALSE}.}
 }
 \value{

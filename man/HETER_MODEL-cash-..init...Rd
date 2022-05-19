@@ -10,6 +10,9 @@
 
 \item{x}{Random variable or closed form expression. Default is
 \code{x = rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))}.}
+
+\item{e}{Random variable or closed form expression. Default is
+\code{e = rand_normal(0, 1, env = new.env(parent = parent.env(self)))}.}
 }
 \value{
 No return value, called for side effects.
@@ -18,9 +21,7 @@ No return value, called for side effects.
 This function will be called after an instance is built. User
 input will be stored in the environment. The response variable of this model
 is \code{y}. The formula of y is defined in \link{HETER_MODEL$formula},
-the null formula is defined in \link{HETER_MODEL$null_formula},
-the formula for \code{sigma} is defined in \link{HETER_MODEL$sigma_formula},
-the formula for \code{e} is defined in \link{HETER_MODEL$e_formula}.
+the null formula is defined in \link{HETER_MODEL$null_formula}.
 }
 \examples{
 
