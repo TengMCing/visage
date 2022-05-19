@@ -262,6 +262,9 @@ VI_MODEL$set_formula
 #' fitted values and the residuals. Default is `FALSE`.
 #' @param test Boolean. Whether or not to test the null model against the
 #' alternative model to obtain the test statistic and the p-value.
+#' @param computed List. Default is `NULL`. If it is provided, random variables
+#' or random closed form expression will use the values from the list, which
+#' makes the expression potentially deterministic.
 #' Default is `FALSE`.
 #' @return A data frame.
 #'
@@ -715,9 +718,7 @@ CUBIC_MODEL$effect_size
 #' \cr
 #' New attributes: [HETER_MODEL$formula],
 #' [HETER_MODEL$null_formula],
-#' [HETER_MODEL$alt_formula],
-#' [HETER_MODEL$sigma_formula],
-#' [HETER_MODEL$e_formula]
+#' [HETER_MODEL$alt_formula]
 #' \cr
 #' \cr
 #' New methods: [HETER_MODEL$..init..], [HETER_MODEL$test],
@@ -760,28 +761,6 @@ HETER_MODEL$null_formula
 #' HETER_MODEL$alt_formula
 HETER_MODEL$alt_formula
 
-#' Quoted formula for constructing `sigma`
-#'
-#' @name HETER_MODEL$sigma_formula
-#'
-#' @description Quoted formula for constructing `sigma`.
-#'
-#' @examples
-#'
-#' HETER_MODEL$sigma_formula
-HETER_MODEL$sigma_formula
-
-#' Quoted formula for constructing `e`
-#'
-#' @name HETER_MODEL$e_formula
-#'
-#' @description Quoted formula for constructing `e`.
-#'
-#' @examples
-#'
-#' HETER_MODEL$e_formula
-HETER_MODEL$e_formula
-
 #' Initialization method
 #'
 #' @name HETER_MODEL$..init..
@@ -789,13 +768,13 @@ HETER_MODEL$e_formula
 #' @description This function will be called after an instance is built. User
 #' input will be stored in the environment. The response variable of this model
 #' is `y`. The formula of y is defined in [HETER_MODEL$formula],
-#' the null formula is defined in [HETER_MODEL$null_formula],
-#' the formula for `sigma` is defined in [HETER_MODEL$sigma_formula],
-#' the formula for `e` is defined in [HETER_MODEL$e_formula].
+#' the null formula is defined in [HETER_MODEL$null_formula].
 #' @param a Numeric. Default is `a = 0`.
 #' @param b Numeric. Default is `b = 1`.
 #' @param x Random variable or closed form expression. Default is
 #' `x = rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
+#' @param e Random variable or closed form expression. Default is
+#' `e = rand_normal(0, 1, env = new.env(parent = parent.env(self)))`.
 #' @return No return value, called for side effects.
 #'
 #' @examples

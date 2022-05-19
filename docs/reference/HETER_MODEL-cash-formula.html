@@ -67,7 +67,7 @@ define a closed form expression for <code>y</code>.</p>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="va">HETER_MODEL</span><span class="op">$</span><span class="va">formula</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> y ~ 1 + x + e</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> y ~ 1 + x + sqrt(1 + (2 - abs(a)) * (x - a)^2 * b) * e</span>
 </code></pre></div>
     </div>
   </div>

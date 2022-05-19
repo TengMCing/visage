@@ -60,10 +60,10 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
 
 # gen ---------------------------------------------------------------------
 
-  gen_ <- function(n, fit_model = FALSE, test = FALSE) {
+  gen_ <- function(n, fit_model = FALSE, test = FALSE, computed = NULL) {
 
     # Generate the data frame from the expression
-    dat <- visage::CLOSED_FORM$as_dataframe(self$prm$y$gen(n, rhs_val = TRUE), "y")
+    dat <- visage::CLOSED_FORM$as_dataframe(self$prm$y$gen(n, rhs_val = TRUE, computed = computed), "y")
 
     # If requires residuals and fitted values, fit the model
     if (fit_model) {
@@ -397,29 +397,20 @@ class_HETER_MODEL <- function(env = new.env(parent = parent.frame())) {
   new_class(VI_MODEL, env = env, class_name = "HETER_MODEL")
 
   # Run the `set_formula` method for the class
-  env$set_formula(formula = y ~ 1 + x + e,
+  env$set_formula(formula = y ~ 1 + x + sqrt(1 + (2 - abs(a)) * (x - a)^2 * b) * e,
                   null_formula = y ~ x,
-                  alt_formula = NULL,
-                  sigma_formula = sigma ~ sqrt(1 + (2 - abs(a)) * (x - a)^2 * b),
-                  e_formula = e ~ RAND_NORMAL[["gen"]](length(sigma), mu = 0, sigma = sigma))
+                  alt_formula = NULL)
 
 # init --------------------------------------------------------------------
 
   init_ <- function(a = 0, b = 1,
-                    x = visage::rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))) {
-
-    # `sigma` is a random variable which depends on `x`
-    sigma <- visage::closed_form(eval(self$sigma_formula), env = new.env(parent = parent.env(self)))
-
-    RAND_NORMAL <- visage::RAND_NORMAL
-
-    # `e` is a random variable which depends on `sigma`
-    e <- visage::closed_form(eval(self$e_formula), env = new.env(parent = parent.env(self)))
+                    x = visage::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
+                    e = visage::rand_normal(0, 1, env = new.env(parent = parent.env(self)))) {
 
     # Use the init method from the VI_MODEL class
     visage::use_method(self, visage::VI_MODEL$..init..)(
-      prm = list(a = a, b = b, x = x, sigma = sigma, e = e),
-      prm_type = list(a = "o", b = "o", x = "r", sigma = "r", e = "r"),
+      prm = list(a = a, b = b, x = x, e = e),
+      prm_type = list(a = "o", b = "o", x = "r", e = "r"),
       formula = self$formula,
       null_formula = self$null_formula,
       alt_formula = self$alt_formula

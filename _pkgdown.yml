@@ -142,8 +142,6 @@ reference:
   - HETER_MODEL$formula
   - HETER_MODEL$null_formula
   - HETER_MODEL$alt_formula
-  - HETER_MODEL$sigma_formula
-  - HETER_MODEL$e_formula
   - HETER_MODEL$test
   - HETER_MODEL$effect_size
 - title: "Utilties"

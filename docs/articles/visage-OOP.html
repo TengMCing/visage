@@ -88,7 +88,8 @@
 <div class="section level1">
 <h1 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h1>
-<p><strong>OOP</strong> has been heavily used in R via the S3 system. However, users who have learned OOP in other languages are often dissatisfied with its syntax. This vignette introduces an OOP system provided by the <code>visage</code> package, which tries to implement a lightweight OOP system with python-like syntax in R using the “environment” language feature. This OOP system is developed primarily for the ease of designing, simulating, and evaluating visual inference experiment.</p>
+<p><strong>OOP</strong> has been heavily used in R via the S3 system. However, users who have learned OOP in other languages are often dissatisfied with its syntax. This vignette introduces an OOP system provided by the <code>visage</code> package, which tries to implement a lightweight OOP system with python-like syntax in R using the “environment” language feature.</p>
+<!-- This OOP system is developed primarily for the ease of designing, simulating, and evaluating visual inference experiment.  -->
 <p>There is another OOP system in R called <a href="https://r6.r-lib.org/index.html" class="external-link">R6</a>, which is also implemented using environment but in a different way.</p>
 </div>
 <div class="section level1">
@@ -99,7 +100,7 @@
 <div class="section level1">
 <h1 id="oop-concepts-review">OOP concepts review<a class="anchor" aria-label="anchor" href="#oop-concepts-review"></a>
 </h1>
-<p><strong>OOP</strong> stands for <strong>object-oriented programming</strong>, which is a programming paradigm based on <strong>objects</strong>. Usually, object is defined as a special type of data structure that can hold both <strong>attributes</strong> (data) and <strong>methods</strong> (associated behaviors).</p>
+<p><strong>OOP</strong> stands for <strong>object-oriented programming</strong>, which is a programming paradigm based on <strong>objects</strong>. Usually, object is defined as a special type of data structure that can hold both <strong>attributes</strong> (data) and <strong>methods</strong> (associated behaviours).</p>
 <div class="section level2">
 <h2 id="class-and-instance">Class and instance<a class="anchor" aria-label="anchor" href="#class-and-instance"></a>
 </h2>
@@ -118,7 +119,7 @@
 <span class="co">#&gt; named list()</span>
 <span class="co">#&gt; attr(,"row.names")</span>
 <span class="co">#&gt; integer(0)</span></code></pre></div>
-<p>So, why would they belong to different S3 classes? It is possibly because they are two different data structures and are expected to behave differently. Data frame is a two-dimensional-like structure, while list is a dynamic array-like data structure. In terms of the associated behaviors, one obvious example is data frame has the method <code>dim</code> to obtain the dimensions of the object, but list does not.</p>
+<p>So, why would they belong to different S3 classes? It is possibly because they are two different data structures and are expected to behave differently. Data frame is a two-dimensional-like structure, while list is a dynamic array-like data structure. In terms of the associated behaviours, one obvious example is data frame has the method <code>dim</code> to obtain the dimensions of the object, but list does not.</p>
 <ul>
 <li>Objects are <strong>instances</strong> of classes.</li>
 </ul>
@@ -126,7 +127,7 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">is</span><span class="op">(</span><span class="va">a</span>, <span class="st">"data.frame"</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
-<p>Every instance has its own set of data and behaviors. Let <code>b &lt;- data.frame(a = 2, b = 2)</code>, then both <code>b</code> and <code>a</code> are instances of class <code>data.frame</code>, but they have different sets of data.</p>
+<p>Every instance has its own set of data and behaviours. Let <code>b &lt;- data.frame(a = 2, b = 2)</code>, then both <code>b</code> and <code>a</code> are instances of class <code>data.frame</code>, but they have different sets of data.</p>
 </div>
 <div class="section level2">
 <h2 id="inheritance-and-composition">Inheritance and composition<a class="anchor" aria-label="anchor" href="#inheritance-and-composition"></a>
@@ -170,25 +171,107 @@
 </div>
 </div>
 <div class="section level1">
-<h1 id="visage-oop-system">Visage OOP system<a class="anchor" aria-label="anchor" href="#visage-oop-system"></a>
+<h1 id="visage-oop-system">
+<code>visage</code> OOP system<a class="anchor" aria-label="anchor" href="#visage-oop-system"></a>
 </h1>
+<p><code>visage</code> OOP system builds upon the R language feature - “environment”. For more details about this language feature, please check the R Documentation <code><a href="https://rdrr.io/r/base/environment.html" class="external-link">help(environment)</a></code>.</p>
+<p>Every <code>visage</code> class and instance are environments with S3 class <code>visage_oop</code>. For example, the <code>BASE</code> class provided by the package is an environment.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">e</span> <span class="op">&lt;-</span> <span class="fu">visage</span><span class="fu">::</span><span class="fu"><a href="../reference/new_class.html">new_class</a></span><span class="op">(</span>class_name <span class="op">=</span> <span class="st">"new"</span><span class="op">)</span>
-<span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://lobstr.r-lib.org/reference/tree.html" class="external-link">tree</a></span><span class="op">(</span><span class="va">e</span><span class="op">)</span>
-<span class="co">#&gt; &lt;environment: 0x7fad6a101960&gt;</span>
-<span class="co">#&gt; ├─..class..: <span style="color: #0000BB;">"new"</span></span>
-<span class="co">#&gt; ├─..type..: <span style="color: #0000BB;">"new"</span></span>
-<span class="co">#&gt; └─..instantiated..: <span style="color: #0000BB;">FALSE</span></span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tengmcing.github.io/visage/" class="external-link">visage</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">BASE</span><span class="op">)</span>
+<span class="co">#&gt; Class 'visage_oop' &lt;environment: 0x7f8b6fb89718&gt;</span></code></pre></div>
+<div class="section level2">
+<h2 id="define-a-new-class">Define a new class<a class="anchor" aria-label="anchor" href="#define-a-new-class"></a>
+</h2>
+<p>To define a new class, we need to use the function <code><a href="../reference/new_class.html">new_class()</a></code> with a class name passed to the <code>class_name</code> argument. The output shows that it is an unknown object. This is because the S3 method <code>print.visage_oop</code> can not find the <code>..str..()</code> method from the class. Similar to <code>__str__()</code> in Python, <code>..str..()</code> is responsible for providing a nicely printable string representation of an object. We will elaborate this behaviour in section ?.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">visage</span><span class="fu">::</span><span class="fu"><a href="../reference/register_method.html">register_method</a></span><span class="op">(</span><span class="va">e</span>, a <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span>
-<span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://lobstr.r-lib.org/reference/tree.html" class="external-link">tree</a></span><span class="op">(</span><span class="va">e</span><span class="op">)</span>
-<span class="co">#&gt; &lt;environment: 0x7fad6a101960&gt;</span>
-<span class="co">#&gt; ├─a: <span style="font-style: italic;">function()</span></span>
-<span class="co">#&gt; ├─..class..: <span style="color: #0000BB;">"new"</span></span>
-<span class="co">#&gt; ├─..type..: <span style="color: #0000BB;">"new"</span></span>
-<span class="co">#&gt; ├─..method_env..: &lt;environment: 0x7fad7815b720&gt;</span>
-<span class="co">#&gt; │ └─self: &lt;environment: 0x7fad6a101960&gt; (Already seen)</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/new_class.html">new_class</a></span><span class="op">(</span>class_name <span class="op">=</span> <span class="st">"DEMO"</span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ── &lt;unknown object&gt;</span></code></pre></div>
+<p>If no environment is provided to <code><a href="../reference/new_class.html">new_class()</a></code> via argument <code>env</code>, then it will automatically new an environment with the current environment as the parent environment.</p>
+<p>So, if <code><a href="../reference/new_class.html">new_class()</a></code> is run in the global environment, then the parent environment of the <code>DEMO</code> class is the global environment.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">parent.env</a></span><span class="op">(</span><span class="fu"><a href="../reference/new_class.html">new_class</a></span><span class="op">(</span>class_name <span class="op">=</span> <span class="st">"DEMO"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; &lt;environment: R_GlobalEnv&gt;</span></code></pre></div>
+<p>And if <code><a href="../reference/new_class.html">new_class()</a></code> is run in an environment associated with a function, then the parent environment of the <code>DEMO</code> class is that environment.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">parent.env</a></span><span class="op">(</span><span class="fu"><a href="../reference/new_class.html">new_class</a></span><span class="op">(</span>class_name <span class="op">=</span> <span class="st">"DEMO"</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span><span class="op">)</span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; &lt;environment: 0x7f8b5b59c040&gt;</span>
+<span class="co">#&gt; &lt;environment: 0x7f8b5b59c040&gt;</span></code></pre></div>
+<p>If an environment is provided via <code>env</code>, <code><a href="../reference/new_class.html">new_class()</a></code> will adopt that environment as <code>DEMO</code> class.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">e</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">e</span><span class="op">)</span>
+<span class="co">#&gt; &lt;environment: 0x7f8b591b4e40&gt;</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu"><a href="../reference/new_class.html">new_class</a></span><span class="op">(</span>env <span class="op">=</span> <span class="va">e</span>, class_name <span class="op">=</span> <span class="st">"DEMO"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; Class 'visage_oop' &lt;environment: 0x7f8b591b4e40&gt;</span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="define-methods">Define methods<a class="anchor" aria-label="anchor" href="#define-methods"></a>
+</h2>
+<p>You may notice that the basic usage of <code><a href="../reference/new_class.html">new_class()</a></code> only provides a class with very few attributes. Let’s explore the structure of the <code>DEMO</code> class with <code><a href="https://lobstr.r-lib.org/reference/tree.html" class="external-link">lobstr::tree</a></code>. According to the result, the class only contains three attributes, a character vector <code>..class..</code> representing the class list, a string <code>..type..</code> representing the type and a Boolean value <code>..instantiated..</code> representing the instantiated state.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">DEMO</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/new_class.html">new_class</a></span><span class="op">(</span>class_name <span class="op">=</span> <span class="st">"DEMO"</span><span class="op">)</span>
+<span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://lobstr.r-lib.org/reference/tree.html" class="external-link">tree</a></span><span class="op">(</span><span class="va">DEMO</span><span class="op">)</span>
+<span class="co">#&gt; &lt;environment: 0x7f8b5ad636b0&gt;</span>
+<span class="co">#&gt; ├─..class..: <span style="color: #0000BB;">"DEMO"</span></span>
+<span class="co">#&gt; ├─..type..: <span style="color: #0000BB;">"DEMO"</span></span>
 <span class="co">#&gt; └─..instantiated..: <span style="color: #0000BB;">FALSE</span></span></code></pre></div>
+<p>It does not have any methods, nor any mechanism to run methods. To define some methods for this empty class, we need to use <code><a href="../reference/register_method.html">register_method()</a></code>.</p>
+<p>Here, we tell the function we want to register a method called <code>myfunc</code> in the environment <code>DEMO</code>, and the method <code>myfunc</code> is a copy of the function <code>foo</code>. Then, the method can be called by <code>DEMO$myfunc()</code>.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">a</span> <span class="op">&lt;-</span> <span class="st">"Hello, world!"</span>
+
+<span class="va">foo</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">a</span>
+<span class="op">}</span>
+
+<span class="fu"><a href="../reference/register_method.html">register_method</a></span><span class="op">(</span><span class="va">DEMO</span>, myfunc <span class="op">=</span> <span class="va">foo</span><span class="op">)</span>
+
+<span class="va">DEMO</span><span class="op">$</span><span class="fu">myfunc</span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; [1] "Hello, world!"</span></code></pre></div>
+<p>It seems like <code>register_method</code> only makes a copy of the function <code>foo</code> and stores it in <code>DEMO</code>. But it does more than that. If we check the structure again we will see <code>DEMO</code> now contains another environment called <code>..method_env..</code>, which contains an environment <code>self</code> that is identical to <code>DEMO</code>. You may ask what is the point of having this complex structure.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://lobstr.r-lib.org/reference/tree.html" class="external-link">tree</a></span><span class="op">(</span><span class="va">DEMO</span><span class="op">)</span>
+<span class="co">#&gt; &lt;environment: 0x7f8b5ad636b0&gt;</span>
+<span class="co">#&gt; ├─myfunc: <span style="font-style: italic;">function()</span></span>
+<span class="co">#&gt; ├─..class..: <span style="color: #0000BB;">"DEMO"</span></span>
+<span class="co">#&gt; ├─..type..: <span style="color: #0000BB;">"DEMO"</span></span>
+<span class="co">#&gt; ├─..method_env..: &lt;environment: 0x7f8b5c9e5970&gt;</span>
+<span class="co">#&gt; │ └─self: &lt;environment: 0x7f8b5ad636b0&gt; (Already seen)</span>
+<span class="co">#&gt; └─..instantiated..: <span style="color: #0000BB;">FALSE</span></span></code></pre></div>
+<p>Most R functions need to associate with a certain environment, such that values of variables can be determined. For example, the associated environment of <code>foo</code> is the global environment. So if <code>foo</code> can not find the variable <code>a</code> from the current scope, it can try to find it from the global scope.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="va">foo</span><span class="op">)</span>
+<span class="co">#&gt; &lt;environment: R_GlobalEnv&gt;</span></code></pre></div>
+<p>The environment associated with the method <code>myfunc</code> is <code>..method_env..</code>. Using the same logic, when <code>myfunc</code> can not find a variable, it will try to find that variable in <code>..method_env..</code> first, then in the parent environment of <code>..method_env..</code>, etc.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">DEMO</span><span class="op">$</span><span class="va">..method_env..</span><span class="op">)</span>
+<span class="co">#&gt; &lt;environment: 0x7f8b5c9e5970&gt;</span>
+<span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="va">DEMO</span><span class="op">$</span><span class="va">myfunc</span><span class="op">)</span>
+<span class="co">#&gt; &lt;environment: 0x7f8b5c9e5970&gt;</span></code></pre></div>
+<p>This enables us to define class method or instance method. Consider the following code chunk. We define a method <code>add_one</code> that needs to access a variable <code>self</code>. Since <code>self</code> can not be found in the current scope, the function will try to find it in <code>..method_env..</code>, where <code>self</code> is a reference to <code>DEMO</code>.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">DEMO</span><span class="op">$</span><span class="va">inc</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+
+<span class="va">add_1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">self</span><span class="op">$</span><span class="va">inc</span> <span class="op">&lt;-</span> <span class="va">self</span><span class="op">$</span><span class="va">inc</span> <span class="op">+</span> <span class="fl">1</span>
+<span class="op">}</span>
+
+<span class="fu"><a href="../reference/register_method.html">register_method</a></span><span class="op">(</span><span class="va">DEMO</span>, add_one <span class="op">=</span> <span class="va">add_1</span><span class="op">)</span></code></pre></div>
+<p>Therefore, when the method <code>add_one()</code> is called, <code>DEMO$inc</code> will increase by 1.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">DEMO</span><span class="op">$</span><span class="fu">add_one</span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">DEMO</span><span class="op">$</span><span class="va">inc</span><span class="op">)</span>
+<span class="co">#&gt; [1] 2</span>
+
+<span class="va">DEMO</span><span class="op">$</span><span class="fu">add_one</span><span class="op">(</span><span class="op">)</span>
+<span class="va">DEMO</span><span class="op">$</span><span class="va">inc</span>
+<span class="co">#&gt; [1] 3</span></code></pre></div>
+</div>
 </div>
   </div>
 
