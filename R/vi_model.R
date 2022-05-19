@@ -60,7 +60,7 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
 
 # gen ---------------------------------------------------------------------
 
-  gen_ <- function(n, fit_model = FALSE, test = FALSE, computed = NULL) {
+  gen_ <- function(n, fit_model = TRUE, test = FALSE, computed = NULL) {
 
     # Generate the data frame from the expression
     dat <- visage::CLOSED_FORM$as_dataframe(self$prm$y$gen(n, rhs_val = TRUE, computed = computed), "y")
@@ -85,10 +85,10 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
 
 # gen_lineup --------------------------------------------------------------
 
-  gen_lineup_ <- function(n, k = 20, pos = NULL) {
+  gen_lineup_ <- function(n, k = 20, pos = NULL, computed = NULL) {
 
     # Generate data with fitted values and residuals and test results
-    dat <- self$gen(n, fit_model = TRUE, test = TRUE)
+    dat <- self$gen(n, fit_model = TRUE, test = TRUE, computed = computed)
 
     # Get the model
     mod <- self$fit(dat)

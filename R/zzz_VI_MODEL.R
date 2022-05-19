@@ -259,13 +259,13 @@ VI_MODEL$set_formula
 #' `y`, and keeps all the right hand side information in a data frame.
 #' @param n Integer. Number of observations.
 #' @param fit_model Boolean. Whether or not to fit a null model to obtain the
-#' fitted values and the residuals. Default is `FALSE`.
+#' fitted values and the residuals. Default is `TRUE`.
 #' @param test Boolean. Whether or not to test the null model against the
 #' alternative model to obtain the test statistic and the p-value.
+#' Default is `FALSE`.
 #' @param computed List. Default is `NULL`. If it is provided, random variables
 #' or random closed form expression will use the values from the list, which
 #' makes the expression potentially deterministic.
-#' Default is `FALSE`.
 #' @return A data frame.
 #'
 #' @examples
@@ -279,9 +279,10 @@ VI_MODEL$set_formula
 #'                  null_formula = y ~ x,
 #'                  alt_formula = y ~ x + I(x^2))
 #'
-#' test$gen(10)
+#' dat <- test$gen(10)
+#' dat
 #'
-#' test$gen(10, fit_model = TRUE)
+#' test$gen(10, computed = list(e = dat$e))
 #'
 #' test$gen(10, test = TRUE)
 VI_MODEL$gen
@@ -550,6 +551,10 @@ VI_MODEL$null_resid
 #' @param k Integer. Number of plots in the lineup. Default is `k = 20`.
 #' @param pos Integer. Position of the true data plot. Default is `pos = NULL`,
 #' which means the position is random.
+#' @param computed List. Default is `NULL`. If it is provided, random variables
+#' or random closed form expression will use the values from the list, which
+#' makes the expression potentially deterministic. In this function, only the
+#' actual data plot will use these computed values.
 #' @return A data frame.
 #'
 #' @examples
@@ -564,6 +569,8 @@ VI_MODEL$null_resid
 #'                  alt_formula = y ~ x + I(x^2))
 #'
 #' test$gen_lineup(10, k = 3)
+#'
+#' test$gen_lineup(10, k = 3, computed = list(e = 1:10))
 VI_MODEL$gen_lineup
 
 

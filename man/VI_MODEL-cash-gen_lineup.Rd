@@ -10,6 +10,11 @@
 
 \item{pos}{Integer. Position of the true data plot. Default is \code{pos = NULL},
 which means the position is random.}
+
+\item{computed}{List. Default is \code{NULL}. If it is provided, random variables
+or random closed form expression will use the values from the list, which
+makes the expression potentially deterministic. In this function, only the
+actual data plot will use these computed values.}
 }
 \value{
 A data frame.
@@ -30,4 +35,6 @@ test <- vi_model(prm = list(x = x, e = e),
                  alt_formula = y ~ x + I(x^2))
 
 test$gen_lineup(10, k = 3)
+
+test$gen_lineup(10, k = 3, computed = list(e = 1:10))
 }
