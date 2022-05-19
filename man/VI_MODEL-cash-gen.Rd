@@ -7,15 +7,15 @@
 \item{n}{Integer. Number of observations.}
 
 \item{fit_model}{Boolean. Whether or not to fit a null model to obtain the
-fitted values and the residuals. Default is \code{FALSE}.}
+fitted values and the residuals. Default is \code{TRUE}.}
 
 \item{test}{Boolean. Whether or not to test the null model against the
-alternative model to obtain the test statistic and the p-value.}
+alternative model to obtain the test statistic and the p-value.
+Default is \code{FALSE}.}
 
 \item{computed}{List. Default is \code{NULL}. If it is provided, random variables
 or random closed form expression will use the values from the list, which
-makes the expression potentially deterministic.
-Default is \code{FALSE}.}
+makes the expression potentially deterministic.}
 }
 \value{
 A data frame.
@@ -35,9 +35,10 @@ test <- vi_model(prm = list(x = x, e = e),
                  null_formula = y ~ x,
                  alt_formula = y ~ x + I(x^2))
 
-test$gen(10)
+dat <- test$gen(10)
+dat
 
-test$gen(10, fit_model = TRUE)
+test$gen(10, computed = list(e = dat$e))
 
 test$gen(10, test = TRUE)
 }
