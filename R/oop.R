@@ -162,11 +162,16 @@ print.visage_oop <- function(x, ...) {
 #' parent classes.
 #'
 #' Parents can be provided in `...`, where methods and attributes will be
-#' overrided by the left classes.
+#' overrided by the left classes. If `...` is empty and `empty_class == FALSE`,
+#' [BASE] will be used as the parent class.
 #'
 #' @param ... Environments. Parent class environments.
 #' @param env Environment. The new class environment.
 #' @param class_name Name of the new class.
+#' @param empty_class Boolean. Whether to create an empty class. This should only
+#' be used when you don't want to inherited from [BASE], or you want to define
+#' your own base object class. Will be ignored if `...` is not empty. If `...`
+#' is empty and `empty_class == FALSE`, [BASE] will be used as the parent class.
 #' @return A class environment with S3 class "visage_oop".
 #'
 #' @examples
@@ -180,15 +185,22 @@ print.visage_oop <- function(x, ...) {
 #' names(TEST)
 #'
 #' @export
-new_class <- function(..., env = new.env(parent = parent.frame()), class_name = NULL) {
+new_class <- function(..., env = new.env(parent = parent.frame()), class_name = NULL, empty_class = FALSE) {
 
   # Class should has a name
   if (is.null(class_name)) stop("`class_name` is null!")
 
   env$..class.. <- c()
 
+  # If users leave ... empty and they don't want to define an empty class
+  if ((!empty_class) && (length(list(...)) == 0)) {
+    parent_cls_list <- list(BASE)
+  } else {
+    parent_cls_list <- list(...)
+  }
+
   # Methods will be overrided by the left classes
-  for (parent in rev(list(...))) {
+  for (parent in rev(parent_cls_list)) {
 
     if (parent$..instantiated..) stop("Parent is not a class!")
 
@@ -213,7 +225,6 @@ new_class <- function(..., env = new.env(parent = parent.frame()), class_name = 
   # Return the class
   return(env)
 }
-
 
 
 # copy_attr ---------------------------------------------------------------
@@ -317,8 +328,8 @@ class_BASE <- function(env = new.env(parent = parent.frame())) {
   # Pass CMD check
   self <- NULL
 
-  # Define a new class
-  new_class(env = env, class_name = "BASE")
+  # Define a new class, empty_class = TRUE because we want to define a base object class
+  new_class(env = env, class_name = "BASE", empty_class = TRUE)
 
   # Default instantiation method
   instantiation_ <- function(..., env = new.env(parent = parent.frame())) {

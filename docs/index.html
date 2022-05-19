@@ -79,7 +79,7 @@
 </h1></div>
 <!-- badges: start -->
 <!-- badges: end -->
-<p>The goal of visage is to …</p>
+<p>The goal of visage is to provide an lightweight OOP system and a set of tools for running visual inference experiments.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -89,12 +89,21 @@
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"TengMCing/visage"</span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+<h2 id="basic-examples-for-usgae-of-visage-oop-system">Basic examples for usgae of <code>visage</code> OOP system<a class="anchor" aria-label="anchor" href="#basic-examples-for-usgae-of-visage-oop-system"></a>
 </h2>
-<p>This is a basic example which shows you how to solve a common problem:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tengmcing.github.io/visage/" class="external-link">visage</a></span><span class="op">)</span>
-<span class="co">## basic example code</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tengmcing.github.io/visage/" class="external-link">visage</a></span><span class="op">)</span></code></pre></div>
+<div class="section level3">
+<h3 id="define-a-new-class">Define a new class<a class="anchor" aria-label="anchor" href="#define-a-new-class"></a>
+</h3>
+<p>A class can be defined with the <code>new_class</code> function. All positional arguments are for specifying parent classes, <code>BASE</code> is the base object class provided by the package, so you almost always need to include it in . If you would like to have advanced behaviour, you can try to implement your own <code>object</code> class.</p>
+<p>Class name is mandatory.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">DEMO</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/new_class.html">new_class</a></span><span class="op">(</span><span class="va">BASE</span>, class_name <span class="op">=</span> <span class="st">"DEMO"</span><span class="op">)</span>
+<span class="va">DEMO</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ── &lt;DEMO class&gt;</span></code></pre></div>
+</div>
 </div>
 </div>
   </div>
