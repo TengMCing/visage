@@ -4,7 +4,12 @@
 \alias{new_class}
 \title{Define a new class}
 \usage{
-new_class(..., env = new.env(parent = parent.frame()), class_name = NULL)
+new_class(
+  ...,
+  env = new.env(parent = parent.frame()),
+  class_name = NULL,
+  empty_class = FALSE
+)
 }
 \arguments{
 \item{...}{Environments. Parent class environments.}
@@ -12,6 +17,11 @@ new_class(..., env = new.env(parent = parent.frame()), class_name = NULL)
 \item{env}{Environment. The new class environment.}
 
 \item{class_name}{Name of the new class.}
+
+\item{empty_class}{Boolean. Whether to create an empty class. This should only
+be used when you don't want to inherited from \link{BASE}, or you want to define
+your own base object class. Will be ignored if \code{...} is not empty. If \code{...}
+is empty and \code{empty_class == FALSE}, \link{BASE} will be used as the parent class.}
 }
 \value{
 A class environment with S3 class "visage_oop".
@@ -22,7 +32,8 @@ parent classes.
 }
 \details{
 Parents can be provided in \code{...}, where methods and attributes will be
-overrided by the left classes.
+overrided by the left classes. If \code{...} is empty and \code{empty_class == FALSE},
+\link{BASE} will be used as the parent class.
 }
 \examples{
 MYCLASS <- new_class(class_name = "MYCLASS")
