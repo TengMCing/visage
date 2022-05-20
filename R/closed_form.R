@@ -12,11 +12,8 @@ class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
 
   init_ <- function(expr) {
 
-    # The expression has to be provided as formula
-    if (!'formula' %in% class(expr)) stop("`expr` is not a formula!")
-
-    # Only keeps the RHS of the last "~" character
-    self$expr <- str2lang(gsub("^.*~", "", paste(deparse(expr, width.cutoff = 500L), collapse = " ")))
+    # Set experssion
+    self$set_expr(expr)
 
     # Save all the symbols and symbol types
     self$sym <- list()
@@ -146,9 +143,9 @@ class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
   }
 
 
-# update_sym --------------------------------------------------------------
+# set_sym -----------------------------------------------------------------
 
-  update_sym_ <- function(sym_name, sym_val) {
+  set_sym_ <- function(sym_name, sym_val) {
 
     # Update all sym values
     for (i in 1:length(sym_name)) {
@@ -179,9 +176,9 @@ class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
   }
 
 
-# update_expr -------------------------------------------------------------
+# set_expr ----------------------------------------------------------------
 
-  update_expr_ <- function(expr) {
+  set_expr_ <- function(expr) {
 
     # The expression has to be provided as formula
     if (!'formula' %in% class(expr)) stop("`expr` is not a formula!")
@@ -223,8 +220,8 @@ class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
                   ..str.. = str_,
                   ast = ast_,
                   compute = compute_,
-                  update_sym = update_sym_,
-                  update_expr = update_expr_,
+                  set_sym = set_sym_,
+                  set_expr = set_expr_,
                   as_dataframe = as_dataframe_,
                   gen = gen_)
 
