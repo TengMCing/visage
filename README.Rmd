@@ -28,11 +28,82 @@ And the development version from [GitHub](https://github.com/) with:
 # install.packages("devtools")
 devtools::install_github("TengMCing/visage")
 ```
-## Basic usgae of `visage` OOP system
 
 ```{r}
 library(visage)
 ```
+
+## Usage of visual inference cubic linear model class
+
+### Define a model
+
+A visual inference cubic linear model is defined as
+
+```{r}
+CUBIC_MODEL$formula
+```
+
+where `x` and `z` are random variables, `a`, `b` and `c` are parameters and `e` is the random error term.
+
+To define the model, `cubic_model()` needs to be used. `x` and `z` by default are assumed to follow a uniform distribution and `e` by default is assumed to follow a normal distribution with standard deviation equals to `sigma`.
+
+```{r}
+mod <- cubic_model(a = 1, b = 1, c = 1, sigma = 1)
+mod
+```
+
+To specify the different distribution for `x` and `z` and `e`, you can follow this example:
+
+```{r}
+# Normal distribution
+x <- rand_normal(mu = 0, sigma = 1)
+
+# Uniform distribution
+z <- rand_uniform(a = -1, b = 1)
+
+# Log-normal distribution
+e <- rand_lognormal(mu = 0, sigma = 10)
+
+mod2 <- cubic_model(a = 1, b = 1, c = 1, x = x, z = z, e = e)
+
+mod2
+```
+
+
+### Generate random values from the model
+
+To generate random values from the model, method `gen()` needs to be used. It will return a data frame containing values of `y`, `x`, `z`, `e`, `.resid` and `.fitted`.
+
+```{r}
+mod$gen(n = 5)
+```
+
+Residuals and fitted values are obtained by fitting the following null model:
+
+```{r}
+CUBIC_MODEL$null_formula
+```
+
+### Make a residual plot
+
+```{r}
+mod$plot(mod$gen(100), "resid")
+```
+
+### Generate data for a lineup
+
+```{r}
+mod$gen_lineup(n = 10, k = 2)
+```
+
+### Plot a lineup
+
+```{r}
+mod$plot_lineup(mod$gen_lineup(100))
+```
+
+
+## Basic usgae of `visage` OOP system
 
 ### Define a new class
 
