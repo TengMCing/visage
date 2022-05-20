@@ -179,7 +179,7 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tengmcing.github.io/visage/" class="external-link">visage</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">BASE</span><span class="op">)</span>
-<span class="co">#&gt; Class 'visage_oop' &lt;environment: 0x7f8649f85430&gt;</span></code></pre></div>
+<span class="co">#&gt; Class 'visage_oop' &lt;environment: 0x7fe6f57ae718&gt;</span></code></pre></div>
 <div class="section level2">
 <h2 id="define-a-new-class">Define a new class<a class="anchor" aria-label="anchor" href="#define-a-new-class"></a>
 </h2>
@@ -199,15 +199,15 @@
   <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">parent.env</a></span><span class="op">(</span><span class="fu"><a href="../reference/new_class.html">new_class</a></span><span class="op">(</span>class_name <span class="op">=</span> <span class="st">"DEMO"</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; &lt;environment: 0x7f864b27f538&gt;</span>
-<span class="co">#&gt; &lt;environment: 0x7f864b27f538&gt;</span></code></pre></div>
+<span class="co">#&gt; &lt;environment: 0x7fe6e56bce98&gt;</span>
+<span class="co">#&gt; &lt;environment: 0x7fe6e56bce98&gt;</span></code></pre></div>
 <p>If an environment is provided via <code>env</code>, <code><a href="../reference/new_class.html">new_class()</a></code> will adopt that environment as <code>DEMO</code> class.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">e</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">e</span><span class="op">)</span>
-<span class="co">#&gt; &lt;environment: 0x7f864b4653c0&gt;</span>
+<span class="co">#&gt; &lt;environment: 0x7fe6e43ad520&gt;</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu"><a href="../reference/new_class.html">new_class</a></span><span class="op">(</span>env <span class="op">=</span> <span class="va">e</span>, class_name <span class="op">=</span> <span class="st">"DEMO"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Class 'visage_oop' &lt;environment: 0x7f864b4653c0&gt;</span></code></pre></div>
+<span class="co">#&gt; Class 'visage_oop' &lt;environment: 0x7fe6e43ad520&gt;</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="define-methods">Define methods<a class="anchor" aria-label="anchor" href="#define-methods"></a>
@@ -216,7 +216,7 @@
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">DEMO</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/new_class.html">new_class</a></span><span class="op">(</span>class_name <span class="op">=</span> <span class="st">"DEMO"</span><span class="op">)</span>
 <span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://lobstr.r-lib.org/reference/tree.html" class="external-link">tree</a></span><span class="op">(</span><span class="va">DEMO</span><span class="op">)</span>
-<span class="co">#&gt; &lt;environment: 0x7f863a285b58&gt;</span>
+<span class="co">#&gt; &lt;environment: 0x7fe6e53652b8&gt;</span>
 <span class="co">#&gt; ├─..dict..: <span style="font-style: italic;">function()</span></span>
 <span class="co">#&gt; ├─..str..: <span style="font-style: italic;">function()</span></span>
 <span class="co">#&gt; ├─..len..: <span style="font-style: italic;">function()</span></span>
@@ -229,8 +229,8 @@
 <span class="co">#&gt; ├─..type..: <span style="color: #0000BB;">"DEMO"</span></span>
 <span class="co">#&gt; ├─get_attr: <span style="font-style: italic;">function(attr_name)</span></span>
 <span class="co">#&gt; ├─..methods..: <span style="font-style: italic;">function()</span></span>
-<span class="co">#&gt; ├─..method_env..: &lt;environment: 0x7f863a2abc18&gt;</span>
-<span class="co">#&gt; │ └─self: &lt;environment: 0x7f863a285b58&gt; (Already seen)</span>
+<span class="co">#&gt; ├─..method_env..: &lt;environment: 0x7fe6e5372d78&gt;</span>
+<span class="co">#&gt; │ └─self: &lt;environment: 0x7fe6e53652b8&gt; (Already seen)</span>
 <span class="co">#&gt; ├─..instantiated..: <span style="color: #0000BB;">FALSE</span></span>
 <span class="co">#&gt; └─..init..: <span style="font-style: italic;">function(...)</span></span></code></pre></div>
 <p>It does not have any methods, nor any mechanism to run methods. To define some methods for this empty class, we need to use <code><a href="../reference/register_method.html">register_method()</a></code>.</p>
@@ -249,7 +249,7 @@
 <p>It seems like <code>register_method</code> only makes a copy of the function <code>foo</code> and stores it in <code>DEMO</code>. But it does more than that. If we check the structure again we will see <code>DEMO</code> now contains another environment called <code>..method_env..</code>, which contains an environment <code>self</code> that is identical to <code>DEMO</code>. You may ask what is the point of having this complex structure.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://lobstr.r-lib.org/reference/tree.html" class="external-link">tree</a></span><span class="op">(</span><span class="va">DEMO</span><span class="op">)</span>
-<span class="co">#&gt; &lt;environment: 0x7f863a285b58&gt;</span>
+<span class="co">#&gt; &lt;environment: 0x7fe6e53652b8&gt;</span>
 <span class="co">#&gt; ├─..dict..: <span style="font-style: italic;">function()</span></span>
 <span class="co">#&gt; ├─..str..: <span style="font-style: italic;">function()</span></span>
 <span class="co">#&gt; ├─..len..: <span style="font-style: italic;">function()</span></span>
@@ -263,8 +263,8 @@
 <span class="co">#&gt; ├─..type..: <span style="color: #0000BB;">"DEMO"</span></span>
 <span class="co">#&gt; ├─get_attr: <span style="font-style: italic;">function(attr_name)</span></span>
 <span class="co">#&gt; ├─..methods..: <span style="font-style: italic;">function()</span></span>
-<span class="co">#&gt; ├─..method_env..: &lt;environment: 0x7f863a2abc18&gt;</span>
-<span class="co">#&gt; │ └─self: &lt;environment: 0x7f863a285b58&gt; (Already seen)</span>
+<span class="co">#&gt; ├─..method_env..: &lt;environment: 0x7fe6e5372d78&gt;</span>
+<span class="co">#&gt; │ └─self: &lt;environment: 0x7fe6e53652b8&gt; (Already seen)</span>
 <span class="co">#&gt; ├─..instantiated..: <span style="color: #0000BB;">FALSE</span></span>
 <span class="co">#&gt; └─..init..: <span style="font-style: italic;">function(...)</span></span></code></pre></div>
 <p>Most R functions need to associate with a certain environment, such that values of variables can be determined. For example, the associated environment of <code>foo</code> is the global environment. So if <code>foo</code> can not find the variable <code>a</code> from the current scope, it can try to find it from the global scope.</p>
@@ -274,9 +274,9 @@
 <p>The environment associated with the method <code>myfunc</code> is <code>..method_env..</code>. Using the same logic, when <code>myfunc</code> can not find a variable, it will try to find that variable in <code>..method_env..</code> first, then in the parent environment of <code>..method_env..</code>, etc.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">DEMO</span><span class="op">$</span><span class="va">..method_env..</span><span class="op">)</span>
-<span class="co">#&gt; &lt;environment: 0x7f863a2abc18&gt;</span>
+<span class="co">#&gt; &lt;environment: 0x7fe6e5372d78&gt;</span>
 <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="va">DEMO</span><span class="op">$</span><span class="va">myfunc</span><span class="op">)</span>
-<span class="co">#&gt; &lt;environment: 0x7f863a2abc18&gt;</span></code></pre></div>
+<span class="co">#&gt; &lt;environment: 0x7fe6e5372d78&gt;</span></code></pre></div>
 <p>This enables us to define class method or instance method. Consider the following code chunk. We define a method <code>add_one</code> that needs to access a variable <code>self</code>. Since <code>self</code> can not be found in the current scope, the function will try to find it in <code>..method_env..</code>, where <code>self</code> is a reference to <code>DEMO</code>.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">DEMO</span><span class="op">$</span><span class="va">inc</span> <span class="op">&lt;-</span> <span class="fl">1</span>

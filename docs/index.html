@@ -87,18 +87,155 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"TengMCing/visage"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tengmcing.github.io/visage/" class="external-link">visage</a></span><span class="op">)</span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="usage-of-visual-inference-cubic-linear-model-class">Usage of visual inference cubic linear model class<a class="anchor" aria-label="anchor" href="#usage-of-visual-inference-cubic-linear-model-class"></a>
+</h2>
+<div class="section level3">
+<h3 id="define-a-model">Define a model<a class="anchor" aria-label="anchor" href="#define-a-model"></a>
+</h3>
+<p>A visual inference cubic linear model is defined as</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">CUBIC_MODEL</span><span class="op">$</span><span class="va">formula</span>
+<span class="co">#&gt; y ~ 1 + (2 - c) * x + c * z + a * (((2 - c) * x)^2 + (c * z)^2) + </span>
+<span class="co">#&gt;     b * (((2 - c) * x)^3 + (c * z)^3) + e</span></code></pre></div>
+<p>where <code>x</code> and <code>z</code> are random variables, <code>a</code>, <code>b</code> and <code>c</code> are parameters and <code>e</code> is the random error term.</p>
+<p>To define the model, <code><a href="reference/portal.html">cubic_model()</a></code> needs to be used. <code>x</code> and <code>z</code> by default are assumed to follow a uniform distribution and <code>e</code> by default is assumed to follow a normal distribution with standard deviation equals to <code>sigma</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/portal.html">cubic_model</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span>, b <span class="op">=</span> <span class="fl">1</span>, c <span class="op">=</span> <span class="fl">1</span>, sigma <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<span class="va">mod</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ── &lt;CUBIC_MODEL object&gt;</span>
+<span class="co">#&gt; y = 1 + (2 - c) * x + c * z + a * (((2 - c) * x)^2 + (c * z)^2) + b * (((2 - c) * x)^3 + (c * z)^3) + e</span>
+<span class="co">#&gt;  - x: &lt;RAND_UNIFORM object&gt;</span>
+<span class="co">#&gt;    [a: -1, b: 1]</span>
+<span class="co">#&gt;  - z: &lt;RAND_UNIFORM object&gt;</span>
+<span class="co">#&gt;    [a: -1, b: 1]</span>
+<span class="co">#&gt;  - e: &lt;RAND_NORMAL object&gt;</span>
+<span class="co">#&gt;    [mu: 0, sigma: 1]</span>
+<span class="co">#&gt;  - a: 1</span>
+<span class="co">#&gt;  - b: 1</span>
+<span class="co">#&gt;  - c: 1</span>
+<span class="co">#&gt;  - sigma: 1</span></code></pre></div>
+<p>To specify the different distribution for <code>x</code> and <code>z</code> and <code>e</code>, you can follow this example:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Normal distribution</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/portal.html">rand_normal</a></span><span class="op">(</span>mu <span class="op">=</span> <span class="fl">0</span>, sigma <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+
+<span class="co"># Uniform distribution</span>
+<span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/portal.html">rand_uniform</a></span><span class="op">(</span>a <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, b <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+
+<span class="co"># Log-normal distribution</span>
+<span class="va">e</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/portal.html">rand_lognormal</a></span><span class="op">(</span>mu <span class="op">=</span> <span class="fl">0</span>, sigma <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
+
+<span class="va">mod2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/portal.html">cubic_model</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span>, b <span class="op">=</span> <span class="fl">1</span>, c <span class="op">=</span> <span class="fl">1</span>, x <span class="op">=</span> <span class="va">x</span>, z <span class="op">=</span> <span class="va">z</span>, e <span class="op">=</span> <span class="va">e</span><span class="op">)</span>
+
+<span class="va">mod2</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ── &lt;CUBIC_MODEL object&gt;</span>
+<span class="co">#&gt; y = 1 + (2 - c) * x + c * z + a * (((2 - c) * x)^2 + (c * z)^2) + b * (((2 - c) * x)^3 + (c * z)^3) + e</span>
+<span class="co">#&gt;  - x: &lt;RAND_NORMAL object&gt;</span>
+<span class="co">#&gt;    [mu: 0, sigma: 1]</span>
+<span class="co">#&gt;  - z: &lt;RAND_UNIFORM object&gt;</span>
+<span class="co">#&gt;    [a: -1, b: 1]</span>
+<span class="co">#&gt;  - e: &lt;RAND_LOGNORMAL object&gt;</span>
+<span class="co">#&gt;    [mu: 0, sigma: 10]</span>
+<span class="co">#&gt;  - a: 1</span>
+<span class="co">#&gt;  - b: 1</span>
+<span class="co">#&gt;  - c: 1</span>
+<span class="co">#&gt;  - sigma: 1</span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="generate-random-values-from-the-model">Generate random values from the model<a class="anchor" aria-label="anchor" href="#generate-random-values-from-the-model"></a>
+</h3>
+<p>To generate random values from the model, method <code>gen()</code> needs to be used. It will return a data frame containing values of <code>y</code>, <code>x</code>, <code>z</code>, <code>e</code>, <code>.resid</code> and <code>.fitted</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
+<span class="co">#&gt;             y          x          z           e      .resid    .fitted</span>
+<span class="co">#&gt; 1  0.77326001  0.3865196 -0.8370314 -0.09755001  0.18516642  0.5880936</span>
+<span class="co">#&gt; 2  0.02630913 -0.1848605 -0.9409254  0.07193774  0.43672718 -0.4104180</span>
+<span class="co">#&gt; 3  0.91407443  0.3033847 -0.3503976 -0.23863639 -0.94852200  1.8625964</span>
+<span class="co">#&gt; 4  4.84548456  0.5958751  0.4378697  1.96941426  0.39170758  4.4537770</span>
+<span class="co">#&gt; 5 -1.48613341 -0.9760644 -0.9533160 -0.62198349 -0.06507917 -1.4210542</span></code></pre></div>
+<p>Residuals and fitted values are obtained by fitting the following null model:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">CUBIC_MODEL</span><span class="op">$</span><span class="va">null_formula</span>
+<span class="co">#&gt; y ~ x + z</span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="make-a-residual-plot">Make a residual plot<a class="anchor" aria-label="anchor" href="#make-a-residual-plot"></a>
+</h3>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="fu">plot</span><span class="op">(</span><span class="va">mod</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>, <span class="st">"resid"</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-8-1.png" width="100%"></p>
+</div>
+<div class="section level3">
+<h3 id="generate-data-for-a-lineup">Generate data for a lineup<a class="anchor" aria-label="anchor" href="#generate-data-for-a-lineup"></a>
+</h3>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="fu">gen_lineup</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, k <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+<span class="co">#&gt;             y           x           z          e       .resid    .fitted</span>
+<span class="co">#&gt; 1   2.5461768  0.91925441  0.10400979 -1.1108557 -0.546031254  3.0922080</span>
+<span class="co">#&gt; 2   0.8031114 -0.82298904 -0.82878623  1.2173908  0.987134423 -0.1840230</span>
+<span class="co">#&gt; 3   0.6969192  0.01936956  0.08552741 -0.4163008 -1.438297922  2.1352171</span>
+<span class="co">#&gt; 4   6.1341432  0.91487922  0.97701646 -0.2476972  1.661113435  4.4730298</span>
+<span class="co">#&gt; 5   3.2245856  0.43522217  0.78913099 -0.3857664 -0.455834973  3.6804206</span>
+<span class="co">#&gt; 6   1.0922849 -0.12745730 -0.03447324  0.2388932 -0.701149973  1.7934349</span>
+<span class="co">#&gt; 7   0.9791615 -0.90545265 -0.23439541  0.9994322  0.304983552  0.6741779</span>
+<span class="co">#&gt; 8   0.3013803 -0.64092877 -0.56501707  0.2209576 -0.120839189  0.4222195</span>
+<span class="co">#&gt; 9   0.9660950  0.43942123 -0.95398967  0.1608503  0.047419545  0.9186754</span>
+<span class="co">#&gt; 10  1.2096456  0.41822938 -0.92165278  0.3984467  0.261502356  0.9481433</span>
+<span class="co">#&gt; 11  3.0948706  0.91925441  0.10400979 -1.1108557  0.002662606  3.0922080</span>
+<span class="co">#&gt; 12 -1.3144387 -0.82298904 -0.82878623  1.2173908 -1.130415695 -0.1840230</span>
+<span class="co">#&gt; 13  1.0091269  0.01936956  0.08552741 -0.4163008 -1.126090258  2.1352171</span>
+<span class="co">#&gt; 14  4.7191487  0.91487922  0.97701646 -0.2476972  0.246118921  4.4730298</span>
+<span class="co">#&gt; 15  3.0128854  0.43522217  0.78913099 -0.3857664 -0.667535169  3.6804206</span>
+<span class="co">#&gt; 16  3.5372765 -0.12745730 -0.03447324  0.2388932  1.743841657  1.7934349</span>
+<span class="co">#&gt; 17  0.7424811 -0.90545265 -0.23439541  0.9994322  0.068303182  0.6741779</span>
+<span class="co">#&gt; 18  1.2880189 -0.64092877 -0.56501707  0.2209576  0.865799393  0.4222195</span>
+<span class="co">#&gt; 19  0.6615361  0.43942123 -0.95398967  0.1608503 -0.257139373  0.9186754</span>
+<span class="co">#&gt; 20  1.2025980  0.41822938 -0.92165278  0.3984467  0.254454735  0.9481433</span>
+<span class="co">#&gt;    test_name statistic    p_value k  null</span>
+<span class="co">#&gt; 1     F-test 10.032813 0.04394609 2 FALSE</span>
+<span class="co">#&gt; 2     F-test 10.032813 0.04394609 2 FALSE</span>
+<span class="co">#&gt; 3     F-test 10.032813 0.04394609 2 FALSE</span>
+<span class="co">#&gt; 4     F-test 10.032813 0.04394609 2 FALSE</span>
+<span class="co">#&gt; 5     F-test 10.032813 0.04394609 2 FALSE</span>
+<span class="co">#&gt; 6     F-test 10.032813 0.04394609 2 FALSE</span>
+<span class="co">#&gt; 7     F-test 10.032813 0.04394609 2 FALSE</span>
+<span class="co">#&gt; 8     F-test 10.032813 0.04394609 2 FALSE</span>
+<span class="co">#&gt; 9     F-test 10.032813 0.04394609 2 FALSE</span>
+<span class="co">#&gt; 10    F-test 10.032813 0.04394609 2 FALSE</span>
+<span class="co">#&gt; 11    F-test  1.005435 0.51918870 1  TRUE</span>
+<span class="co">#&gt; 12    F-test  1.005435 0.51918870 1  TRUE</span>
+<span class="co">#&gt; 13    F-test  1.005435 0.51918870 1  TRUE</span>
+<span class="co">#&gt; 14    F-test  1.005435 0.51918870 1  TRUE</span>
+<span class="co">#&gt; 15    F-test  1.005435 0.51918870 1  TRUE</span>
+<span class="co">#&gt; 16    F-test  1.005435 0.51918870 1  TRUE</span>
+<span class="co">#&gt; 17    F-test  1.005435 0.51918870 1  TRUE</span>
+<span class="co">#&gt; 18    F-test  1.005435 0.51918870 1  TRUE</span>
+<span class="co">#&gt; 19    F-test  1.005435 0.51918870 1  TRUE</span>
+<span class="co">#&gt; 20    F-test  1.005435 0.51918870 1  TRUE</span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="plot-a-lineup">Plot a lineup<a class="anchor" aria-label="anchor" href="#plot-a-lineup"></a>
+</h3>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="fu">plot_lineup</span><span class="op">(</span><span class="va">mod</span><span class="op">$</span><span class="fu">gen_lineup</span><span class="op">(</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-10-1.png" width="100%"></p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="basic-usgae-of-visage-oop-system">Basic usgae of <code>visage</code> OOP system<a class="anchor" aria-label="anchor" href="#basic-usgae-of-visage-oop-system"></a>
 </h2>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tengmcing.github.io/visage/" class="external-link">visage</a></span><span class="op">)</span></code></pre></div>
 <div class="section level3">
 <h3 id="define-a-new-class">Define a new class<a class="anchor" aria-label="anchor" href="#define-a-new-class"></a>
 </h3>
 <p>A class can be defined with the <code>new_class</code> function. All positional arguments are for specifying parent classes, <code>BASE</code> is the base object class provided by the package, you don’t need to manually specify it. But if you would like to have advanced behaviour, you can try to implement your own <code>object</code> class.</p>
 <p>Class name is mandatory and should be unique.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># You don't actually need to specify BASE here. This is only for demonstration.</span>
 <span class="va">DEMO</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/new_class.html">new_class</a></span><span class="op">(</span><span class="va">BASE</span>, class_name <span class="op">=</span> <span class="st">"DEMO"</span><span class="op">)</span>
 <span class="va">DEMO</span>
@@ -111,7 +248,7 @@
 <li>
 <code>OBJECT$..class..</code> gives the current class name and parent class names.</li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">DEMO</span><span class="op">$</span><span class="va">..type..</span>
 <span class="co">#&gt; [1] "DEMO"</span>
 <span class="va">DEMO</span><span class="op">$</span><span class="va">..class..</span>
@@ -122,7 +259,7 @@
 <li>
 <code>OBJECT$..methods..()</code> returns all names of method of the object</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">DEMO</span><span class="op">$</span><span class="fu">..dict..</span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt;  [1] "..dict.."         "..str.."          "..len.."          "..class.."       </span>
 <span class="co">#&gt;  [5] "..new.."          "..repr.."         "has_attr"         "instantiation"   </span>
@@ -136,7 +273,7 @@
 <li>
 <code>OBJECT$..str..()</code> returns a string representation of the object, which will be used by the S3 <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> method. This method usually needs to be overridden in subclass to give short summary of the object.</li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">DEMO</span><span class="op">$</span><span class="fu">..str..</span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; [1] "&lt;DEMO class&gt;"</span></code></pre></div>
 </div>
@@ -145,7 +282,7 @@
 </h3>
 <p>Methods can be registered by using <code><a href="reference/register_method.html">register_method()</a></code>. The first argument is the object you want to bind the function to, the rest of the positional arguments are for specifying method names and functions. The syntax is <code>method_name = function</code>.</p>
 <p>You can choose to write inline function or pass pre-defined function. The associative environment of the function doesn’t matter, it will be modified by the <code><a href="reference/register_method.html">register_method()</a></code> function.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pre_defined_fn</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span>
 
 <span class="fu"><a href="reference/register_method.html">register_method</a></span><span class="op">(</span><span class="va">DEMO</span>, inline_fn <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span>, pre_defined_fn <span class="op">=</span> <span class="va">pre_defined_fn</span><span class="op">)</span>
@@ -155,7 +292,7 @@
 <span class="va">DEMO</span><span class="op">$</span><span class="fu">pre_defined_fn</span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; [1] 3</span></code></pre></div>
 <p>For method that needs to access the object itself, just simply use <code>self</code> in your method. It is an reference to the object.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">DEMO</span><span class="op">$</span><span class="va">val</span> <span class="op">&lt;-</span> <span class="fl">5</span>
 
 <span class="fu"><a href="reference/register_method.html">register_method</a></span><span class="op">(</span><span class="va">DEMO</span>, get_val <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="va">self</span><span class="op">$</span><span class="va">val</span><span class="op">)</span>
@@ -167,7 +304,7 @@
 <h3 id="override-the-init-method">Override the <code>..init..()</code> method<a class="anchor" aria-label="anchor" href="#override-the-init-method"></a>
 </h3>
 <p><code>..init..()</code> method is for instance initialization. To override the <code>..init..()</code> method, you need to use the <code><a href="reference/register_method.html">register_method()</a></code> to register it again.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">init</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">first_name</span>, <span class="va">employee_id</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">self</span><span class="op">$</span><span class="va">first_name</span> <span class="op">&lt;-</span> <span class="va">first_name</span>
   <span class="va">self</span><span class="op">$</span><span class="va">employee_id</span> <span class="op">&lt;-</span> <span class="va">employee_id</span>
@@ -180,13 +317,13 @@
 <h3 id="build-an-instance">Build an instance<a class="anchor" aria-label="anchor" href="#build-an-instance"></a>
 </h3>
 <p>To new and initialize an instance, you need to use the <code>instantiation()</code> method. The output will show it is an object.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mike</span> <span class="op">&lt;-</span> <span class="va">DEMO</span><span class="op">$</span><span class="fu">instantiation</span><span class="op">(</span><span class="st">"Mike"</span>, <span class="fl">25</span><span class="op">)</span>
 <span class="va">mike</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── &lt;DEMO object&gt;</span></code></pre></div>
 <p><code>first_name</code> and <code>employee_id</code> are stored in the object because of the <code>..init..()</code> method.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mike</span><span class="op">$</span><span class="va">first_name</span>
 <span class="co">#&gt; [1] "Mike"</span>
 <span class="va">mike</span><span class="op">$</span><span class="va">employee_id</span>
@@ -197,7 +334,7 @@
 </h3>
 <p>It is recommend to write your class definition in a function to make debugging easier. The following example new a class <code>DEMO_2</code>, defines its own <code>..init..()</code> method, defines a <code>get_email()</code> function for retrieving the email address, defines its own <code>..str..()</code> method such that when we print the object, it will provide us with a nicely formatted summary.</p>
 <p><code>use_method</code> is used to run methods from other classes, which in this case, the <code>..str..()</code> method from the <code>BASE</code> class.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">class_DEMO_2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">env</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span>parent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   
   <span class="fu"><a href="reference/new_class.html">new_class</a></span><span class="op">(</span>env <span class="op">=</span> <span class="va">env</span>, class_name <span class="op">=</span> <span class="st">"DEMO_2"</span><span class="op">)</span>
@@ -226,12 +363,12 @@
   
   <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">env</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">DEMO_2</span> <span class="op">&lt;-</span> <span class="fu">class_DEMO_2</span><span class="op">(</span><span class="op">)</span>
 <span class="va">mike</span> <span class="op">&lt;-</span> <span class="va">DEMO_2</span><span class="op">$</span><span class="fu">instantiation</span><span class="op">(</span><span class="st">"Mike"</span>, <span class="fl">25</span><span class="op">)</span>
 <span class="va">mike</span><span class="op">$</span><span class="fu">get_email</span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; [1] "Mike_25@company.com"</span></code></pre></div>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mike</span><span class="op">$</span><span class="fu">..str..</span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; [1] "&lt;DEMO_2 object&gt;\nName: Mike \nEmployee ID: 25 \nEmail: Mike_25@company.com"</span>
 <span class="va">mike</span>
