@@ -146,6 +146,50 @@ class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
   }
 
 
+# update_sym --------------------------------------------------------------
+
+  update_sym_ <- function(sym_name, sym_val) {
+
+    # Update all sym values
+    for (i in 1:length(sym_name)) {
+      self$sym[[sym_name[[i]]]] <- sym_val[[i]]
+    }
+
+    # Update the sym_name list
+    self$sym_name <- as.list(names(self$sym))
+
+    # Update the sym type
+    for (sym in names(self$sym)) {
+
+      # Mark the symbol as "other"
+      self$sym_type[[sym]] <- "other"
+
+      # If it is an `visage_oop` object
+      if ("visage_oop" %in% class(self$sym[[sym]])) {
+
+        # And it has the method `gen` and it is an instance
+        if (is.function(self$sym[[sym]]$gen) & self$sym[[sym]]$..instantiated..) {
+
+          # Then mark it as random variable or closed form
+          self$sym_type[[sym]] <- "rand_var or closed_form"
+        }
+      }
+    }
+
+  }
+
+
+# update_expr -------------------------------------------------------------
+
+  update_expr_ <- function(expr) {
+
+    # The expression has to be provided as formula
+    if (!'formula' %in% class(expr)) stop("`expr` is not a formula!")
+
+    # Only keeps the RHS of the last "~" character
+    self$expr <- str2lang(gsub("^.*~", "", paste(deparse(expr, width.cutoff = 500L), collapse = " ")))
+  }
+
 # as_dataframe ------------------------------------------------------------
 
  as_dataframe_ <- function(dat, lhs = ".lhs") {
@@ -179,6 +223,8 @@ class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
                   ..str.. = str_,
                   ast = ast_,
                   compute = compute_,
+                  update_sym = update_sym_,
+                  update_expr = update_expr_,
                   as_dataframe = as_dataframe_,
                   gen = gen_)
 
