@@ -130,6 +130,9 @@
     <loc>/reference/CUBIC_MODEL-cash-null_formula.html</loc>
   </url>
   <url>
+    <loc>/reference/CUBIC_MODEL-cash-set_prm.html</loc>
+  </url>
+  <url>
     <loc>/reference/CUBIC_MODEL.html</loc>
   </url>
   <url>
@@ -281,6 +284,9 @@
   </url>
   <url>
     <loc>/reference/VI_MODEL-cash-set_formula.html</loc>
+  </url>
+  <url>
+    <loc>/reference/VI_MODEL-cash-set_prm.html</loc>
   </url>
   <url>
     <loc>/reference/VI_MODEL-cash-test.html</loc>

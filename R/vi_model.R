@@ -61,7 +61,17 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
 
 # set_parameter -----------------------------------------------------------
 
+  set_prm_ <- function(prm_name, prm_value) {
 
+    for (i in 1:length(prm_name)) {
+      pname <- prm_name[[i]]
+      pval <- prm_value[[i]]
+
+      self$prm[[pname]] <- pval
+      self$prm$y$set_sym(pname, list(pval))
+    }
+
+  }
 
 # gen ---------------------------------------------------------------------
 
@@ -305,6 +315,7 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
                   ..init.. = init_,
                   ..str.. = str_,
                   set_formula = set_formula_,
+                  set_prm = set_prm_,
                   gen = gen_,
                   test = test_,
                   fit = fit_,
@@ -353,6 +364,24 @@ class_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
   }
 
 
+# set_prm -----------------------------------------------------------------
+
+  set_prm_ <- function(prm_name, prm_value) {
+
+    for (i in 1:length(prm_name)) {
+      pname <- prm_name[[i]]
+      pval <- prm_value[[i]]
+
+      if (pname == "sigma") {
+        self$prm[[pname]] <- pval
+        self$prm$e$prm$sigma <- pval
+      } else {
+        visage::use_method(self, visage::VI_MODEL$set_prm)(pname, pval)
+      }
+    }
+
+  }
+
 # E -----------------------------------------------------------------------
 
   E_ <- function(dat) {
@@ -386,7 +415,11 @@ class_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
 
 # register_method ---------------------------------------------------------
 
-  register_method(env, ..init.. = init_, E = E_, effect_size = effect_size_)
+  register_method(env,
+                  ..init.. = init_,
+                  E = E_,
+                  effect_size = effect_size_,
+                  set_prm = set_prm_)
 
   return(env)
 }
@@ -452,7 +485,10 @@ class_HETER_MODEL <- function(env = new.env(parent = parent.frame())) {
 
 # register_method ---------------------------------------------------------
 
-  register_method(env, ..init.. = init_, test = test_, effect_size = effect_size_)
+  register_method(env,
+                  ..init.. = init_,
+                  test = test_,
+                  effect_size = effect_size_)
 
   return(env)
 }

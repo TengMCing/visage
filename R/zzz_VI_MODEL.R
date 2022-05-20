@@ -251,6 +251,36 @@ VI_MODEL$..str..
 #' test$alt_formula
 VI_MODEL$set_formula
 
+#' Set parameter for the model
+#'
+#' @name VI_MODEL$set_prm
+#'
+#' @description This function store the values in the environment and update
+#' their values in the closed form expression of `y`. However, if the parameter
+#' is not directly used by the closed form expression, user should override
+#' this method to correctly set the parameter.
+#' @param prm_name List or Vector. Parameter character names.
+#' @param prm_val List or Vector. Parameter values.
+#' @return No return value, called for side effects.
+#'
+#' @examples
+#'
+#' # Instantiation
+#' x <- rand_uniform()
+#' e <- rand_normal()
+#' test <- vi_model(prm = list(a = 1, x = x, e = e),
+#'                  prm_type = list(a = "o", x = "r", e = "r"),
+#'                  formula = y ~ 1 + a * x + x^2 + e,
+#'                  null_formula = y ~ x,
+#'                  alt_formula = y ~ x + I(x^2))
+#'
+#' test
+#'
+#' test$set_prm("a", 2)
+#'
+#' test
+VI_MODEL$set_prm
+
 #' Generating random values from the expression of `y`
 #'
 #' @name VI_MODEL$gen
@@ -670,6 +700,34 @@ CUBIC_MODEL$alt_formula
 #' # Plot the lineup
 #' test$plot_lineup(test$gen_lineup(100))
 CUBIC_MODEL$..init..
+
+#' Set parameter for the model
+#'
+#' @name CUBIC_MODEL$set_prm
+#'
+#' @description This function store the values in the environment and update
+#' their values in the closed form expression of `y`, except the parameter
+#' `sigma`. For parameter `sigma`, its value will be updated, and the
+#' corresponding value in `e` will be updated.
+#' @param prm_name List or Vector. Parameter character names.
+#' @param prm_val List or Vector. Parameter values.
+#' @return No return value, called for side effects.
+#'
+#' @examples
+#'
+#' # Instantiation
+#' mod <- cubic_model(a = -1, b = 1, c = 1, sigma = 0.5)
+#'
+#' mod
+#'
+#' mod$set_prm("a", 2)
+#'
+#' mod
+#'
+#' mod$set_prm("sigma", 1)
+#'
+#' mod
+CUBIC_MODEL$set_prm
 
 
 #' Expectation of the residuals
