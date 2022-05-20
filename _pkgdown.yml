@@ -94,8 +94,8 @@ reference:
   - CLOSED_FORM$sym_name
   - CLOSED_FORM$sym_type
   - CLOSED_FORM$expr
-  - CLOSED_FORM$update_sym
-  - CLOSED_FORM$update_expr
+  - CLOSED_FORM$set_sym
+  - CLOSED_FORM$set_expr
   - CLOSED_FORM$compute
   - CLOSED_FORM$gen
   - CLOSED_FORM$as_dataframe
@@ -113,6 +113,7 @@ reference:
   - VI_MODEL$null_formula
   - VI_MODEL$alt_formula
   - VI_MODEL$set_formula
+  - VI_MODEL$set_prm
   - VI_MODEL$test
   - VI_MODEL$fit
   - VI_MODEL$effect_size
@@ -133,6 +134,7 @@ reference:
   - CUBIC_MODEL$formula
   - CUBIC_MODEL$null_formula
   - CUBIC_MODEL$alt_formula
+  - CUBIC_MODEL$set_prm
   - CUBIC_MODEL$E
   - CUBIC_MODEL$effect_size
 - subtitle: "Visual inference heteroskedasticity linear model class"
