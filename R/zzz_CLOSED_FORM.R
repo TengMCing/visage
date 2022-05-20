@@ -298,3 +298,64 @@ CLOSED_FORM$ast
 #' # Specify the name
 #' cf$as_dataframe(result2, lhs = "y")
 CLOSED_FORM$as_dataframe
+
+#' Update values for symbols
+#'
+#' @name CLOSED_FORM$update_sym
+#'
+#' @description This function stores the user inputs as the updated values of
+#' symbols. List of symbol names and symbol types will be updated automatically.
+#' There is no protection for values that should not be modified, which may lead
+#' to error or loss of binding of some objects. Please use this function with
+#' caution.
+#' @param sym_name Vector or List. A sequence of character symbol names.
+#' @param sym_val Vector or List. A sequence of symbol values.
+#' @return No return value, called for side effects.
+#'
+#' @examples
+#'
+#' # Constant variable
+#' a <- 1
+#'
+#' # Random uniform variable
+#' z <- closed_form(~2 + a)
+#'
+#' z$compute()
+#'
+#' # Update value for "a"
+#' z$update_sym("a", 3)
+#'
+#' z$compute()
+#'
+#' # Update value for "+"
+#' z$update_sym("+", list(function(a, b) a * b))
+#'
+#' z$compute()
+CLOSED_FORM$update_sym
+
+#' Update the closed form expression
+#'
+#' @name CLOSED_FORM$update_expr
+#'
+#' @description This function updates the closed form expression. It will not
+#' update the symbol values. For updating symbol values,
+#' please check [CLOSED_FORM$update_sym].
+#' @param expr Formula. Only the right hand side of the last `~` will be kept as
+#' the final expression.
+#' @return No return value, called for side effects.
+#'
+#' @examples
+#'
+#' # Constant variable
+#' a <- 1
+#'
+#' # Random uniform variable
+#' z <- closed_form(~2 + a)
+#'
+#' z$compute()
+#'
+#' # Update the expression
+#' z$update_expr(~2 - a)
+#'
+#' z$compute()
+CLOSED_FORM$update_expr

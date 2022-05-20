@@ -94,6 +94,8 @@ reference:
   - CLOSED_FORM$sym_name
   - CLOSED_FORM$sym_type
   - CLOSED_FORM$expr
+  - CLOSED_FORM$update_sym
+  - CLOSED_FORM$update_expr
   - CLOSED_FORM$compute
   - CLOSED_FORM$gen
   - CLOSED_FORM$as_dataframe
