@@ -299,9 +299,9 @@ CLOSED_FORM$ast
 #' cf$as_dataframe(result2, lhs = "y")
 CLOSED_FORM$as_dataframe
 
-#' Update values for symbols
+#' Set values for symbols
 #'
-#' @name CLOSED_FORM$update_sym
+#' @name CLOSED_FORM$set_sym
 #'
 #' @description This function stores the user inputs as the updated values of
 #' symbols. List of symbol names and symbol types will be updated automatically.
@@ -323,23 +323,23 @@ CLOSED_FORM$as_dataframe
 #' z$compute()
 #'
 #' # Update value for "a"
-#' z$update_sym("a", 3)
+#' z$set_sym("a", 3)
 #'
 #' z$compute()
 #'
 #' # Update value for "+"
-#' z$update_sym("+", list(function(a, b) a * b))
+#' z$set_sym("+", list(function(a, b) a * b))
 #'
 #' z$compute()
-CLOSED_FORM$update_sym
+CLOSED_FORM$set_sym
 
-#' Update the closed form expression
+#' Set the closed form expression
 #'
-#' @name CLOSED_FORM$update_expr
+#' @name CLOSED_FORM$set_expr
 #'
 #' @description This function updates the closed form expression. It will not
 #' update the symbol values. For updating symbol values,
-#' please check [CLOSED_FORM$update_sym].
+#' please check [CLOSED_FORM$set_sym].
 #' @param expr Formula. Only the right hand side of the last `~` will be kept as
 #' the final expression.
 #' @return No return value, called for side effects.
@@ -355,7 +355,7 @@ CLOSED_FORM$update_sym
 #' z$compute()
 #'
 #' # Update the expression
-#' z$update_expr(~2 - a)
+#' z$set_expr(~2 - a)
 #'
 #' z$compute()
-CLOSED_FORM$update_expr
+CLOSED_FORM$set_expr

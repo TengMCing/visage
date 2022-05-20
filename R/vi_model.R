@@ -58,6 +58,11 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
     }
   }
 
+
+# set_parameter -----------------------------------------------------------
+
+
+
 # gen ---------------------------------------------------------------------
 
   gen_ <- function(n, fit_model = TRUE, test = FALSE, computed = NULL) {
