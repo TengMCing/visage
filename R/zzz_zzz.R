@@ -43,6 +43,10 @@ vi_model <- VI_MODEL$instantiation
 #' @export
 cubic_model <- CUBIC_MODEL$instantiation
 
+#' @describeIn portal [SIMPLE_CUBIC_MODEL]
+#' @export
+simple_cubic_model <- SIMPLE_CUBIC_MODEL$instantiation
+
 #' @describeIn portal [HETER_MODEL]
 #' @export
 heter_model <- HETER_MODEL$instantiation

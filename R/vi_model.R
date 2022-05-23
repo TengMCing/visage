@@ -492,3 +492,86 @@ class_HETER_MODEL <- function(env = new.env(parent = parent.frame())) {
 
   return(env)
 }
+
+
+
+# simple_cubic_model ------------------------------------------------------
+
+class_SIMPLE_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
+
+  # Pass CMD check
+  self <- NULL
+
+  new_class(VI_MODEL, env = env, class_name = "SIMPLE_CUBIC_MODEL")
+
+  # Run the `set_formula` method for the class
+  env$set_formula(formula = y ~ 1 + x + a * x^2 + b * x^3 + e,
+                  null_formula = y ~ x,
+                  alt_formula = y ~ x + I(x^2) + I(x^3))
+
+  # init --------------------------------------------------------------------
+
+  init_ <- function(a = 1, b = 1, sigma = 1,
+                    x = visage::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
+                    e = visage::rand_normal(0, sigma, env = new.env(parent = parent.env(self)))) {
+
+    # Use the init method from the VI_MODEL class
+    visage::use_method(self, visage::VI_MODEL$..init..)(
+      prm = list(a = a, b = b, sigma = sigma, x = x, e = e),
+      prm_type = list(a = "o", b = "o", sigma = "o", x = "r", e = "r"),
+      formula = self$formula,
+      null_formula = self$null_formula,
+      alt_formula = self$alt_formula
+    )
+  }
+
+
+  # set_prm -----------------------------------------------------------------
+
+  set_prm_ <- function(prm_name, prm_value) {
+
+    # Reuse the CUBIC_MODEL$set_prm method
+    visage::use_method(self, visage::CUBIC_MODEL$set_prm)(prm_name, prm_value)
+
+  }
+
+  # E -----------------------------------------------------------------------
+
+  E_ <- function(dat) {
+    a <- self$prm$a
+    b <- self$prm$b
+    Xa <- as.matrix(data.frame(1, dat$x))
+    Ra <- diag(nrow(dat)) - Xa %*% solve(t(Xa) %*% Xa) %*% t(Xa)
+    Xb <- as.matrix(data.frame(dat$x^2, dat$x^3))
+    beta_b <- matrix(c(a, b))
+
+    c(Ra %*% Xb %*% beta_b)
+  }
+
+
+  # effect_size -------------------------------------------------------------
+
+  effect_size_ <- function(dat,
+                           a = self$prm$a,
+                           b = self$prm$b,
+                           sigma = self$prm$sigma) {
+
+    Xa <- as.matrix(data.frame(1, dat$x))
+    Ra <- diag(nrow(dat)) - Xa %*% solve(t(Xa) %*% Xa) %*% t(Xa)
+    Xb <- as.matrix(data.frame(dat$x^2, dat$x^3))
+    beta_b <- matrix(c(a, b))
+
+    (1/nrow(dat)) * (1/sigma^2) * sum((diag(sqrt(diag(Ra))) %*% Xb %*% beta_b)^2)
+  }
+
+  # register_method ---------------------------------------------------------
+
+  register_method(env,
+                  ..init.. = init_,
+                  E = E_,
+                  effect_size = effect_size_,
+                  set_prm = set_prm_)
+
+  return(env)
+}
+

@@ -899,3 +899,164 @@ HETER_MODEL$test
 #' mod <- heter_model(a = 0, b = 16)
 #' mod$effect_size(mod$gen(100))
 HETER_MODEL$effect_size
+
+
+
+# SIMPLE_CUBIC_MODEL ------------------------------------------------------
+
+#' SIMPLE_CUBIC_MODEL class environment
+#'
+#' @name SIMPLE_CUBIC_MODEL
+#'
+#' @description This is the class of visual inference simple cubic linear model,
+#' inherited from [VI_MODEL].
+#' @format An environment with S3 class `visage_oop`.
+#' @seealso Parent class: [VI_MODEL]
+#' \cr
+#' \cr
+#' New attributes: [SIMPLE_CUBIC_MODEL$formula],
+#' [SIMPLE_CUBIC_MODEL$null_formula], [SIMPLE_CUBIC_MODEL$alt_formula],
+#' \cr
+#' \cr
+#' New methods: [SIMPLE_CUBIC_MODEL$..init..], [SIMPLE_CUBIC_MODEL$E],
+#' [SIMPLE_CUBIC_MODEL$effect_size]
+#' @export
+SIMPLE_CUBIC_MODEL <- class_SIMPLE_CUBIC_MODEL()
+
+#' Closed form expression of `y`
+#'
+#' @name SIMPLE_CUBIC_MODEL$formula
+#'
+#' @description A quoted formula, will be passed to `CLOSED_FORM$instantiation` to
+#' define a closed form expression for `y`.
+#'
+#' @examples
+#'
+#' SIMPLE_CUBIC_MODEL$formula
+SIMPLE_CUBIC_MODEL$formula
+
+#' Formula for fitting the null model
+#'
+#' @name SIMPLE_CUBIC_MODEL$null_formula
+#'
+#' @description Quoted formula for fitting the null model.
+#'
+#' @examples
+#'
+#' SIMPLE_CUBIC_MODEL$null_formula
+SIMPLE_CUBIC_MODEL$null_formula
+
+#' Formula for fitting the alternative model
+#'
+#' @name SIMPLE_CUBIC_MODEL$alt_formula
+#'
+#' @description Quoted formula for fitting the alternative model.
+#'
+#' @examples
+#'
+#' SIMPLE_CUBIC_MODEL$alt_formula
+SIMPLE_CUBIC_MODEL$alt_formula
+
+#' Initialization method
+#'
+#' @name SIMPLE_CUBIC_MODEL$..init..
+#'
+#' @description This function will be called after an instance is built. User
+#' input will be stored in the environment. The response variable of this model
+#' is `y`. The formula of y is defined in [SIMPLE_CUBIC_MODEL$formula], the null
+#' formula is defined in [SIMPLE_CUBIC_MODEL$null_formula], the alternative is
+#' defined in [SIMPLE_CUBIC_MODEL$alt_formula].
+#' @param a Numeric. Default is `a = 1`.
+#' @param b Numeric. Default is `b = 1`.
+#' @param sigma Positive numeric. Default is `sigma = 1`.
+#' @param x Random variable or closed form expression. Default is
+#' `x = rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
+#' @param e Random variable or closed form expression. Default is
+#' `e = rand_normal(0, sigma, env = new.env(parent = parent.env(self)))`.
+#' @return No return value, called for side effects.
+#'
+#' @examples
+#'
+#' # Instantiation
+#' x <- rand_uniform()
+#' e <- rand_normal()
+#'
+#' test <- simple_cubic_model(a = 200, b = 200, x = x, e = e)
+#'
+#' test
+#'
+#' # Generate data
+#' test$gen(10)
+#'
+#' # Generate lineup
+#' test$gen_lineup(10, k = 3)
+#'
+#' # Plot the lineup
+#' test$plot_lineup(test$gen_lineup(100))
+SIMPLE_CUBIC_MODEL$..init..
+
+#' Set parameter for the model
+#'
+#' @name SIMPLE_CUBIC_MODEL$set_prm
+#'
+#' @description This function store the values in the environment and update
+#' their values in the closed form expression of `y`, except the parameter
+#' `sigma`. For parameter `sigma`, its value will be updated, and the
+#' corresponding value in `e` will be updated.
+#' @param prm_name List or Vector. Parameter character names.
+#' @param prm_val List or Vector. Parameter values.
+#' @return No return value, called for side effects.
+#'
+#' @examples
+#'
+#' # Instantiation
+#' mod <- simple_cubic_model(a = -1, b = 1, sigma = 0.5)
+#'
+#' mod
+#'
+#' mod$set_prm("a", 2)
+#'
+#' mod
+#'
+#' mod$set_prm("sigma", 1)
+#'
+#' mod
+SIMPLE_CUBIC_MODEL$set_prm
+
+
+#' Expectation of the residuals
+#'
+#' @name SIMPLE_CUBIC_MODEL$E
+#'
+#' @description This function calculate the expectation of the residuals by the
+#' use of the Frisch–Waugh–Lovell theorem.
+#' @param dat Dataframe/List. List contains variable `x` and `z`.
+#' @return A vector of numeric expectations.
+#'
+#' @examples
+#'
+#' mod <- simple_cubic_model(-1, 1, 0.5)
+#' dat <- mod$gen(1000, fit_model = TRUE)
+#' dat$exp <- mod$E(dat)
+#' mod$plot(dat) + ggplot2::geom_point(ggplot2::aes(.fitted, exp),
+#'                                     col = "red",
+#'                                     alpha = 0.6)
+SIMPLE_CUBIC_MODEL$E
+
+#' Compute the effect size of the simulated data
+#'
+#' @name SIMPLE_CUBIC_MODEL$effect_size
+#'
+#' @description This function computes the effect size of the simulated data.
+#' @param dat Dataframe/List. List contains variable `x`.
+#' @param a Numeric. Default is `a = self$prm$a`.
+#' @param b Numeric. Default is `b = self$prm$b`.
+#' @param sigma Positive numeric. Default is `sigma = self$prm$sigma`.
+#' @return A numeric value.
+#'
+#' @examples
+#'
+#' mod <- simple_cubic_model(-1, 1, 0.5)
+#' dat <- mod$gen(1000, fit_model = TRUE)
+#' mod$effect_size(dat)
+SIMPLE_CUBIC_MODEL$effect_size
