@@ -24,7 +24,7 @@ library(visage)
 
 ## Usage of visual inference cubic linear model class `CUBIC_MODEL`
 
-### Define a model
+1.  Define a model
 
 A visual inference cubic linear model is defined as:
 
@@ -65,7 +65,7 @@ mod
 #>  - sigma: 1
 ```
 
-### Generate random values from the model
+2.  Generate random values from the model
 
 An instance of cubic model class contains methods of simulating data and
 making residual plot. Method `gen()` returns a data frame containing
@@ -85,15 +85,15 @@ Generates five realizations from the model:
 
 ``` r
 mod$gen(n = 5)
-#>            y          x          z           e      .resid    .fitted
-#> 1 -2.5621020 -0.3476054  0.8475984  0.15646247 -2.90677143  0.3446694
-#> 2  2.1990206  0.3198613  0.4183419  1.61059928  2.62107004 -0.4220495
-#> 3  1.5425117 -0.3151661  0.1119863  0.99160041  2.03352425 -0.4910126
-#> 4 -3.5235881  0.7316370 -0.6738118 -1.35632540 -1.70434833 -1.8192398
-#> 5 -0.1806606 -0.8987716  0.2039230 -0.09030404 -0.04347452 -0.1371861
+#>            y           x           z          e     .resid     .fitted
+#> 1 -0.8885025 -0.21312881 -0.98199687 -0.5340663 -0.8265018 -0.06200063
+#> 2 -0.5297458 -0.30817710  0.73566950  1.0579587 -0.4790801 -0.05066566
+#> 3 -0.1675827 -0.99201720  0.03403663 -0.1824408  0.2759276 -0.44351032
+#> 4  0.0190079 -0.46990024  0.40154783  0.1164678  0.1686880 -0.14968011
+#> 5  0.9447204  0.03391375 -0.62291119  0.9762374  0.8609663  0.08375407
 ```
 
-### Make a residual plot
+3.  Make a residual plot
 
 Method `plot()` produce a `ggplot` object. It takes a data frame
 containing columns `.resid` and `.fitted` as input, along with a
@@ -107,7 +107,7 @@ mod$plot(mod$gen(n = 100), type = "resid", size = 1)
 
 <img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
 
-### Make a lineup
+4.  Make a lineup
 
 A lineup is a matrix of residual plots which can be produced by using
 the methods `gen_lineup()` and `plot_lineup()`. Method `gen_lineup()`
@@ -119,40 +119,40 @@ Generate a lineup consists of 2 plots and 8 realizations:
 
 ``` r
 mod$gen_lineup(n = 8, k = 2)
-#>             y           x           z           e      .resid     .fitted
-#> 1  -0.4973043 -0.40740908  0.17120611 -0.86303321 -0.23514518 -0.26215909
-#> 2   1.4316413 -0.57762631  0.02860045  1.40596898  1.74088715 -0.30924584
-#> 3  -0.5146353 -0.08420377 -0.82643980 -0.22888571 -0.36522629 -0.14940901
-#> 4   1.2216060 -0.68948205  0.27767304  1.37179688  1.56810244 -0.34649641
-#> 5  -0.3388120 -0.99091806 -0.16304338 -0.09135055  0.08760691 -0.42641887
-#> 6   0.9238849  0.50569156  0.03780961  0.53995878  0.91692254  0.00696235
-#> 7  -0.7516302  0.74413867 -0.50218944  1.28046584 -0.83816736  0.08653719
-#> 8  -3.2468076 -0.76767521  0.41325250 -2.75758458 -2.87498020 -0.37182739
-#> 9  -0.5147136 -0.40740908  0.17120611 -0.86303321 -0.25255456 -0.26215909
-#> 10 -2.6493338 -0.57762631  0.02860045  1.40596898 -2.34008795 -0.30924584
-#> 11 -0.9437314 -0.08420377 -0.82643980 -0.22888571 -0.79432241 -0.14940901
-#> 12  0.5426231 -0.68948205  0.27767304  1.37179688  0.88911952 -0.34649641
-#> 13  0.4347612 -0.99091806 -0.16304338 -0.09135055  0.86118004 -0.42641887
-#> 14 -1.5139160  0.50569156  0.03780961  0.53995878 -1.52087839  0.00696235
-#> 15  2.1621762  0.74413867 -0.50218944  1.28046584  2.07563904  0.08653719
-#> 16  0.7100773 -0.76767521  0.41325250 -2.75758458  1.08190471 -0.37182739
+#>              y          x          z          e      .resid    .fitted
+#> 1   1.61185352  0.4167785  0.2459898  0.9135750  0.38835590  1.2234976
+#> 2   0.11172335 -0.8143559  0.1908867  0.2347160  0.56243285 -0.4507095
+#> 3  -1.56288257 -0.8864413  0.3750301 -1.2035915 -1.28178720 -0.2810954
+#> 4   0.79910187 -0.2766650  0.2146586  0.1951164  0.51903098  0.2800709
+#> 5   1.33996892  0.4010459  0.2171317  0.5699641  0.17808141  1.1618875
+#> 6  -0.76950588  0.8289115 -0.1192364  1.3282895 -2.00541457  1.2359087
+#> 7  -1.38450575 -0.1758275 -0.8786659 -0.9725444 -0.23353386 -1.1509719
+#> 8   2.55387663  0.4556523 -0.1690390  2.2451589  1.87283449  0.6810421
+#> 9   2.32586345  0.4167785  0.2459898  0.9135750  1.10236583  1.2234976
+#> 10  0.05230502 -0.8143559  0.1908867  0.2347160  0.50301452 -0.4507095
+#> 11 -2.06050160 -0.8864413  0.3750301 -1.2035915 -1.77940624 -0.2810954
+#> 12  1.82063724 -0.2766650  0.2146586  0.1951164  1.54056635  0.2800709
+#> 13  0.73668340  0.4010459  0.2171317  0.5699641 -0.42520411  1.1618875
+#> 14 -0.32926103  0.8289115 -0.1192364  1.3282895 -1.56516972  1.2359087
+#> 15 -1.12363050 -0.1758275 -0.8786659 -0.9725444  0.02734138 -1.1509719
+#> 16  1.27753413  0.4556523 -0.1690390  2.2451589  0.59649199  0.6810421
 #>    test_name statistic   p_value k  null
-#> 1     F-test 6.3395363 0.2884739 1 FALSE
-#> 2     F-test 6.3395363 0.2884739 1 FALSE
-#> 3     F-test 6.3395363 0.2884739 1 FALSE
-#> 4     F-test 6.3395363 0.2884739 1 FALSE
-#> 5     F-test 6.3395363 0.2884739 1 FALSE
-#> 6     F-test 6.3395363 0.2884739 1 FALSE
-#> 7     F-test 6.3395363 0.2884739 1 FALSE
-#> 8     F-test 6.3395363 0.2884739 1 FALSE
-#> 9     F-test 0.8367481 0.6642758 2  TRUE
-#> 10    F-test 0.8367481 0.6642758 2  TRUE
-#> 11    F-test 0.8367481 0.6642758 2  TRUE
-#> 12    F-test 0.8367481 0.6642758 2  TRUE
-#> 13    F-test 0.8367481 0.6642758 2  TRUE
-#> 14    F-test 0.8367481 0.6642758 2  TRUE
-#> 15    F-test 0.8367481 0.6642758 2  TRUE
-#> 16    F-test 0.8367481 0.6642758 2  TRUE
+#> 1     F-test  15.71968 0.1866985 2 FALSE
+#> 2     F-test  15.71968 0.1866985 2 FALSE
+#> 3     F-test  15.71968 0.1866985 2 FALSE
+#> 4     F-test  15.71968 0.1866985 2 FALSE
+#> 5     F-test  15.71968 0.1866985 2 FALSE
+#> 6     F-test  15.71968 0.1866985 2 FALSE
+#> 7     F-test  15.71968 0.1866985 2 FALSE
+#> 8     F-test  15.71968 0.1866985 2 FALSE
+#> 9     F-test   1.26189 0.5763396 1  TRUE
+#> 10    F-test   1.26189 0.5763396 1  TRUE
+#> 11    F-test   1.26189 0.5763396 1  TRUE
+#> 12    F-test   1.26189 0.5763396 1  TRUE
+#> 13    F-test   1.26189 0.5763396 1  TRUE
+#> 14    F-test   1.26189 0.5763396 1  TRUE
+#> 15    F-test   1.26189 0.5763396 1  TRUE
+#> 16    F-test   1.26189 0.5763396 1  TRUE
 ```
 
 Plot a lineup consists of 20 plots and 300 realizations:
@@ -204,12 +204,12 @@ give examples of the use of the object.
 
 ``` r
 mod$gen(n = 5)
-#>            y           x          e     .resid   .fitted
-#> 1  1.3753040 -0.43952948  0.3040517 -1.0713760 2.4466800
-#> 2 -0.2426187  0.17868480 -0.9996041 -1.1063884 0.8637697
-#> 3  0.7306202  0.01600313 -0.2842206 -0.5496887 1.2803089
-#> 4  3.1466397 -0.06465749  2.0767438  1.6598029 1.4868368
-#> 5  2.7656728 -0.14713727  1.4701836  1.0676501 1.6980227
+#>            y           x          e     .resid  .fitted
+#> 1  4.2677915  0.59595866  0.7598123  0.5749299 3.692862
+#> 2  0.1619346  0.01768731 -0.8515012 -2.4718160 2.633751
+#> 3  3.9722985 -0.70038353  0.8987971  2.6537034 1.318595
+#> 4  7.1438452  0.91254956  0.9948973  2.8711436 4.272702
+#> 5 -0.4912982  0.29227583 -0.9230536 -3.6279609 3.136663
 ```
 
 ``` r
@@ -226,7 +226,7 @@ mod$plot_lineup(mod$gen_lineup(n = 300), alpha = 0.6)
 
 ## Usage of closed form expression `CLOSED_FORM`
 
-### Define and evaluate a closed form expression
+1.  Define and evaluate a closed form expression
 
 “Closed form expression” is defined as a special type of `R` expression
 that can replace random variables in the expression with their
@@ -268,14 +268,14 @@ returned.
 ``` r
 cf$gen(n = 5, rhs_val = TRUE)
 #> $lhs
-#> [1] 0.4560498 0.3097489 1.4528605 1.5291460 1.2054545
+#> [1] 1.232153 1.926614 0.775891 1.383501 1.192516
 #> 
 #> $rhs
 #> $rhs$x
-#> [1] -0.5439502 -0.6902511  0.4528605  0.5291460  0.2054545
+#> [1]  0.2321526  0.9266142 -0.2241090  0.3835011  0.1925161
 ```
 
-### Nested closed form expression
+2.  Nested closed form expression
 
 Nested closed form expression is useful when a hierarchical structure
 present in the expression.
@@ -314,20 +314,20 @@ Both `y` and `e` depend on `x`. The method `gen()` will return values of
 ``` r
 y$gen(n = 5, rhs_val = TRUE)
 #> $lhs
-#> [1] -0.7874509  0.8231533  0.5564655  0.7688928  2.4329829
+#> [1]  1.1295673 -0.1915269 -1.2441277  0.3125968  1.4214653
 #> 
 #> $rhs
 #> $rhs$x
-#> [1] -0.7382575 -0.1465141 -0.8590129 -0.2228402  0.9989473
+#> [1]  0.1430033 -0.7065762 -0.9110598 -0.8536630  0.4552579
 #> 
 #> $rhs$z
-#> [1] -1.9250401 -1.4130287  0.5630528 -0.1664784  0.4349508
+#> [1] -0.6570189 -0.9713586 -1.6060480  0.2281468 -0.1630448
 #> 
 #> $rhs$e
-#> [1] -0.0491934  0.9696674  1.4154784  0.9917331  1.4340356
+#> [1]  0.9865640  0.5150493 -0.3330680  1.1662598  0.9662074
 ```
 
-### Turn `gen()` result into dataframe via method `as_dataframe()`
+3.  Turn `gen()` result into dataframe via method `as_dataframe()`
 
 Results of `gen()` is either a vector or a list, which can be converted
 into a dataframe via method `as_dataframe()`. The `lhs` argument is for
@@ -335,15 +335,15 @@ naming the left hand side result of the closed form expression.
 
 ``` r
 y$as_dataframe(y$gen(n = 5), lhs = "y")
-#>            y
-#> 1  0.4716721
-#> 2 -0.6373378
-#> 3  1.6216489
-#> 4  0.9646769
-#> 5  0.8528191
+#>           y
+#> 1 0.4589766
+#> 2 1.1705105
+#> 3 1.2620802
+#> 4 0.3555671
+#> 5 1.2012017
 ```
 
-### Current limitiation of `CLOSED_FORM`
+4.  Current limitiation of `CLOSED_FORM`
 
 For `closed_form()`, any simple expressions can be provided, as long as
 all the symbols exist in the current environment. Note that this
@@ -356,7 +356,7 @@ like `myfun = function() 1`, then use it in the expression `~myfun()`.
 
 ## Basic usgae of `visage` OOP system
 
-### Define a new class
+1.  Define a new class
 
 A class can be defined with the `new_class` function. All positional
 arguments are for specifying parent classes, `BASE` is the base object
@@ -414,7 +414,7 @@ DEMO$..str..()
 #> [1] "<DEMO class>"
 ```
 
-### Register a method for the class
+2.  Register a method for the class
 
 Methods can be registered by using `register_method()`. The first
 argument is the object you want to bind the function to, the rest of the
@@ -448,7 +448,7 @@ DEMO$get_val()
 #> [1] 5
 ```
 
-### Override the `..init..()` method
+3.  Override the `..init..()` method
 
 `..init..()` method is for instance initialization. To override the
 `..init..()` method, you need to use the `register_method()` to register
@@ -466,7 +466,7 @@ register_method(DEMO, ..init.. = init)
 Now the class requires two two arguments `first_name` and `employee_id`
 to initialize the instance.
 
-### Build an instance
+4.  Build an instance
 
 To new and initialize an instance, you need to use the `instantiation()`
 method. The output will show it is an object.
@@ -488,7 +488,7 @@ mike$employee_id
 #> [1] 25
 ```
 
-### A complete workflow
+5.  A complete workflow
 
 It is recommend to write your class definition in a function to make
 debugging easier. The following example new a class `DEMO_2`, defines

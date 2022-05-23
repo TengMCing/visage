@@ -35,7 +35,7 @@ library(visage)
 
 ## Usage of visual inference cubic linear model class `CUBIC_MODEL`
 
-### Define a model
+1. Define a model
 
 A visual inference cubic linear model is defined as:
 
@@ -54,7 +54,7 @@ mod
 ```
 
 
-### Generate random values from the model
+2. Generate random values from the model
 
 An instance of cubic model class contains methods of simulating data and making residual plot. Method `gen()` returns a data frame containing realizations of `x`, `z`, `y` and `e` simulated from the model. The number of realizations depends on the integer argument `n`. In addition, a null model will be fitted using the simulated data and residuals and fitted values will be included in the returned data frame.
 
@@ -70,7 +70,7 @@ Generates five realizations from the model:
 mod$gen(n = 5)
 ```
 
-### Make a residual plot
+3. Make a residual plot
 
 Method `plot()` produce a `ggplot` object. It takes a data frame containing columns `.resid` and `.fitted` as input, along with a character argument type indicating the type of the data plot, and other aesthetic arguments such as size and alpha to control the appearance of the plot.
 
@@ -78,7 +78,7 @@ Method `plot()` produce a `ggplot` object. It takes a data frame containing colu
 mod$plot(mod$gen(n = 100), type = "resid", size = 1)
 ```
 
-### Make a lineup
+4. Make a lineup
 
 A lineup is a matrix of residual plots which can be produced by using the methods `gen_lineup()` and `plot_lineup()`. Method `gen_lineup()` takes the number of realizations `n` and the number of plots in a lineup `k` as inputs. Other than that, the method `plot_lineup()` has the same user interface as `plot()`.
 
@@ -130,7 +130,7 @@ mod$plot_lineup(mod$gen_lineup(n = 300), alpha = 0.6)
 
 ## Usage of closed form expression `CLOSED_FORM`
 
-### Define and evaluate a closed form expression
+1. Define and evaluate a closed form expression
 
 "Closed form expression" is defined as a special type of `R` expression that can replace random variables in the expression with their realizations before evaluation. This may sound confusing, so let's look at some examples.
 
@@ -155,7 +155,7 @@ In this case, the `gen()` method will try to generate `n` realizations from rand
 cf$gen(n = 5, rhs_val = TRUE)
 ```
 
-### Nested closed form expression
+2. Nested closed form expression
 
 Nested closed form expression is useful when a hierarchical structure present in the expression.
 
@@ -180,7 +180,7 @@ Note that `y` depends on `e` and `e` itself is a closed form expression. Both `y
 y$gen(n = 5, rhs_val = TRUE)
 ```
 
-### Turn `gen()` result into dataframe via method `as_dataframe()`
+3. Turn `gen()` result into dataframe via method `as_dataframe()`
 
 Results of `gen()` is either a vector or a list, which can be converted into a dataframe via method `as_dataframe()`. The `lhs` argument is for naming the left hand side result of the closed form expression.
 
@@ -189,13 +189,13 @@ y$as_dataframe(y$gen(n = 5), lhs = "y")
 ```
 
 
-### Current limitiation of `CLOSED_FORM`
+4. Current limitiation of `CLOSED_FORM`
 
 For `closed_form()`, any simple expressions can be provided, as long as all the symbols exist in the current environment. Note that this function tries to evaluate **ALL** the atomic symbols in the expression during initialization, and store the values in the object. Hence, calls like `a$b` will also be decomposed as `$`, `a` and `b`, where `b` will be interpreted as a variable `b` exists in the current environment. Therefore, use `~a[["b"]]` instead of `~a$b`. And pre-define function like `myfun = function() 1`, then use it in the expression `~myfun()`.
 
 ## Basic usgae of `visage` OOP system
 
-### Define a new class
+1. Define a new class
 
 A class can be defined with the `new_class` function. All positional arguments are for specifying parent classes, `BASE` is the base object class provided by the package, you don't need to manually specify it. But if you would like to have advanced behaviour, you can try to implement your own `object` class.  
 
@@ -233,7 +233,7 @@ DEMO$..str..()
 ```
 
 
-### Register a method for the class
+2. Register a method for the class
 
 Methods can be registered by using `register_method()`. The first argument is the object you want to bind the function to, the rest of the positional arguments are for specifying method names and functions. The syntax is `method_name = function`.
 
@@ -258,7 +258,7 @@ register_method(DEMO, get_val = function() self$val)
 DEMO$get_val()
 ```
 
-### Override the `..init..()` method
+3. Override the `..init..()` method
 
 `..init..()` method is for instance initialization. To override the `..init..()` method, you need to use the `register_method()` to register it again.
 
@@ -273,7 +273,7 @@ register_method(DEMO, ..init.. = init)
 
 Now the class requires two two arguments `first_name` and `employee_id` to initialize the instance.
 
-### Build an instance
+4. Build an instance
 
 To new and initialize an instance, you need to use the `instantiation()` method. The output will show it is an object.
 
@@ -290,7 +290,7 @@ mike$employee_id
 ```
 
 
-### A complete workflow
+5. A complete workflow
 
 It is recommend to write your class definition in a function to make debugging easier. The following example new a class `DEMO_2`, defines its own `..init..()` method, defines a `get_email()` function for retrieving the email address, defines its own `..str..()` method such that when we print the object, it will provide us with a nicely formatted summary.
 
