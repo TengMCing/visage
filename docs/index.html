@@ -91,20 +91,22 @@
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tengmcing.github.io/visage/" class="external-link">visage</a></span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="usage-of-visual-inference-cubic-linear-model-class">Usage of visual inference cubic linear model class<a class="anchor" aria-label="anchor" href="#usage-of-visual-inference-cubic-linear-model-class"></a>
+<h2 id="usage-of-visual-inference-cubic-linear-model-class-cubic_model">Usage of visual inference cubic linear model class <code>CUBIC_MODEL</code>
+<a class="anchor" aria-label="anchor" href="#usage-of-visual-inference-cubic-linear-model-class-cubic_model"></a>
 </h2>
 <div class="section level3">
 <h3 id="define-a-model">Define a model<a class="anchor" aria-label="anchor" href="#define-a-model"></a>
 </h3>
-<p>A visual inference cubic linear model is defined as</p>
+<p>A visual inference cubic linear model is defined as:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">CUBIC_MODEL</span><span class="op">$</span><span class="va">formula</span>
 <span class="co">#&gt; y ~ 1 + (2 - c) * x + c * z + a * (((2 - c) * x)^2 + (c * z)^2) + </span>
 <span class="co">#&gt;     b * (((2 - c) * x)^3 + (c * z)^3) + e</span></code></pre></div>
 <p>where <code>x</code> and <code>z</code> are random variables, <code>a</code>, <code>b</code> and <code>c</code> are parameters and <code>e</code> is the random error term.</p>
-<p>To define the model, <code><a href="reference/portal.html">cubic_model()</a></code> needs to be used. <code>x</code> and <code>z</code> by default are assumed to follow a uniform distribution and <code>e</code> by default is assumed to follow a normal distribution with standard deviation equals to <code>sigma</code>.</p>
+<p><code><a href="reference/portal.html">cubic_model()</a></code> is a cubic model class constructor, which takes arguments <code>a</code>, <code>b</code>, <code>c</code>, <code>sigma</code>, <code>x</code> and <code>z</code>, where the first four are numeric values defined above, and <code>x</code> and <code>z</code> are random variable instances created by the random variable abstract base class constructor <code><a href="reference/portal.html">rand_var()</a></code>. If we would like <code>x</code> and <code>z</code> to be random uniform variables ranged from −1 to 1, it can be achieved by using the random uniform variable class constructor <code><a href="reference/portal.html">rand_uniform()</a></code>. It only takes two arguments which are the lower bound and the upper bound of the support.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/portal.html">cubic_model</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span>, b <span class="op">=</span> <span class="fl">1</span>, c <span class="op">=</span> <span class="fl">1</span>, sigma <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/portal.html">cubic_model</a></span><span class="op">(</span>a <span class="op">=</span> <span class="op">-</span><span class="fl">3</span>, b <span class="op">=</span> <span class="op">-</span><span class="fl">3</span>, c <span class="op">=</span> <span class="fl">1</span>, sigma <span class="op">=</span> <span class="fl">1</span>,
+                   x <span class="op">=</span> <span class="fu"><a href="reference/portal.html">rand_uniform</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, z <span class="op">=</span> <span class="fu"><a href="reference/portal.html">rand_uniform</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 <span class="va">mod</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── &lt;CUBIC_MODEL object&gt;</span>
@@ -115,117 +117,122 @@
 <span class="co">#&gt;    [a: -1, b: 1]</span>
 <span class="co">#&gt;  - e: &lt;RAND_NORMAL object&gt;</span>
 <span class="co">#&gt;    [mu: 0, sigma: 1]</span>
-<span class="co">#&gt;  - a: 1</span>
-<span class="co">#&gt;  - b: 1</span>
-<span class="co">#&gt;  - c: 1</span>
-<span class="co">#&gt;  - sigma: 1</span></code></pre></div>
-<p>To specify the different distribution for <code>x</code> and <code>z</code> and <code>e</code>, you can follow this example:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Normal distribution</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/portal.html">rand_normal</a></span><span class="op">(</span>mu <span class="op">=</span> <span class="fl">0</span>, sigma <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-
-<span class="co"># Uniform distribution</span>
-<span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/portal.html">rand_uniform</a></span><span class="op">(</span>a <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, b <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-
-<span class="co"># Log-normal distribution</span>
-<span class="va">e</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/portal.html">rand_lognormal</a></span><span class="op">(</span>mu <span class="op">=</span> <span class="fl">0</span>, sigma <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
-
-<span class="va">mod2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/portal.html">cubic_model</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span>, b <span class="op">=</span> <span class="fl">1</span>, c <span class="op">=</span> <span class="fl">1</span>, x <span class="op">=</span> <span class="va">x</span>, z <span class="op">=</span> <span class="va">z</span>, e <span class="op">=</span> <span class="va">e</span><span class="op">)</span>
-
-<span class="va">mod2</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; ── &lt;CUBIC_MODEL object&gt;</span>
-<span class="co">#&gt; y = 1 + (2 - c) * x + c * z + a * (((2 - c) * x)^2 + (c * z)^2) + b * (((2 - c) * x)^3 + (c * z)^3) + e</span>
-<span class="co">#&gt;  - x: &lt;RAND_NORMAL object&gt;</span>
-<span class="co">#&gt;    [mu: 0, sigma: 1]</span>
-<span class="co">#&gt;  - z: &lt;RAND_UNIFORM object&gt;</span>
-<span class="co">#&gt;    [a: -1, b: 1]</span>
-<span class="co">#&gt;  - e: &lt;RAND_LOGNORMAL object&gt;</span>
-<span class="co">#&gt;    [mu: 0, sigma: 10]</span>
-<span class="co">#&gt;  - a: 1</span>
-<span class="co">#&gt;  - b: 1</span>
+<span class="co">#&gt;  - a: -3</span>
+<span class="co">#&gt;  - b: -3</span>
 <span class="co">#&gt;  - c: 1</span>
 <span class="co">#&gt;  - sigma: 1</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="generate-random-values-from-the-model">Generate random values from the model<a class="anchor" aria-label="anchor" href="#generate-random-values-from-the-model"></a>
 </h3>
-<p>To generate random values from the model, method <code>gen()</code> needs to be used. It will return a data frame containing values of <code>y</code>, <code>x</code>, <code>z</code>, <code>e</code>, <code>.resid</code> and <code>.fitted</code>.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
-<span class="co">#&gt;             y          x          z           e      .resid    .fitted</span>
-<span class="co">#&gt; 1  0.77326001  0.3865196 -0.8370314 -0.09755001  0.18516642  0.5880936</span>
-<span class="co">#&gt; 2  0.02630913 -0.1848605 -0.9409254  0.07193774  0.43672718 -0.4104180</span>
-<span class="co">#&gt; 3  0.91407443  0.3033847 -0.3503976 -0.23863639 -0.94852200  1.8625964</span>
-<span class="co">#&gt; 4  4.84548456  0.5958751  0.4378697  1.96941426  0.39170758  4.4537770</span>
-<span class="co">#&gt; 5 -1.48613341 -0.9760644 -0.9533160 -0.62198349 -0.06507917 -1.4210542</span></code></pre></div>
-<p>Residuals and fitted values are obtained by fitting the following null model:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<p>An instance of cubic model class contains methods of simulating data and making residual plot. Method <code>gen()</code> returns a data frame containing realizations of <code>x</code>, <code>z</code>, <code>y</code> and <code>e</code> simulated from the model. The number of realizations depends on the integer argument <code>n</code>. In addition, a null model will be fitted using the simulated data and residuals and fitted values will be included in the returned data frame.</p>
+<p>The null model is defined as:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">CUBIC_MODEL</span><span class="op">$</span><span class="va">null_formula</span>
 <span class="co">#&gt; y ~ x + z</span></code></pre></div>
+<p>Generates five realizations from the model:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
+<span class="co">#&gt;            y          x          z          e     .resid    .fitted</span>
+<span class="co">#&gt; 1  1.0613876 -0.1107845 -0.7539074  1.3784398 -0.8368017  1.8981894</span>
+<span class="co">#&gt; 2 -3.2118521 -0.7371329 -0.6291890 -1.9766433 -0.6824046 -2.5294475</span>
+<span class="co">#&gt; 3  1.4546219 -0.3251719 -0.7376103  2.1597407  0.9189643  0.5356576</span>
+<span class="co">#&gt; 4 -2.6604070  0.6402103  0.7713762  0.1068410 -0.1601168 -2.5002902</span>
+<span class="co">#&gt; 5 -0.5946423 -0.2556659 -0.3404770 -0.6231745  0.7603589 -1.3550012</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="make-a-residual-plot">Make a residual plot<a class="anchor" aria-label="anchor" href="#make-a-residual-plot"></a>
 </h3>
+<p>Method <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> produce a <code>ggplot</code> object. It takes a data frame containing columns <code>.resid</code> and <code>.fitted</code> as input, along with a character argument type indicating the type of the data plot, and other aesthetic arguments such as size and alpha to control the appearance of the plot.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="fu">plot</span><span class="op">(</span><span class="va">mod</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"resid"</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-7-1.png" width="100%"></p>
+</div>
+<div class="section level3">
+<h3 id="make-a-lineup">Make a lineup<a class="anchor" aria-label="anchor" href="#make-a-lineup"></a>
+</h3>
+<p>A lineup is a matrix of residual plots which can be produced by using the methods <code>gen_lineup()</code> and <code>plot_lineup()</code>. Method <code>gen_lineup()</code> takes the number of realizations <code>n</code> and the number of plots in a lineup <code>k</code> as inputs. Other than that, the method <code>plot_lineup()</code> has the same user interface as <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>.</p>
+<p>Generate a lineup consists of 2 plots and 8 realizations:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="fu">plot</span><span class="op">(</span><span class="va">mod</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>, <span class="st">"resid"</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-8-1.png" width="100%"></p>
-</div>
-<div class="section level3">
-<h3 id="generate-data-for-a-lineup">Generate data for a lineup<a class="anchor" aria-label="anchor" href="#generate-data-for-a-lineup"></a>
-</h3>
+<code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="fu">gen_lineup</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">8</span>, k <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+<span class="co">#&gt;              y          x          z          e      .resid     .fitted</span>
+<span class="co">#&gt; 1   0.14562835 -0.5489958 -0.5874978  1.1170449  0.11862208  0.02700628</span>
+<span class="co">#&gt; 2   1.55690021  0.1053624  0.0508592  0.4456459  1.61404909 -0.05714887</span>
+<span class="co">#&gt; 3   0.75810719 -0.8106785 -0.3978757  1.6258854  1.14524086 -0.38713367</span>
+<span class="co">#&gt; 4  -1.15884997  0.1957611  0.3338989 -2.1048936 -0.89395864 -0.26489133</span>
+<span class="co">#&gt; 5   0.93611852  0.3812747  0.2947242  0.1998975  1.00328710 -0.06716858</span>
+<span class="co">#&gt; 6  -2.69111327 -0.6691253  0.7683535 -0.2139824 -1.25096269 -1.44015058</span>
+<span class="co">#&gt; 7  -0.67401497  0.1903347 -0.8487360 -0.5593555 -1.59480611  0.92079114</span>
+<span class="co">#&gt; 8  -0.35278613 -0.5828407 -0.3794070  0.3025953 -0.14147168 -0.21131445</span>
+<span class="co">#&gt; 9   1.26133364 -0.5489958 -0.5874978  1.1170449  1.23432737  0.02700628</span>
+<span class="co">#&gt; 10  0.04119654  0.1053624  0.0508592  0.4456459  0.09834541 -0.05714887</span>
+<span class="co">#&gt; 11  0.64771333 -0.8106785 -0.3978757  1.6258854  1.03484700 -0.38713367</span>
+<span class="co">#&gt; 12  1.28435882  0.1957611  0.3338989 -2.1048936  1.54925015 -0.26489133</span>
+<span class="co">#&gt; 13 -0.18262272  0.3812747  0.2947242  0.1998975 -0.11545414 -0.06716858</span>
+<span class="co">#&gt; 14 -2.70141914 -0.6691253  0.7683535 -0.2139824 -1.26126857 -1.44015058</span>
+<span class="co">#&gt; 15 -0.47274268  0.1903347 -0.8487360 -0.5593555 -1.39353382  0.92079114</span>
+<span class="co">#&gt; 16 -1.35782785 -0.5828407 -0.3794070  0.3025953 -1.14651340 -0.21131445</span>
+<span class="co">#&gt;    test_name statistic   p_value k  null</span>
+<span class="co">#&gt; 1     F-test 2.8965928 0.4116084 2 FALSE</span>
+<span class="co">#&gt; 2     F-test 2.8965928 0.4116084 2 FALSE</span>
+<span class="co">#&gt; 3     F-test 2.8965928 0.4116084 2 FALSE</span>
+<span class="co">#&gt; 4     F-test 2.8965928 0.4116084 2 FALSE</span>
+<span class="co">#&gt; 5     F-test 2.8965928 0.4116084 2 FALSE</span>
+<span class="co">#&gt; 6     F-test 2.8965928 0.4116084 2 FALSE</span>
+<span class="co">#&gt; 7     F-test 2.8965928 0.4116084 2 FALSE</span>
+<span class="co">#&gt; 8     F-test 2.8965928 0.4116084 2 FALSE</span>
+<span class="co">#&gt; 9     F-test 0.4075755 0.8076774 1  TRUE</span>
+<span class="co">#&gt; 10    F-test 0.4075755 0.8076774 1  TRUE</span>
+<span class="co">#&gt; 11    F-test 0.4075755 0.8076774 1  TRUE</span>
+<span class="co">#&gt; 12    F-test 0.4075755 0.8076774 1  TRUE</span>
+<span class="co">#&gt; 13    F-test 0.4075755 0.8076774 1  TRUE</span>
+<span class="co">#&gt; 14    F-test 0.4075755 0.8076774 1  TRUE</span>
+<span class="co">#&gt; 15    F-test 0.4075755 0.8076774 1  TRUE</span>
+<span class="co">#&gt; 16    F-test 0.4075755 0.8076774 1  TRUE</span></code></pre></div>
+<p>Plot a lineup consists of 20 plots and 300 realizations:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="fu">gen_lineup</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, k <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-<span class="co">#&gt;             y           x           z          e       .resid    .fitted</span>
-<span class="co">#&gt; 1   2.5461768  0.91925441  0.10400979 -1.1108557 -0.546031254  3.0922080</span>
-<span class="co">#&gt; 2   0.8031114 -0.82298904 -0.82878623  1.2173908  0.987134423 -0.1840230</span>
-<span class="co">#&gt; 3   0.6969192  0.01936956  0.08552741 -0.4163008 -1.438297922  2.1352171</span>
-<span class="co">#&gt; 4   6.1341432  0.91487922  0.97701646 -0.2476972  1.661113435  4.4730298</span>
-<span class="co">#&gt; 5   3.2245856  0.43522217  0.78913099 -0.3857664 -0.455834973  3.6804206</span>
-<span class="co">#&gt; 6   1.0922849 -0.12745730 -0.03447324  0.2388932 -0.701149973  1.7934349</span>
-<span class="co">#&gt; 7   0.9791615 -0.90545265 -0.23439541  0.9994322  0.304983552  0.6741779</span>
-<span class="co">#&gt; 8   0.3013803 -0.64092877 -0.56501707  0.2209576 -0.120839189  0.4222195</span>
-<span class="co">#&gt; 9   0.9660950  0.43942123 -0.95398967  0.1608503  0.047419545  0.9186754</span>
-<span class="co">#&gt; 10  1.2096456  0.41822938 -0.92165278  0.3984467  0.261502356  0.9481433</span>
-<span class="co">#&gt; 11  3.0948706  0.91925441  0.10400979 -1.1108557  0.002662606  3.0922080</span>
-<span class="co">#&gt; 12 -1.3144387 -0.82298904 -0.82878623  1.2173908 -1.130415695 -0.1840230</span>
-<span class="co">#&gt; 13  1.0091269  0.01936956  0.08552741 -0.4163008 -1.126090258  2.1352171</span>
-<span class="co">#&gt; 14  4.7191487  0.91487922  0.97701646 -0.2476972  0.246118921  4.4730298</span>
-<span class="co">#&gt; 15  3.0128854  0.43522217  0.78913099 -0.3857664 -0.667535169  3.6804206</span>
-<span class="co">#&gt; 16  3.5372765 -0.12745730 -0.03447324  0.2388932  1.743841657  1.7934349</span>
-<span class="co">#&gt; 17  0.7424811 -0.90545265 -0.23439541  0.9994322  0.068303182  0.6741779</span>
-<span class="co">#&gt; 18  1.2880189 -0.64092877 -0.56501707  0.2209576  0.865799393  0.4222195</span>
-<span class="co">#&gt; 19  0.6615361  0.43942123 -0.95398967  0.1608503 -0.257139373  0.9186754</span>
-<span class="co">#&gt; 20  1.2025980  0.41822938 -0.92165278  0.3984467  0.254454735  0.9481433</span>
-<span class="co">#&gt;    test_name statistic    p_value k  null</span>
-<span class="co">#&gt; 1     F-test 10.032813 0.04394609 2 FALSE</span>
-<span class="co">#&gt; 2     F-test 10.032813 0.04394609 2 FALSE</span>
-<span class="co">#&gt; 3     F-test 10.032813 0.04394609 2 FALSE</span>
-<span class="co">#&gt; 4     F-test 10.032813 0.04394609 2 FALSE</span>
-<span class="co">#&gt; 5     F-test 10.032813 0.04394609 2 FALSE</span>
-<span class="co">#&gt; 6     F-test 10.032813 0.04394609 2 FALSE</span>
-<span class="co">#&gt; 7     F-test 10.032813 0.04394609 2 FALSE</span>
-<span class="co">#&gt; 8     F-test 10.032813 0.04394609 2 FALSE</span>
-<span class="co">#&gt; 9     F-test 10.032813 0.04394609 2 FALSE</span>
-<span class="co">#&gt; 10    F-test 10.032813 0.04394609 2 FALSE</span>
-<span class="co">#&gt; 11    F-test  1.005435 0.51918870 1  TRUE</span>
-<span class="co">#&gt; 12    F-test  1.005435 0.51918870 1  TRUE</span>
-<span class="co">#&gt; 13    F-test  1.005435 0.51918870 1  TRUE</span>
-<span class="co">#&gt; 14    F-test  1.005435 0.51918870 1  TRUE</span>
-<span class="co">#&gt; 15    F-test  1.005435 0.51918870 1  TRUE</span>
-<span class="co">#&gt; 16    F-test  1.005435 0.51918870 1  TRUE</span>
-<span class="co">#&gt; 17    F-test  1.005435 0.51918870 1  TRUE</span>
-<span class="co">#&gt; 18    F-test  1.005435 0.51918870 1  TRUE</span>
-<span class="co">#&gt; 19    F-test  1.005435 0.51918870 1  TRUE</span>
-<span class="co">#&gt; 20    F-test  1.005435 0.51918870 1  TRUE</span></code></pre></div>
+<code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="fu">plot_lineup</span><span class="op">(</span><span class="va">mod</span><span class="op">$</span><span class="fu">gen_lineup</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">300</span>, k <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"resid"</span>, alpha <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-9-1.png" width="100%"></p>
 </div>
-<div class="section level3">
-<h3 id="plot-a-lineup">Plot a lineup<a class="anchor" aria-label="anchor" href="#plot-a-lineup"></a>
-</h3>
+</div>
+<div class="section level2">
+<h2 id="usage-of-visual-inference-heteroskedasticity-linear-model-class-heter_model">Usage of visual inference heteroskedasticity linear model class <code>HETER_MODEL</code>
+<a class="anchor" aria-label="anchor" href="#usage-of-visual-inference-heteroskedasticity-linear-model-class-heter_model"></a>
+</h2>
+<p>A visual inference heteroskedasticity linear model is defined as:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="fu">plot_lineup</span><span class="op">(</span><span class="va">mod</span><span class="op">$</span><span class="fu">gen_lineup</span><span class="op">(</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-10-1.png" width="100%"></p>
-</div>
+<code class="sourceCode R"><span class="va">HETER_MODEL</span><span class="op">$</span><span class="va">formula</span>
+<span class="co">#&gt; y ~ 1 + x + sqrt(1 + (2 - abs(a)) * (x - a)^2 * b) * e</span></code></pre></div>
+<p>where <code>x</code> is random variables, <code>a</code>, <code>b</code> are parameters and <code>e</code> is the random error term.</p>
+<p>Similar to the cubic model, the heteroskedasticity model could be built by the heteroskedasticity model class constructor <code><a href="reference/portal.html">heter_model()</a></code>. This function takes three arguments as inputs, which are <code>a</code>, <code>b</code> and <code>x</code>. <code>a</code> and <code>b</code> are numeric parameters defined above. <code>x</code> needs to be a random variable object.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/portal.html">heter_model</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">0</span>, b <span class="op">=</span> <span class="fl">16</span>, x <span class="op">=</span> <span class="fu"><a href="reference/portal.html">rand_uniform</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">mod</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ── &lt;HETER_MODEL object&gt;</span>
+<span class="co">#&gt; y = 1 + x + sqrt(1 + (2 - abs(a)) * (x - a)^2 * b) * e</span>
+<span class="co">#&gt;  - x: &lt;RAND_UNIFORM object&gt;</span>
+<span class="co">#&gt;    [a: -1, b: 1]</span>
+<span class="co">#&gt;  - e: &lt;RAND_NORMAL object&gt;</span>
+<span class="co">#&gt;    [mu: 0, sigma: 1]</span>
+<span class="co">#&gt;  - a: 0</span>
+<span class="co">#&gt;  - b: 16</span></code></pre></div>
+<p>Since both the cubic model class <code>CUBIC_MODEL</code> and the heteroskedasticity model class <code>HETER_MODEL</code> are inherited from the visual inference model class <code>VI_MODEL</code>, heteroskedasticity model object can be used in a similar way as cubic model object. The following codes give examples of the use of the object.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
+<span class="co">#&gt;            y          x          e      .resid  .fitted</span>
+<span class="co">#&gt; 1 -0.8769162 -0.7975877 -0.2335537 -2.39244007 1.515524</span>
+<span class="co">#&gt; 2  3.9592432 -0.3695783  1.4363827  2.69688816 1.262355</span>
+<span class="co">#&gt; 3 -0.8342639 -0.3834641 -0.6073838 -2.10483244 1.270569</span>
+<span class="co">#&gt; 4  1.3183645 -0.3888679  0.2926803  0.04459969 1.273765</span>
+<span class="co">#&gt; 5  3.3726651 -0.9689421  0.5997530  1.75578466 1.616880</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="fu">plot</span><span class="op">(</span><span class="va">mod</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">300</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"resid"</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-13-1.png" width="100%"></p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="fu">plot_lineup</span><span class="op">(</span><span class="va">mod</span><span class="op">$</span><span class="fu">gen_lineup</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">300</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-14-1.png" width="100%"></p>
 </div>
 <div class="section level2">
 <h2 id="basic-usgae-of-visage-oop-system">Basic usgae of <code>visage</code> OOP system<a class="anchor" aria-label="anchor" href="#basic-usgae-of-visage-oop-system"></a>
@@ -235,7 +242,7 @@
 </h3>
 <p>A class can be defined with the <code>new_class</code> function. All positional arguments are for specifying parent classes, <code>BASE</code> is the base object class provided by the package, you don’t need to manually specify it. But if you would like to have advanced behaviour, you can try to implement your own <code>object</code> class.</p>
 <p>Class name is mandatory and should be unique.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># You don't actually need to specify BASE here. This is only for demonstration.</span>
 <span class="va">DEMO</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/new_class.html">new_class</a></span><span class="op">(</span><span class="va">BASE</span>, class_name <span class="op">=</span> <span class="st">"DEMO"</span><span class="op">)</span>
 <span class="va">DEMO</span>
@@ -248,7 +255,7 @@
 <li>
 <code>OBJECT$..class..</code> gives the current class name and parent class names.</li>
 </ul>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">DEMO</span><span class="op">$</span><span class="va">..type..</span>
 <span class="co">#&gt; [1] "DEMO"</span>
 <span class="va">DEMO</span><span class="op">$</span><span class="va">..class..</span>
@@ -259,7 +266,7 @@
 <li>
 <code>OBJECT$..methods..()</code> returns all names of method of the object</li>
 </ul>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">DEMO</span><span class="op">$</span><span class="fu">..dict..</span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt;  [1] "..dict.."         "..str.."          "..len.."          "..class.."       </span>
 <span class="co">#&gt;  [5] "..new.."          "..repr.."         "has_attr"         "instantiation"   </span>
@@ -273,7 +280,7 @@
 <li>
 <code>OBJECT$..str..()</code> returns a string representation of the object, which will be used by the S3 <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> method. This method usually needs to be overridden in subclass to give short summary of the object.</li>
 </ul>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">DEMO</span><span class="op">$</span><span class="fu">..str..</span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; [1] "&lt;DEMO class&gt;"</span></code></pre></div>
 </div>
@@ -282,7 +289,7 @@
 </h3>
 <p>Methods can be registered by using <code><a href="reference/register_method.html">register_method()</a></code>. The first argument is the object you want to bind the function to, the rest of the positional arguments are for specifying method names and functions. The syntax is <code>method_name = function</code>.</p>
 <p>You can choose to write inline function or pass pre-defined function. The associative environment of the function doesn’t matter, it will be modified by the <code><a href="reference/register_method.html">register_method()</a></code> function.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pre_defined_fn</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span>
 
 <span class="fu"><a href="reference/register_method.html">register_method</a></span><span class="op">(</span><span class="va">DEMO</span>, inline_fn <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span>, pre_defined_fn <span class="op">=</span> <span class="va">pre_defined_fn</span><span class="op">)</span>
@@ -292,7 +299,7 @@
 <span class="va">DEMO</span><span class="op">$</span><span class="fu">pre_defined_fn</span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; [1] 3</span></code></pre></div>
 <p>For method that needs to access the object itself, just simply use <code>self</code> in your method. It is an reference to the object.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">DEMO</span><span class="op">$</span><span class="va">val</span> <span class="op">&lt;-</span> <span class="fl">5</span>
 
 <span class="fu"><a href="reference/register_method.html">register_method</a></span><span class="op">(</span><span class="va">DEMO</span>, get_val <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="va">self</span><span class="op">$</span><span class="va">val</span><span class="op">)</span>
@@ -304,7 +311,7 @@
 <h3 id="override-the-init-method">Override the <code>..init..()</code> method<a class="anchor" aria-label="anchor" href="#override-the-init-method"></a>
 </h3>
 <p><code>..init..()</code> method is for instance initialization. To override the <code>..init..()</code> method, you need to use the <code><a href="reference/register_method.html">register_method()</a></code> to register it again.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">init</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">first_name</span>, <span class="va">employee_id</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">self</span><span class="op">$</span><span class="va">first_name</span> <span class="op">&lt;-</span> <span class="va">first_name</span>
   <span class="va">self</span><span class="op">$</span><span class="va">employee_id</span> <span class="op">&lt;-</span> <span class="va">employee_id</span>
@@ -317,13 +324,13 @@
 <h3 id="build-an-instance">Build an instance<a class="anchor" aria-label="anchor" href="#build-an-instance"></a>
 </h3>
 <p>To new and initialize an instance, you need to use the <code>instantiation()</code> method. The output will show it is an object.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mike</span> <span class="op">&lt;-</span> <span class="va">DEMO</span><span class="op">$</span><span class="fu">instantiation</span><span class="op">(</span><span class="st">"Mike"</span>, <span class="fl">25</span><span class="op">)</span>
 <span class="va">mike</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── &lt;DEMO object&gt;</span></code></pre></div>
 <p><code>first_name</code> and <code>employee_id</code> are stored in the object because of the <code>..init..()</code> method.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mike</span><span class="op">$</span><span class="va">first_name</span>
 <span class="co">#&gt; [1] "Mike"</span>
 <span class="va">mike</span><span class="op">$</span><span class="va">employee_id</span>
@@ -334,7 +341,7 @@
 </h3>
 <p>It is recommend to write your class definition in a function to make debugging easier. The following example new a class <code>DEMO_2</code>, defines its own <code>..init..()</code> method, defines a <code>get_email()</code> function for retrieving the email address, defines its own <code>..str..()</code> method such that when we print the object, it will provide us with a nicely formatted summary.</p>
 <p><code>use_method</code> is used to run methods from other classes, which in this case, the <code>..str..()</code> method from the <code>BASE</code> class.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">class_DEMO_2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">env</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span>parent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   
   <span class="fu"><a href="reference/new_class.html">new_class</a></span><span class="op">(</span>env <span class="op">=</span> <span class="va">env</span>, class_name <span class="op">=</span> <span class="st">"DEMO_2"</span><span class="op">)</span>
@@ -363,12 +370,12 @@
   
   <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">env</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">DEMO_2</span> <span class="op">&lt;-</span> <span class="fu">class_DEMO_2</span><span class="op">(</span><span class="op">)</span>
 <span class="va">mike</span> <span class="op">&lt;-</span> <span class="va">DEMO_2</span><span class="op">$</span><span class="fu">instantiation</span><span class="op">(</span><span class="st">"Mike"</span>, <span class="fl">25</span><span class="op">)</span>
 <span class="va">mike</span><span class="op">$</span><span class="fu">get_email</span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; [1] "Mike_25@company.com"</span></code></pre></div>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mike</span><span class="op">$</span><span class="fu">..str..</span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; [1] "&lt;DEMO_2 object&gt;\nName: Mike \nEmployee ID: 25 \nEmail: Mike_25@company.com"</span>
 <span class="va">mike</span>

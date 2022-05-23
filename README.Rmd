@@ -33,11 +33,11 @@ devtools::install_github("TengMCing/visage")
 library(visage)
 ```
 
-## Usage of visual inference cubic linear model class
+## Usage of visual inference cubic linear model class `CUBIC_MODEL`
 
 ### Define a model
 
-A visual inference cubic linear model is defined as
+A visual inference cubic linear model is defined as:
 
 ```{r}
 CUBIC_MODEL$formula
@@ -45,63 +45,88 @@ CUBIC_MODEL$formula
 
 where `x` and `z` are random variables, `a`, `b` and `c` are parameters and `e` is the random error term.
 
-To define the model, `cubic_model()` needs to be used. `x` and `z` by default are assumed to follow a uniform distribution and `e` by default is assumed to follow a normal distribution with standard deviation equals to `sigma`.
+`cubic_model()` is a cubic model class constructor, which takes arguments `a`, `b`, `c`, `sigma`, `x` and `z`, where the first four are numeric values defined above, and `x` and `z` are random variable instances created by the random variable abstract base class constructor `rand_var()`. If we would like `x` and `z` to be random uniform variables ranged from −1 to 1, it can be achieved by using the random uniform variable class constructor `rand_uniform()`. It only takes two arguments which are the lower bound and the upper bound of the support.
 
 ```{r}
-mod <- cubic_model(a = 1, b = 1, c = 1, sigma = 1)
+mod <- cubic_model(a = -3, b = -3, c = 1, sigma = 1,
+                   x = rand_uniform(-1, 1), z = rand_uniform(-1, 1))
 mod
-```
-
-To specify the different distribution for `x` and `z` and `e`, you can follow this example:
-
-```{r}
-# Normal distribution
-x <- rand_normal(mu = 0, sigma = 1)
-
-# Uniform distribution
-z <- rand_uniform(a = -1, b = 1)
-
-# Log-normal distribution
-e <- rand_lognormal(mu = 0, sigma = 10)
-
-mod2 <- cubic_model(a = 1, b = 1, c = 1, x = x, z = z, e = e)
-
-mod2
 ```
 
 
 ### Generate random values from the model
 
-To generate random values from the model, method `gen()` needs to be used. It will return a data frame containing values of `y`, `x`, `z`, `e`, `.resid` and `.fitted`.
+An instance of cubic model class contains methods of simulating data and making residual plot. Method `gen()` returns a data frame containing realizations of `x`, `z`, `y` and `e` simulated from the model. The number of realizations depends on the integer argument `n`. In addition, a null model will be fitted using the simulated data and residuals and fitted values will be included in the returned data frame.
 
-```{r}
-mod$gen(n = 5)
-```
-
-Residuals and fitted values are obtained by fitting the following null model:
+The null model is defined as:
 
 ```{r}
 CUBIC_MODEL$null_formula
 ```
 
+Generates five realizations from the model:
+
+```{r}
+mod$gen(n = 5)
+```
+
 ### Make a residual plot
 
-```{r}
-mod$plot(mod$gen(100), "resid")
-```
-
-### Generate data for a lineup
+Method `plot()` produce a `ggplot` object. It takes a data frame containing columns `.resid` and `.fitted` as input, along with a character argument type indicating the type of the data plot, and other aesthetic arguments such as size and alpha to control the appearance of the plot.
 
 ```{r}
-mod$gen_lineup(n = 10, k = 2)
+mod$plot(mod$gen(n = 100), type = "resid", size = 1)
 ```
 
-### Plot a lineup
+### Make a lineup
+
+A lineup is a matrix of residual plots which can be produced by using the methods `gen_lineup()` and `plot_lineup()`. Method `gen_lineup()` takes the number of realizations `n` and the number of plots in a lineup `k` as inputs. Other than that, the method `plot_lineup()` has the same user interface as `plot()`.
+
+Generate a lineup consists of 2 plots and 8 realizations:
 
 ```{r}
-mod$plot_lineup(mod$gen_lineup(100))
+mod$gen_lineup(n = 8, k = 2)
 ```
 
+
+Plot a lineup consists of 20 plots and 300 realizations: 
+
+```{r}
+mod$plot_lineup(mod$gen_lineup(n = 300, k = 20), type = "resid", alpha = 0.6)
+```
+
+## Usage of visual inference heteroskedasticity linear model class `HETER_MODEL`
+
+A visual inference heteroskedasticity linear model is defined as:
+
+```{r}
+HETER_MODEL$formula
+```
+
+where `x` is random variables, `a`, `b` are parameters and `e` is the random error term.
+
+Similar to the cubic model, the heteroskedasticity model could be built by the heteroskedasticity model class constructor `heter_model()`. This function takes three arguments as inputs, which are `a`, `b` and `x`. `a` and `b` are numeric parameters defined above. `x` needs to be a random variable object.
+
+```{r}
+mod <- heter_model(a = 0, b = 16, x = rand_uniform(-1, 1))
+
+mod
+```
+
+
+Since both the cubic model class `CUBIC_MODEL` and the heteroskedasticity model class `HETER_MODEL` are inherited from the visual inference model class `VI_MODEL`, heteroskedasticity model object can be used in a similar way as cubic model object. The following codes give examples of the use of the object.
+
+```{r}
+mod$gen(n = 5)
+```
+
+```{r}
+mod$plot(mod$gen(n = 300), type = "resid", size = 1)
+```
+
+```{r}
+mod$plot_lineup(mod$gen_lineup(n = 300), alpha = 0.6)
+```
 
 ## Basic usgae of `visage` OOP system
 

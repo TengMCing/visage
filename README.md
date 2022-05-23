@@ -22,11 +22,11 @@ devtools::install_github("TengMCing/visage")
 library(visage)
 ```
 
-## Usage of visual inference cubic linear model class
+## Usage of visual inference cubic linear model class `CUBIC_MODEL`
 
 ### Define a model
 
-A visual inference cubic linear model is defined as
+A visual inference cubic linear model is defined as:
 
 ``` r
 CUBIC_MODEL$formula
@@ -37,13 +37,18 @@ CUBIC_MODEL$formula
 where `x` and `z` are random variables, `a`, `b` and `c` are parameters
 and `e` is the random error term.
 
-To define the model, `cubic_model()` needs to be used. `x` and `z` by
-default are assumed to follow a uniform distribution and `e` by default
-is assumed to follow a normal distribution with standard deviation
-equals to `sigma`.
+`cubic_model()` is a cubic model class constructor, which takes
+arguments `a`, `b`, `c`, `sigma`, `x` and `z`, where the first four are
+numeric values defined above, and `x` and `z` are random variable
+instances created by the random variable abstract base class constructor
+`rand_var()`. If we would like `x` and `z` to be random uniform
+variables ranged from −1 to 1, it can be achieved by using the random
+uniform variable class constructor `rand_uniform()`. It only takes two
+arguments which are the lower bound and the upper bound of the support.
 
 ``` r
-mod <- cubic_model(a = 1, b = 1, c = 1, sigma = 1)
+mod <- cubic_model(a = -3, b = -3, c = 1, sigma = 1,
+                   x = rand_uniform(-1, 1), z = rand_uniform(-1, 1))
 mod
 #> 
 #> ── <CUBIC_MODEL object>
@@ -54,130 +59,170 @@ mod
 #>    [a: -1, b: 1]
 #>  - e: <RAND_NORMAL object>
 #>    [mu: 0, sigma: 1]
-#>  - a: 1
-#>  - b: 1
-#>  - c: 1
-#>  - sigma: 1
-```
-
-To specify the different distribution for `x` and `z` and `e`, you can
-follow this example:
-
-``` r
-# Normal distribution
-x <- rand_normal(mu = 0, sigma = 1)
-
-# Uniform distribution
-z <- rand_uniform(a = -1, b = 1)
-
-# Log-normal distribution
-e <- rand_lognormal(mu = 0, sigma = 10)
-
-mod2 <- cubic_model(a = 1, b = 1, c = 1, x = x, z = z, e = e)
-
-mod2
-#> 
-#> ── <CUBIC_MODEL object>
-#> y = 1 + (2 - c) * x + c * z + a * (((2 - c) * x)^2 + (c * z)^2) + b * (((2 - c) * x)^3 + (c * z)^3) + e
-#>  - x: <RAND_NORMAL object>
-#>    [mu: 0, sigma: 1]
-#>  - z: <RAND_UNIFORM object>
-#>    [a: -1, b: 1]
-#>  - e: <RAND_LOGNORMAL object>
-#>    [mu: 0, sigma: 10]
-#>  - a: 1
-#>  - b: 1
+#>  - a: -3
+#>  - b: -3
 #>  - c: 1
 #>  - sigma: 1
 ```
 
 ### Generate random values from the model
 
-To generate random values from the model, method `gen()` needs to be
-used. It will return a data frame containing values of `y`, `x`, `z`,
-`e`, `.resid` and `.fitted`.
+An instance of cubic model class contains methods of simulating data and
+making residual plot. Method `gen()` returns a data frame containing
+realizations of `x`, `z`, `y` and `e` simulated from the model. The
+number of realizations depends on the integer argument `n`. In addition,
+a null model will be fitted using the simulated data and residuals and
+fitted values will be included in the returned data frame.
 
-``` r
-mod$gen(n = 5)
-#>             y          x          z           e      .resid    .fitted
-#> 1  0.77326001  0.3865196 -0.8370314 -0.09755001  0.18516642  0.5880936
-#> 2  0.02630913 -0.1848605 -0.9409254  0.07193774  0.43672718 -0.4104180
-#> 3  0.91407443  0.3033847 -0.3503976 -0.23863639 -0.94852200  1.8625964
-#> 4  4.84548456  0.5958751  0.4378697  1.96941426  0.39170758  4.4537770
-#> 5 -1.48613341 -0.9760644 -0.9533160 -0.62198349 -0.06507917 -1.4210542
-```
-
-Residuals and fitted values are obtained by fitting the following null
-model:
+The null model is defined as:
 
 ``` r
 CUBIC_MODEL$null_formula
 #> y ~ x + z
 ```
 
+Generates five realizations from the model:
+
+``` r
+mod$gen(n = 5)
+#>            y          x          z          e     .resid    .fitted
+#> 1  1.0613876 -0.1107845 -0.7539074  1.3784398 -0.8368017  1.8981894
+#> 2 -3.2118521 -0.7371329 -0.6291890 -1.9766433 -0.6824046 -2.5294475
+#> 3  1.4546219 -0.3251719 -0.7376103  2.1597407  0.9189643  0.5356576
+#> 4 -2.6604070  0.6402103  0.7713762  0.1068410 -0.1601168 -2.5002902
+#> 5 -0.5946423 -0.2556659 -0.3404770 -0.6231745  0.7603589 -1.3550012
+```
+
 ### Make a residual plot
 
-``` r
-mod$plot(mod$gen(100), "resid")
-```
-
-<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
-
-### Generate data for a lineup
+Method `plot()` produce a `ggplot` object. It takes a data frame
+containing columns `.resid` and `.fitted` as input, along with a
+character argument type indicating the type of the data plot, and other
+aesthetic arguments such as size and alpha to control the appearance of
+the plot.
 
 ``` r
-mod$gen_lineup(n = 10, k = 2)
-#>             y           x           z          e       .resid    .fitted
-#> 1   2.5461768  0.91925441  0.10400979 -1.1108557 -0.546031254  3.0922080
-#> 2   0.8031114 -0.82298904 -0.82878623  1.2173908  0.987134423 -0.1840230
-#> 3   0.6969192  0.01936956  0.08552741 -0.4163008 -1.438297922  2.1352171
-#> 4   6.1341432  0.91487922  0.97701646 -0.2476972  1.661113435  4.4730298
-#> 5   3.2245856  0.43522217  0.78913099 -0.3857664 -0.455834973  3.6804206
-#> 6   1.0922849 -0.12745730 -0.03447324  0.2388932 -0.701149973  1.7934349
-#> 7   0.9791615 -0.90545265 -0.23439541  0.9994322  0.304983552  0.6741779
-#> 8   0.3013803 -0.64092877 -0.56501707  0.2209576 -0.120839189  0.4222195
-#> 9   0.9660950  0.43942123 -0.95398967  0.1608503  0.047419545  0.9186754
-#> 10  1.2096456  0.41822938 -0.92165278  0.3984467  0.261502356  0.9481433
-#> 11  3.0948706  0.91925441  0.10400979 -1.1108557  0.002662606  3.0922080
-#> 12 -1.3144387 -0.82298904 -0.82878623  1.2173908 -1.130415695 -0.1840230
-#> 13  1.0091269  0.01936956  0.08552741 -0.4163008 -1.126090258  2.1352171
-#> 14  4.7191487  0.91487922  0.97701646 -0.2476972  0.246118921  4.4730298
-#> 15  3.0128854  0.43522217  0.78913099 -0.3857664 -0.667535169  3.6804206
-#> 16  3.5372765 -0.12745730 -0.03447324  0.2388932  1.743841657  1.7934349
-#> 17  0.7424811 -0.90545265 -0.23439541  0.9994322  0.068303182  0.6741779
-#> 18  1.2880189 -0.64092877 -0.56501707  0.2209576  0.865799393  0.4222195
-#> 19  0.6615361  0.43942123 -0.95398967  0.1608503 -0.257139373  0.9186754
-#> 20  1.2025980  0.41822938 -0.92165278  0.3984467  0.254454735  0.9481433
-#>    test_name statistic    p_value k  null
-#> 1     F-test 10.032813 0.04394609 2 FALSE
-#> 2     F-test 10.032813 0.04394609 2 FALSE
-#> 3     F-test 10.032813 0.04394609 2 FALSE
-#> 4     F-test 10.032813 0.04394609 2 FALSE
-#> 5     F-test 10.032813 0.04394609 2 FALSE
-#> 6     F-test 10.032813 0.04394609 2 FALSE
-#> 7     F-test 10.032813 0.04394609 2 FALSE
-#> 8     F-test 10.032813 0.04394609 2 FALSE
-#> 9     F-test 10.032813 0.04394609 2 FALSE
-#> 10    F-test 10.032813 0.04394609 2 FALSE
-#> 11    F-test  1.005435 0.51918870 1  TRUE
-#> 12    F-test  1.005435 0.51918870 1  TRUE
-#> 13    F-test  1.005435 0.51918870 1  TRUE
-#> 14    F-test  1.005435 0.51918870 1  TRUE
-#> 15    F-test  1.005435 0.51918870 1  TRUE
-#> 16    F-test  1.005435 0.51918870 1  TRUE
-#> 17    F-test  1.005435 0.51918870 1  TRUE
-#> 18    F-test  1.005435 0.51918870 1  TRUE
-#> 19    F-test  1.005435 0.51918870 1  TRUE
-#> 20    F-test  1.005435 0.51918870 1  TRUE
+mod$plot(mod$gen(n = 100), type = "resid", size = 1)
 ```
 
-### Plot a lineup
+<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
+
+### Make a lineup
+
+A lineup is a matrix of residual plots which can be produced by using
+the methods `gen_lineup()` and `plot_lineup()`. Method `gen_lineup()`
+takes the number of realizations `n` and the number of plots in a lineup
+`k` as inputs. Other than that, the method `plot_lineup()` has the same
+user interface as `plot()`.
+
+Generate a lineup consists of 2 plots and 8 realizations:
 
 ``` r
-mod$plot_lineup(mod$gen_lineup(100))
+mod$gen_lineup(n = 8, k = 2)
+#>              y          x          z          e      .resid     .fitted
+#> 1   0.14562835 -0.5489958 -0.5874978  1.1170449  0.11862208  0.02700628
+#> 2   1.55690021  0.1053624  0.0508592  0.4456459  1.61404909 -0.05714887
+#> 3   0.75810719 -0.8106785 -0.3978757  1.6258854  1.14524086 -0.38713367
+#> 4  -1.15884997  0.1957611  0.3338989 -2.1048936 -0.89395864 -0.26489133
+#> 5   0.93611852  0.3812747  0.2947242  0.1998975  1.00328710 -0.06716858
+#> 6  -2.69111327 -0.6691253  0.7683535 -0.2139824 -1.25096269 -1.44015058
+#> 7  -0.67401497  0.1903347 -0.8487360 -0.5593555 -1.59480611  0.92079114
+#> 8  -0.35278613 -0.5828407 -0.3794070  0.3025953 -0.14147168 -0.21131445
+#> 9   1.26133364 -0.5489958 -0.5874978  1.1170449  1.23432737  0.02700628
+#> 10  0.04119654  0.1053624  0.0508592  0.4456459  0.09834541 -0.05714887
+#> 11  0.64771333 -0.8106785 -0.3978757  1.6258854  1.03484700 -0.38713367
+#> 12  1.28435882  0.1957611  0.3338989 -2.1048936  1.54925015 -0.26489133
+#> 13 -0.18262272  0.3812747  0.2947242  0.1998975 -0.11545414 -0.06716858
+#> 14 -2.70141914 -0.6691253  0.7683535 -0.2139824 -1.26126857 -1.44015058
+#> 15 -0.47274268  0.1903347 -0.8487360 -0.5593555 -1.39353382  0.92079114
+#> 16 -1.35782785 -0.5828407 -0.3794070  0.3025953 -1.14651340 -0.21131445
+#>    test_name statistic   p_value k  null
+#> 1     F-test 2.8965928 0.4116084 2 FALSE
+#> 2     F-test 2.8965928 0.4116084 2 FALSE
+#> 3     F-test 2.8965928 0.4116084 2 FALSE
+#> 4     F-test 2.8965928 0.4116084 2 FALSE
+#> 5     F-test 2.8965928 0.4116084 2 FALSE
+#> 6     F-test 2.8965928 0.4116084 2 FALSE
+#> 7     F-test 2.8965928 0.4116084 2 FALSE
+#> 8     F-test 2.8965928 0.4116084 2 FALSE
+#> 9     F-test 0.4075755 0.8076774 1  TRUE
+#> 10    F-test 0.4075755 0.8076774 1  TRUE
+#> 11    F-test 0.4075755 0.8076774 1  TRUE
+#> 12    F-test 0.4075755 0.8076774 1  TRUE
+#> 13    F-test 0.4075755 0.8076774 1  TRUE
+#> 14    F-test 0.4075755 0.8076774 1  TRUE
+#> 15    F-test 0.4075755 0.8076774 1  TRUE
+#> 16    F-test 0.4075755 0.8076774 1  TRUE
 ```
 
-<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
+Plot a lineup consists of 20 plots and 300 realizations:
+
+``` r
+mod$plot_lineup(mod$gen_lineup(n = 300, k = 20), type = "resid", alpha = 0.6)
+```
+
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
+
+## Usage of visual inference heteroskedasticity linear model class `HETER_MODEL`
+
+A visual inference heteroskedasticity linear model is defined as:
+
+``` r
+HETER_MODEL$formula
+#> y ~ 1 + x + sqrt(1 + (2 - abs(a)) * (x - a)^2 * b) * e
+```
+
+where `x` is random variables, `a`, `b` are parameters and `e` is the
+random error term.
+
+Similar to the cubic model, the heteroskedasticity model could be built
+by the heteroskedasticity model class constructor `heter_model()`. This
+function takes three arguments as inputs, which are `a`, `b` and `x`.
+`a` and `b` are numeric parameters defined above. `x` needs to be a
+random variable object.
+
+``` r
+mod <- heter_model(a = 0, b = 16, x = rand_uniform(-1, 1))
+
+mod
+#> 
+#> ── <HETER_MODEL object>
+#> y = 1 + x + sqrt(1 + (2 - abs(a)) * (x - a)^2 * b) * e
+#>  - x: <RAND_UNIFORM object>
+#>    [a: -1, b: 1]
+#>  - e: <RAND_NORMAL object>
+#>    [mu: 0, sigma: 1]
+#>  - a: 0
+#>  - b: 16
+```
+
+Since both the cubic model class `CUBIC_MODEL` and the
+heteroskedasticity model class `HETER_MODEL` are inherited from the
+visual inference model class `VI_MODEL`, heteroskedasticity model object
+can be used in a similar way as cubic model object. The following codes
+give examples of the use of the object.
+
+``` r
+mod$gen(n = 5)
+#>            y          x          e      .resid  .fitted
+#> 1 -0.8769162 -0.7975877 -0.2335537 -2.39244007 1.515524
+#> 2  3.9592432 -0.3695783  1.4363827  2.69688816 1.262355
+#> 3 -0.8342639 -0.3834641 -0.6073838 -2.10483244 1.270569
+#> 4  1.3183645 -0.3888679  0.2926803  0.04459969 1.273765
+#> 5  3.3726651 -0.9689421  0.5997530  1.75578466 1.616880
+```
+
+``` r
+mod$plot(mod$gen(n = 300), type = "resid", size = 1)
+```
+
+<img src="man/figures/README-unnamed-chunk-13-1.png" width="100%" />
+
+``` r
+mod$plot_lineup(mod$gen_lineup(n = 300), alpha = 0.6)
+```
+
+<img src="man/figures/README-unnamed-chunk-14-1.png" width="100%" />
 
 ## Basic usgae of `visage` OOP system
 
