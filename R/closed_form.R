@@ -173,6 +173,8 @@ class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
       }
     }
 
+    return(self)
+
   }
 
 
@@ -185,6 +187,8 @@ class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
 
     # Only keeps the RHS of the last "~" character
     self$expr <- str2lang(gsub("^.*~", "", paste(deparse(expr, width.cutoff = 500L), collapse = " ")))
+
+    return(self)
   }
 
 # as_dataframe ------------------------------------------------------------
@@ -196,6 +200,28 @@ class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
    if (length(dat$rhs) == 0) return(`names<-`(data.frame(.lhs = dat$lhs), lhs))
    cbind(`names<-`(data.frame(.lhs = dat$lhs), lhs), as.data.frame(dat$rhs))
  }
+
+
+# len ---------------------------------------------------------------------
+
+  len_ <- function() {
+
+    s <- 0
+
+    for (sym in self$sym) {
+      if (class(sym) == "visage_oop") {
+        if ("CLOSED_FORM" %in% sym$..class..) {
+          s <- s + sym$..len..()
+
+          next
+        }
+      }
+
+      s <- s + 1
+    }
+
+    s
+  }
 
 # str ---------------------------------------------------------------------
 
@@ -218,6 +244,7 @@ class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
   register_method(env,
                   ..init.. = init_,
                   ..str.. = str_,
+                  ..len.. = len_,
                   ast = ast_,
                   compute = compute_,
                   set_sym = set_sym_,

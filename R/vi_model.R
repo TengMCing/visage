@@ -56,6 +56,8 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
       self[[name_for_list[i]]] <- for_list[[i]]
       attributes(self[[name_for_list[i]]]) <- NULL
     }
+
+    return(self)
   }
 
 
@@ -70,6 +72,8 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
       self$prm[[pname]] <- pval
       self$prm$y$set_sym(pname, list(pval))
     }
+
+    return(self)
 
   }
 
@@ -380,6 +384,8 @@ class_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
       }
     }
 
+    return(self)
+
   }
 
 # E -----------------------------------------------------------------------
@@ -533,6 +539,7 @@ class_SIMPLE_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
     # Reuse the CUBIC_MODEL$set_prm method
     visage::use_method(self, visage::CUBIC_MODEL$set_prm)(prm_name, prm_value)
 
+    return(self)
   }
 
   # E -----------------------------------------------------------------------
