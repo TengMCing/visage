@@ -9,7 +9,7 @@
 \item{prm_val}{List or Vector. Parameter values.}
 }
 \value{
-No return value, called for side effects.
+Return the object itself.
 }
 \description{
 This function store the values in the environment and update

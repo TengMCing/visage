@@ -8,7 +8,7 @@
 the final expression.}
 }
 \value{
-No return value, called for side effects.
+Return the object itself.
 }
 \description{
 This function updates the closed form expression. It will not

@@ -42,6 +42,7 @@ reference:
   - BASE$has_attr
   - BASE$get_attr
   - BASE$set_attr
+  - BASE$del_attr
 - title: "Random variable class"
   desc: >
     Random variable class
@@ -89,6 +90,7 @@ reference:
   - CLOSED_FORM
   - CLOSED_FORM$..init..
   - CLOSED_FORM$..str..
+  - CLOSED_FORM$..len..
   - CLOSED_FORM$ast
   - CLOSED_FORM$sym
   - CLOSED_FORM$sym_name
