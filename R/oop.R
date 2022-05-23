@@ -373,11 +373,20 @@ class_BASE <- function(env = new.env(parent = parent.frame())) {
 
   has_attr_ <- function(attr_name) attr_name %in% names(self)
 
-  set_attr_ <- function(attr_name, attr_val) self[[attr_name]] <- attr_val
+  set_attr_ <- function(attr_name, attr_val) {
+    self[[attr_name]] <- attr_val
+    return(self)
+    }
 
   get_attr_ <- function(attr_name) self[[attr_name]]
 
-  del_attr <- function(attr_name) if (attr_name %in% names(self)) rm(attr_name, envir = self)
+  del_attr_ <- function(attr_name) {
+
+    if (attr_name %in% names(self)) {
+      rm(list = attr_name, envir = self)
+    }
+    return(self)
+  }
 
   dict_ <- function() names(self)
 
@@ -400,6 +409,7 @@ class_BASE <- function(env = new.env(parent = parent.frame())) {
                   ..methods.. = methods_,
                   has_attr = has_attr_,
                   set_attr = set_attr_,
+                  del_attr = del_attr_,
                   get_attr = get_attr_,
                   ..dict.. = dict_,
                   ..repr.. = repr_,
