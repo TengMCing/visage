@@ -41,9 +41,9 @@ and `e` is the random error term.
 arguments `a`, `b`, `c`, `sigma`, `x` and `z`, where the first four are
 numeric values defined above, and `x` and `z` are random variable
 instances created by the random variable abstract base class constructor
-`rand_var()`. If we would like `x` and `z` to be random uniform
-variables ranged from −1 to 1, it can be achieved by using the random
-uniform variable class constructor `rand_uniform()`. It only takes two
+`rand_var()`. If we would like `x` and `z` to be uniform random
+variables ranged from −1 to 1, it can be achieved by using the uniform
+random variable class constructor `rand_uniform()`. It only takes two
 arguments which are the lower bound and the upper bound of the support.
 
 ``` r
@@ -85,12 +85,12 @@ Generates five realizations from the model:
 
 ``` r
 mod$gen(n = 5)
-#>            y          x          z          e     .resid    .fitted
-#> 1  1.0613876 -0.1107845 -0.7539074  1.3784398 -0.8368017  1.8981894
-#> 2 -3.2118521 -0.7371329 -0.6291890 -1.9766433 -0.6824046 -2.5294475
-#> 3  1.4546219 -0.3251719 -0.7376103  2.1597407  0.9189643  0.5356576
-#> 4 -2.6604070  0.6402103  0.7713762  0.1068410 -0.1601168 -2.5002902
-#> 5 -0.5946423 -0.2556659 -0.3404770 -0.6231745  0.7603589 -1.3550012
+#>            y          x          z           e      .resid    .fitted
+#> 1 -2.5621020 -0.3476054  0.8475984  0.15646247 -2.90677143  0.3446694
+#> 2  2.1990206  0.3198613  0.4183419  1.61059928  2.62107004 -0.4220495
+#> 3  1.5425117 -0.3151661  0.1119863  0.99160041  2.03352425 -0.4910126
+#> 4 -3.5235881  0.7316370 -0.6738118 -1.35632540 -1.70434833 -1.8192398
+#> 5 -0.1806606 -0.8987716  0.2039230 -0.09030404 -0.04347452 -0.1371861
 ```
 
 ### Make a residual plot
@@ -119,40 +119,40 @@ Generate a lineup consists of 2 plots and 8 realizations:
 
 ``` r
 mod$gen_lineup(n = 8, k = 2)
-#>              y          x          z          e      .resid     .fitted
-#> 1   0.14562835 -0.5489958 -0.5874978  1.1170449  0.11862208  0.02700628
-#> 2   1.55690021  0.1053624  0.0508592  0.4456459  1.61404909 -0.05714887
-#> 3   0.75810719 -0.8106785 -0.3978757  1.6258854  1.14524086 -0.38713367
-#> 4  -1.15884997  0.1957611  0.3338989 -2.1048936 -0.89395864 -0.26489133
-#> 5   0.93611852  0.3812747  0.2947242  0.1998975  1.00328710 -0.06716858
-#> 6  -2.69111327 -0.6691253  0.7683535 -0.2139824 -1.25096269 -1.44015058
-#> 7  -0.67401497  0.1903347 -0.8487360 -0.5593555 -1.59480611  0.92079114
-#> 8  -0.35278613 -0.5828407 -0.3794070  0.3025953 -0.14147168 -0.21131445
-#> 9   1.26133364 -0.5489958 -0.5874978  1.1170449  1.23432737  0.02700628
-#> 10  0.04119654  0.1053624  0.0508592  0.4456459  0.09834541 -0.05714887
-#> 11  0.64771333 -0.8106785 -0.3978757  1.6258854  1.03484700 -0.38713367
-#> 12  1.28435882  0.1957611  0.3338989 -2.1048936  1.54925015 -0.26489133
-#> 13 -0.18262272  0.3812747  0.2947242  0.1998975 -0.11545414 -0.06716858
-#> 14 -2.70141914 -0.6691253  0.7683535 -0.2139824 -1.26126857 -1.44015058
-#> 15 -0.47274268  0.1903347 -0.8487360 -0.5593555 -1.39353382  0.92079114
-#> 16 -1.35782785 -0.5828407 -0.3794070  0.3025953 -1.14651340 -0.21131445
+#>             y           x           z           e      .resid     .fitted
+#> 1  -0.4973043 -0.40740908  0.17120611 -0.86303321 -0.23514518 -0.26215909
+#> 2   1.4316413 -0.57762631  0.02860045  1.40596898  1.74088715 -0.30924584
+#> 3  -0.5146353 -0.08420377 -0.82643980 -0.22888571 -0.36522629 -0.14940901
+#> 4   1.2216060 -0.68948205  0.27767304  1.37179688  1.56810244 -0.34649641
+#> 5  -0.3388120 -0.99091806 -0.16304338 -0.09135055  0.08760691 -0.42641887
+#> 6   0.9238849  0.50569156  0.03780961  0.53995878  0.91692254  0.00696235
+#> 7  -0.7516302  0.74413867 -0.50218944  1.28046584 -0.83816736  0.08653719
+#> 8  -3.2468076 -0.76767521  0.41325250 -2.75758458 -2.87498020 -0.37182739
+#> 9  -0.5147136 -0.40740908  0.17120611 -0.86303321 -0.25255456 -0.26215909
+#> 10 -2.6493338 -0.57762631  0.02860045  1.40596898 -2.34008795 -0.30924584
+#> 11 -0.9437314 -0.08420377 -0.82643980 -0.22888571 -0.79432241 -0.14940901
+#> 12  0.5426231 -0.68948205  0.27767304  1.37179688  0.88911952 -0.34649641
+#> 13  0.4347612 -0.99091806 -0.16304338 -0.09135055  0.86118004 -0.42641887
+#> 14 -1.5139160  0.50569156  0.03780961  0.53995878 -1.52087839  0.00696235
+#> 15  2.1621762  0.74413867 -0.50218944  1.28046584  2.07563904  0.08653719
+#> 16  0.7100773 -0.76767521  0.41325250 -2.75758458  1.08190471 -0.37182739
 #>    test_name statistic   p_value k  null
-#> 1     F-test 2.8965928 0.4116084 2 FALSE
-#> 2     F-test 2.8965928 0.4116084 2 FALSE
-#> 3     F-test 2.8965928 0.4116084 2 FALSE
-#> 4     F-test 2.8965928 0.4116084 2 FALSE
-#> 5     F-test 2.8965928 0.4116084 2 FALSE
-#> 6     F-test 2.8965928 0.4116084 2 FALSE
-#> 7     F-test 2.8965928 0.4116084 2 FALSE
-#> 8     F-test 2.8965928 0.4116084 2 FALSE
-#> 9     F-test 0.4075755 0.8076774 1  TRUE
-#> 10    F-test 0.4075755 0.8076774 1  TRUE
-#> 11    F-test 0.4075755 0.8076774 1  TRUE
-#> 12    F-test 0.4075755 0.8076774 1  TRUE
-#> 13    F-test 0.4075755 0.8076774 1  TRUE
-#> 14    F-test 0.4075755 0.8076774 1  TRUE
-#> 15    F-test 0.4075755 0.8076774 1  TRUE
-#> 16    F-test 0.4075755 0.8076774 1  TRUE
+#> 1     F-test 6.3395363 0.2884739 1 FALSE
+#> 2     F-test 6.3395363 0.2884739 1 FALSE
+#> 3     F-test 6.3395363 0.2884739 1 FALSE
+#> 4     F-test 6.3395363 0.2884739 1 FALSE
+#> 5     F-test 6.3395363 0.2884739 1 FALSE
+#> 6     F-test 6.3395363 0.2884739 1 FALSE
+#> 7     F-test 6.3395363 0.2884739 1 FALSE
+#> 8     F-test 6.3395363 0.2884739 1 FALSE
+#> 9     F-test 0.8367481 0.6642758 2  TRUE
+#> 10    F-test 0.8367481 0.6642758 2  TRUE
+#> 11    F-test 0.8367481 0.6642758 2  TRUE
+#> 12    F-test 0.8367481 0.6642758 2  TRUE
+#> 13    F-test 0.8367481 0.6642758 2  TRUE
+#> 14    F-test 0.8367481 0.6642758 2  TRUE
+#> 15    F-test 0.8367481 0.6642758 2  TRUE
+#> 16    F-test 0.8367481 0.6642758 2  TRUE
 ```
 
 Plot a lineup consists of 20 plots and 300 realizations:
@@ -204,12 +204,12 @@ give examples of the use of the object.
 
 ``` r
 mod$gen(n = 5)
-#>            y          x          e      .resid  .fitted
-#> 1 -0.8769162 -0.7975877 -0.2335537 -2.39244007 1.515524
-#> 2  3.9592432 -0.3695783  1.4363827  2.69688816 1.262355
-#> 3 -0.8342639 -0.3834641 -0.6073838 -2.10483244 1.270569
-#> 4  1.3183645 -0.3888679  0.2926803  0.04459969 1.273765
-#> 5  3.3726651 -0.9689421  0.5997530  1.75578466 1.616880
+#>            y           x          e     .resid   .fitted
+#> 1  1.3753040 -0.43952948  0.3040517 -1.0713760 2.4466800
+#> 2 -0.2426187  0.17868480 -0.9996041 -1.1063884 0.8637697
+#> 3  0.7306202  0.01600313 -0.2842206 -0.5496887 1.2803089
+#> 4  3.1466397 -0.06465749  2.0767438  1.6598029 1.4868368
+#> 5  2.7656728 -0.14713727  1.4701836  1.0676501 1.6980227
 ```
 
 ``` r
@@ -223,6 +223,136 @@ mod$plot_lineup(mod$gen_lineup(n = 300), alpha = 0.6)
 ```
 
 <img src="man/figures/README-unnamed-chunk-14-1.png" width="100%" />
+
+## Usage of closed form expression `CLOSED_FORM`
+
+### Define and evaluate a closed form expression
+
+“Closed form expression” is defined as a special type of `R` expression
+that can replace random variables in the expression with their
+realizations before evaluation. This may sound confusing, so let’s look
+at some examples.
+
+`closed_form()` is the closed form expression constructor, which takes
+only one arguments `expr` required to be a formula. Considering the
+simplest case first, where the expression contains zero random
+variables, such as `1 + 3`. It can be evaluated using the method
+`compute()` directly as a typical `R` expression.
+
+``` r
+cf <- closed_form(~1 + 3)
+cf
+#> 
+#> ── <CLOSED_FORM object>
+#> EXPR = 1 + 3
+cf$compute()
+#> [1] 4
+```
+
+However, if the closed form expression contains any random variables, it
+can not be evaluated directly since the values of random variables are
+unknown. In the following example, `x` is a uniform random variable
+ranged from -1 to 1, and `x + 1` is an expression that can not be
+evaluated by method `compute()`.
+
+``` r
+x <- rand_uniform(-1, 1)
+cf <- closed_form(~1 + x)
+```
+
+In this case, the `gen()` method will try to generate `n` realizations
+from random variables, then evaluate the expression. In addition, if
+`rhs_val = TRUE`, realizations generated from random variables will be
+returned.
+
+``` r
+cf$gen(n = 5, rhs_val = TRUE)
+#> $lhs
+#> [1] 0.4560498 0.3097489 1.4528605 1.5291460 1.2054545
+#> 
+#> $rhs
+#> $rhs$x
+#> [1] -0.5439502 -0.6902511  0.4528605  0.5291460  0.2054545
+```
+
+### Nested closed form expression
+
+Nested closed form expression is useful when a hierarchical structure
+present in the expression.
+
+Consider the following statistical model:
+
+`y = x + e`, where `x` is a uniform random variable ranged from -1 to 1,
+and `e = 1 + x^2 * z`, where `z` is a standard normal random variable.
+
+We can define this model using the following code:
+
+``` r
+z <- rand_normal(mu = 0, sigma = 1)
+x <- rand_uniform(-1, 1)
+e <- closed_form(~1 + x^2 * z)
+y <- closed_form(~x + e)
+
+y
+#> 
+#> ── <CLOSED_FORM object>
+#> EXPR = x + e
+#>  - x: <RAND_UNIFORM object>
+#>    [a: -1, b: 1]
+#>  - e: <CLOSED_FORM object>
+#>    EXPR = 1 + x^2 * z
+#>     - x: <RAND_UNIFORM object>
+#>       [a: -1, b: 1]
+#>     - z: <RAND_NORMAL object>
+#>       [mu: 0, sigma: 1]
+```
+
+Note that `y` depends on `e` and `e` itself is a closed form expression.
+Both `y` and `e` depend on `x`. The method `gen()` will return values of
+`x`, `z` and `e` if `rhs_val = TRUE`.
+
+``` r
+y$gen(n = 5, rhs_val = TRUE)
+#> $lhs
+#> [1] -0.7874509  0.8231533  0.5564655  0.7688928  2.4329829
+#> 
+#> $rhs
+#> $rhs$x
+#> [1] -0.7382575 -0.1465141 -0.8590129 -0.2228402  0.9989473
+#> 
+#> $rhs$z
+#> [1] -1.9250401 -1.4130287  0.5630528 -0.1664784  0.4349508
+#> 
+#> $rhs$e
+#> [1] -0.0491934  0.9696674  1.4154784  0.9917331  1.4340356
+```
+
+### Turn `gen()` result into dataframe via method `as_dataframe()`
+
+Results of `gen()` is either a vector or a list, which can be converted
+into a dataframe via method `as_dataframe()`. The `lhs` argument is for
+naming the left hand side result of the closed form expression.
+
+``` r
+y$as_dataframe(y$gen(n = 5), lhs = "y")
+#>            y
+#> 1  0.4716721
+#> 2 -0.6373378
+#> 3  1.6216489
+#> 4  0.9646769
+#> 5  0.8528191
+```
+
+### Current limitiation of `CLOSED_FORM`
+
+For `closed_form()`, any simple expressions can be provided, as long as
+all the symbols exist in the current environment. Note that this
+function tries to evaluate **ALL** the atomic symbols in the expression
+during initialization, and store the values in the object. Hence, calls
+like `a$b` will also be decomposed as `$`, `a` and `b`, where `b` will
+be interpreted as a variable `b` exists in the current environment.
+Therefore, use `~a[["b"]]` instead of `~a$b`. And pre-define function
+like `myfun = function() 1`, then use it in the expression `~myfun()`.
 
 ## Basic usgae of `visage` OOP system
 
