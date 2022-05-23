@@ -7,7 +7,7 @@
 \item{...}{Formulas. Formulas with names.}
 }
 \value{
-No return value, called for side effects.
+Return the object itself.
 }
 \description{
 This function store the formula in the environment, and drops all

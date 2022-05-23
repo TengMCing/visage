@@ -9,7 +9,7 @@
 \item{sym_val}{Vector or List. A sequence of symbol values.}
 }
 \value{
-No return value, called for side effects.
+Return the object itself.
 }
 \description{
 This function stores the user inputs as the updated values of

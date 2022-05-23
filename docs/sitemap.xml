@@ -52,6 +52,9 @@
     <loc>/reference/BASE-cash-..type...html</loc>
   </url>
   <url>
+    <loc>/reference/BASE-cash-del_attr.html</loc>
+  </url>
+  <url>
     <loc>/reference/BASE-cash-get_attr.html</loc>
   </url>
   <url>
@@ -68,6 +71,9 @@
   </url>
   <url>
     <loc>/reference/CLOSED_FORM-cash-..init...html</loc>
+  </url>
+  <url>
+    <loc>/reference/CLOSED_FORM-cash-..len...html</loc>
   </url>
   <url>
     <loc>/reference/CLOSED_FORM-cash-..str...html</loc>

@@ -23,6 +23,7 @@ New attributes: \link{CLOSED_FORM$sym}, \link{CLOSED_FORM$sym_name},
 \cr
 \cr
 New methods: \link{CLOSED_FORM$..init..}, \link{CLOSED_FORM$..str..},
+\link{CLOSED_FORM$..len..},
 \link{CLOSED_FORM$compute}, \link{CLOSED_FORM$gen}, \link{CLOSED_FORM$ast},
 \link{CLOSED_FORM$as_dataframe}
 }
