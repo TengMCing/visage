@@ -103,7 +103,7 @@
 <span class="co">#&gt; y ~ 1 + (2 - c) * x + c * z + a * (((2 - c) * x)^2 + (c * z)^2) + </span>
 <span class="co">#&gt;     b * (((2 - c) * x)^3 + (c * z)^3) + e</span></code></pre></div>
 <p>where <code>x</code> and <code>z</code> are random variables, <code>a</code>, <code>b</code> and <code>c</code> are parameters and <code>e</code> is the random error term.</p>
-<p><code><a href="reference/portal.html">cubic_model()</a></code> is a cubic model class constructor, which takes arguments <code>a</code>, <code>b</code>, <code>c</code>, <code>sigma</code>, <code>x</code> and <code>z</code>, where the first four are numeric values defined above, and <code>x</code> and <code>z</code> are random variable instances created by the random variable abstract base class constructor <code><a href="reference/portal.html">rand_var()</a></code>. If we would like <code>x</code> and <code>z</code> to be random uniform variables ranged from −1 to 1, it can be achieved by using the random uniform variable class constructor <code><a href="reference/portal.html">rand_uniform()</a></code>. It only takes two arguments which are the lower bound and the upper bound of the support.</p>
+<p><code><a href="reference/portal.html">cubic_model()</a></code> is a cubic model class constructor, which takes arguments <code>a</code>, <code>b</code>, <code>c</code>, <code>sigma</code>, <code>x</code> and <code>z</code>, where the first four are numeric values defined above, and <code>x</code> and <code>z</code> are random variable instances created by the random variable abstract base class constructor <code><a href="reference/portal.html">rand_var()</a></code>. If we would like <code>x</code> and <code>z</code> to be uniform random variables ranged from −1 to 1, it can be achieved by using the uniform random variable class constructor <code><a href="reference/portal.html">rand_uniform()</a></code>. It only takes two arguments which are the lower bound and the upper bound of the support.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/portal.html">cubic_model</a></span><span class="op">(</span>a <span class="op">=</span> <span class="op">-</span><span class="fl">3</span>, b <span class="op">=</span> <span class="op">-</span><span class="fl">3</span>, c <span class="op">=</span> <span class="fl">1</span>, sigma <span class="op">=</span> <span class="fl">1</span>,
                    x <span class="op">=</span> <span class="fu"><a href="reference/portal.html">rand_uniform</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, z <span class="op">=</span> <span class="fu"><a href="reference/portal.html">rand_uniform</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
@@ -133,12 +133,12 @@
 <p>Generates five realizations from the model:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
-<span class="co">#&gt;            y          x          z          e     .resid    .fitted</span>
-<span class="co">#&gt; 1  1.0613876 -0.1107845 -0.7539074  1.3784398 -0.8368017  1.8981894</span>
-<span class="co">#&gt; 2 -3.2118521 -0.7371329 -0.6291890 -1.9766433 -0.6824046 -2.5294475</span>
-<span class="co">#&gt; 3  1.4546219 -0.3251719 -0.7376103  2.1597407  0.9189643  0.5356576</span>
-<span class="co">#&gt; 4 -2.6604070  0.6402103  0.7713762  0.1068410 -0.1601168 -2.5002902</span>
-<span class="co">#&gt; 5 -0.5946423 -0.2556659 -0.3404770 -0.6231745  0.7603589 -1.3550012</span></code></pre></div>
+<span class="co">#&gt;            y          x          z           e      .resid    .fitted</span>
+<span class="co">#&gt; 1 -2.5621020 -0.3476054  0.8475984  0.15646247 -2.90677143  0.3446694</span>
+<span class="co">#&gt; 2  2.1990206  0.3198613  0.4183419  1.61059928  2.62107004 -0.4220495</span>
+<span class="co">#&gt; 3  1.5425117 -0.3151661  0.1119863  0.99160041  2.03352425 -0.4910126</span>
+<span class="co">#&gt; 4 -3.5235881  0.7316370 -0.6738118 -1.35632540 -1.70434833 -1.8192398</span>
+<span class="co">#&gt; 5 -0.1806606 -0.8987716  0.2039230 -0.09030404 -0.04347452 -0.1371861</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="make-a-residual-plot">Make a residual plot<a class="anchor" aria-label="anchor" href="#make-a-residual-plot"></a>
@@ -155,40 +155,40 @@
 <p>Generate a lineup consists of 2 plots and 8 realizations:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="fu">gen_lineup</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">8</span>, k <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-<span class="co">#&gt;              y          x          z          e      .resid     .fitted</span>
-<span class="co">#&gt; 1   0.14562835 -0.5489958 -0.5874978  1.1170449  0.11862208  0.02700628</span>
-<span class="co">#&gt; 2   1.55690021  0.1053624  0.0508592  0.4456459  1.61404909 -0.05714887</span>
-<span class="co">#&gt; 3   0.75810719 -0.8106785 -0.3978757  1.6258854  1.14524086 -0.38713367</span>
-<span class="co">#&gt; 4  -1.15884997  0.1957611  0.3338989 -2.1048936 -0.89395864 -0.26489133</span>
-<span class="co">#&gt; 5   0.93611852  0.3812747  0.2947242  0.1998975  1.00328710 -0.06716858</span>
-<span class="co">#&gt; 6  -2.69111327 -0.6691253  0.7683535 -0.2139824 -1.25096269 -1.44015058</span>
-<span class="co">#&gt; 7  -0.67401497  0.1903347 -0.8487360 -0.5593555 -1.59480611  0.92079114</span>
-<span class="co">#&gt; 8  -0.35278613 -0.5828407 -0.3794070  0.3025953 -0.14147168 -0.21131445</span>
-<span class="co">#&gt; 9   1.26133364 -0.5489958 -0.5874978  1.1170449  1.23432737  0.02700628</span>
-<span class="co">#&gt; 10  0.04119654  0.1053624  0.0508592  0.4456459  0.09834541 -0.05714887</span>
-<span class="co">#&gt; 11  0.64771333 -0.8106785 -0.3978757  1.6258854  1.03484700 -0.38713367</span>
-<span class="co">#&gt; 12  1.28435882  0.1957611  0.3338989 -2.1048936  1.54925015 -0.26489133</span>
-<span class="co">#&gt; 13 -0.18262272  0.3812747  0.2947242  0.1998975 -0.11545414 -0.06716858</span>
-<span class="co">#&gt; 14 -2.70141914 -0.6691253  0.7683535 -0.2139824 -1.26126857 -1.44015058</span>
-<span class="co">#&gt; 15 -0.47274268  0.1903347 -0.8487360 -0.5593555 -1.39353382  0.92079114</span>
-<span class="co">#&gt; 16 -1.35782785 -0.5828407 -0.3794070  0.3025953 -1.14651340 -0.21131445</span>
+<span class="co">#&gt;             y           x           z           e      .resid     .fitted</span>
+<span class="co">#&gt; 1  -0.4973043 -0.40740908  0.17120611 -0.86303321 -0.23514518 -0.26215909</span>
+<span class="co">#&gt; 2   1.4316413 -0.57762631  0.02860045  1.40596898  1.74088715 -0.30924584</span>
+<span class="co">#&gt; 3  -0.5146353 -0.08420377 -0.82643980 -0.22888571 -0.36522629 -0.14940901</span>
+<span class="co">#&gt; 4   1.2216060 -0.68948205  0.27767304  1.37179688  1.56810244 -0.34649641</span>
+<span class="co">#&gt; 5  -0.3388120 -0.99091806 -0.16304338 -0.09135055  0.08760691 -0.42641887</span>
+<span class="co">#&gt; 6   0.9238849  0.50569156  0.03780961  0.53995878  0.91692254  0.00696235</span>
+<span class="co">#&gt; 7  -0.7516302  0.74413867 -0.50218944  1.28046584 -0.83816736  0.08653719</span>
+<span class="co">#&gt; 8  -3.2468076 -0.76767521  0.41325250 -2.75758458 -2.87498020 -0.37182739</span>
+<span class="co">#&gt; 9  -0.5147136 -0.40740908  0.17120611 -0.86303321 -0.25255456 -0.26215909</span>
+<span class="co">#&gt; 10 -2.6493338 -0.57762631  0.02860045  1.40596898 -2.34008795 -0.30924584</span>
+<span class="co">#&gt; 11 -0.9437314 -0.08420377 -0.82643980 -0.22888571 -0.79432241 -0.14940901</span>
+<span class="co">#&gt; 12  0.5426231 -0.68948205  0.27767304  1.37179688  0.88911952 -0.34649641</span>
+<span class="co">#&gt; 13  0.4347612 -0.99091806 -0.16304338 -0.09135055  0.86118004 -0.42641887</span>
+<span class="co">#&gt; 14 -1.5139160  0.50569156  0.03780961  0.53995878 -1.52087839  0.00696235</span>
+<span class="co">#&gt; 15  2.1621762  0.74413867 -0.50218944  1.28046584  2.07563904  0.08653719</span>
+<span class="co">#&gt; 16  0.7100773 -0.76767521  0.41325250 -2.75758458  1.08190471 -0.37182739</span>
 <span class="co">#&gt;    test_name statistic   p_value k  null</span>
-<span class="co">#&gt; 1     F-test 2.8965928 0.4116084 2 FALSE</span>
-<span class="co">#&gt; 2     F-test 2.8965928 0.4116084 2 FALSE</span>
-<span class="co">#&gt; 3     F-test 2.8965928 0.4116084 2 FALSE</span>
-<span class="co">#&gt; 4     F-test 2.8965928 0.4116084 2 FALSE</span>
-<span class="co">#&gt; 5     F-test 2.8965928 0.4116084 2 FALSE</span>
-<span class="co">#&gt; 6     F-test 2.8965928 0.4116084 2 FALSE</span>
-<span class="co">#&gt; 7     F-test 2.8965928 0.4116084 2 FALSE</span>
-<span class="co">#&gt; 8     F-test 2.8965928 0.4116084 2 FALSE</span>
-<span class="co">#&gt; 9     F-test 0.4075755 0.8076774 1  TRUE</span>
-<span class="co">#&gt; 10    F-test 0.4075755 0.8076774 1  TRUE</span>
-<span class="co">#&gt; 11    F-test 0.4075755 0.8076774 1  TRUE</span>
-<span class="co">#&gt; 12    F-test 0.4075755 0.8076774 1  TRUE</span>
-<span class="co">#&gt; 13    F-test 0.4075755 0.8076774 1  TRUE</span>
-<span class="co">#&gt; 14    F-test 0.4075755 0.8076774 1  TRUE</span>
-<span class="co">#&gt; 15    F-test 0.4075755 0.8076774 1  TRUE</span>
-<span class="co">#&gt; 16    F-test 0.4075755 0.8076774 1  TRUE</span></code></pre></div>
+<span class="co">#&gt; 1     F-test 6.3395363 0.2884739 1 FALSE</span>
+<span class="co">#&gt; 2     F-test 6.3395363 0.2884739 1 FALSE</span>
+<span class="co">#&gt; 3     F-test 6.3395363 0.2884739 1 FALSE</span>
+<span class="co">#&gt; 4     F-test 6.3395363 0.2884739 1 FALSE</span>
+<span class="co">#&gt; 5     F-test 6.3395363 0.2884739 1 FALSE</span>
+<span class="co">#&gt; 6     F-test 6.3395363 0.2884739 1 FALSE</span>
+<span class="co">#&gt; 7     F-test 6.3395363 0.2884739 1 FALSE</span>
+<span class="co">#&gt; 8     F-test 6.3395363 0.2884739 1 FALSE</span>
+<span class="co">#&gt; 9     F-test 0.8367481 0.6642758 2  TRUE</span>
+<span class="co">#&gt; 10    F-test 0.8367481 0.6642758 2  TRUE</span>
+<span class="co">#&gt; 11    F-test 0.8367481 0.6642758 2  TRUE</span>
+<span class="co">#&gt; 12    F-test 0.8367481 0.6642758 2  TRUE</span>
+<span class="co">#&gt; 13    F-test 0.8367481 0.6642758 2  TRUE</span>
+<span class="co">#&gt; 14    F-test 0.8367481 0.6642758 2  TRUE</span>
+<span class="co">#&gt; 15    F-test 0.8367481 0.6642758 2  TRUE</span>
+<span class="co">#&gt; 16    F-test 0.8367481 0.6642758 2  TRUE</span></code></pre></div>
 <p>Plot a lineup consists of 20 plots and 300 realizations:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="fu">plot_lineup</span><span class="op">(</span><span class="va">mod</span><span class="op">$</span><span class="fu">gen_lineup</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">300</span>, k <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"resid"</span>, alpha <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></code></pre></div>
@@ -221,18 +221,111 @@
 <p>Since both the cubic model class <code>CUBIC_MODEL</code> and the heteroskedasticity model class <code>HETER_MODEL</code> are inherited from the visual inference model class <code>VI_MODEL</code>, heteroskedasticity model object can be used in a similar way as cubic model object. The following codes give examples of the use of the object.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
-<span class="co">#&gt;            y          x          e      .resid  .fitted</span>
-<span class="co">#&gt; 1 -0.8769162 -0.7975877 -0.2335537 -2.39244007 1.515524</span>
-<span class="co">#&gt; 2  3.9592432 -0.3695783  1.4363827  2.69688816 1.262355</span>
-<span class="co">#&gt; 3 -0.8342639 -0.3834641 -0.6073838 -2.10483244 1.270569</span>
-<span class="co">#&gt; 4  1.3183645 -0.3888679  0.2926803  0.04459969 1.273765</span>
-<span class="co">#&gt; 5  3.3726651 -0.9689421  0.5997530  1.75578466 1.616880</span></code></pre></div>
+<span class="co">#&gt;            y           x          e     .resid   .fitted</span>
+<span class="co">#&gt; 1  1.3753040 -0.43952948  0.3040517 -1.0713760 2.4466800</span>
+<span class="co">#&gt; 2 -0.2426187  0.17868480 -0.9996041 -1.1063884 0.8637697</span>
+<span class="co">#&gt; 3  0.7306202  0.01600313 -0.2842206 -0.5496887 1.2803089</span>
+<span class="co">#&gt; 4  3.1466397 -0.06465749  2.0767438  1.6598029 1.4868368</span>
+<span class="co">#&gt; 5  2.7656728 -0.14713727  1.4701836  1.0676501 1.6980227</span></code></pre></div>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="fu">plot</span><span class="op">(</span><span class="va">mod</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">300</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"resid"</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-13-1.png" width="100%"></p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="fu">plot_lineup</span><span class="op">(</span><span class="va">mod</span><span class="op">$</span><span class="fu">gen_lineup</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">300</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-14-1.png" width="100%"></p>
+</div>
+<div class="section level2">
+<h2 id="usage-of-closed-form-expression-closed_form">Usage of closed form expression <code>CLOSED_FORM</code>
+<a class="anchor" aria-label="anchor" href="#usage-of-closed-form-expression-closed_form"></a>
+</h2>
+<div class="section level3">
+<h3 id="define-and-evaluate-a-closed-form-expression">Define and evaluate a closed form expression<a class="anchor" aria-label="anchor" href="#define-and-evaluate-a-closed-form-expression"></a>
+</h3>
+<p>“Closed form expression” is defined as a special type of <code>R</code> expression that can replace random variables in the expression with their realizations before evaluation. This may sound confusing, so let’s look at some examples.</p>
+<p><code><a href="reference/portal.html">closed_form()</a></code> is the closed form expression constructor, which takes only one arguments <code>expr</code> required to be a formula. Considering the simplest case first, where the expression contains zero random variables, such as <code>1 + 3</code>. It can be evaluated using the method <code>compute()</code> directly as a typical <code>R</code> expression.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cf</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/portal.html">closed_form</a></span><span class="op">(</span><span class="op">~</span><span class="fl">1</span> <span class="op">+</span> <span class="fl">3</span><span class="op">)</span>
+<span class="va">cf</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ── &lt;CLOSED_FORM object&gt;</span>
+<span class="co">#&gt; EXPR = 1 + 3</span>
+<span class="va">cf</span><span class="op">$</span><span class="fu">compute</span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; [1] 4</span></code></pre></div>
+<p>However, if the closed form expression contains any random variables, it can not be evaluated directly since the values of random variables are unknown. In the following example, <code>x</code> is a uniform random variable ranged from -1 to 1, and <code>x + 1</code> is an expression that can not be evaluated by method <code>compute()</code>.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/portal.html">rand_uniform</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>
+<span class="va">cf</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/portal.html">closed_form</a></span><span class="op">(</span><span class="op">~</span><span class="fl">1</span> <span class="op">+</span> <span class="va">x</span><span class="op">)</span></code></pre></div>
+<p>In this case, the <code>gen()</code> method will try to generate <code>n</code> realizations from random variables, then evaluate the expression. In addition, if <code>rhs_val = TRUE</code>, realizations generated from random variables will be returned.</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cf</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, rhs_val <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="co">#&gt; $lhs</span>
+<span class="co">#&gt; [1] 0.4560498 0.3097489 1.4528605 1.5291460 1.2054545</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $rhs</span>
+<span class="co">#&gt; $rhs$x</span>
+<span class="co">#&gt; [1] -0.5439502 -0.6902511  0.4528605  0.5291460  0.2054545</span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="nested-closed-form-expression">Nested closed form expression<a class="anchor" aria-label="anchor" href="#nested-closed-form-expression"></a>
+</h3>
+<p>Nested closed form expression is useful when a hierarchical structure present in the expression.</p>
+<p>Consider the following statistical model:</p>
+<p><code>y = x + e</code>, where <code>x</code> is a uniform random variable ranged from -1 to 1, and <code>e = 1 + x^2 * z</code>, where <code>z</code> is a standard normal random variable.</p>
+<p>We can define this model using the following code:</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/portal.html">rand_normal</a></span><span class="op">(</span>mu <span class="op">=</span> <span class="fl">0</span>, sigma <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/portal.html">rand_uniform</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>
+<span class="va">e</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/portal.html">closed_form</a></span><span class="op">(</span><span class="op">~</span><span class="fl">1</span> <span class="op">+</span> <span class="va">x</span><span class="op">^</span><span class="fl">2</span> <span class="op">*</span> <span class="va">z</span><span class="op">)</span>
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/portal.html">closed_form</a></span><span class="op">(</span><span class="op">~</span><span class="va">x</span> <span class="op">+</span> <span class="va">e</span><span class="op">)</span>
+
+<span class="va">y</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ── &lt;CLOSED_FORM object&gt;</span>
+<span class="co">#&gt; EXPR = x + e</span>
+<span class="co">#&gt;  - x: &lt;RAND_UNIFORM object&gt;</span>
+<span class="co">#&gt;    [a: -1, b: 1]</span>
+<span class="co">#&gt;  - e: &lt;CLOSED_FORM object&gt;</span>
+<span class="co">#&gt;    EXPR = 1 + x^2 * z</span>
+<span class="co">#&gt;     - x: &lt;RAND_UNIFORM object&gt;</span>
+<span class="co">#&gt;       [a: -1, b: 1]</span>
+<span class="co">#&gt;     - z: &lt;RAND_NORMAL object&gt;</span>
+<span class="co">#&gt;       [mu: 0, sigma: 1]</span></code></pre></div>
+<p>Note that <code>y</code> depends on <code>e</code> and <code>e</code> itself is a closed form expression. Both <code>y</code> and <code>e</code> depend on <code>x</code>. The method <code>gen()</code> will return values of <code>x</code>, <code>z</code> and <code>e</code> if <code>rhs_val = TRUE</code>.</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">y</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, rhs_val <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="co">#&gt; $lhs</span>
+<span class="co">#&gt; [1] -0.7874509  0.8231533  0.5564655  0.7688928  2.4329829</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $rhs</span>
+<span class="co">#&gt; $rhs$x</span>
+<span class="co">#&gt; [1] -0.7382575 -0.1465141 -0.8590129 -0.2228402  0.9989473</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $rhs$z</span>
+<span class="co">#&gt; [1] -1.9250401 -1.4130287  0.5630528 -0.1664784  0.4349508</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $rhs$e</span>
+<span class="co">#&gt; [1] -0.0491934  0.9696674  1.4154784  0.9917331  1.4340356</span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="turn-gen-result-into-dataframe-via-method-as_dataframe">Turn <code>gen()</code> result into dataframe via method <code>as_dataframe()</code>
+<a class="anchor" aria-label="anchor" href="#turn-gen-result-into-dataframe-via-method-as_dataframe"></a>
+</h3>
+<p>Results of <code>gen()</code> is either a vector or a list, which can be converted into a dataframe via method <code>as_dataframe()</code>. The <code>lhs</code> argument is for naming the left hand side result of the closed form expression.</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">y</span><span class="op">$</span><span class="fu">as_dataframe</span><span class="op">(</span><span class="va">y</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>, lhs <span class="op">=</span> <span class="st">"y"</span><span class="op">)</span>
+<span class="co">#&gt;            y</span>
+<span class="co">#&gt; 1  0.4716721</span>
+<span class="co">#&gt; 2 -0.6373378</span>
+<span class="co">#&gt; 3  1.6216489</span>
+<span class="co">#&gt; 4  0.9646769</span>
+<span class="co">#&gt; 5  0.8528191</span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="current-limitiation-of-closed_form">Current limitiation of <code>CLOSED_FORM</code>
+<a class="anchor" aria-label="anchor" href="#current-limitiation-of-closed_form"></a>
+</h3>
+<p>For <code><a href="reference/portal.html">closed_form()</a></code>, any simple expressions can be provided, as long as all the symbols exist in the current environment. Note that this function tries to evaluate <strong>ALL</strong> the atomic symbols in the expression during initialization, and store the values in the object. Hence, calls like <code>a$b</code> will also be decomposed as <code>$</code>, <code>a</code> and <code>b</code>, where <code>b</code> will be interpreted as a variable <code>b</code> exists in the current environment. Therefore, use <code>~a[["b"]]</code> instead of <code>~a$b</code>. And pre-define function like <code>myfun = function() 1</code>, then use it in the expression <code>~myfun()</code>.</p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="basic-usgae-of-visage-oop-system">Basic usgae of <code>visage</code> OOP system<a class="anchor" aria-label="anchor" href="#basic-usgae-of-visage-oop-system"></a>
@@ -242,7 +335,7 @@
 </h3>
 <p>A class can be defined with the <code>new_class</code> function. All positional arguments are for specifying parent classes, <code>BASE</code> is the base object class provided by the package, you don’t need to manually specify it. But if you would like to have advanced behaviour, you can try to implement your own <code>object</code> class.</p>
 <p>Class name is mandatory and should be unique.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># You don't actually need to specify BASE here. This is only for demonstration.</span>
 <span class="va">DEMO</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/new_class.html">new_class</a></span><span class="op">(</span><span class="va">BASE</span>, class_name <span class="op">=</span> <span class="st">"DEMO"</span><span class="op">)</span>
 <span class="va">DEMO</span>
@@ -255,7 +348,7 @@
 <li>
 <code>OBJECT$..class..</code> gives the current class name and parent class names.</li>
 </ul>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">DEMO</span><span class="op">$</span><span class="va">..type..</span>
 <span class="co">#&gt; [1] "DEMO"</span>
 <span class="va">DEMO</span><span class="op">$</span><span class="va">..class..</span>
@@ -266,7 +359,7 @@
 <li>
 <code>OBJECT$..methods..()</code> returns all names of method of the object</li>
 </ul>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">DEMO</span><span class="op">$</span><span class="fu">..dict..</span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt;  [1] "..dict.."         "..str.."          "..len.."          "..class.."       </span>
 <span class="co">#&gt;  [5] "..new.."          "..repr.."         "has_attr"         "instantiation"   </span>
@@ -280,7 +373,7 @@
 <li>
 <code>OBJECT$..str..()</code> returns a string representation of the object, which will be used by the S3 <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> method. This method usually needs to be overridden in subclass to give short summary of the object.</li>
 </ul>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">DEMO</span><span class="op">$</span><span class="fu">..str..</span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; [1] "&lt;DEMO class&gt;"</span></code></pre></div>
 </div>
@@ -289,7 +382,7 @@
 </h3>
 <p>Methods can be registered by using <code><a href="reference/register_method.html">register_method()</a></code>. The first argument is the object you want to bind the function to, the rest of the positional arguments are for specifying method names and functions. The syntax is <code>method_name = function</code>.</p>
 <p>You can choose to write inline function or pass pre-defined function. The associative environment of the function doesn’t matter, it will be modified by the <code><a href="reference/register_method.html">register_method()</a></code> function.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pre_defined_fn</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span>
 
 <span class="fu"><a href="reference/register_method.html">register_method</a></span><span class="op">(</span><span class="va">DEMO</span>, inline_fn <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span>, pre_defined_fn <span class="op">=</span> <span class="va">pre_defined_fn</span><span class="op">)</span>
@@ -299,7 +392,7 @@
 <span class="va">DEMO</span><span class="op">$</span><span class="fu">pre_defined_fn</span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; [1] 3</span></code></pre></div>
 <p>For method that needs to access the object itself, just simply use <code>self</code> in your method. It is an reference to the object.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">DEMO</span><span class="op">$</span><span class="va">val</span> <span class="op">&lt;-</span> <span class="fl">5</span>
 
 <span class="fu"><a href="reference/register_method.html">register_method</a></span><span class="op">(</span><span class="va">DEMO</span>, get_val <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="va">self</span><span class="op">$</span><span class="va">val</span><span class="op">)</span>
@@ -311,7 +404,7 @@
 <h3 id="override-the-init-method">Override the <code>..init..()</code> method<a class="anchor" aria-label="anchor" href="#override-the-init-method"></a>
 </h3>
 <p><code>..init..()</code> method is for instance initialization. To override the <code>..init..()</code> method, you need to use the <code><a href="reference/register_method.html">register_method()</a></code> to register it again.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">init</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">first_name</span>, <span class="va">employee_id</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">self</span><span class="op">$</span><span class="va">first_name</span> <span class="op">&lt;-</span> <span class="va">first_name</span>
   <span class="va">self</span><span class="op">$</span><span class="va">employee_id</span> <span class="op">&lt;-</span> <span class="va">employee_id</span>
@@ -324,13 +417,13 @@
 <h3 id="build-an-instance">Build an instance<a class="anchor" aria-label="anchor" href="#build-an-instance"></a>
 </h3>
 <p>To new and initialize an instance, you need to use the <code>instantiation()</code> method. The output will show it is an object.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mike</span> <span class="op">&lt;-</span> <span class="va">DEMO</span><span class="op">$</span><span class="fu">instantiation</span><span class="op">(</span><span class="st">"Mike"</span>, <span class="fl">25</span><span class="op">)</span>
 <span class="va">mike</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── &lt;DEMO object&gt;</span></code></pre></div>
 <p><code>first_name</code> and <code>employee_id</code> are stored in the object because of the <code>..init..()</code> method.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mike</span><span class="op">$</span><span class="va">first_name</span>
 <span class="co">#&gt; [1] "Mike"</span>
 <span class="va">mike</span><span class="op">$</span><span class="va">employee_id</span>
@@ -341,7 +434,7 @@
 </h3>
 <p>It is recommend to write your class definition in a function to make debugging easier. The following example new a class <code>DEMO_2</code>, defines its own <code>..init..()</code> method, defines a <code>get_email()</code> function for retrieving the email address, defines its own <code>..str..()</code> method such that when we print the object, it will provide us with a nicely formatted summary.</p>
 <p><code>use_method</code> is used to run methods from other classes, which in this case, the <code>..str..()</code> method from the <code>BASE</code> class.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">class_DEMO_2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">env</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span>parent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   
   <span class="fu"><a href="reference/new_class.html">new_class</a></span><span class="op">(</span>env <span class="op">=</span> <span class="va">env</span>, class_name <span class="op">=</span> <span class="st">"DEMO_2"</span><span class="op">)</span>
@@ -370,12 +463,12 @@
   
   <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">env</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">DEMO_2</span> <span class="op">&lt;-</span> <span class="fu">class_DEMO_2</span><span class="op">(</span><span class="op">)</span>
 <span class="va">mike</span> <span class="op">&lt;-</span> <span class="va">DEMO_2</span><span class="op">$</span><span class="fu">instantiation</span><span class="op">(</span><span class="st">"Mike"</span>, <span class="fl">25</span><span class="op">)</span>
 <span class="va">mike</span><span class="op">$</span><span class="fu">get_email</span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; [1] "Mike_25@company.com"</span></code></pre></div>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mike</span><span class="op">$</span><span class="fu">..str..</span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; [1] "&lt;DEMO_2 object&gt;\nName: Mike \nEmployee ID: 25 \nEmail: Mike_25@company.com"</span>
 <span class="va">mike</span>
