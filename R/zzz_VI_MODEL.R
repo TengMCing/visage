@@ -234,7 +234,7 @@ VI_MODEL$..str..
 #' attributes. It is not recommended to modify the formula
 #' of `y` after the instance has been built, which may create confusion.
 #' @param ... Formulas. Formulas with names.
-#' @return No return value, called for side effects.
+#' @return Return the object itself.
 #'
 #' @examples
 #'
@@ -261,7 +261,7 @@ VI_MODEL$set_formula
 #' this method to correctly set the parameter.
 #' @param prm_name List or Vector. Parameter character names.
 #' @param prm_val List or Vector. Parameter values.
-#' @return No return value, called for side effects.
+#' @return Return the object itself.
 #'
 #' @examples
 #'
@@ -711,7 +711,7 @@ CUBIC_MODEL$..init..
 #' corresponding value in `e` will be updated.
 #' @param prm_name List or Vector. Parameter character names.
 #' @param prm_val List or Vector. Parameter values.
-#' @return No return value, called for side effects.
+#' @return Return the object itself.
 #'
 #' @examples
 #'
@@ -1005,7 +1005,7 @@ SIMPLE_CUBIC_MODEL$..init..
 #' corresponding value in `e` will be updated.
 #' @param prm_name List or Vector. Parameter character names.
 #' @param prm_val List or Vector. Parameter values.
-#' @return No return value, called for side effects.
+#' @return Return the object itself.
 #'
 #' @examples
 #'
