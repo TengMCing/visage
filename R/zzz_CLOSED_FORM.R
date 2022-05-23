@@ -16,6 +16,7 @@
 #' \cr
 #' \cr
 #' New methods: [CLOSED_FORM$..init..], [CLOSED_FORM$..str..],
+#' [CLOSED_FORM$..len..],
 #' [CLOSED_FORM$compute], [CLOSED_FORM$gen], [CLOSED_FORM$ast],
 #' [CLOSED_FORM$as_dataframe]
 #' @export
@@ -157,6 +158,20 @@ CLOSED_FORM$expr
 #'
 #' cf2
 CLOSED_FORM$..init..
+
+#' Length of the object
+#'
+#' @name CLOSED_FORM$..len..
+#'
+#' @description This function recursively count symbols
+#' stored in the closed form expression and nested closed form expression.
+#' @return An integer.
+#'
+#' @examples
+#'
+#' test <- closed_form(~1+1)
+#' test$..len..()
+CLOSED_FORM$..len..
 
 #' String representation of the object
 #'
@@ -310,7 +325,7 @@ CLOSED_FORM$as_dataframe
 #' caution.
 #' @param sym_name Vector or List. A sequence of character symbol names.
 #' @param sym_val Vector or List. A sequence of symbol values.
-#' @return No return value, called for side effects.
+#' @return Return the object itself.
 #'
 #' @examples
 #'
@@ -342,7 +357,7 @@ CLOSED_FORM$set_sym
 #' please check [CLOSED_FORM$set_sym].
 #' @param expr Formula. Only the right hand side of the last `~` will be kept as
 #' the final expression.
-#' @return No return value, called for side effects.
+#' @return Return the object itself.
 #'
 #' @examples
 #'

@@ -9,8 +9,8 @@
 #' \cr
 #' \cr
 #' Methods: [BASE$..dict..], [BASE$..str..], [BASE$..len..],
-#' [BASE$has_attr], [BASE$get_attr], [BASE$set_attr], [BASE$..methods..],
-#' [BASE$..init..], [BASE$..new..], [BASE$instantiation]
+#' [BASE$has_attr], [BASE$get_attr], [BASE$set_attr], [BASE$del_attr],
+#' [BASE$..methods..], [BASE$..init..], [BASE$..new..], [BASE$instantiation]
 #' @export
 BASE <- class_BASE()
 
@@ -166,7 +166,7 @@ BASE$get_attr
 #' @description This function sets the value of an attribute or a method.
 #' @param attr_name Character. Attribute name.
 #' @param attr_val Any value.
-#' @return No return value, called for side effects.
+#' @return Return the object itself.
 #'
 #' @examples
 #'
@@ -174,6 +174,23 @@ BASE$get_attr
 #' test$set_attr("x", 1)
 #' test$x
 BASE$set_attr
+
+#' Delete an attribute
+#'
+#' @name BASE$del_attr
+#'
+#' @description This function delete an attribute.
+#' @param attr_name Character. Attribute name.
+#' @return Return the object itself.
+#'
+#' @examples
+#'
+#' test <- BASE$instantiation()
+#' test$set_attr("x", 1)
+#' test$x
+#' test$del_attr("x")
+#' test$x
+BASE$del_attr
 
 #' List all methods of a class or an instance
 #'
