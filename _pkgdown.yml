@@ -151,6 +151,18 @@ reference:
   - SIMPLE_CUBIC_MODEL$set_prm
   - SIMPLE_CUBIC_MODEL$E
   - SIMPLE_CUBIC_MODEL$effect_size
+- subtitle: "Visual inference quartic linear model class"
+  desc: >
+    Visual inference quartic linear model class
+  contents:
+  - QUARTIC_MODEL
+  - QUARTIC_MODEL$..init..
+  - QUARTIC_MODEL$formula
+  - QUARTIC_MODEL$null_formula
+  - QUARTIC_MODEL$alt_formula
+  - QUARTIC_MODEL$set_prm
+  - QUARTIC_MODEL$E
+  - QUARTIC_MODEL$effect_size
 - subtitle: "Visual inference heteroskedasticity linear model class"
   desc: >
     Visual inference heteroskedasticity linear model class
