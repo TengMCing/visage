@@ -12,6 +12,7 @@
 \alias{vi_model}
 \alias{cubic_model}
 \alias{simple_cubic_model}
+\alias{quartic_model}
 \alias{heter_model}
 \title{Portals to class instantiation methods}
 \usage{
@@ -34,6 +35,8 @@ vi_model(..., env = new.env(parent = parent.frame()))
 cubic_model(..., env = new.env(parent = parent.frame()))
 
 simple_cubic_model(..., env = new.env(parent = parent.frame()))
+
+quartic_model(..., env = new.env(parent = parent.frame()))
 
 heter_model(..., env = new.env(parent = parent.frame()))
 }
@@ -66,6 +69,8 @@ These functions are the same as \code{class$instantiation}.
 \item \code{cubic_model}: \link{CUBIC_MODEL}
 
 \item \code{simple_cubic_model}: \link{SIMPLE_CUBIC_MODEL}
+
+\item \code{quartic_model}: \link{QUARTIC_MODEL}
 
 \item \code{heter_model}: \link{HETER_MODEL}
 }}
