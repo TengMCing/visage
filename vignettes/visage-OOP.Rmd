@@ -77,7 +77,7 @@ In other words, data frame **inherits** from list in R.
 
 - In OOP, **Inheritance** is probably the most famous and widely-used relationship. A class can inherit both attributes and methods from its parent class.
 
-This gives us the ability to define family tree like class system. 
+This gives us the ability to define hierarchical class system. 
 
 ### Example
 
@@ -103,7 +103,7 @@ Therefore, initializer can only be run after the constructor. Conventionally, us
 
 ## `self`
 
-There is nothing special about `self`. It is just a conventional name used inside the body of method to refer to an object itself. 
+There is nothing special about `self`. It is just a conventional name used in Python inside the body of a method to refer to an object itself. 
 
 # `visage` OOP system
 
@@ -118,7 +118,7 @@ str(BASE)
 
 ## Define a new class
 
-To define a new class, we need to use the function `new_class()` with a class name passed to the `class_name` argument. The output shows that it is an unknown object. This is because the S3 method `print.visage_oop` can not find the `..str..()` method from the class. Similar to `__str__()` in Python, `..str..()` is responsible for providing a nicely printable string representation of an object. We will elaborate this behaviour in section ?.
+To define a new class, we need to use the function `new_class()` with a class name passed to the `class_name` argument. This new class will automatically inherit from `BASE` to provide some basic attributes and methods. If you would like to write your own base object classes, you need to set `empty_class = TRUE`.
 
 ```{r}
 new_class(class_name = "DEMO")
@@ -145,74 +145,186 @@ If an environment is provided via `env`, `new_class()` will adopt that environme
 
 ```{r}
 e <- new.env()
-print(e)
+e
 str(new_class(env = e, class_name = "DEMO"))
 ```
 
 
-## Define methods
+## Attributes and methods provided by `BASE`
 
-You may notice that the basic usage of `new_class()` only provides a class with very few attributes. Let's explore the structure of the `DEMO` class with `lobstr::tree`. According to the result, the class only contains three attributes, a character vector `..class..` representing the class list, a string `..type..` representing the type and a Boolean value `..instantiated..` representing the instantiated state.
+Let's explore the structure of the `DEMO` class with `lobstr::tree`. You may notice from the output that `DEMO` contains many attributes and methods. 
 
 ```{r}
 DEMO <- new_class(class_name = "DEMO")
 lobstr::tree(DEMO)
 ```
 
-It does not have any methods, nor any mechanism to run methods. To define some methods for this empty class, we need to use `register_method()`. 
+### Attributes
 
-Here, we tell the function we want to register a method called `myfunc` in the environment `DEMO`, and the method `myfunc` is a copy of the function `foo`. Then, the method can be called by `DEMO$myfunc()`.
-
-```{r}
-a <- "Hello, world!"
-
-foo <- function() {
-  a
-}
-
-register_method(DEMO, myfunc = foo)
-
-DEMO$myfunc()
-```
-
-It seems like `register_method` only makes a copy of the function `foo` and stores it in `DEMO`. But it does more than that. If we check the structure again we will see `DEMO` now contains another environment called `..method_env..`, which contains an environment `self` that is identical to `DEMO`. You may ask what is the point of having this complex structure.
+- `..type..` represents the current class name.
 
 ```{r}
-lobstr::tree(DEMO)
+DEMO$..type..
 ```
 
-Most R functions need to associate with a certain environment, such that values of variables can be determined. For example, the associated environment of `foo` is the global environment. So if `foo` can not find the variable `a` from the current scope, it can try to find it from the global scope.
+- `..class..` contains a character vector of class names, including the current class name and inherited class names.
 
 ```{r}
-environment(foo)
+DEMO$..class..
 ```
 
-The environment associated with the method `myfunc` is `..method_env..`. Using the same logic, when `myfunc` can not find a variable, it will try to find that variable in `..method_env..` first, then in the parent environment of `..method_env..`, etc. 
+- `..instantiated..` represents whether this environment is an instance or not.
 
 ```{r}
-print(DEMO$..method_env..)
-environment(DEMO$myfunc)
+DEMO$..instantiated..
 ```
 
-This enables us to define class method or instance method. Consider the following code chunk. We define a method `add_one` that needs to access a variable `self`. Since `self` can not be found in the current scope, the function will try to find it in `..method_env..`, where `self` is a reference to `DEMO`.
+These attributes should not be modified manually. The OOP system will manage their values.
+
+### Methods
+
+The `BASE` class provides some very useful methods. 
+
+- `..dict..()` returns all attribute and method names in the environment.
 
 ```{r}
-DEMO$inc <- 1
-
-add_1 <- function() {
-  self$inc <- self$inc + 1
-}
-
-register_method(DEMO, add_one = add_1)
+DEMO$..dict..()
 ```
 
-Therefore, when the method `add_one()` is called, `DEMO$inc` will increase by 1.
+- `..str..()` is called by the S3 method `print.visage_oop()` to give a nicely formatted string representation of the object. This is similar to Python's `__str__()` dunder method.
 
 ```{r}
-DEMO$add_one()
-print(DEMO$inc)
-
-DEMO$add_one()
-DEMO$inc
+DEMO$..str..()
 ```
+
+- `..methods..()` returns all method names in the environment
+
+```{r}
+DEMO$..methods..()
+```
+
+- `..len..()` returns the length of the object. This method is undefined in the `BASE` class, but will be useful in subclasses where "length" is meaningful. It is similar to `__len__` in Python.
+
+- `..init..()` is the initializer, which is also undefined in the `BASE` class. It is similar to `__init__` in Python.
+
+- `..new..()` is the constructor. It will try to build an instance from the class without running `..init..()`. This is different from Python as the default `__new__` method will invoke `__init__` before returning to the caller.
+
+- `..repr..()` is the "official" string representation of an object. It tries to catch the expression which builds the instance. 
+
+- `instantiation()` builds the instance and runs the initializer. This is equivalent to `__new__` in Python. 
+
+```{r}
+DEMO$instantiation()
+```
+
+Usually, we can bind this method to a function for convenience.
+
+```{r}
+demo_ <- DEMO$instantiation
+demo_()
+```
+
+## Define a method
+
+Method can be defined via `register_method()`. Both inline and pre-defined functions are accepted. The syntax is `register_method(object, method_name_1 = function_1, method_name_2 = function_2)`.
+
+```{r}
+myfunc <- function() 2
+register_method(DEMO, a = function() 1, b = myfunc)
+
+DEMO$a()
+DEMO$b()
+```
+
+#### Use `self` in methods
+
+In python, `self` needs to be passed as the first argument of method. In `visage`, `self` doesn't need to be passed and can be directly used inside the method body. 
+
+```{r}
+DEMO$x <- 1
+register_method(DEMO, x_plus_one = function() self$x + 1)
+
+DEMO$x_plus_one()
+```
+
+Note that, `self` points to the object itself.
+
+```{r}
+register_method(DEMO, str_self = function() str(self))
+str(DEMO)
+DEMO$str_self()
+```
+
+### Scope of variables
+
+Additionally, variables stored in the object will not expose to methods, but variables stored in the parent environment of the object will. This is similar to the Python LEGB rule.
+
+```{r}
+DEMO$x <- 1
+register_method(DEMO, try_x = function() x)
+try(DEMO$try_x())
+
+parent.env(DEMO)
+x <- 2
+DEMO$try_x()
+```
+
+
+
+<!-- It does not have any methods, nor any mechanism to run methods. To define some methods for this empty class, we need to use `register_method()`.  -->
+
+<!-- Here, we tell the function we want to register a method called `myfunc` in the environment `DEMO`, and the method `myfunc` is a copy of the function `foo`. Then, the method can be called by `DEMO$myfunc()`. -->
+
+<!-- ```{r} -->
+<!-- a <- "Hello, world!" -->
+
+<!-- foo <- function() { -->
+<!--   a -->
+<!-- } -->
+
+<!-- register_method(DEMO, myfunc = foo) -->
+
+<!-- DEMO$myfunc() -->
+<!-- ``` -->
+
+<!-- It seems like `register_method` only makes a copy of the function `foo` and stores it in `DEMO`. But it does more than that. If we check the structure again we will see `DEMO` now contains another environment called `..method_env..`, which contains an environment `self` that is identical to `DEMO`. You may ask what is the point of having this complex structure. -->
+
+<!-- ```{r} -->
+<!-- lobstr::tree(DEMO) -->
+<!-- ``` -->
+
+<!-- Most R functions need to associate with a certain environment, such that values of variables can be determined. For example, the associated environment of `foo` is the global environment. So if `foo` can not find the variable `a` from the current scope, it can try to find it from the global scope. -->
+
+<!-- ```{r} -->
+<!-- environment(foo) -->
+<!-- ``` -->
+
+<!-- The environment associated with the method `myfunc` is `..method_env..`. Using the same logic, when `myfunc` can not find a variable, it will try to find that variable in `..method_env..` first, then in the parent environment of `..method_env..`, etc.  -->
+
+<!-- ```{r} -->
+<!-- print(DEMO$..method_env..) -->
+<!-- environment(DEMO$myfunc) -->
+<!-- ``` -->
+
+<!-- This enables us to define class method or instance method. Consider the following code chunk. We define a method `add_one` that needs to access a variable `self`. Since `self` can not be found in the current scope, the function will try to find it in `..method_env..`, where `self` is a reference to `DEMO`. -->
+
+<!-- ```{r} -->
+<!-- DEMO$inc <- 1 -->
+
+<!-- add_1 <- function() { -->
+<!--   self$inc <- self$inc + 1 -->
+<!-- } -->
+
+<!-- register_method(DEMO, add_one = add_1) -->
+<!-- ``` -->
+
+<!-- Therefore, when the method `add_one()` is called, `DEMO$inc` will increase by 1. -->
+
+<!-- ```{r} -->
+<!-- DEMO$add_one() -->
+<!-- print(DEMO$inc) -->
+
+<!-- DEMO$add_one() -->
+<!-- DEMO$inc -->
+<!-- ``` -->
 
