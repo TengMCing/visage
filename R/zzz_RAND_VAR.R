@@ -324,6 +324,7 @@ RAND_UNIFORM_D <- class_RAND_UNIFORM_D()
 #' @param a Numeric. Lower bound. Default is 0.
 #' @param b Numeric. Upper bound. Default is 1.
 #' @param k Integer. Number of unique discrete values. Default is 5.
+#' @param even Boolean. Whether or not candidate values are evenly spaced.
 #' @return No return value, called for side effects.
 #'
 #' @examples
@@ -345,13 +346,15 @@ RAND_UNIFORM_D$..init..
 #' each realization.
 #' @param k Numeric. If it is provided and has length `n`, values will be used in
 #' each realization.
+#' @param even Boolean. If it is provided and has length `n`, values will be used in
+#' each realization.
 #' @return A vector of numeric values.
 #' @seealso [stats::runif()], [sample()]
 #'
 #' @examples
 #'
-#' test <- rand_uniform_d(a = 1, b = 2, k = 2)
+#' test <- rand_uniform_d(a = 1, b = 2, k = 2, even = TRUE)
 #' test$gen(10)
 #'
-#' test$gen(3, a = c(1,2,3), b = c(2,3,4), k = 1)
+#' test$gen(3, a = c(1,2,3), b = c(2,3,4), k = 1, even = c(TRUE, TRUE, FALSE))
 RAND_UNIFORM_D$gen
