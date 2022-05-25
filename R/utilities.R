@@ -191,6 +191,8 @@ closed_form_dependencies <- append(list("CLOSED_FORM", "closed_form"), base_depe
 
 vi_model_dependencies <- append(append(list("VI_MODEL", "vi_model",
                                      "CUBIC_MODEL", "cubic_model",
+                                     "SIMPLE_CUBIC_MODEL", "simple_cubic_model",
+                                     "QUARTIC_MODEL", "quartic_model",
                                      "HETER_MODEL", "heter_model"),
                                      closed_form_dependencies), rand_var_dependencies)
 
