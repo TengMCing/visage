@@ -14,6 +14,9 @@ each realization.}
 
 \item{k}{Numeric. If it is provided and has length \code{n}, values will be used in
 each realization.}
+
+\item{even}{Boolean. If it is provided and has length \code{n}, values will be used in
+each realization.}
 }
 \value{
 A vector of numeric values.
@@ -23,10 +26,10 @@ This function generates random values from the random variable.
 }
 \examples{
 
-test <- rand_uniform_d(a = 1, b = 2, k = 2)
+test <- rand_uniform_d(a = 1, b = 2, k = 2, even = TRUE)
 test$gen(10)
 
-test$gen(3, a = c(1,2,3), b = c(2,3,4), k = 1)
+test$gen(3, a = c(1,2,3), b = c(2,3,4), k = 1, even = c(TRUE, TRUE, FALSE))
 }
 \seealso{
 \code{\link[stats:Uniform]{stats::runif()}}, \code{\link[=sample]{sample()}}

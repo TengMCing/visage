@@ -9,6 +9,8 @@
 \item{b}{Numeric. Upper bound. Default is 1.}
 
 \item{k}{Integer. Number of unique discrete values. Default is 5.}
+
+\item{even}{Boolean. Whether or not candidate values are evenly spaced.}
 }
 \value{
 No return value, called for side effects.
