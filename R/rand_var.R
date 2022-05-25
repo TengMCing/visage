@@ -190,33 +190,47 @@ class_RAND_UNIFORM_D <- function(env = new.env(parent = parent.frame())) {
   # Inherit from RAND_VAR class
   new_class(RAND_VAR, env = env, class_name = "RAND_UNIFORM_D")
 
-  init_ <- function(a = 0, b = 1, k = 5) {
+  init_ <- function(a = 0, b = 1, k = 5, even = FALSE) {
 
     # Use the parent class `..init..` method
     visage::use_method(self, visage::RAND_VAR$..init..)(
       dist = "discrete uniform",
-      prm = list(a = a, b = b, k = k))
+      prm = list(a = a, b = b, k = k, even = even))
 
     return(invisible(NULL))
   }
 
-  gen_ <- function(n, a = NULL, b = NULL, k = NULL) {
+  gen_ <- function(n, a = NULL, b = NULL, k = NULL, even = NULL) {
 
     if (is.null(a)) a <- self$prm$a
     if (is.null(b)) b <- self$prm$b
     if (is.null(k)) k <- self$prm$k
+    if (is.null(even)) even <- self$prm$even
 
     if (length(a) == 1 & length(b) == 1 & length(k) == 1) {
-      cand <- stats::runif(k, a, b)
+
+      # If uneven, then random sample points between a and b.
+      if (!even) {
+        cand <- stats::runif(k, a, b)
+      } else {
+        cand <- seq(a, b, length.out = k)
+      }
+
       return(sample(cand, n, replace = TRUE))
     }
 
     if (length(a) == 1) a <- rep(a, n)
     if (length(b) == 1) b <- rep(b, n)
     if (length(k) == 1) k <- rep(k, n)
+    if (length(even) == 1) even <- rep(even, n)
 
     unlist(lapply(1:n, function(i) {
-      cand <- stats::runif(k[i], a[i], b[i])
+      if (!even[i]) {
+        cand <- stats::runif(k[i], a[i], b[i])
+      } else {
+        cand <- seq(a[i], b[i], length.out = k[i])
+      }
+
       sample(cand, 1, replace = TRUE)
       }))
   }
