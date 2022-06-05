@@ -79,7 +79,8 @@
 </h1></div>
 <!-- badges: start -->
 <!-- badges: end -->
-<p>The goal of visage is to provide an lightweight OOP system and a set of tools for running visual inference experiments.</p>
+<p>The goal of visage is to provide an lightweight OOP system and a set
+of tools for running visual inference experiments.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -94,14 +95,20 @@
 <h2 id="table-of-content">Table of Content<a class="anchor" aria-label="anchor" href="#table-of-content"></a>
 </h2>
 <ol style="list-style-type: decimal">
-<li><a href="#1-visual-inference-cubic-linear-model-class-cubic_model">Visual inference cubic linear model class <code>CUBIC_MODEL</code></a></li>
-<li><a href="#2-visual-inference-heteroskedasticity-linear-model-class-heter_model">Visual inference heteroskedasticity linear model class <code>HETER_MODEL</code></a></li>
-<li><a href="#3-closed-form-expression-closed_form">Closed form expression <code>CLOSED_FORM</code></a></li>
-<li><a href="#4-visage-oop-system"><code>visage</code> OOP system</a></li>
+<li><a href="#1-visual-inference-cubic-linear-model-class-cubic_model">Visual
+inference cubic linear model class <code>CUBIC_MODEL</code></a></li>
+<li><a href="#2-visual-inference-heteroskedasticity-linear-model-class-heter_model">Visual
+inference heteroskedasticity linear model class
+<code>HETER_MODEL</code></a></li>
+<li><a href="#3-closed-form-expression-closed_form">Closed form
+expression <code>CLOSED_FORM</code></a></li>
+<li><a href="#4-visage-oop-system"><code>visage</code> OOP
+system</a></li>
 </ol>
 </div>
 <div class="section level2">
-<h2 id="1-visual-inference-cubic-linear-model-class-cubic_model">1. Visual inference cubic linear model class <code>CUBIC_MODEL</code>
+<h2 id="1-visual-inference-cubic-linear-model-class-cubic_model">1. Visual inference cubic linear model class
+<code>CUBIC_MODEL</code>
 <a class="anchor" aria-label="anchor" href="#1-visual-inference-cubic-linear-model-class-cubic_model"></a>
 </h2>
 <p><strong>1.1. Define a model</strong></p>
@@ -110,8 +117,20 @@
 <code class="sourceCode R"><span class="va">CUBIC_MODEL</span><span class="op">$</span><span class="va">formula</span>
 <span class="co">#&gt; y ~ 1 + (2 - c) * x + c * z + a * (((2 - c) * x)^2 + (c * z)^2) + </span>
 <span class="co">#&gt;     b * (((2 - c) * x)^3 + (c * z)^3) + e</span></code></pre></div>
-<p>where <code>x</code> and <code>z</code> are random variables, <code>a</code>, <code>b</code> and <code>c</code> are parameters and <code>e</code> is the random error term.</p>
-<p><code><a href="reference/portal.html">cubic_model()</a></code> is a cubic model class constructor, which takes arguments <code>a</code>, <code>b</code>, <code>c</code>, <code>sigma</code>, <code>x</code> and <code>z</code>, where the first four are numeric values defined above, and <code>x</code> and <code>z</code> are random variable instances created by the random variable abstract base class constructor <code><a href="reference/portal.html">rand_var()</a></code>. If we would like <code>x</code> and <code>z</code> to be uniform random variables ranged from −1 to 1, it can be achieved by using the uniform random variable class constructor <code><a href="reference/portal.html">rand_uniform()</a></code>. It only takes two arguments which are the lower bound and the upper bound of the support.</p>
+<p>where <code>x</code> and <code>z</code> are random variables,
+<code>a</code>, <code>b</code> and <code>c</code> are parameters and
+<code>e</code> is the random error term.</p>
+<p><code><a href="reference/portal.html">cubic_model()</a></code> is a cubic model class constructor, which
+takes arguments <code>a</code>, <code>b</code>, <code>c</code>,
+<code>sigma</code>, <code>x</code> and <code>z</code>, where the first
+four are numeric values defined above, and <code>x</code> and
+<code>z</code> are random variable instances created by the random
+variable abstract base class constructor <code><a href="reference/portal.html">rand_var()</a></code>. If we
+would like <code>x</code> and <code>z</code> to be uniform random
+variables ranged from −1 to 1, it can be achieved by using the uniform
+random variable class constructor <code><a href="reference/portal.html">rand_uniform()</a></code>. It only
+takes two arguments which are the lower bound and the upper bound of the
+support.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/portal.html">cubic_model</a></span><span class="op">(</span>a <span class="op">=</span> <span class="op">-</span><span class="fl">3</span>, b <span class="op">=</span> <span class="op">-</span><span class="fl">3</span>, c <span class="op">=</span> <span class="fl">1</span>, sigma <span class="op">=</span> <span class="fl">1</span>,
                    x <span class="op">=</span> <span class="fu"><a href="reference/portal.html">rand_uniform</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, z <span class="op">=</span> <span class="fu"><a href="reference/portal.html">rand_uniform</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
@@ -130,7 +149,14 @@
 <span class="co">#&gt;  - c: 1</span>
 <span class="co">#&gt;  - sigma: 1</span></code></pre></div>
 <p><strong>1.2. Generate random values from the model</strong></p>
-<p>An instance of cubic model class contains methods of simulating data and making residual plot. Method <code>gen()</code> returns a data frame containing realizations of <code>x</code>, <code>z</code>, <code>y</code> and <code>e</code> simulated from the model. The number of realizations depends on the integer argument <code>n</code>. In addition, a null model will be fitted using the simulated data and residuals and fitted values will be included in the returned data frame.</p>
+<p>An instance of cubic model class contains methods of simulating data
+and making residual plot. Method <code>gen()</code> returns a data frame
+containing realizations of <code>x</code>, <code>z</code>,
+<code>y</code> and <code>e</code> simulated from the model. The number
+of realizations depends on the integer argument <code>n</code>. In
+addition, a null model will be fitted using the simulated data and
+residuals and fitted values will be included in the returned data
+frame.</p>
 <p>The null model is defined as:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">CUBIC_MODEL</span><span class="op">$</span><span class="va">null_formula</span>
@@ -145,12 +171,21 @@
 <span class="co">#&gt; 4  0.5329768  0.03321616  0.5249864  0.2391021 -0.05085478  0.5838316</span>
 <span class="co">#&gt; 5  0.8118476  0.16482118  0.2843898 -0.2307978  0.26641152  0.5454361</span></code></pre></div>
 <p><strong>1.3. Make a residual plot</strong></p>
-<p>Method <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> produce a <code>ggplot</code> object. It takes a data frame containing columns <code>.resid</code> and <code>.fitted</code> as input, along with a character argument type indicating the type of the data plot, and other aesthetic arguments such as size and alpha to control the appearance of the plot.</p>
+<p>Method <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> produce a <code>ggplot</code> object. It
+takes a data frame containing columns <code>.resid</code> and
+<code>.fitted</code> as input, along with a character argument type
+indicating the type of the data plot, and other aesthetic arguments such
+as size and alpha to control the appearance of the plot.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="fu">plot</span><span class="op">(</span><span class="va">mod</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"resid"</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-7-1.png" width="100%"></p>
 <p><strong>1.4. Make a lineup</strong></p>
-<p>A lineup is a matrix of residual plots which can be produced by using the methods <code>gen_lineup()</code> and <code>plot_lineup()</code>. Method <code>gen_lineup()</code> takes the number of realizations <code>n</code> and the number of plots in a lineup <code>k</code> as inputs. Other than that, the method <code>plot_lineup()</code> has the same user interface as <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>.</p>
+<p>A lineup is a matrix of residual plots which can be produced by using
+the methods <code>gen_lineup()</code> and <code>plot_lineup()</code>.
+Method <code>gen_lineup()</code> takes the number of realizations
+<code>n</code> and the number of plots in a lineup <code>k</code> as
+inputs. Other than that, the method <code>plot_lineup()</code> has the
+same user interface as <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>.</p>
 <p>Generate a lineup consists of 2 plots and 8 realizations:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="fu">gen_lineup</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">8</span>, k <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
@@ -194,15 +229,23 @@
 <p><img src="reference/figures/README-unnamed-chunk-9-1.png" width="100%"></p>
 </div>
 <div class="section level2">
-<h2 id="2-visual-inference-heteroskedasticity-linear-model-class-heter_model">2. Visual inference heteroskedasticity linear model class <code>HETER_MODEL</code>
+<h2 id="2-visual-inference-heteroskedasticity-linear-model-class-heter_model">2. Visual inference heteroskedasticity linear model class
+<code>HETER_MODEL</code>
 <a class="anchor" aria-label="anchor" href="#2-visual-inference-heteroskedasticity-linear-model-class-heter_model"></a>
 </h2>
 <p>A visual inference heteroskedasticity linear model is defined as:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">HETER_MODEL</span><span class="op">$</span><span class="va">formula</span>
 <span class="co">#&gt; y ~ 1 + x + sqrt(1 + (2 - abs(a)) * (x - a)^2 * b) * e</span></code></pre></div>
-<p>where <code>x</code> is random variables, <code>a</code>, <code>b</code> are parameters and <code>e</code> is the random error term.</p>
-<p>Similar to the cubic model, the heteroskedasticity model could be built by the heteroskedasticity model class constructor <code><a href="reference/portal.html">heter_model()</a></code>. This function takes three arguments as inputs, which are <code>a</code>, <code>b</code> and <code>x</code>. <code>a</code> and <code>b</code> are numeric parameters defined above. <code>x</code> needs to be a random variable object.</p>
+<p>where <code>x</code> is random variables, <code>a</code>,
+<code>b</code> are parameters and <code>e</code> is the random error
+term.</p>
+<p>Similar to the cubic model, the heteroskedasticity model could be
+built by the heteroskedasticity model class constructor
+<code><a href="reference/portal.html">heter_model()</a></code>. This function takes three arguments as
+inputs, which are <code>a</code>, <code>b</code> and <code>x</code>.
+<code>a</code> and <code>b</code> are numeric parameters defined above.
+<code>x</code> needs to be a random variable object.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/portal.html">heter_model</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">0</span>, b <span class="op">=</span> <span class="fl">16</span>, x <span class="op">=</span> <span class="fu"><a href="reference/portal.html">rand_uniform</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 
@@ -216,7 +259,12 @@
 <span class="co">#&gt;    [mu: 0, sigma: 1]</span>
 <span class="co">#&gt;  - a: 0</span>
 <span class="co">#&gt;  - b: 16</span></code></pre></div>
-<p>Since both the cubic model class <code>CUBIC_MODEL</code> and the heteroskedasticity model class <code>HETER_MODEL</code> are inherited from the visual inference model class <code>VI_MODEL</code>, heteroskedasticity model object can be used in a similar way as cubic model object. The following codes give examples of the use of the object.</p>
+<p>Since both the cubic model class <code>CUBIC_MODEL</code> and the
+heteroskedasticity model class <code>HETER_MODEL</code> are inherited
+from the visual inference model class <code>VI_MODEL</code>,
+heteroskedasticity model object can be used in a similar way as cubic
+model object. The following codes give examples of the use of the
+object.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt;            y           x          e    .resid    .fitted</span>
@@ -236,9 +284,18 @@
 <h2 id="3-closed-form-expression-closed_form">3. Closed form expression <code>CLOSED_FORM</code>
 <a class="anchor" aria-label="anchor" href="#3-closed-form-expression-closed_form"></a>
 </h2>
-<p><strong>3.1. Define and evaluate a closed form expression</strong></p>
-<p>“Closed form expression” is defined as a special type of <code>R</code> expression that can replace random variables in the expression with their realizations before evaluation. This may sound confusing, so let’s look at some examples.</p>
-<p><code><a href="reference/portal.html">closed_form()</a></code> is the closed form expression constructor, which takes only one arguments <code>expr</code> required to be a formula. Considering the simplest case first, where the expression contains zero random variables, such as <code>1 + 3</code>. It can be evaluated using the method <code>compute()</code> directly as a typical <code>R</code> expression.</p>
+<p><strong>3.1. Define and evaluate a closed form
+expression</strong></p>
+<p>“Closed form expression” is defined as a special type of
+<code>R</code> expression that can replace random variables in the
+expression with their realizations before evaluation. This may sound
+confusing, so let’s look at some examples.</p>
+<p><code><a href="reference/portal.html">closed_form()</a></code> is the closed form expression constructor,
+which takes only one arguments <code>expr</code> required to be a
+formula. Considering the simplest case first, where the expression
+contains zero random variables, such as <code>1 + 3</code>. It can be
+evaluated using the method <code>compute()</code> directly as a typical
+<code>R</code> expression.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cf</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/portal.html">closed_form</a></span><span class="op">(</span><span class="op">~</span><span class="fl">1</span> <span class="op">+</span> <span class="fl">3</span><span class="op">)</span>
 <span class="va">cf</span>
@@ -247,11 +304,19 @@
 <span class="co">#&gt; EXPR = 1 + 3</span>
 <span class="va">cf</span><span class="op">$</span><span class="fu">compute</span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; [1] 4</span></code></pre></div>
-<p>However, if the closed form expression contains any random variables, it can not be evaluated directly since the values of random variables are unknown. In the following example, <code>x</code> is a uniform random variable ranged from -1 to 1, and <code>x + 1</code> is an expression that can not be evaluated by method <code>compute()</code>.</p>
+<p>However, if the closed form expression contains any random variables,
+it can not be evaluated directly since the values of random variables
+are unknown. In the following example, <code>x</code> is a uniform
+random variable ranged from -1 to 1, and <code>x + 1</code> is an
+expression that can not be evaluated by method
+<code>compute()</code>.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/portal.html">rand_uniform</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>
 <span class="va">cf</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/portal.html">closed_form</a></span><span class="op">(</span><span class="op">~</span><span class="fl">1</span> <span class="op">+</span> <span class="va">x</span><span class="op">)</span></code></pre></div>
-<p>In this case, the <code>gen()</code> method will try to generate <code>n</code> realizations from random variables, then evaluate the expression. In addition, if <code>rhs_val = TRUE</code>, realizations generated from random variables will be returned.</p>
+<p>In this case, the <code>gen()</code> method will try to generate
+<code>n</code> realizations from random variables, then evaluate the
+expression. In addition, if <code>rhs_val = TRUE</code>, realizations
+generated from random variables will be returned.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cf</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, rhs_val <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; $lhs</span>
@@ -261,9 +326,12 @@
 <span class="co">#&gt; $rhs$x</span>
 <span class="co">#&gt; [1] -0.02192433  0.88400405  0.12784547 -0.14912984 -0.07695142</span></code></pre></div>
 <p><strong>3.2. Nested closed form expression</strong></p>
-<p>Nested closed form expression is useful when a hierarchical structure present in the expression.</p>
+<p>Nested closed form expression is useful when a hierarchical structure
+present in the expression.</p>
 <p>Consider the following statistical model:</p>
-<p><code>y = x + e</code>, where <code>x</code> is a uniform random variable ranged from -1 to 1, and <code>e = 1 + x^2 * z</code>, where <code>z</code> is a standard normal random variable.</p>
+<p><code>y = x + e</code>, where <code>x</code> is a uniform random
+variable ranged from -1 to 1, and <code>e = 1 + x^2 * z</code>, where
+<code>z</code> is a standard normal random variable.</p>
 <p>We can define this model using the following code:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/portal.html">rand_normal</a></span><span class="op">(</span>mu <span class="op">=</span> <span class="fl">0</span>, sigma <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
@@ -283,7 +351,11 @@
 <span class="co">#&gt;       [a: -1, b: 1]</span>
 <span class="co">#&gt;     - z: &lt;RAND_NORMAL object&gt;</span>
 <span class="co">#&gt;       [mu: 0, sigma: 1]</span></code></pre></div>
-<p>Note that <code>y</code> depends on <code>e</code> and <code>e</code> itself is a closed form expression. Both <code>y</code> and <code>e</code> depend on <code>x</code>. The method <code>gen()</code> will return values of <code>x</code>, <code>z</code> and <code>e</code> if <code>rhs_val = TRUE</code>.</p>
+<p>Note that <code>y</code> depends on <code>e</code> and <code>e</code>
+itself is a closed form expression. Both <code>y</code> and
+<code>e</code> depend on <code>x</code>. The method <code>gen()</code>
+will return values of <code>x</code>, <code>z</code> and <code>e</code>
+if <code>rhs_val = TRUE</code>.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">y</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, rhs_val <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; $lhs</span>
@@ -298,8 +370,12 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $rhs$e</span>
 <span class="co">#&gt; [1] 0.9942665 0.5792964 0.9968780 1.2974893 1.0756036</span></code></pre></div>
-<p><strong>3.3. Turn <code>gen()</code> result into dataframe via method <code>as_dataframe()</code></strong></p>
-<p>Results of <code>gen()</code> is either a vector or a list, which can be converted into a dataframe via method <code>as_dataframe()</code>. The <code>lhs</code> argument is for naming the left hand side result of the closed form expression.</p>
+<p><strong>3.3. Turn <code>gen()</code> result into dataframe via method
+<code>as_dataframe()</code></strong></p>
+<p>Results of <code>gen()</code> is either a vector or a list, which can
+be converted into a dataframe via method <code>as_dataframe()</code>.
+The <code>lhs</code> argument is for naming the left hand side result of
+the closed form expression.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">y</span><span class="op">$</span><span class="fu">as_dataframe</span><span class="op">(</span><span class="va">y</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, rhs_val <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, lhs <span class="op">=</span> <span class="st">"y"</span><span class="op">)</span>
 <span class="co">#&gt;            y           x          z         e</span>
@@ -308,14 +384,30 @@
 <span class="co">#&gt; 3  1.0869776 -0.99510024  1.0927601 2.0820778</span>
 <span class="co">#&gt; 4  0.3549894 -0.74064549  0.1743394 1.0956349</span>
 <span class="co">#&gt; 5  1.0867490  0.08777789 -0.1335390 0.9989711</span></code></pre></div>
-<p><strong>3.4. Current limitiation of <code>CLOSED_FORM</code></strong></p>
-<p>For <code><a href="reference/portal.html">closed_form()</a></code>, any simple expressions can be provided, as long as all the symbols exist in the current environment. Note that this function tries to evaluate <strong>ALL</strong> the atomic symbols in the expression during initialization, and store the values in the object. Hence, calls like <code>a$b</code> will also be decomposed as <code>$</code>, <code>a</code> and <code>b</code>, where <code>b</code> will be interpreted as a variable <code>b</code> exists in the current environment. Therefore, use <code>~a[["b"]]</code> instead of <code>~a$b</code>. And pre-define function like <code>myfun = function() 1</code>, then use it in the expression <code>~myfun()</code>.</p>
+<p><strong>3.4. Current limitiation of
+<code>CLOSED_FORM</code></strong></p>
+<p>For <code><a href="reference/portal.html">closed_form()</a></code>, any simple expressions can be
+provided, as long as all the symbols exist in the current environment.
+Note that this function tries to evaluate <strong>ALL</strong> the
+atomic symbols in the expression during initialization, and store the
+values in the object. Hence, calls like <code>a$b</code> will also be
+decomposed as <code>$</code>, <code>a</code> and <code>b</code>, where
+<code>b</code> will be interpreted as a variable <code>b</code> exists
+in the current environment. Therefore, use <code>~a[["b"]]</code>
+instead of <code>~a$b</code>. And pre-define function like
+<code>myfun = function() 1</code>, then use it in the expression
+<code>~myfun()</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="4-visage-oop-system">4. <code>visage</code> OOP system<a class="anchor" aria-label="anchor" href="#4-visage-oop-system"></a>
 </h2>
 <p><strong>4.1. Define a new class</strong></p>
-<p>A class can be defined with the <code>new_class</code> function. All positional arguments are for specifying parent classes, <code>BASE</code> is the base object class provided by the package, you don’t need to manually specify it. But if you would like to have advanced behaviour, you can try to implement your own <code>object</code> class.</p>
+<p>A class can be defined with the <code>new_class</code> function. All
+positional arguments are for specifying parent classes,
+<code>BASE</code> is the base object class provided by the package, you
+don’t need to manually specify it. But if you would like to have
+advanced behaviour, you can try to implement your own
+<code>object</code> class.</p>
 <p>Class name is mandatory and should be unique.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># You don't actually need to specify BASE here. This is only for demonstration.</span>
@@ -323,12 +415,14 @@
 <span class="va">DEMO</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── &lt;DEMO class&gt;</span></code></pre></div>
-<p>The object is an environment containing some useful attributes and methods.</p>
+<p>The object is an environment containing some useful attributes and
+methods.</p>
 <ul>
 <li>
 <code>OBJECT$..type..</code> gives the current class name.</li>
 <li>
-<code>OBJECT$..class..</code> gives the current class name and parent class names.</li>
+<code>OBJECT$..class..</code> gives the current class name and
+parent class names.</li>
 </ul>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">DEMO</span><span class="op">$</span><span class="va">..type..</span>
@@ -337,9 +431,11 @@
 <span class="co">#&gt; [1] "DEMO" "BASE"</span></code></pre></div>
 <ul>
 <li>
-<code>OBJECT$..dict..()</code> returns all names of attribute and method of the object.</li>
+<code>OBJECT$..dict..()</code> returns all names of attribute and
+method of the object.</li>
 <li>
-<code>OBJECT$..methods..()</code> returns all names of method of the object</li>
+<code>OBJECT$..methods..()</code> returns all names of method of the
+object</li>
 </ul>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">DEMO</span><span class="op">$</span><span class="fu">..dict..</span><span class="op">(</span><span class="op">)</span>
@@ -353,14 +449,22 @@
 <span class="co">#&gt;  [9] "get_attr"      "..methods.."   "..init.."</span></code></pre></div>
 <ul>
 <li>
-<code>OBJECT$..str..()</code> returns a string representation of the object, which will be used by the S3 <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> method. This method usually needs to be overridden in subclass to give short summary of the object.</li>
+<code>OBJECT$..str..()</code> returns a string representation of the
+object, which will be used by the S3 <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> method. This
+method usually needs to be overridden in subclass to give short summary
+of the object.</li>
 </ul>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">DEMO</span><span class="op">$</span><span class="fu">..str..</span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; [1] "&lt;DEMO class&gt;"</span></code></pre></div>
 <p><strong>4.2. Register a method for the class</strong></p>
-<p>Methods can be registered by using <code><a href="reference/register_method.html">register_method()</a></code>. The first argument is the object you want to bind the function to, the rest of the positional arguments are for specifying method names and functions. The syntax is <code>method_name = function</code>.</p>
-<p>You can choose to write inline function or pass pre-defined function. The associative environment of the function doesn’t matter, it will be modified by the <code><a href="reference/register_method.html">register_method()</a></code> function.</p>
+<p>Methods can be registered by using <code><a href="reference/register_method.html">register_method()</a></code>.
+The first argument is the object you want to bind the function to, the
+rest of the positional arguments are for specifying method names and
+functions. The syntax is <code>method_name = function</code>.</p>
+<p>You can choose to write inline function or pass pre-defined function.
+The associative environment of the function doesn’t matter, it will be
+modified by the <code><a href="reference/register_method.html">register_method()</a></code> function.</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pre_defined_fn</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span>
 
@@ -370,7 +474,8 @@
 <span class="co">#&gt; [1] 2</span>
 <span class="va">DEMO</span><span class="op">$</span><span class="fu">pre_defined_fn</span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; [1] 3</span></code></pre></div>
-<p>For method that needs to access the object itself, just simply use <code>self</code> in your method. It is an reference to the object.</p>
+<p>For method that needs to access the object itself, just simply use
+<code>self</code> in your method. It is an reference to the object.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">DEMO</span><span class="op">$</span><span class="va">val</span> <span class="op">&lt;-</span> <span class="fl">5</span>
 
@@ -379,7 +484,9 @@
 <span class="va">DEMO</span><span class="op">$</span><span class="fu">get_val</span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; [1] 5</span></code></pre></div>
 <p><strong>4.3. Override the <code>..init..()</code> method</strong></p>
-<p><code>..init..()</code> method is for instance initialization. To override the <code>..init..()</code> method, you need to use the <code><a href="reference/register_method.html">register_method()</a></code> to register it again.</p>
+<p><code>..init..()</code> method is for instance initialization. To
+override the <code>..init..()</code> method, you need to use the
+<code><a href="reference/register_method.html">register_method()</a></code> to register it again.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">init</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">first_name</span>, <span class="va">employee_id</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">self</span><span class="op">$</span><span class="va">first_name</span> <span class="op">&lt;-</span> <span class="va">first_name</span>
@@ -387,23 +494,34 @@
 <span class="op">}</span>
 
 <span class="fu"><a href="reference/register_method.html">register_method</a></span><span class="op">(</span><span class="va">DEMO</span>, ..init.. <span class="op">=</span> <span class="va">init</span><span class="op">)</span></code></pre></div>
-<p>Now the class requires two two arguments <code>first_name</code> and <code>employee_id</code> to initialize the instance.</p>
+<p>Now the class requires two two arguments <code>first_name</code> and
+<code>employee_id</code> to initialize the instance.</p>
 <p><strong>4.4. Build an instance</strong></p>
-<p>To new and initialize an instance, you need to use the <code>instantiation()</code> method. The output will show it is an object.</p>
+<p>To new and initialize an instance, you need to use the
+<code>instantiation()</code> method. The output will show it is an
+object.</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mike</span> <span class="op">&lt;-</span> <span class="va">DEMO</span><span class="op">$</span><span class="fu">instantiation</span><span class="op">(</span><span class="st">"Mike"</span>, <span class="fl">25</span><span class="op">)</span>
 <span class="va">mike</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── &lt;DEMO object&gt;</span></code></pre></div>
-<p><code>first_name</code> and <code>employee_id</code> are stored in the object because of the <code>..init..()</code> method.</p>
+<p><code>first_name</code> and <code>employee_id</code> are stored in
+the object because of the <code>..init..()</code> method.</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mike</span><span class="op">$</span><span class="va">first_name</span>
 <span class="co">#&gt; [1] "Mike"</span>
 <span class="va">mike</span><span class="op">$</span><span class="va">employee_id</span>
 <span class="co">#&gt; [1] 25</span></code></pre></div>
 <p><strong>4.5. A complete workflow</strong></p>
-<p>It is recommend to write your class definition in a function to make debugging easier. The following example new a class <code>DEMO_2</code>, defines its own <code>..init..()</code> method, defines a <code>get_email()</code> function for retrieving the email address, defines its own <code>..str..()</code> method such that when we print the object, it will provide us with a nicely formatted summary.</p>
-<p><code>use_method</code> is used to run methods from other classes, which in this case, the <code>..str..()</code> method from the <code>BASE</code> class.</p>
+<p>It is recommend to write your class definition in a function to make
+debugging easier. The following example new a class <code>DEMO_2</code>,
+defines its own <code>..init..()</code> method, defines a
+<code>get_email()</code> function for retrieving the email address,
+defines its own <code>..str..()</code> method such that when we print
+the object, it will provide us with a nicely formatted summary.</p>
+<p><code>use_method</code> is used to run methods from other classes,
+which in this case, the <code>..str..()</code> method from the
+<code>BASE</code> class.</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">class_DEMO_2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">env</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span>parent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   
@@ -496,7 +614,8 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.1.</p>
 </div>
 
       </footer>
