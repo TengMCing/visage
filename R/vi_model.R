@@ -663,3 +663,104 @@ class_QUARTIC_MODEL <- function(env = new.env(parent = parent.frame())) {
 
   return(env)
 }
+
+
+# POLY_MODEL --------------------------------------------------------------
+
+class_POLY_MODEL <- function(env = new.env(parent = parent.frame())) {
+
+  # Pass CMD check
+  self <- NULL
+
+  new_class(VI_MODEL, env = env, class_name = "POLY_MODEL")
+
+  # Run the `set_formula` method for the class
+  env$set_formula(formula = y ~ 1 + x + z + e,
+                  z_formula = z ~ (raw_z - min(raw_z))/max(raw_z - min(raw_z)) * 2 - 1,
+                  raw_z_formula = raw_z ~ poly(x, 6)[1:length(x), a],
+                  null_formula = y ~ x,
+                  alt_formula = y ~ x + z)
+
+  # init --------------------------------------------------------------------
+
+  init_ <- function(a = 2, sigma = 1,
+                    x = visage::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
+                    e = visage::rand_normal(0, sigma, env = new.env(parent = parent.env(self)))) {
+
+    raw_z <- visage::closed_form(eval(self$raw_z_formula), env = new.env(parent = parent.env(self)))
+    z <- visage::closed_form(eval(self$z_formula), env = new.env(parent = parent.env(self)))
+
+    # Use the init method from the VI_MODEL class
+    visage::use_method(self, visage::VI_MODEL$..init..)(
+      prm = list(a = a, sigma = sigma, x = x, raw_z = raw_z, z = z, e = e),
+      prm_type = list(a = "o", sigma = "o", x = "r", raw_z = "r", z = "r", e = "r"),
+      formula = self$formula,
+      null_formula = self$null_formula,
+      alt_formula = self$alt_formula
+    )
+  }
+
+
+  # set_prm -----------------------------------------------------------------
+
+  set_prm_ <- function(prm_name, prm_value) {
+
+    for (i in 1:length(prm_name)) {
+      pname <- prm_name[[i]]
+      pval <- prm_value[[i]]
+
+      if (pname == "a") {
+        self$prm[[pname]] <- pval
+        self$prm$raw_z$set_sym(pname, list(pval))
+        next
+      }
+
+      if (pname == "raw_z") {
+        self$prm[[pname]] <- pval
+        self$prm$z$set_sym(pname, list(pval))
+        next
+      }
+
+      # Reuse the CUBIC_MODEL$set_prm method
+      visage::use_method(self, visage::CUBIC_MODEL$set_prm)(prm_name, prm_value)
+    }
+
+    return(self)
+  }
+
+  # E -----------------------------------------------------------------------
+
+  E_ <- function(dat) {
+    Xa <- as.matrix(data.frame(1, dat$x))
+    Ra <- diag(nrow(dat)) - Xa %*% solve(t(Xa) %*% Xa) %*% t(Xa)
+    Xb <- as.matrix(data.frame(dat$z))
+    beta_b <- matrix(1)
+
+    c(Ra %*% Xb %*% beta_b)
+  }
+
+
+  # effect_size -------------------------------------------------------------
+
+  effect_size_ <- function(dat,
+                           sigma = self$prm$sigma) {
+
+    Xa <- as.matrix(data.frame(1, dat$x))
+    Ra <- diag(nrow(dat)) - Xa %*% solve(t(Xa) %*% Xa) %*% t(Xa)
+    Xb <- as.matrix(data.frame(dat$z))
+    beta_b <- matrix(1)
+
+    (1/nrow(dat)) * (1/sigma^2) * sum((diag(sqrt(diag(Ra))) %*% Xb %*% beta_b)^2)
+  }
+
+  # register_method ---------------------------------------------------------
+
+  register_method(env,
+                  ..init.. = init_,
+                  E = E_,
+                  effect_size = effect_size_,
+                  set_prm = set_prm_)
+
+  return(env)
+}
+
