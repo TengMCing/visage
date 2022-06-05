@@ -120,82 +120,82 @@ defined in <a href="CUBIC_MODEL-cash-alt_formula.html">CUBIC_MODEL$alt_formula</
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Generate data</span></span>
 <span class="r-in"><span class="va">test</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            y         x           z          e     .resid   .fitted</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  169.27995 0.7010472 0.074938298 -0.9051338   24.53950 144.74044</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  319.39391 0.0150410 0.909558394  1.4692016   43.88563 275.50828</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  226.52089 0.7681874 0.259165693 -1.1069959  -23.69745 250.21834</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  516.95485 0.7300255 0.924242852  1.1543710  -15.70880 532.66364</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  527.33997 0.9565714 0.699256632  0.4466392   15.33758 512.00239</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  641.41518 0.8496894 0.968349301  2.3679720   47.18743 594.22775</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  609.87677 0.8812914 0.907902151  0.3258090   31.45806 578.41871</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  398.47483 0.4802415 0.920332005  2.4876082  -44.89241 443.36724</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9   79.45467 0.5118102 0.002469825 -1.2644793   33.28108  46.17359</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 221.37924 0.5939081 0.582105732 -0.4579769 -111.39063 332.76987</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             y          x         z          e     .resid   .fitted</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   79.115594 0.03248398 0.5108763 -1.5117582  23.350726  55.76487</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  177.377229 0.38499692 0.6412913 -0.7043470 -30.456402 207.83363</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  140.149486 0.16841475 0.6329064  0.9012625   8.201079 131.94841</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  339.892429 0.63975176 0.7607021 -0.5045621  16.007776 323.88465</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   14.221353 0.14601081 0.1743222  0.8775086   2.061799  12.15955</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    4.678349 0.11733318 0.0194823  0.3876607  40.162818 -35.48447</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   25.128360 0.29171582 0.1044962 -0.6644704 -19.626593  44.75495</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   65.328726 0.33431586 0.3571195 -0.8050989 -55.730375 121.05910</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  103.355001 0.16629250 0.5544691 -0.3960580  -8.687323 112.04232</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 379.111893 0.81455755 0.6417864  0.6152864  24.716495 354.39540</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Generate lineup</span></span>
 <span class="r-in"><span class="va">test</span><span class="op">$</span><span class="fu">gen_lineup</span><span class="op">(</span><span class="fl">10</span>, k <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            y          x          z          e     .resid   .fitted test_name</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  338.71041 0.59879804 0.78558224  1.2826636 -46.338206 385.04862    F-test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   32.42441 0.27220365 0.21083825  1.3236023  -1.506506  33.93091    F-test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  211.73205 0.76880036 0.02109515  0.7599754  18.101072 193.63098    F-test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   63.42816 0.20877560 0.42926901 -1.4221450 -18.421206  81.84937    F-test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  466.43520 0.76870465 0.83543215 -1.4036980 -13.628167 480.06337    F-test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  302.82152 0.36341153 0.84576331  0.5391113   3.938876 298.88265    F-test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   76.31609 0.08759224 0.49573563 -0.4526703  26.344451  49.97164    F-test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  317.65722 0.27491010 0.88713112 -0.8102821  44.578736 273.07848    F-test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  596.99212 0.86744907 0.90681525 -0.4213704  46.789043 550.20307    F-test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 240.38380 0.46807593 0.71395733 -0.8606996 -59.858093 300.24190    F-test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 395.96069 0.59879804 0.78558224  1.2826636  10.912078 385.04862    F-test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 -27.44402 0.27220365 0.21083825  1.3236023 -61.374929  33.93091    F-test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 225.70930 0.76880036 0.02109515  0.7599754  32.078320 193.63098    F-test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 131.33874 0.20877560 0.42926901 -1.4221450  49.489378  81.84937    F-test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 492.08250 0.76870465 0.83543215 -1.4036980  12.019135 480.06337    F-test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 319.17715 0.36341153 0.84576331  0.5391113  20.294500 298.88265    F-test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17  39.60679 0.08759224 0.49573563 -0.4526703 -10.364856  49.97164    F-test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 294.98398 0.27491010 0.88713112 -0.8102821  21.905494 273.07848    F-test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19 521.49891 0.86744907 0.90681525 -0.4213704 -28.704161 550.20307    F-test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20 253.98694 0.46807593 0.71395733 -0.8606996 -46.254959 300.24190    F-test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21 394.91912 0.59879804 0.78558224  1.2826636   9.870505 385.04862    F-test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22  74.84677 0.27220365 0.21083825  1.3236023  40.915857  33.93091    F-test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23 187.37671 0.76880036 0.02109515  0.7599754  -6.254273 193.63098    F-test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24  16.38062 0.20877560 0.42926901 -1.4221450 -65.468747  81.84937    F-test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25 432.35141 0.76870465 0.83543215 -1.4036980 -47.711959 480.06337    F-test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26 336.01372 0.36341153 0.84576331  0.5391113  37.131079 298.88265    F-test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27  64.21018 0.08759224 0.49573563 -0.4526703  14.238533  49.97164    F-test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28 248.83046 0.27491010 0.88713112 -0.8102821 -24.248023 273.07848    F-test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29 576.72529 0.86744907 0.90681525 -0.4213704  26.522218 550.20307    F-test</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30 315.24671 0.46807593 0.71395733 -0.8606996  15.004812 300.24190    F-test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            y          x           z          e      .resid   .fitted test_name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  167.01780 0.25063743 0.671109371 -1.1461881  -56.499335 223.51713    F-test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   44.37372 0.20034874 0.342796904  1.6359335  -26.758133  71.13186    F-test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  426.80110 0.43940897 0.970319284 -2.2117281    1.827218 424.97388    F-test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  645.57406 0.96879285 0.857353679  0.1304901   33.693382 611.88068    F-test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  223.35297 0.71266596 0.406192880  0.8616760  -97.244960 320.59793    F-test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   79.16743 0.01808928 0.504617621  0.9512417   23.571645  55.59578    F-test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  371.06476 0.83234052 0.598654629  0.1605291  -78.350878 449.41564    F-test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  622.96423 0.90722442 0.896621252  1.2598059   22.445508 600.51872    F-test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  372.32931 0.96857833 0.005986535  0.9855540   98.610136 273.71918    F-test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 304.18927 0.05455327 0.892250083  0.3268650   78.705416 225.48386    F-test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 169.32078 0.25063743 0.671109371 -1.1461881  -54.196353 223.51713    F-test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  63.35018 0.20034874 0.342796904  1.6359335   -7.781673  71.13186    F-test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 479.30243 0.43940897 0.970319284 -2.2117281   54.328550 424.97388    F-test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 543.26071 0.96879285 0.857353679  0.1304901  -68.619968 611.88068    F-test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 194.04908 0.71266596 0.406192880  0.8616760 -126.548848 320.59793    F-test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16  87.14484 0.01808928 0.504617621  0.9512417   31.549065  55.59578    F-test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 472.50749 0.83234052 0.598654629  0.1605291   23.091847 449.41564    F-test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 661.90053 0.90722442 0.896621252  1.2598059   61.381813 600.51872    F-test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 347.81209 0.96857833 0.005986535  0.9855540   74.092913 273.71918    F-test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 238.18651 0.05455327 0.892250083  0.3268650   12.702654 225.48386    F-test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 241.69550 0.25063743 0.671109371 -1.1461881   18.178369 223.51713    F-test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22 114.09529 0.20034874 0.342796904  1.6359335   42.963430  71.13186    F-test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23 510.71576 0.43940897 0.970319284 -2.2117281   85.741879 424.97388    F-test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24 566.54957 0.96879285 0.857353679  0.1304901  -45.331113 611.88068    F-test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25 417.71121 0.71266596 0.406192880  0.8616760   97.113281 320.59793    F-test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26  37.95922 0.01808928 0.504617621  0.9512417  -17.636559  55.59578    F-test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27 397.82483 0.83234052 0.598654629  0.1605291  -51.590804 449.41564    F-test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28 624.03195 0.90722442 0.896621252  1.2598059   23.513227 600.51872    F-test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29 223.54541 0.96857833 0.005986535  0.9855540  -50.173765 273.71918    F-test</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30 122.70591 0.05455327 0.892250083  0.3268650 -102.777945 225.48386    F-test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       statistic      p_value k  null</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1818.0774298 2.092846e-05 2 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1818.0774298 2.092846e-05 2 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  1818.0774298 2.092846e-05 2 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  1818.0774298 2.092846e-05 2 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  1818.0774298 2.092846e-05 2 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1818.0774298 2.092846e-05 2 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  1818.0774298 2.092846e-05 2 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  1818.0774298 2.092846e-05 2 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  1818.0774298 2.092846e-05 2 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 1818.0774298 2.092846e-05 2 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11    0.1823373 9.331471e-01 1  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12    0.1823373 9.331471e-01 1  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13    0.1823373 9.331471e-01 1  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14    0.1823373 9.331471e-01 1  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15    0.1823373 9.331471e-01 1  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16    0.1823373 9.331471e-01 1  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17    0.1823373 9.331471e-01 1  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18    0.1823373 9.331471e-01 1  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19    0.1823373 9.331471e-01 1  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20    0.1823373 9.331471e-01 1  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21    0.0454975 9.939849e-01 3  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22    0.0454975 9.939849e-01 3  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23    0.0454975 9.939849e-01 3  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24    0.0454975 9.939849e-01 3  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25    0.0454975 9.939849e-01 3  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26    0.0454975 9.939849e-01 3  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27    0.0454975 9.939849e-01 3  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28    0.0454975 9.939849e-01 3  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29    0.0454975 9.939849e-01 3  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30    0.0454975 9.939849e-01 3  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  9331.3696549 1.801111e-06 1 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  9331.3696549 1.801111e-06 1 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  9331.3696549 1.801111e-06 1 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  9331.3696549 1.801111e-06 1 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  9331.3696549 1.801111e-06 1 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  9331.3696549 1.801111e-06 1 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  9331.3696549 1.801111e-06 1 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  9331.3696549 1.801111e-06 1 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  9331.3696549 1.801111e-06 1 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 9331.3696549 1.801111e-06 1 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11    0.5707846 7.052817e-01 2  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12    0.5707846 7.052817e-01 2  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13    0.5707846 7.052817e-01 2  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14    0.5707846 7.052817e-01 2  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15    0.5707846 7.052817e-01 2  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16    0.5707846 7.052817e-01 2  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17    0.5707846 7.052817e-01 2  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18    0.5707846 7.052817e-01 2  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19    0.5707846 7.052817e-01 2  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20    0.5707846 7.052817e-01 2  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21    2.5363449 2.352383e-01 3  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22    2.5363449 2.352383e-01 3  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23    2.5363449 2.352383e-01 3  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24    2.5363449 2.352383e-01 3  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25    2.5363449 2.352383e-01 3  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26    2.5363449 2.352383e-01 3  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27    2.5363449 2.352383e-01 3  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28    2.5363449 2.352383e-01 3  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29    2.5363449 2.352383e-01 3  TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30    2.5363449 2.352383e-01 3  TRUE</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Plot the lineup</span></span>
 <span class="r-in"><span class="va">test</span><span class="op">$</span><span class="fu">plot_lineup</span><span class="op">(</span><span class="va">test</span><span class="op">$</span><span class="fu">gen_lineup</span><span class="op">(</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span></span>
@@ -214,7 +214,8 @@ defined in <a href="CUBIC_MODEL-cash-alt_formula.html">CUBIC_MODEL$alt_formula</
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.1.</p>
 </div>
 
       </footer></div>

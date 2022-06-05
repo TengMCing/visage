@@ -163,6 +163,20 @@ reference:
   - QUARTIC_MODEL$set_prm
   - QUARTIC_MODEL$E
   - QUARTIC_MODEL$effect_size
+- subtitle: "Visual inference orthogonal polynomial model class"
+  desc: >
+    Visual inference orthogonal polynomial linear model class
+  contents:
+  - POLY_MODEL
+  - POLY_MODEL$..init..
+  - POLY_MODEL$formula
+  - POLY_MODEL$null_formula
+  - POLY_MODEL$alt_formula
+  - POLY_MODEL$raw_z_formula
+  - POLY_MODEL$z_formula
+  - POLY_MODEL$set_prm
+  - POLY_MODEL$E
+  - POLY_MODEL$effect_size
 - subtitle: "Visual inference heteroskedasticity linear model class"
   desc: >
     Visual inference heteroskedasticity linear model class
