@@ -621,7 +621,7 @@ VI_MODEL$gen_lineup
 #' \cr
 #' \cr
 #' New methods: [CUBIC_MODEL$..init..], [CUBIC_MODEL$E],
-#' [CUBIC_MODEL$effect_size]
+#' [CUBIC_MODEL$effect_size], [CUBIC_MODEL$set_prm]
 #' @export
 CUBIC_MODEL <- class_CUBIC_MODEL()
 
@@ -919,7 +919,7 @@ HETER_MODEL$effect_size
 #' \cr
 #' \cr
 #' New methods: [SIMPLE_CUBIC_MODEL$..init..], [SIMPLE_CUBIC_MODEL$E],
-#' [SIMPLE_CUBIC_MODEL$effect_size]
+#' [SIMPLE_CUBIC_MODEL$effect_size], [SIMPLE_CUBIC_MODEL$set_prm]
 #' @export
 SIMPLE_CUBIC_MODEL <- class_SIMPLE_CUBIC_MODEL()
 
@@ -1080,7 +1080,7 @@ SIMPLE_CUBIC_MODEL$effect_size
 #' \cr
 #' \cr
 #' New methods: [QUARTIC_MODEL$..init..], [QUARTIC_MODEL$E],
-#' [QUARTIC_MODEL$effect_size]
+#' [QUARTIC_MODEL$effect_size], [QUARTIC_MODEL$set_prm]
 #' @export
 QUARTIC_MODEL <- class_QUARTIC_MODEL()
 
@@ -1224,3 +1224,189 @@ QUARTIC_MODEL$E
 #' mod$effect_size(dat)
 QUARTIC_MODEL$effect_size
 
+
+# POLY_MODEL --------------------------------------------------------------
+
+#' POLY_MODEL class environment
+#'
+#' @name POLY_MODEL
+#'
+#' @description This is the class of visual inference orthogonal polynomial
+#' linear model, inherited from [VI_MODEL].
+#' @format An environment with S3 class `visage_oop`.
+#' @seealso Parent class: [VI_MODEL]
+#' \cr
+#' \cr
+#' New attributes: [POLY_MODEL$formula],
+#' [POLY_MODEL$null_formula], [POLY_MODEL$alt_formula], [POLY_MODEL$z_formula]
+#' \cr
+#' \cr
+#' New methods: [POLY_MODEL$..init..], [POLY_MODEL$E],
+#' [POLY_MODEL$effect_size], [POLY_MODEL$set_prm]
+#' @export
+POLY_MODEL <- class_POLY_MODEL()
+
+#' Closed form expression of `y`
+#'
+#' @name POLY_MODEL$formula
+#'
+#' @description A quoted formula, will be passed to `CLOSED_FORM$instantiation` to
+#' define a closed form expression for `y`.
+#'
+#' @examples
+#'
+#' POLY_MODEL$formula
+POLY_MODEL$formula
+
+#' Formula for fitting the null model
+#'
+#' @name POLY_MODEL$null_formula
+#'
+#' @description Quoted formula for fitting the null model.
+#'
+#' @examples
+#'
+#' POLY_MODEL$null_formula
+POLY_MODEL$null_formula
+
+#' Formula for fitting the alternative model
+#'
+#' @name POLY_MODEL$alt_formula
+#'
+#' @description Quoted formula for fitting the alternative model.
+#'
+#' @examples
+#'
+#' POLY_MODEL$alt_formula
+POLY_MODEL$alt_formula
+
+#' Formula for the raw orthogonal polynomial term `raw_z`
+#'
+#' @name POLY_MODEL$raw_z_formula
+#'
+#' @description Quoted formula for the raw orthogonal polynomial term `raw_z`.
+#'
+#' @examples
+#'
+#' POLY_MODEL$z_formula
+POLY_MODEL$raw_z_formula
+
+#' Formula for the scaled orthogonal polynomial term `z`
+#'
+#' @name POLY_MODEL$z_formula
+#'
+#' @description Quoted formula for the scaled orthogonal polynomial term `z`.
+#'
+#' @examples
+#'
+#' POLY_MODEL$z_formula
+POLY_MODEL$z_formula
+
+
+#' Initialization method
+#'
+#' @name POLY_MODEL$..init..
+#'
+#' @description This function will be called after an instance is built. User
+#' input will be stored in the environment. The response variable of this model
+#' is `y`. The formula of y is defined in [POLY_MODEL$formula], the null
+#' formula is defined in [POLY_MODEL$null_formula], the alternative is
+#' defined in [POLY_MODEL$alt_formula]. The formula for the raw
+#' orthogonal polynomial term is defined in [POLY_MODEL$raw_z_formula], and
+#' the scaled orthogonal polynomial term is defined in [POLY_MODEL$z_formula].
+#' @param a Integer. The degree of the orthogonal polynomial used in the model.
+#' Note that only the `a` degree term will be used, and it should be a value
+#' between 2 to 6. Default is `a = 2`.
+#' @param sigma Positive numeric. Default is `sigma = 1`.
+#' @param x Random variable or closed form expression. Default is
+#' `x = rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
+#' @param e Random variable or closed form expression. Default is
+#' `e = rand_normal(0, sigma, env = new.env(parent = parent.env(self)))`.
+#' @return No return value, called for side effects.
+#'
+#' @examples
+#'
+#' # Instantiation
+#' x <- rand_uniform()
+#' e <- rand_normal(sigma = 0.5)
+#'
+#' test <- poly_model(a = 4, x = x, e = e)
+#'
+#' test
+#'
+#' # Generate data
+#' test$gen(10)
+#'
+#' # Generate lineup
+#' test$gen_lineup(10, k = 3)
+#'
+#' # Plot the lineup
+#' test$plot_lineup(test$gen_lineup(100))
+POLY_MODEL$..init..
+
+#' Set parameter for the model
+#'
+#' @name POLY_MODEL$set_prm
+#'
+#' @description This function store the values in the environment and update
+#' their values in the closed form expression of `y`, except the parameter
+#' `sigma`, `a` and `raw_z`. For parameter `sigma`, its value will be updated,
+#' and the corresponding value in `e` will be updated. For parameter `a`, its
+#' value will be updated, and the corresponding value in `raw_z` will be
+#' updated. For parameter `raw_z`, its value will be updated, and the
+#' corresponding value in `z` will be updated.
+#' @param prm_name List or Vector. Parameter character names.
+#' @param prm_val List or Vector. Parameter values.
+#' @return Return the object itself.
+#'
+#' @examples
+#'
+#' # Instantiation
+#' mod <- poly_model(a = 2, sigma = 0.5)
+#'
+#' mod
+#'
+#' mod$set_prm("a", 4)
+#'
+#' mod
+#'
+#' mod$set_prm("sigma", 1)
+#'
+#' mod
+POLY_MODEL$set_prm
+
+
+#' Expectation of the residuals
+#'
+#' @name POLY_MODEL$E
+#'
+#' @description This function calculate the expectation of the residuals by the
+#' use of the Frisch–Waugh–Lovell theorem.
+#' @param dat Dataframe/List. List contains variable `x` and `z`.
+#' @return A vector of numeric expectations.
+#'
+#' @examples
+#'
+#' mod <- poly_model(4, 0.5)
+#' dat <- mod$gen(1000, fit_model = TRUE)
+#' dat$exp <- mod$E(dat)
+#' mod$plot(dat) + ggplot2::geom_point(ggplot2::aes(.fitted, exp),
+#'                                     col = "red",
+#'                                     alpha = 0.6)
+POLY_MODEL$E
+
+#' Compute the effect size of the simulated data
+#'
+#' @name POLY_MODEL$effect_size
+#'
+#' @description This function computes the effect size of the simulated data.
+#' @param dat Dataframe/List. List contains variable `x` and `z`.
+#' @param sigma Positive numeric. Default is `sigma = self$prm$sigma`.
+#' @return A numeric value.
+#'
+#' @examples
+#'
+#' mod <- poly_model(4, 0.5)
+#' dat <- mod$gen(1000, fit_model = TRUE)
+#' mod$effect_size(dat)
+POLY_MODEL$effect_size
