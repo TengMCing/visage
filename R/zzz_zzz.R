@@ -51,6 +51,10 @@ simple_cubic_model <- SIMPLE_CUBIC_MODEL$instantiation
 #' @export
 quartic_model <- QUARTIC_MODEL$instantiation
 
+#' @describeIn portal [POLY_MODEL]
+#' @export
+poly_model <- POLY_MODEL$instantiation
+
 #' @describeIn portal [HETER_MODEL]
 #' @export
 heter_model <- HETER_MODEL$instantiation
