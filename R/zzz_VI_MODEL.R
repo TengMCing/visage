@@ -737,6 +737,9 @@ CUBIC_MODEL$set_prm
 #' @description This function calculate the expectation of the residuals by the
 #' use of the Frisch–Waugh–Lovell theorem.
 #' @param dat Dataframe/List. List contains variable `x` and `z`.
+#' @param a Numeric. Default is `a = self$prm$a`.
+#' @param b Numeric. Default is `b = self$prm$b`.
+#' @param c Numeric. Default is `c = self$prm$c`.
 #' @return A vector of numeric expectations.
 #'
 #' @examples
@@ -1031,6 +1034,8 @@ SIMPLE_CUBIC_MODEL$set_prm
 #' @description This function calculate the expectation of the residuals by the
 #' use of the Frisch–Waugh–Lovell theorem.
 #' @param dat Dataframe/List. List contains variable `x` and `z`.
+#' @param a Numeric. Default is `a = self$prm$a`.
+#' @param b Numeric. Default is `b = self$prm$b`.
 #' @return A vector of numeric expectations.
 #'
 #' @examples
@@ -1193,6 +1198,9 @@ QUARTIC_MODEL$set_prm
 #' @description This function calculate the expectation of the residuals by the
 #' use of the Frisch–Waugh–Lovell theorem.
 #' @param dat Dataframe/List. List contains variable `x` and `z`.
+#' @param a Numeric. Default is `a = self$prm$a`.
+#' @param b Numeric. Default is `b = self$prm$b`.
+#' @param c Numeric. Default is `c = self$prm$c`.
 #' @return A vector of numeric expectations.
 #'
 #' @examples
@@ -1238,11 +1246,12 @@ QUARTIC_MODEL$effect_size
 #' \cr
 #' \cr
 #' New attributes: [POLY_MODEL$formula],
-#' [POLY_MODEL$null_formula], [POLY_MODEL$alt_formula], [POLY_MODEL$z_formula]
+#' [POLY_MODEL$null_formula], [POLY_MODEL$alt_formula], [POLY_MODEL$z_formula],
+#' [POLY_MODEL$raw_z_formula]
 #' \cr
 #' \cr
 #' New methods: [POLY_MODEL$..init..], [POLY_MODEL$E],
-#' [POLY_MODEL$effect_size], [POLY_MODEL$set_prm]
+#' [POLY_MODEL$effect_size], [POLY_MODEL$set_prm], [POLY_MODEL$hermite]
 #' @export
 POLY_MODEL <- class_POLY_MODEL()
 
@@ -1288,7 +1297,7 @@ POLY_MODEL$alt_formula
 #'
 #' @examples
 #'
-#' POLY_MODEL$z_formula
+#' POLY_MODEL$raw_z_formula
 POLY_MODEL$raw_z_formula
 
 #' Formula for the scaled orthogonal polynomial term `z`
@@ -1314,10 +1323,11 @@ POLY_MODEL$z_formula
 #' defined in [POLY_MODEL$alt_formula]. The formula for the raw
 #' orthogonal polynomial term is defined in [POLY_MODEL$raw_z_formula], and
 #' the scaled orthogonal polynomial term is defined in [POLY_MODEL$z_formula].
-#' @param a Integer. The degree of the orthogonal polynomial used in the model.
-#' Note that only the `a` degree term will be used, and it should be a value
-#' between 2 to 6. Default is `a = 2`.
+#' @param shape Integer. The shape of the orthogonal polynomial used in the model.
+#' Note it should be a value between 1 to 4. Default is `shape = 1`.
 #' @param sigma Positive numeric. Default is `sigma = 1`.
+#' @param include_z Boolean. Whether or not to include `z` in the formula of `y`.
+#' Default is `include_z = TRUE`.
 #' @param x Random variable or closed form expression. Default is
 #' `x = rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
 #' @param e Random variable or closed form expression. Default is
@@ -1330,7 +1340,7 @@ POLY_MODEL$z_formula
 #' x <- rand_uniform()
 #' e <- rand_normal(sigma = 0.5)
 #'
-#' test <- poly_model(a = 4, x = x, e = e)
+#' test <- poly_model(shape = 1, x = x, e = e)
 #'
 #' test
 #'
@@ -1342,6 +1352,18 @@ POLY_MODEL$z_formula
 #'
 #' # Plot the lineup
 #' test$plot_lineup(test$gen_lineup(100))
+#'
+#' test <- poly_model(shape = 1, include_z = FALSE, x = x, e = e)
+#' test$plot_lineup(test$gen_lineup(100))
+#'
+#' test <- poly_model(shape = 2, x = x, e = e)
+#' test$plot_lineup(test$gen_lineup(100))
+#'
+#' test <- poly_model(shape = 3, x = x, e = e)
+#' test$plot_lineup(test$gen_lineup(100))
+#'
+#' test <- poly_model(shape = 4, x = x, e = e)
+#' test$plot_lineup(test$gen_lineup(100))
 POLY_MODEL$..init..
 
 #' Set parameter for the model
@@ -1350,8 +1372,8 @@ POLY_MODEL$..init..
 #'
 #' @description This function store the values in the environment and update
 #' their values in the closed form expression of `y`, except the parameter
-#' `sigma`, `a` and `raw_z`. For parameter `sigma`, its value will be updated,
-#' and the corresponding value in `e` will be updated. For parameter `a`, its
+#' `sigma`, `shape` and `raw_z`. For parameter `sigma`, its value will be updated,
+#' and the corresponding value in `e` will be updated. For parameter `shape`, its
 #' value will be updated, and the corresponding value in `raw_z` will be
 #' updated. For parameter `raw_z`, its value will be updated, and the
 #' corresponding value in `z` will be updated.
@@ -1362,11 +1384,11 @@ POLY_MODEL$..init..
 #' @examples
 #'
 #' # Instantiation
-#' mod <- poly_model(a = 2, sigma = 0.5)
+#' mod <- poly_model(shape = 2, sigma = 0.5)
 #'
 #' mod
 #'
-#' mod$set_prm("a", 4)
+#' mod$set_prm("shape", 4)
 #'
 #' mod
 #'
@@ -1402,6 +1424,8 @@ POLY_MODEL$E
 #' @description This function computes the effect size of the simulated data.
 #' @param dat Dataframe/List. List contains variable `x` and `z`.
 #' @param sigma Positive numeric. Default is `sigma = self$prm$sigma`.
+#' @param type Character. Type of the effect size measure. Default is
+#' `type = kl`.
 #' @return A numeric value.
 #'
 #' @examples
@@ -1410,3 +1434,19 @@ POLY_MODEL$E
 #' dat <- mod$gen(1000, fit_model = TRUE)
 #' mod$effect_size(dat)
 POLY_MODEL$effect_size
+
+#' Hermite polynomial functions
+#'
+#' @name POLY_MODEL$hermite
+#'
+#' @description This function returns a Hermite polynomial function.
+#' @param shape Integer. A value between 1 to 4.
+#' @return A function.
+#'
+#' @examples
+#'
+#' POLY_MODEL$hermite(1)
+#' POLY_MODEL$hermite(2)
+#' POLY_MODEL$hermite(3)
+#' POLY_MODEL$hermite(4)
+POLY_MODEL$hermite
