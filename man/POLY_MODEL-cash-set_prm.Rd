@@ -14,8 +14,8 @@ Return the object itself.
 \description{
 This function store the values in the environment and update
 their values in the closed form expression of \code{y}, except the parameter
-\code{sigma}, \code{a} and \code{raw_z}. For parameter \code{sigma}, its value will be updated,
-and the corresponding value in \code{e} will be updated. For parameter \code{a}, its
+\code{sigma}, \code{shape} and \code{raw_z}. For parameter \code{sigma}, its value will be updated,
+and the corresponding value in \code{e} will be updated. For parameter \code{shape}, its
 value will be updated, and the corresponding value in \code{raw_z} will be
 updated. For parameter \code{raw_z}, its value will be updated, and the
 corresponding value in \code{z} will be updated.
@@ -23,11 +23,11 @@ corresponding value in \code{z} will be updated.
 \examples{
 
 # Instantiation
-mod <- poly_model(a = 2, sigma = 0.5)
+mod <- poly_model(shape = 2, sigma = 0.5)
 
 mod
 
-mod$set_prm("a", 4)
+mod$set_prm("shape", 4)
 
 mod
 

@@ -5,6 +5,12 @@
 \title{Expectation of the residuals}
 \arguments{
 \item{dat}{Dataframe/List. List contains variable \code{x} and \code{z}.}
+
+\item{a}{Numeric. Default is \code{a = self$prm$a}.}
+
+\item{b}{Numeric. Default is \code{b = self$prm$b}.}
+
+\item{c}{Numeric. Default is \code{c = self$prm$c}.}
 }
 \value{
 A vector of numeric expectations.

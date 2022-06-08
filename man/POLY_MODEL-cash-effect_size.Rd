@@ -7,6 +7,9 @@
 \item{dat}{Dataframe/List. List contains variable \code{x} and \code{z}.}
 
 \item{sigma}{Positive numeric. Default is \code{sigma = self$prm$sigma}.}
+
+\item{type}{Character. Type of the effect size measure. Default is
+\code{type = kl}.}
 }
 \value{
 A numeric value.
