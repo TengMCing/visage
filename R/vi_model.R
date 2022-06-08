@@ -740,20 +740,43 @@ class_POLY_MODEL <- function(env = new.env(parent = parent.frame())) {
   }
 
 
-  # effect_size -------------------------------------------------------------
+
+# effect_size -------------------------------------------------------------
 
   effect_size_ <- function(dat,
-                           sigma = self$prm$sigma) {
+                           sigma = self$prm$sigma,
+                           include_z = self$prm$include_z,
+                           type = "kl") {
 
-    Xa <- as.matrix(data.frame(1, dat$x))
-    Ra <- diag(nrow(dat)) - Xa %*% solve(t(Xa) %*% Xa) %*% t(Xa)
-    Xb <- as.matrix(data.frame(dat$z))
-    beta_b <- matrix(1)
+    if (type == "kl") {
+      n <- nrow(dat)
+      Xa <- as.matrix(data.frame(1, dat$x))
+      Ra <- diag(nrow(dat)) - Xa %*% solve(t(Xa) %*% Xa) %*% t(Xa)
+      Xb <- as.matrix(data.frame(dat$z))
+      beta_b <- matrix(as.numeric(include_z))
 
-    (1/nrow(dat)) * (1/sigma^2) * sum((diag(sqrt(diag(Ra))) %*% Xb %*% beta_b)^2)
+      inv_sigma_2 <- diag(1/(sigma^2 * diag(Ra)))
+      mu_2 <- Ra %*% Xb %*% beta_b
+
+      # sum(log(diag(sigma_2)/diag(sigma_1))) - n + sum(diag(solve(sigma_2) %*% sigma_1))
+      # log(det A/ det A) = log(1) = 0
+      # solve(sigma_2) %*% sigma_1 = I_n
+      # sum(diag(I_n)) = n
+      # -n + n = 0
+      # mu_1 = 0
+      c((t(mu_2) %*% inv_sigma_2 %*% mu_2)/2)
+
+    } else {
+      Xa <- as.matrix(data.frame(1, dat$x))
+      Ra <- diag(nrow(dat)) - Xa %*% solve(t(Xa) %*% Xa) %*% t(Xa)
+      Xb <- as.matrix(data.frame(dat$z))
+      beta_b <- matrix(as.numeric(include_z))
+
+      (1/nrow(dat)) * (1/sigma^2) * sum((diag(sqrt(diag(Ra))) %*% Xb %*% beta_b)^2)
+    }
   }
 
-  # register_method ---------------------------------------------------------
+# register_method ---------------------------------------------------------
 
   register_method(env,
                   ..init.. = init_,
