@@ -8,5 +8,5 @@ Quoted formula for the raw orthogonal polynomial term \code{raw_z}.
 }
 \examples{
 
-POLY_MODEL$z_formula
+POLY_MODEL$raw_z_formula
 }

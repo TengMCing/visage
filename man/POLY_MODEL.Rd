@@ -19,10 +19,11 @@ Parent class: \link{VI_MODEL}
 \cr
 \cr
 New attributes: \link{POLY_MODEL$formula},
-\link{POLY_MODEL$null_formula}, \link{POLY_MODEL$alt_formula}, \link{POLY_MODEL$z_formula}
+\link{POLY_MODEL$null_formula}, \link{POLY_MODEL$alt_formula}, \link{POLY_MODEL$z_formula},
+\link{POLY_MODEL$raw_z_formula}
 \cr
 \cr
 New methods: \link{POLY_MODEL$..init..}, \link{POLY_MODEL$E},
-\link{POLY_MODEL$effect_size}, \link{POLY_MODEL$set_prm}
+\link{POLY_MODEL$effect_size}, \link{POLY_MODEL$set_prm}, \link{POLY_MODEL$hermite}
 }
 \keyword{datasets}
