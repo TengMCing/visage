@@ -675,25 +675,28 @@ class_POLY_MODEL <- function(env = new.env(parent = parent.frame())) {
   new_class(VI_MODEL, env = env, class_name = "POLY_MODEL")
 
   # Run the `set_formula` method for the class
-  env$set_formula(formula = y ~ 1 + x + z + e,
+  env$set_formula(formula = y ~ 1 + x + include_z * z + e,
                   z_formula = z ~ (raw_z - min(raw_z))/max(raw_z - min(raw_z)) * 2 - 1,
-                  raw_z_formula = raw_z ~ poly(x, 6)[1:length(x), a],
+                  raw_z_formula = raw_z ~ hermite(shape)((x - min(x))/max(x - min(x)) * 4 - 2),
                   null_formula = y ~ x,
                   alt_formula = y ~ x + z)
 
-  # init --------------------------------------------------------------------
+# init --------------------------------------------------------------------
 
-  init_ <- function(a = 2, sigma = 1,
+  init_ <- function(shape = 2, sigma = 1, include_z = TRUE,
                     x = visage::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
                     e = visage::rand_normal(0, sigma, env = new.env(parent = parent.env(self)))) {
 
+    if (!shape %in% 1:4) stop("Parameter `shape` out of range [1, 4].")
+
+    hermite <- self$hermite
     raw_z <- visage::closed_form(eval(self$raw_z_formula), env = new.env(parent = parent.env(self)))
     z <- visage::closed_form(eval(self$z_formula), env = new.env(parent = parent.env(self)))
 
     # Use the init method from the VI_MODEL class
     visage::use_method(self, visage::VI_MODEL$..init..)(
-      prm = list(a = a, sigma = sigma, x = x, raw_z = raw_z, z = z, e = e),
-      prm_type = list(a = "o", sigma = "o", x = "r", raw_z = "r", z = "r", e = "r"),
+      prm = list(shape = shape, include_z = include_z, sigma = sigma, x = x, raw_z = raw_z, z = z, e = e),
+      prm_type = list(shape = "o", include_z = "o", sigma = "o", x = "r", raw_z = "r", z = "r", e = "r"),
       formula = self$formula,
       null_formula = self$null_formula,
       alt_formula = self$alt_formula
@@ -701,7 +704,7 @@ class_POLY_MODEL <- function(env = new.env(parent = parent.frame())) {
   }
 
 
-  # set_prm -----------------------------------------------------------------
+# set_prm -----------------------------------------------------------------
 
   set_prm_ <- function(prm_name, prm_value) {
 
@@ -709,7 +712,7 @@ class_POLY_MODEL <- function(env = new.env(parent = parent.frame())) {
       pname <- prm_name[[i]]
       pval <- prm_value[[i]]
 
-      if (pname == "a") {
+      if (pname == "shape") {
         self$prm[[pname]] <- pval
         self$prm$raw_z$set_sym(pname, list(pval))
         next
@@ -728,17 +731,25 @@ class_POLY_MODEL <- function(env = new.env(parent = parent.frame())) {
     return(self)
   }
 
-  # E -----------------------------------------------------------------------
+# E -----------------------------------------------------------------------
 
-  E_ <- function(dat) {
+  E_ <- function(dat, include_z = self$prm$include_z) {
+
     Xa <- as.matrix(data.frame(1, dat$x))
     Ra <- diag(nrow(dat)) - Xa %*% solve(t(Xa) %*% Xa) %*% t(Xa)
     Xb <- as.matrix(data.frame(dat$z))
-    beta_b <- matrix(1)
+    beta_b <- matrix(as.numeric(include_z))
 
     c(Ra %*% Xb %*% beta_b)
   }
 
+
+# hermite -----------------------------------------------------------------
+
+  hermite_ <- function(shape) {
+    if (!shape %in% 1:4) stop("Parameter `shape` out of range [1, 4].")
+    suppressMessages(as.function(mpoly::hermite(c(2, 3, 6, 18)[shape])))
+  }
 
 
 # effect_size -------------------------------------------------------------
@@ -782,7 +793,8 @@ class_POLY_MODEL <- function(env = new.env(parent = parent.frame())) {
                   ..init.. = init_,
                   E = E_,
                   effect_size = effect_size_,
-                  set_prm = set_prm_)
+                  set_prm = set_prm_,
+                  hermite = hermite_)
 
   return(env)
 }
