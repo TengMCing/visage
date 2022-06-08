@@ -139,30 +139,30 @@ reference:
   - CUBIC_MODEL$set_prm
   - CUBIC_MODEL$E
   - CUBIC_MODEL$effect_size
-- subtitle: "Visual inference simple cubic linear model class"
-  desc: >
-    Visual inference simple cubic linear model class
-  contents:
-  - SIMPLE_CUBIC_MODEL
-  - SIMPLE_CUBIC_MODEL$..init..
-  - SIMPLE_CUBIC_MODEL$formula
-  - SIMPLE_CUBIC_MODEL$null_formula
-  - SIMPLE_CUBIC_MODEL$alt_formula
-  - SIMPLE_CUBIC_MODEL$set_prm
-  - SIMPLE_CUBIC_MODEL$E
-  - SIMPLE_CUBIC_MODEL$effect_size
-- subtitle: "Visual inference quartic linear model class"
-  desc: >
-    Visual inference quartic linear model class
-  contents:
-  - QUARTIC_MODEL
-  - QUARTIC_MODEL$..init..
-  - QUARTIC_MODEL$formula
-  - QUARTIC_MODEL$null_formula
-  - QUARTIC_MODEL$alt_formula
-  - QUARTIC_MODEL$set_prm
-  - QUARTIC_MODEL$E
-  - QUARTIC_MODEL$effect_size
+# - subtitle: "Visual inference simple cubic linear model class"
+#   desc: >
+#     Visual inference simple cubic linear model class
+#   contents:
+#   - SIMPLE_CUBIC_MODEL
+#   - SIMPLE_CUBIC_MODEL$..init..
+#   - SIMPLE_CUBIC_MODEL$formula
+#   - SIMPLE_CUBIC_MODEL$null_formula
+#   - SIMPLE_CUBIC_MODEL$alt_formula
+#   - SIMPLE_CUBIC_MODEL$set_prm
+#   - SIMPLE_CUBIC_MODEL$E
+#   - SIMPLE_CUBIC_MODEL$effect_size
+# - subtitle: "Visual inference quartic linear model class"
+#   desc: >
+#     Visual inference quartic linear model class
+#   contents:
+#   - QUARTIC_MODEL
+#   - QUARTIC_MODEL$..init..
+#   - QUARTIC_MODEL$formula
+#   - QUARTIC_MODEL$null_formula
+#   - QUARTIC_MODEL$alt_formula
+#   - QUARTIC_MODEL$set_prm
+#   - QUARTIC_MODEL$E
+#   - QUARTIC_MODEL$effect_size
 - subtitle: "Visual inference orthogonal polynomial model class"
   desc: >
     Visual inference orthogonal polynomial linear model class
