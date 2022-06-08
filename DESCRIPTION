@@ -22,6 +22,7 @@ Imports:
     jsonlite,
     lmtest,
     lobstr,
+    mpoly,
     progress,
     stats,
     tibble,
