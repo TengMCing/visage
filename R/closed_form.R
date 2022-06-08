@@ -83,20 +83,20 @@ class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
 
   gen_ <- function(n, rhs_val = FALSE, computed = NULL) {
 
-    # If there is no random variables, then repeat the result for n times
-    if (!"rand_var or closed_form" %in% unlist(self$sym_type)) {
-      if (!rhs_val) return(rep(self$compute(), n))
-      return(list(lhs = rep(self$compute(), n), rhs = list()))
-    }
-
-    # A list that the expression needs to be evaluated at
-    value_list <- self$sym
-
     # A list that stores all the computed random values, or computed expression which contains random variables
     rhs <- list()
     if (!is.null(computed)) {
       rhs <- computed
     }
+
+    # If there is no random variables, then repeat the result for n times
+    if (!"rand_var or closed_form" %in% unlist(self$sym_type)) {
+      if (!rhs_val) return(rep(self$compute(), n))
+      return(list(lhs = rep(self$compute(), n), rhs = rhs))
+    }
+
+    # A list that the expression needs to be evaluated at
+    value_list <- self$sym
 
     # Symbols that needs to be evaluated
     rand_name <- unlist(self$sym_name)[which(unlist(self$sym_type) == "rand_var or closed_form")]
