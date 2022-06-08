@@ -233,7 +233,7 @@ provided by the package is an environment.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tengmcing.github.io/visage/" class="external-link">visage</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">BASE</span><span class="op">)</span>
-<span class="co">#&gt; Class 'visage_oop' &lt;environment: 0x7fc911727e30&gt;</span></code></pre></div>
+<span class="co">#&gt; Class 'visage_oop' &lt;environment: 0x7f85114c5b20&gt;</span></code></pre></div>
 <div class="section level2">
 <h2 id="define-a-new-class">Define a new class<a class="anchor" aria-label="anchor" href="#define-a-new-class"></a>
 </h2>
@@ -264,17 +264,17 @@ class is that environment.</p>
   <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">parent.env</a></span><span class="op">(</span><span class="fu"><a href="../reference/new_class.html">new_class</a></span><span class="op">(</span>class_name <span class="op">=</span> <span class="st">"DEMO"</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; &lt;environment: 0x7fc911f688f0&gt;</span>
-<span class="co">#&gt; &lt;environment: 0x7fc911f688f0&gt;</span></code></pre></div>
+<span class="co">#&gt; &lt;environment: 0x7f8521c3c798&gt;</span>
+<span class="co">#&gt; &lt;environment: 0x7f8521c3c798&gt;</span></code></pre></div>
 <p>If an environment is provided via <code>env</code>,
 <code><a href="../reference/new_class.html">new_class()</a></code> will adopt that environment as
 <code>DEMO</code> class.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">e</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span><span class="op">)</span>
 <span class="va">e</span>
-<span class="co">#&gt; &lt;environment: 0x7fc9130caf28&gt;</span>
+<span class="co">#&gt; &lt;environment: 0x7f8521e289d0&gt;</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="fu"><a href="../reference/new_class.html">new_class</a></span><span class="op">(</span>env <span class="op">=</span> <span class="va">e</span>, class_name <span class="op">=</span> <span class="st">"DEMO"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Class 'visage_oop' &lt;environment: 0x7fc9130caf28&gt;</span></code></pre></div>
+<span class="co">#&gt; Class 'visage_oop' &lt;environment: 0x7f8521e289d0&gt;</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="attributes-and-methods-provided-by-base">Attributes and methods provided by <code>BASE</code><a class="anchor" aria-label="anchor" href="#attributes-and-methods-provided-by-base"></a>
@@ -285,7 +285,7 @@ class is that environment.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">DEMO</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/new_class.html">new_class</a></span><span class="op">(</span>class_name <span class="op">=</span> <span class="st">"DEMO"</span><span class="op">)</span>
 <span class="fu">lobstr</span><span class="fu">::</span><span class="fu"><a href="https://lobstr.r-lib.org/reference/tree.html" class="external-link">tree</a></span><span class="op">(</span><span class="va">DEMO</span><span class="op">)</span>
-<span class="co">#&gt; &lt;environment: 0x7fc9133468a0&gt;</span>
+<span class="co">#&gt; &lt;environment: 0x7f84f18ab548&gt;</span>
 <span class="co">#&gt; ├─..dict..: <span style="font-style: italic;">function()</span></span>
 <span class="co">#&gt; ├─..str..: <span style="font-style: italic;">function()</span></span>
 <span class="co">#&gt; ├─..len..: <span style="font-style: italic;">function()</span></span>
@@ -299,8 +299,8 @@ class is that environment.</p>
 <span class="co">#&gt; ├─..type..: <span style="color: #0000BB;">"DEMO"</span></span>
 <span class="co">#&gt; ├─get_attr: <span style="font-style: italic;">function(attr_name)</span></span>
 <span class="co">#&gt; ├─..methods..: <span style="font-style: italic;">function()</span></span>
-<span class="co">#&gt; ├─..method_env..: &lt;environment: 0x7fc9133558d0&gt;</span>
-<span class="co">#&gt; │ └─self: &lt;environment: 0x7fc9133468a0&gt; (Already seen)</span>
+<span class="co">#&gt; ├─..method_env..: &lt;environment: 0x7f84f18b8668&gt;</span>
+<span class="co">#&gt; │ └─self: &lt;environment: 0x7f84f18ab548&gt; (Already seen)</span>
 <span class="co">#&gt; ├─..instantiated..: <span style="color: #0000BB;">FALSE</span></span>
 <span class="co">#&gt; └─..init..: <span style="font-style: italic;">function(...)</span></span></code></pre></div>
 <div class="section level3">
@@ -428,9 +428,9 @@ passed and can be directly used inside the method body.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/register_method.html">register_method</a></span><span class="op">(</span><span class="va">DEMO</span>, str_self <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">self</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">DEMO</span><span class="op">)</span>
-<span class="co">#&gt; Class 'visage_oop' &lt;environment: 0x7fc9133468a0&gt;</span>
+<span class="co">#&gt; Class 'visage_oop' &lt;environment: 0x7f84f18ab548&gt;</span>
 <span class="va">DEMO</span><span class="op">$</span><span class="fu">str_self</span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; Class 'visage_oop' &lt;environment: 0x7fc9133468a0&gt;</span></code></pre></div>
+<span class="co">#&gt; Class 'visage_oop' &lt;environment: 0x7f84f18ab548&gt;</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="scope-of-variables">Scope of variables<a class="anchor" aria-label="anchor" href="#scope-of-variables"></a>
