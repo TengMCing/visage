@@ -390,10 +390,11 @@ class_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
 
 # E -----------------------------------------------------------------------
 
-  E_ <- function(dat) {
-    a <- self$prm$a
-    b <- self$prm$b
-    c <- self$prm$c
+  E_ <- function(dat,
+                 a = self$prm$a,
+                 b = self$prm$b,
+                 c = self$prm$c) {
+
     Xa <- as.matrix(data.frame(1, dat$x, dat$z))
     Ra <- diag(nrow(dat)) - Xa %*% solve(t(Xa) %*% Xa) %*% t(Xa)
     Xb <- as.matrix(data.frame(dat$x^2, dat$z^2, dat$x^3, dat$z^3))
@@ -444,7 +445,7 @@ class_SIMPLE_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
                   null_formula = y ~ x,
                   alt_formula = y ~ x + I(x^2) + I(x^3))
 
-  # init --------------------------------------------------------------------
+# init --------------------------------------------------------------------
 
   init_ <- function(a = 1, b = 1, sigma = 1,
                     x = visage::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
@@ -461,7 +462,7 @@ class_SIMPLE_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
   }
 
 
-  # set_prm -----------------------------------------------------------------
+# set_prm -----------------------------------------------------------------
 
   set_prm_ <- function(prm_name, prm_value) {
 
@@ -471,11 +472,10 @@ class_SIMPLE_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
     return(self)
   }
 
-  # E -----------------------------------------------------------------------
+# E -----------------------------------------------------------------------
 
-  E_ <- function(dat) {
-    a <- self$prm$a
-    b <- self$prm$b
+  E_ <- function(dat, a = self$prm$a, b = self$prm$b) {
+
     Xa <- as.matrix(data.frame(1, dat$x))
     Ra <- diag(nrow(dat)) - Xa %*% solve(t(Xa) %*% Xa) %*% t(Xa)
     Xb <- as.matrix(data.frame(dat$x^2, dat$x^3))
@@ -485,7 +485,7 @@ class_SIMPLE_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
   }
 
 
-  # effect_size -------------------------------------------------------------
+# effect_size -------------------------------------------------------------
 
   effect_size_ <- function(dat,
                            a = self$prm$a,
@@ -500,7 +500,7 @@ class_SIMPLE_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
     (1/nrow(dat)) * (1/sigma^2) * sum((diag(sqrt(diag(Ra))) %*% Xb %*% beta_b)^2)
   }
 
-  # register_method ---------------------------------------------------------
+# register_method ---------------------------------------------------------
 
   register_method(env,
                   ..init.. = init_,
@@ -595,7 +595,7 @@ class_QUARTIC_MODEL <- function(env = new.env(parent = parent.frame())) {
                   null_formula = y ~ x,
                   alt_formula = y ~ x + I(x^2) + I(x^3) + I(x^4))
 
-  # init --------------------------------------------------------------------
+# init --------------------------------------------------------------------
 
   init_ <- function(a = 1, b = 1, c = 1, sigma = 1,
                     x = visage::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
@@ -612,7 +612,7 @@ class_QUARTIC_MODEL <- function(env = new.env(parent = parent.frame())) {
   }
 
 
-  # set_prm -----------------------------------------------------------------
+# set_prm -----------------------------------------------------------------
 
   set_prm_ <- function(prm_name, prm_value) {
 
@@ -622,12 +622,13 @@ class_QUARTIC_MODEL <- function(env = new.env(parent = parent.frame())) {
     return(self)
   }
 
-  # E -----------------------------------------------------------------------
+# E -----------------------------------------------------------------------
 
-  E_ <- function(dat) {
-    a <- self$prm$a
-    b <- self$prm$b
-    c <- self$prm$c
+  E_ <- function(dat,
+                 a = self$prm$a,
+                 b = self$prm$b,
+                 c = self$prm$c) {
+
     Xa <- as.matrix(data.frame(1, dat$x))
     Ra <- diag(nrow(dat)) - Xa %*% solve(t(Xa) %*% Xa) %*% t(Xa)
     Xb <- as.matrix(data.frame(dat$x^2, dat$x^3, dat$x^4))
@@ -637,7 +638,7 @@ class_QUARTIC_MODEL <- function(env = new.env(parent = parent.frame())) {
   }
 
 
-  # effect_size -------------------------------------------------------------
+# effect_size -------------------------------------------------------------
 
   effect_size_ <- function(dat,
                            a = self$prm$a,
@@ -653,7 +654,7 @@ class_QUARTIC_MODEL <- function(env = new.env(parent = parent.frame())) {
     (1/nrow(dat)) * (1/sigma^2) * sum((diag(sqrt(diag(Ra))) %*% Xb %*% beta_b)^2)
   }
 
-  # register_method ---------------------------------------------------------
+# register_method ---------------------------------------------------------
 
   register_method(env,
                   ..init.. = init_,
