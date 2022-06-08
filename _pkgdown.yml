@@ -177,6 +177,7 @@ reference:
   - POLY_MODEL$set_prm
   - POLY_MODEL$E
   - POLY_MODEL$effect_size
+  - POLY_MODEL$hermite
 - subtitle: "Visual inference heteroskedasticity linear model class"
   desc: >
     Visual inference heteroskedasticity linear model class

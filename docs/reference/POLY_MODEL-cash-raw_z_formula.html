@@ -64,8 +64,8 @@
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="va">POLY_MODEL</span><span class="op">$</span><span class="va">z_formula</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> z ~ (raw_z - min(raw_z))/max(raw_z - min(raw_z)) * 2 - 1</span>
+<span class="r-in"><span class="va">POLY_MODEL</span><span class="op">$</span><span class="va">raw_z_formula</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> raw_z ~ hermite(shape)((x - min(x))/max(x - min(x)) * 4 - 2)</span>
 </code></pre></div>
     </div>
   </div>
