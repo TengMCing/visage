@@ -28,7 +28,7 @@
 #' executed inside this container.
 #' @param self_name Character. Name of the self reference. Methods needs to use
 #' this name to access the object environment.
-#' @return No return value, called for side effects.
+#' @return Return the object itself.
 #'
 #' @examples
 #'
@@ -130,7 +130,7 @@ register_method <- function(env, ..., container_name = "..method_env..", self_na
     bind_fn_2_env(env[[container_name]], env[[fn_names[i]]])
   }
 
-  return(invisible(NULL))
+  return(env)
 }
 
 # print.visage_oop --------------------------------------------------------
@@ -242,7 +242,7 @@ new_class <- function(..., env = new.env(parent = parent.frame()), class_name = 
 #' @param env Environment. The destination environment.
 #' @param ... Environments. Source environments.
 #' @param avoid Character. Names that don't want to be copied.
-#' @return No return value, called for side effects.
+#' @return Return the object itself.
 #'
 #' @examples
 #'
@@ -288,6 +288,8 @@ copy_attr <- function(env, ..., avoid = c("..method_env..", "..init_call..")) {
     # Set attributes
     list2env(attr_list, envir = env)
   }
+
+  return(env)
 }
 
 
@@ -367,7 +369,7 @@ class_BASE <- function(env = new.env(parent = parent.frame())) {
   }
 
   # Default init method
-  init_ <- function(...) return(invisible(NULL))
+  init_ <- function(...) return(self)
 
   methods_ <- function() names(self)[unlist(lapply(names(self), function(x) is.function(self[[x]])))]
 
