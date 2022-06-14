@@ -1,4 +1,4 @@
-test_that("register_method works", {
+test_that("register_method() can register one method and access self attribute", {
   a <- function() self$x
   e <- new.env()
   e$x <- 0
@@ -7,7 +7,7 @@ test_that("register_method works", {
   expect_equal(e$a(), 0)
 })
 
-test_that("register_method works", {
+test_that("register_method() can register two methods and access self attribute", {
   a <- function() self$x
   b <- function() self$x + 1
   e <- new.env()
@@ -17,7 +17,7 @@ test_that("register_method works", {
   expect_equal(e$b(), 1)
 })
 
-test_that("register_method container_name works", {
+test_that("register_method() can use container name other than ..method_env..", {
   a <- function() self$x
   e <- new.env()
   e$x <- 0
@@ -26,7 +26,7 @@ test_that("register_method container_name works", {
   expect_equal(e$a(), 0)
 })
 
-test_that("register_method container (env) error works", {
+test_that("register_method() can detect ..method_env.. is not an environment", {
   a <- function() self$x
   e <- new.env()
   e$..method_env.. <- 1
@@ -37,7 +37,7 @@ test_that("register_method container (env) error works", {
                ignore.case = TRUE)
 })
 
-test_that("register_method container (diff env) error works", {
+test_that("register_method() can detect ..method_env.. is not a child of the parent of the object environment", {
   a <- function() self$x
   e <- new.env()
   d <- new.env()
@@ -49,7 +49,7 @@ test_that("register_method container (diff env) error works", {
                ignore.case = TRUE)
 })
 
-test_that("register_method container warning works", {
+test_that("register_method() can detect ..method_env.. contains variables other than self", {
   a <- function() self$x
   e <- new.env()
   e$..method_env.. <- new.env(parent = parent.env(e))
@@ -61,7 +61,7 @@ test_that("register_method container warning works", {
                  ignore.case = TRUE)
 })
 
-test_that("register_method self_name works", {
+test_that("register_method() can use different self names (e.g. this)", {
   a <- function() this$x
   e <- new.env()
   e$x <- 0
@@ -70,7 +70,7 @@ test_that("register_method self_name works", {
   expect_equal(e$a(), 0)
 })
 
-test_that("register_method self_name error works", {
+test_that("register_method can detect self does not point to the object environment", {
   a <- function() this$x
   e <- new.env()
   e$..method_env.. <- new.env(parent = parent.env(e))
