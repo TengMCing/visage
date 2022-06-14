@@ -324,7 +324,7 @@ CLOSED_FORM$as_dataframe
 #' to error or loss of binding of some objects. Please use this function with
 #' caution.
 #' @param sym_name Vector or List. A sequence of character symbol names.
-#' @param sym_val Vector or List. A sequence of symbol values.
+#' @param sym_value Vector or List. A sequence of symbol values.
 #' @return Return the object itself.
 #'
 #' @examples
