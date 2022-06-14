@@ -145,7 +145,7 @@ class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
 
 # set_sym -----------------------------------------------------------------
 
-  set_sym_ <- function(sym_name, sym_val) {
+  set_sym_ <- function(sym_name, sym_value) {
 
     # Update all sym values
     for (i in 1:length(sym_name)) {
