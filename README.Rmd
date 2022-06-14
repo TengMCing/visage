@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 # visage
 
 <!-- badges: start -->
+[![Codecov test coverage](https://codecov.io/gh/TengMCing/visage/branch/master/graph/badge.svg)](https://app.codecov.io/gh/TengMCing/visage?branch=master)
 <!-- badges: end -->
 
 The goal of visage is to provide an lightweight OOP system and a set of tools for running visual inference experiments.
