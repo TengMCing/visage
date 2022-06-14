@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">visage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9008</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9009</span>
       </span>
     </div>
 
@@ -84,7 +84,7 @@ this name to access the object environment.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>No return value, called for side effects.</p>
+    <p>Return the object itself.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -115,6 +115,7 @@ self reference.</p>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Register the method `aa` for environment `e` with `self_name = "self"`</span></span>
 <span class="r-in"><span class="fu">register_method</span><span class="op">(</span><span class="va">e</span>, aa <span class="op">=</span> <span class="va">a</span>, self_name <span class="op">=</span> <span class="st">"self"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7fc39819ee18&gt;</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># There is an environment `..method_env..` in the environment `e`</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">e</span><span class="op">)</span></span>

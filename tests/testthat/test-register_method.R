@@ -26,6 +26,7 @@ test_that("register_method() can use container name other than ..method_env..", 
   expect_equal(e$a(), 0)
 })
 
+
 test_that("register_method() can detect ..method_env.. is not an environment", {
   a <- function() self$x
   e <- new.env()
