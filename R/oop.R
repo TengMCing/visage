@@ -325,6 +325,8 @@ use_method <- function(env, fn, container_name = "..method_env..") {
 
 # BASE --------------------------------------------------------------------
 
+# nocov start
+
 class_BASE <- function(env = new.env(parent = parent.frame())) {
 
   # Pass CMD check
@@ -419,6 +421,8 @@ class_BASE <- function(env = new.env(parent = parent.frame())) {
                   ..len.. = len_)
   return(env)
 }
+
+# nocov end
 
 
 #' Load functions from the visage into target environment or search path
