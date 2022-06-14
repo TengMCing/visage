@@ -17,7 +17,7 @@
 #' \cr
 #' \cr
 #' New methods: [RAND_VAR$..init..], [RAND_VAR$..str..],
-#' [RAND_VAR$E], [RAND_VAR$Var]
+#' [RAND_VAR$E], [RAND_VAR$Var], [RAND_VAR$set_prm]
 #' @export
 RAND_VAR <- class_RAND_VAR()
 
@@ -108,6 +108,22 @@ RAND_VAR$Var
 #'
 #' test <- RAND_VAR$gen(10)
 RAND_VAR$gen
+
+#' Generate random values
+#'
+#' @name RAND_VAR$set_prm
+#'
+#' @description This function updates the parameters.
+#' @param prm_name List or Vector. A sequence of character parameter names.
+#' @param prm_value List or Vector. A sequence of parameter values.
+#' @return Return the object itself.
+#'
+#' @examples
+#'
+#' test <- RND_VAR()
+#' test$set_prm("a", 1)
+#' test
+RAND_VAR$set_prm
 
 #' String representation of the object
 #'
