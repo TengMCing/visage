@@ -22,6 +22,6 @@ New attributes: \link{RAND_VAR$dist}, \link{RAND_VAR$prm}
 \cr
 \cr
 New methods: \link{RAND_VAR$..init..}, \link{RAND_VAR$..str..},
-\link{RAND_VAR$E}, \link{RAND_VAR$Var}
+\link{RAND_VAR$E}, \link{RAND_VAR$Var}, \link{RAND_VAR$set_prm}
 }
 \keyword{datasets}
