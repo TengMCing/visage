@@ -21,6 +21,19 @@ class_RAND_VAR <- function(env = new.env(parent = parent.frame())) {
 
   Var_ <- function() NA
 
+  set_prm_ <- function(prm_name, prm_value) {
+
+    for (i in 1:length(prm_name)) {
+      pname <- prm_name[[i]]
+      pval <- prm_value[[i]]
+
+      self$prm[[pname]] <- pval
+    }
+
+    return(self)
+
+  }
+
   str_ <- function() {
     if (self$..instantiated..) {
       init_string <- paste0("<", self$..type.., " object>")
@@ -44,7 +57,8 @@ class_RAND_VAR <- function(env = new.env(parent = parent.frame())) {
                   ..str.. = str_,
                   E = E_,
                   Var = Var_,
-                  gen = gen_)
+                  gen = gen_,
+                  set_prm = set_prm_)
 
   return(env)
 }
