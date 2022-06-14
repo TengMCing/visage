@@ -180,6 +180,8 @@ calc_p_value_comb <- function(detected,
                               n_sim = 50000,
                               cache_env = NULL) {
 
+  if (n_eval == 0) stop("Number of evaluations equals to zero. Can not compute combinations.")
+
   # Generate all combinations
   comb_mat <- utils::combn(length(detected), n_eval)
   result <- apply(comb_mat,
