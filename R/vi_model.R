@@ -70,7 +70,7 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
       pval <- prm_value[[i]]
 
       self$prm[[pname]] <- pval
-      self$prm$y$set_sym(pname, list(pval))
+      self$prm$y$set_sym(list(pname), list(pval))
     }
 
     return(self)
@@ -378,9 +378,9 @@ class_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
 
       if (pname == "sigma") {
         self$prm[[pname]] <- pval
-        self$prm$e$prm$sigma <- pval
+        self$prm$e$set_prm(list("sigma"), list(pval))
       } else {
-        visage::use_method(self, visage::VI_MODEL$set_prm)(pname, pval)
+        visage::use_method(self, visage::VI_MODEL$set_prm)(list(pname), list(pval))
       }
     }
 
@@ -715,18 +715,18 @@ class_POLY_MODEL <- function(env = new.env(parent = parent.frame())) {
 
       if (pname == "shape") {
         self$prm[[pname]] <- pval
-        self$prm$raw_z$set_sym(pname, list(pval))
+        self$prm$raw_z$set_sym(list(pname), list(pval))
         next
       }
 
       if (pname == "raw_z") {
         self$prm[[pname]] <- pval
-        self$prm$z$set_sym(pname, list(pval))
+        self$prm$z$set_sym(list(pname), list(pval))
         next
       }
 
       # Reuse the CUBIC_MODEL$set_prm method
-      visage::use_method(self, visage::CUBIC_MODEL$set_prm)(prm_name, prm_value)
+      visage::use_method(self, visage::CUBIC_MODEL$set_prm)(list(pname), list(pval))
     }
 
     return(self)
