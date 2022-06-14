@@ -211,7 +211,7 @@ BASE$..methods..
 #' @description This function will be called after an instance is built. User
 #' could override this function in derived class.
 #' @param ... Ignored by `BASE`, but user can define their owns.
-#' @return No return value, called for side effects.
+#' @return Return the object itself.
 #'
 #' @examples
 #'
