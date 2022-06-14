@@ -7,7 +7,7 @@
 \item{...}{Ignored by \code{BASE}, but user can define their owns.}
 }
 \value{
-No return value, called for side effects.
+Return the object itself.
 }
 \description{
 This function will be called after an instance is built. User
