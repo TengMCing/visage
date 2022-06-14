@@ -18,7 +18,7 @@ could override this function in derived class."><!-- mathjax --><script src="htt
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">visage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9008</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9009</span>
       </span>
     </div>
 
@@ -69,7 +69,7 @@ could override this function in derived class.</p>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>No return value, called for side effects.</p>
+    <p>Return the object itself.</p>
     </div>
 
     <div id="ref-examples">
@@ -77,15 +77,17 @@ could override this function in derived class.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="va">BASE</span><span class="op">$</span><span class="va">..init..</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (...) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> return(invisible(NULL))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x7fdab83e8ef0&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7fdab83e66a0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> return(self)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x7fc36fab6af0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7fc36fab42a0&gt;</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Inherit from BASE</span></span>
 <span class="r-in"><span class="va">TEST</span> <span class="op">&lt;-</span> <span class="fu"><a href="new_class.html">new_class</a></span><span class="op">(</span><span class="va">BASE</span>, class_name <span class="op">=</span> <span class="st">"TEST"</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Override the `..init..` method</span></span>
 <span class="r-in"><span class="fu"><a href="register_method.html">register_method</a></span><span class="op">(</span><span class="va">TEST</span>, ..init.. <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">a</span><span class="op">)</span> <span class="op">{</span><span class="va">self</span><span class="op">$</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">a</span><span class="op">}</span><span class="op">)</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> ── &lt;TEST class&gt; </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Build a `TEST` instance</span></span>
 <span class="r-in"><span class="va">test</span> <span class="op">&lt;-</span> <span class="va">TEST</span><span class="op">$</span><span class="fu">instantiation</span><span class="op">(</span>a <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>

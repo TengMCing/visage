@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">visage</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9008</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9009</span>
       </span>
     </div>
 
@@ -78,7 +78,7 @@
 <div class="page-header"><h1 id="visage">visage<a class="anchor" aria-label="anchor" href="#visage"></a>
 </h1></div>
 <!-- badges: start -->
-<!-- badges: end -->
+
 <p>The goal of visage is to provide an lightweight OOP system and a set
 of tools for running visual inference experiments.</p>
 <div class="section level2">
@@ -164,12 +164,12 @@ frame.</p>
 <p>Generates five realizations from the model:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
-<span class="co">#&gt;            y           x          z          e      .resid    .fitted</span>
-<span class="co">#&gt; 1 -1.9383218 -0.34224546 -0.2037668 -2.0619964 -0.85923527 -1.0790865</span>
-<span class="co">#&gt; 2 -2.0571197 -0.78416117 -0.4625270 -1.0673211  0.22900437 -2.2861240</span>
-<span class="co">#&gt; 3 -0.8375781 -0.37792106 -0.2851144 -0.7336591  0.41467416 -1.2522523</span>
-<span class="co">#&gt; 4  0.5329768  0.03321616  0.5249864  0.2391021 -0.05085478  0.5838316</span>
-<span class="co">#&gt; 5  0.8118476  0.16482118  0.2843898 -0.2307978  0.26641152  0.5454361</span></code></pre></div>
+<span class="co">#&gt;            y           x           z          e     .resid    .fitted</span>
+<span class="co">#&gt; 1  0.0719453 -0.31596582 -0.77403850  0.7729648 -0.2567667  0.3287120</span>
+<span class="co">#&gt; 2 -5.7677403  0.85144886  0.70339282 -1.7675549 -1.6314990 -4.1362414</span>
+<span class="co">#&gt; 3 -3.0681272  0.80772202  0.71014817  0.5394933  1.2848012 -4.3529285</span>
+<span class="co">#&gt; 4  0.4090330  0.07978173 -0.56331019  0.3288894 -0.1998464  0.6088793</span>
+<span class="co">#&gt; 5 -0.3787237  0.35626343 -0.09477948 -1.0993868  0.8033109 -1.1820345</span></code></pre></div>
 <p><strong>1.3. Make a residual plot</strong></p>
 <p>Method <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> produce a <code>ggplot</code> object. It
 takes a data frame containing columns <code>.resid</code> and
@@ -189,40 +189,40 @@ same user interface as <code><a href="https://rdrr.io/r/graphics/plot.default.ht
 <p>Generate a lineup consists of 2 plots and 8 realizations:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="fu">gen_lineup</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">8</span>, k <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-<span class="co">#&gt;              y          x          z          e     .resid     .fitted</span>
-<span class="co">#&gt; 1  -4.27650580  0.8099464  0.3040408 -2.4668068 -1.5836131 -2.69289266</span>
-<span class="co">#&gt; 2  -3.93085245  0.8232028  0.4570914 -1.5912947 -0.6571641 -3.27368836</span>
-<span class="co">#&gt; 3   1.37309891 -0.7475679  0.1727164  1.4761211 -0.3474899  1.72058884</span>
-<span class="co">#&gt; 4   1.46668816 -0.3768349  0.3723097  1.3073564  1.3985090  0.06817918</span>
-<span class="co">#&gt; 5   0.19696056 -0.9304175  0.4714127  0.8176492 -0.9186596  1.11562019</span>
-<span class="co">#&gt; 6  -3.05524501  0.7223357  0.7625360  0.2304052  1.0551359 -4.11038090</span>
-<span class="co">#&gt; 7  -3.63808956  0.7617544  0.6630701 -0.8024701  0.2164698 -3.85455938</span>
-<span class="co">#&gt; 8   1.17496314  0.3693298 -0.2316412  0.7213079  0.8368121  0.33815103</span>
-<span class="co">#&gt; 9  -3.42654104  0.8099464  0.3040408 -2.4668068 -0.7336484 -2.69289266</span>
-<span class="co">#&gt; 10 -4.82606447  0.8232028  0.4570914 -1.5912947 -1.5523761 -3.27368836</span>
-<span class="co">#&gt; 11  0.55640521 -0.7475679  0.1727164  1.4761211 -1.1641836  1.72058884</span>
-<span class="co">#&gt; 12 -0.06342362 -0.3768349  0.3723097  1.3073564 -0.1316028  0.06817918</span>
-<span class="co">#&gt; 13  1.85959257 -0.9304175  0.4714127  0.8176492  0.7439724  1.11562019</span>
-<span class="co">#&gt; 14 -3.42530762  0.7223357  0.7625360  0.2304052  0.6850733 -4.11038090</span>
-<span class="co">#&gt; 15 -2.95117807  0.7617544  0.6630701 -0.8024701  0.9033813 -3.85455938</span>
-<span class="co">#&gt; 16  1.58753498  0.3693298 -0.2316412  0.7213079  1.2493839  0.33815103</span>
-<span class="co">#&gt;    test_name statistic   p_value k  null</span>
-<span class="co">#&gt; 1     F-test  35.49463 0.1251533 2 FALSE</span>
-<span class="co">#&gt; 2     F-test  35.49463 0.1251533 2 FALSE</span>
-<span class="co">#&gt; 3     F-test  35.49463 0.1251533 2 FALSE</span>
-<span class="co">#&gt; 4     F-test  35.49463 0.1251533 2 FALSE</span>
-<span class="co">#&gt; 5     F-test  35.49463 0.1251533 2 FALSE</span>
-<span class="co">#&gt; 6     F-test  35.49463 0.1251533 2 FALSE</span>
-<span class="co">#&gt; 7     F-test  35.49463 0.1251533 2 FALSE</span>
-<span class="co">#&gt; 8     F-test  35.49463 0.1251533 2 FALSE</span>
-<span class="co">#&gt; 9     F-test   2.41691 0.4449079 1  TRUE</span>
-<span class="co">#&gt; 10    F-test   2.41691 0.4449079 1  TRUE</span>
-<span class="co">#&gt; 11    F-test   2.41691 0.4449079 1  TRUE</span>
-<span class="co">#&gt; 12    F-test   2.41691 0.4449079 1  TRUE</span>
-<span class="co">#&gt; 13    F-test   2.41691 0.4449079 1  TRUE</span>
-<span class="co">#&gt; 14    F-test   2.41691 0.4449079 1  TRUE</span>
-<span class="co">#&gt; 15    F-test   2.41691 0.4449079 1  TRUE</span>
-<span class="co">#&gt; 16    F-test   2.41691 0.4449079 1  TRUE</span></code></pre></div>
+<span class="co">#&gt;             y          x          z          e     .resid    .fitted test_name</span>
+<span class="co">#&gt; 1  -3.2615820  0.6106806 -0.2156965 -2.7450799 -1.7195850 -1.5419970    F-test</span>
+<span class="co">#&gt; 2   0.7038132  0.4477366  0.3617162  0.2995304  1.9679069 -1.2640937    F-test</span>
+<span class="co">#&gt; 3  -3.5795666 -0.9877663  0.6954863 -1.7911519 -1.2349343 -2.3446323    F-test</span>
+<span class="co">#&gt; 4  -1.2941408 -0.3259794  0.5576815 -0.8576162  0.5404190 -1.8345597    F-test</span>
+<span class="co">#&gt; 5  -0.2020867 -0.3725803  0.3001553 -0.5169683  1.8667876 -2.0688743    F-test</span>
+<span class="co">#&gt; 6  -1.4315590  0.3352395  0.8140151  0.4753818 -0.3991623 -1.0323967    F-test</span>
+<span class="co">#&gt; 7  -2.2560343 -0.2757001  0.6306354 -1.5002905 -0.5221626 -1.7338717    F-test</span>
+<span class="co">#&gt; 8  -1.4540245  0.3790839  0.8639466  1.0712568 -0.4992692 -0.9547553    F-test</span>
+<span class="co">#&gt; 9  -0.5241608  0.6106806 -0.2156965 -2.7450799  1.0178362 -1.5419970    F-test</span>
+<span class="co">#&gt; 10 -3.2701586  0.4477366  0.3617162  0.2995304 -2.0060649 -1.2640937    F-test</span>
+<span class="co">#&gt; 11 -1.5911634 -0.9877663  0.6954863 -1.7911519  0.7534689 -2.3446323    F-test</span>
+<span class="co">#&gt; 12 -2.0215153 -0.3259794  0.5576815 -0.8576162 -0.1869555 -1.8345597    F-test</span>
+<span class="co">#&gt; 13 -1.6169754 -0.3725803  0.3001553 -0.5169683  0.4518990 -2.0688743    F-test</span>
+<span class="co">#&gt; 14 -1.3161049  0.3352395  0.8140151  0.4753818 -0.2837082 -1.0323967    F-test</span>
+<span class="co">#&gt; 15 -3.4555007 -0.2757001  0.6306354 -1.5002905 -1.7216290 -1.7338717    F-test</span>
+<span class="co">#&gt; 16  1.0203983  0.3790839  0.8639466  1.0712568  1.9751536 -0.9547553    F-test</span>
+<span class="co">#&gt;    statistic   p_value k  null</span>
+<span class="co">#&gt; 1  14.888465 0.1917004 2 FALSE</span>
+<span class="co">#&gt; 2  14.888465 0.1917004 2 FALSE</span>
+<span class="co">#&gt; 3  14.888465 0.1917004 2 FALSE</span>
+<span class="co">#&gt; 4  14.888465 0.1917004 2 FALSE</span>
+<span class="co">#&gt; 5  14.888465 0.1917004 2 FALSE</span>
+<span class="co">#&gt; 6  14.888465 0.1917004 2 FALSE</span>
+<span class="co">#&gt; 7  14.888465 0.1917004 2 FALSE</span>
+<span class="co">#&gt; 8  14.888465 0.1917004 2 FALSE</span>
+<span class="co">#&gt; 9   3.535829 0.3769765 1  TRUE</span>
+<span class="co">#&gt; 10  3.535829 0.3769765 1  TRUE</span>
+<span class="co">#&gt; 11  3.535829 0.3769765 1  TRUE</span>
+<span class="co">#&gt; 12  3.535829 0.3769765 1  TRUE</span>
+<span class="co">#&gt; 13  3.535829 0.3769765 1  TRUE</span>
+<span class="co">#&gt; 14  3.535829 0.3769765 1  TRUE</span>
+<span class="co">#&gt; 15  3.535829 0.3769765 1  TRUE</span>
+<span class="co">#&gt; 16  3.535829 0.3769765 1  TRUE</span></code></pre></div>
 <p>Plot a lineup consists of 20 plots and 300 realizations:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="fu">plot_lineup</span><span class="op">(</span><span class="va">mod</span><span class="op">$</span><span class="fu">gen_lineup</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">300</span>, k <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"resid"</span>, alpha <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></code></pre></div>
@@ -267,12 +267,12 @@ model object. The following codes give examples of the use of the
 object.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
-<span class="co">#&gt;            y           x          e    .resid    .fitted</span>
-<span class="co">#&gt; 1 -4.5334688  0.39166555 -2.4375095 -4.158807 -0.3746620</span>
-<span class="co">#&gt; 2  1.6712434  0.22950788  0.2695533  2.370509 -0.6992658</span>
-<span class="co">#&gt; 3  0.9231221  0.07416540 -0.1392819  1.933349 -1.0102270</span>
-<span class="co">#&gt; 4 -3.7977785 -0.68119120 -1.0340480 -1.275495 -2.5222836</span>
-<span class="co">#&gt; 5  0.1002552  0.06419368 -0.9060491  1.130443 -1.0301882</span></code></pre></div>
+<span class="co">#&gt;            y           x          e     .resid   .fitted</span>
+<span class="co">#&gt; 1  1.9458094 -0.18762901  0.7772492 -1.7495400 3.6953494</span>
+<span class="co">#&gt; 2 10.4860777 -0.84373883  2.1182674  0.8269328 9.6591448</span>
+<span class="co">#&gt; 3  1.9929016  0.12781249  0.7010453  1.1647987 0.8281029</span>
+<span class="co">#&gt; 4  0.6477066 -0.03684373 -0.3088137 -1.6770604 2.3247670</span>
+<span class="co">#&gt; 5  2.4188607  0.11066230  1.1088511  1.4348689 0.9839918</span></code></pre></div>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="fu">plot</span><span class="op">(</span><span class="va">mod</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">300</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"resid"</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-13-1.png" width="100%"></p>
@@ -320,11 +320,11 @@ generated from random variables will be returned.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cf</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, rhs_val <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; $lhs</span>
-<span class="co">#&gt; [1] 0.9780757 1.8840041 1.1278455 0.8508702 0.9230486</span>
+<span class="co">#&gt; [1] 0.4249562 1.9151282 0.5706812 1.2888759 1.3772548</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $rhs</span>
 <span class="co">#&gt; $rhs$x</span>
-<span class="co">#&gt; [1] -0.02192433  0.88400405  0.12784547 -0.14912984 -0.07695142</span></code></pre></div>
+<span class="co">#&gt; [1] -0.5750438  0.9151282 -0.4293188  0.2888759  0.3772548</span></code></pre></div>
 <p><strong>3.2. Nested closed form expression</strong></p>
 <p>Nested closed form expression is useful when a hierarchical structure
 present in the expression.</p>
@@ -359,17 +359,17 @@ if <code>rhs_val = TRUE</code>.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">y</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, rhs_val <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; $lhs</span>
-<span class="co">#&gt; [1]  0.7593559 -0.1501161  0.9376728  2.2168347  0.7618522</span>
+<span class="co">#&gt; [1] 0.6958777 0.5871584 0.6032451 0.7325184 1.0207915</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $rhs</span>
 <span class="co">#&gt; $rhs$x</span>
-<span class="co">#&gt; [1] -0.23491061 -0.72941248 -0.05920525  0.91934543 -0.31375142</span>
+<span class="co">#&gt; [1] -0.43188726 -0.51129573 -0.30614025 -0.88364633  0.02060055</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $rhs$z</span>
-<span class="co">#&gt; [1] -0.1038991 -0.7907330 -0.8906593  0.3519767  0.7680177</span>
+<span class="co">#&gt; [1]  0.6849689  0.3766080 -0.9668462  0.7891142  0.4500578</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $rhs$e</span>
-<span class="co">#&gt; [1] 0.9942665 0.5792964 0.9968780 1.2974893 1.0756036</span></code></pre></div>
+<span class="co">#&gt; [1] 1.1277649 1.0984541 0.9093854 1.6161647 1.0001910</span></code></pre></div>
 <p><strong>3.3. Turn <code>gen()</code> result into dataframe via method
 <code>as_dataframe()</code></strong></p>
 <p>Results of <code>gen()</code> is either a vector or a list, which can
@@ -378,12 +378,12 @@ The <code>lhs</code> argument is for naming the left hand side result of
 the closed form expression.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">y</span><span class="op">$</span><span class="fu">as_dataframe</span><span class="op">(</span><span class="va">y</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, rhs_val <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, lhs <span class="op">=</span> <span class="st">"y"</span><span class="op">)</span>
-<span class="co">#&gt;            y           x          z         e</span>
-<span class="co">#&gt; 1  1.2127933  0.19282444  0.5370681 1.0199689</span>
-<span class="co">#&gt; 2 -0.2652243 -0.88646682 -0.4819881 0.6212425</span>
-<span class="co">#&gt; 3  1.0869776 -0.99510024  1.0927601 2.0820778</span>
-<span class="co">#&gt; 4  0.3549894 -0.74064549  0.1743394 1.0956349</span>
-<span class="co">#&gt; 5  1.0867490  0.08777789 -0.1335390 0.9989711</span></code></pre></div>
+<span class="co">#&gt;          y           x          z         e</span>
+<span class="co">#&gt; 1 1.216533  0.31454206 -0.9906224 0.9019911</span>
+<span class="co">#&gt; 2 1.094176  0.08841144  0.7374344 1.0057642</span>
+<span class="co">#&gt; 3 0.870290 -0.71465658  1.1453056 1.5849466</span>
+<span class="co">#&gt; 4 1.197807  0.18436565  0.3954489 1.0134416</span>
+<span class="co">#&gt; 5 1.377490  0.36336589  0.1069708 1.0141239</span></code></pre></div>
 <p><strong>3.4. Current limitiation of
 <code>CLOSED_FORM</code></strong></p>
 <p>For <code><a href="reference/portal.html">closed_form()</a></code>, any simple expressions can be
@@ -440,13 +440,13 @@ object</li>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">DEMO</span><span class="op">$</span><span class="fu">..dict..</span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt;  [1] "..dict.."         "..str.."          "..len.."          "..class.."       </span>
-<span class="co">#&gt;  [5] "..new.."          "..repr.."         "has_attr"         "instantiation"   </span>
-<span class="co">#&gt;  [9] "set_attr"         "..type.."         "get_attr"         "..methods.."     </span>
-<span class="co">#&gt; [13] "..method_env.."   "..instantiated.." "..init.."</span>
+<span class="co">#&gt;  [5] "..new.."          "..repr.."         "del_attr"         "has_attr"        </span>
+<span class="co">#&gt;  [9] "instantiation"    "set_attr"         "..type.."         "get_attr"        </span>
+<span class="co">#&gt; [13] "..methods.."      "..method_env.."   "..instantiated.." "..init.."</span>
 <span class="va">DEMO</span><span class="op">$</span><span class="fu">..methods..</span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt;  [1] "..dict.."      "..str.."       "..len.."       "..new.."      </span>
-<span class="co">#&gt;  [5] "..repr.."      "has_attr"      "instantiation" "set_attr"     </span>
-<span class="co">#&gt;  [9] "get_attr"      "..methods.."   "..init.."</span></code></pre></div>
+<span class="co">#&gt;  [5] "..repr.."      "del_attr"      "has_attr"      "instantiation"</span>
+<span class="co">#&gt;  [9] "set_attr"      "get_attr"      "..methods.."   "..init.."</span></code></pre></div>
 <ul>
 <li>
 <code>OBJECT$..str..()</code> returns a string representation of the
@@ -601,7 +601,12 @@ which in this case, the <code>..str..()</code> method from the
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://app.codecov.io/gh/TengMCing/visage?branch=master" class="external-link"><img src="https://codecov.io/gh/TengMCing/visage/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+</ul>
+</div>
 
   </div>
 </div>
