@@ -6,7 +6,7 @@
 \arguments{
 \item{sym_name}{Vector or List. A sequence of character symbol names.}
 
-\item{sym_val}{Vector or List. A sequence of symbol values.}
+\item{sym_value}{Vector or List. A sequence of symbol values.}
 }
 \value{
 Return the object itself.
