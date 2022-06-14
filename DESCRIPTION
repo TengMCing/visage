@@ -1,6 +1,6 @@
 Package: visage
 Title: Visual Inference for Linear Regression Diagnostics
-Version: 0.0.0.9008
+Version: 0.0.0.9009
 Authors@R: 
     person(given = "Weihao",
            family = "Li",
@@ -30,6 +30,7 @@ Imports:
 Suggests: 
     rmarkdown,
     knitr,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    covr
 Config/testthat/edition: 3
 VignetteBuilder: knitr
