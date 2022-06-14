@@ -149,7 +149,7 @@ class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
 
     # Update all sym values
     for (i in 1:length(sym_name)) {
-      self$sym[[sym_name[[i]]]] <- sym_val[[i]]
+      self$sym[[sym_name[[i]]]] <- sym_value[[i]]
     }
 
     # Update the sym_name list
