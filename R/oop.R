@@ -204,7 +204,7 @@ new_class <- function(..., env = new.env(parent = parent.frame()), class_name = 
 
     if (parent$..instantiated..) stop("Parent is not a class!")
 
-    env$..class.. <- c(env$..class.., parent$..class..)
+    env$..class.. <- c(parent$..class.., env$..class..)
 
     # Copy all the methods and attributes from the class/instance
     # except the container, the init_call, and the class information
