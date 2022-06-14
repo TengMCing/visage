@@ -120,7 +120,7 @@ RAND_VAR$gen
 #'
 #' @examples
 #'
-#' test <- RND_VAR()
+#' test <- rand_var()
 #' test$set_prm("a", 1)
 #' test
 RAND_VAR$set_prm
