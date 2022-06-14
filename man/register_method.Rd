@@ -24,7 +24,7 @@ executed inside this container.}
 this name to access the object environment.}
 }
 \value{
-No return value, called for side effects.
+Return the object itself.
 }
 \description{
 This function register a function as a method of an object environment.

@@ -14,7 +14,7 @@ copy_attr(env, ..., avoid = c("..method_env..", "..init_call.."))
 \item{avoid}{Character. Names that don't want to be copied.}
 }
 \value{
-No return value, called for side effects.
+Return the object itself.
 }
 \description{
 This function copy attributes and methods from classes or instances to
