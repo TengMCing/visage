@@ -1,4 +1,5 @@
 test_that("calc_p_value_comb() passes tol = 0.01", {
+  set.seed(10086)
   expect_true(all(abs(calc_p_value_comb(c(TRUE, TRUE), 1, c(1, 1)) - 0.05) < 0.01))
   expect_true(all(abs(calc_p_value_comb(c(TRUE, TRUE), 2, c(1, 1)) - 0.0025) < 0.01))
 })
