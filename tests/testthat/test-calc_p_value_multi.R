@@ -1,4 +1,5 @@
 test_that("calc_p_value_multi() works for comb = TRUE", {
+  set.seed(10086)
   dat <- data.frame(lineup_id = c(1, 1, 2),
                     detected = c(TRUE, FALSE, TRUE),
                     n_sel = c(1, 1, 2))
@@ -10,6 +11,7 @@ test_that("calc_p_value_multi() works for comb = TRUE", {
 })
 
 test_that("calc_p_value_multi() works for comb = FALSE", {
+  set.seed(10086)
   dat <- data.frame(lineup_id = c(1, 1, 2),
                     detected = c(TRUE, FALSE, TRUE),
                     n_sel = c(1, 1, 2))
