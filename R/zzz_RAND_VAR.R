@@ -57,7 +57,7 @@ RAND_VAR$prm
 #' input will be stored in the environment.
 #' @param dist Character. Distribution name.
 #' @param prm List. List of parameters.
-#' @return No return value, called for side effects.
+#' @return Return the object itself.
 #'
 #' @examples
 #'
@@ -167,7 +167,7 @@ RAND_UNIFORM <- class_RAND_UNIFORM()
 #' input will be stored in the environment.
 #' @param a Numeric. Lower bound. Default is 0.
 #' @param b Numeric. Upper bound. Default is 1.
-#' @return No return value, called for side effects.
+#' @return Return the object itself.
 #'
 #' @examples
 #'
@@ -224,7 +224,7 @@ RAND_NORMAL <- class_RAND_NORMAL()
 #' input will be stored in the environment.
 #' @param mu Numeric. Mean. Default is 0.
 #' @param sigma Numeric. Standard deviation. Default is 1.
-#' @return No return value, called for side effects.
+#' @return Return the object itself.
 #'
 #' @examples
 #'
@@ -281,7 +281,7 @@ RAND_LOGNORMAL <- class_RAND_LOGNORMAL()
 #' @param mu Numeric. Mean of the log of the random variable. Default is 0.
 #' @param sigma Numeric. Standard deviation of the log the random variable.
 #' Default is 1.
-#' @return No return value, called for side effects.
+#' @return Return the object itself.
 #'
 #' @examples
 #'
@@ -341,7 +341,7 @@ RAND_UNIFORM_D <- class_RAND_UNIFORM_D()
 #' @param b Numeric. Upper bound. Default is 1.
 #' @param k Integer. Number of unique discrete values. Default is 5.
 #' @param even Boolean. Whether or not candidate values are evenly spaced.
-#' @return No return value, called for side effects.
+#' @return Return the object itself.
 #'
 #' @examples
 #'
