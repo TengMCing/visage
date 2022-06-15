@@ -196,3 +196,52 @@ test_that("RAND_UNIFORM_D$..str..() produce correct string", {
   expect_equal(test$..str..(), "<RAND_UNIFORM_D object>\n [a: 0, b: 1, k: 5, even: 0]")
   expect_equal(RAND_UNIFORM_D$..str..(), "<RAND_UNIFORM_D class>")
 })
+
+
+# RAND_LOGNORMAL ----------------------------------------------------------
+
+test_that("RAND_LOGNORMAL$..type.. is RAND_LOGNORMAL", {
+  expect_equal(RAND_LOGNORMAL$..type.., "RAND_LOGNORMAL")
+})
+
+test_that("RAND_LOGNORMAL$..class.. is RAND_LOGNORMAL, RAND_VAR and BASE", {
+  expect_equal(RAND_LOGNORMAL$..class.., c("RAND_LOGNORMAL", "RAND_VAR", "BASE"))
+})
+
+test_that("RAND_LOGNORMAL instance has attribute dist and prm", {
+  expect_equal(rand_lognormal()$has_attr(c("prm", "dist")), c(TRUE, TRUE))
+})
+
+test_that("RAND_LOGNORMAL$..init..() capture prm correctly", {
+  expect_equal(rand_lognormal(1, 2)$prm$mu, 1)
+  expect_equal(rand_lognormal(1, 2)$prm$sigma, 2)
+})
+
+test_that("RAND_LOGNORMAL$gen() can correctly produce values", {
+  set.seed(10086)
+  expect_lt(abs(mean(rand_lognormal(0, 1)$gen(100000)) - exp(0.5)), 1)
+  expect_lt(abs(var(rand_lognormal(0, 1)$gen(100000)) - 4.670774), 1)
+})
+
+test_that("RAND_LOGNORMAL$gen() can correctly produce values when mu and sigma depends on observations", {
+  set.seed(10086)
+  expect_length(rand_lognormal()$gen(10000, mu = c(rep(0, 5000), rep(10, 5000))), 10000)
+  expect_length(rand_lognormal()$gen(10000, sigma = c(rep(1, 5000), rep(2, 5000))), 10000)
+})
+
+test_that("RAND_LOGNORMAL$E() can produce correct value", {
+  expect_equal(rand_lognormal()$E(), exp(0.5))
+  expect_equal(rand_lognormal(1)$E(), exp(1.5))
+})
+
+test_that("RAND_LOGNORMAL$Var() can produce correct value", {
+  expect_equal(rand_lognormal()$Var(), (exp(1) - 1) * exp(1))
+  expect_equal(rand_lognormal(sigma = 2)$Var(), (exp(4) - 1) * exp(4))
+})
+
+test_that("RAND_LOGNORMAL$..str..() produce correct string", {
+  test <- rand_lognormal()
+
+  expect_equal(test$..str..(), "<RAND_LOGNORMAL object>\n [mu: 0, sigma: 1]")
+  expect_equal(RAND_LOGNORMAL$..str..(), "<RAND_LOGNORMAL class>")
+})
