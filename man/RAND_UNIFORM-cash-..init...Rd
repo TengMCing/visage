@@ -9,7 +9,7 @@
 \item{b}{Numeric. Upper bound. Default is 1.}
 }
 \value{
-No return value, called for side effects.
+Return the object itself.
 }
 \description{
 This function will be called after an instance is built. User
