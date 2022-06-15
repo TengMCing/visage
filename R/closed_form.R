@@ -1,6 +1,8 @@
 
 # CLOSED_FORM -------------------------------------------------------------
 
+# nocov start
+
 class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
 
   # Pass CMD check
@@ -255,3 +257,4 @@ class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
   return(env)
 }
 
+# nocov end

@@ -1,6 +1,8 @@
 
 # VI_MODEL ----------------------------------------------------------------
 
+# nocov start
+
 class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
 
   # Pass CMD check
@@ -800,3 +802,4 @@ class_POLY_MODEL <- function(env = new.env(parent = parent.frame())) {
   return(env)
 }
 
+# nocov end
