@@ -48,7 +48,19 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">vi_model</span><span class="op">(</span><span class="va">...</span>, env <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span>parent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">rand_var</span><span class="op">(</span><span class="va">...</span>, env <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span>parent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+
+<span class="fu">rand_uniform</span><span class="op">(</span><span class="va">...</span>, env <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span>parent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+
+<span class="fu">rand_uniform_d</span><span class="op">(</span><span class="va">...</span>, env <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span>parent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+
+<span class="fu">rand_normal</span><span class="op">(</span><span class="va">...</span>, env <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span>parent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+
+<span class="fu">rand_lognormal</span><span class="op">(</span><span class="va">...</span>, env <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span>parent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+
+<span class="fu">closed_form</span><span class="op">(</span><span class="va">...</span>, env <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span>parent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+
+<span class="fu">vi_model</span><span class="op">(</span><span class="va">...</span>, env <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span>parent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 
 <span class="fu">cubic_model</span><span class="op">(</span><span class="va">...</span>, env <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span>parent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 
@@ -71,7 +83,13 @@
     <div class="section level2">
     <h2 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a></h2>
     
-<ul><li><p><code>vi_model</code>: <a href="VI_MODEL.html">VI_MODEL</a></p></li>
+<ul><li><p><code>rand_var</code>: <a href="RAND_VAR.html">RAND_VAR</a></p></li>
+<li><p><code>rand_uniform</code>: <a href="RAND_UNIFORM.html">RAND_UNIFORM</a></p></li>
+<li><p><code>rand_uniform_d</code>: <a href="RAND_UNIFORM_D.html">RAND_UNIFORM_D</a></p></li>
+<li><p><code>rand_normal</code>: <a href="RAND_NORMAL.html">RAND_NORMAL</a></p></li>
+<li><p><code>rand_lognormal</code>: <a href="RAND_LOGNORMAL.html">RAND_LOGNORMAL</a></p></li>
+<li><p><code>closed_form</code>: <a href="CLOSED_FORM.html">CLOSED_FORM</a></p></li>
+<li><p><code>vi_model</code>: <a href="VI_MODEL.html">VI_MODEL</a></p></li>
 <li><p><code>cubic_model</code>: <a href="CUBIC_MODEL.html">CUBIC_MODEL</a></p></li>
 <li><p><code>simple_cubic_model</code>: <a href="SIMPLE_CUBIC_MODEL.html">SIMPLE_CUBIC_MODEL</a></p></li>
 <li><p><code>quartic_model</code>: <a href="QUARTIC_MODEL.html">QUARTIC_MODEL</a></p></li>

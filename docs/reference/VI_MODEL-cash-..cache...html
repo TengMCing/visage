@@ -55,8 +55,8 @@ method.</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="co"># Instantiate</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">bandicoot</span><span class="fu">::</span><span class="fu"><a href="https://tengmcing.github.io/bandicoot/reference/portal.html" class="external-link">rand_uniform</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">e</span> <span class="op">&lt;-</span> <span class="fu">bandicoot</span><span class="fu">::</span><span class="fu"><a href="https://tengmcing.github.io/bandicoot/reference/portal.html" class="external-link">rand_normal</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="portal.html">rand_uniform</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">e</span> <span class="op">&lt;-</span> <span class="fu"><a href="portal.html">rand_normal</a></span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">test</span> <span class="op">&lt;-</span> <span class="fu"><a href="portal.html">vi_model</a></span><span class="op">(</span>prm <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, e <span class="op">=</span> <span class="va">e</span><span class="op">)</span>,</span>
 <span class="r-in">                 prm_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"r"</span>, e <span class="op">=</span> <span class="st">"r"</span><span class="op">)</span>,</span>
 <span class="r-in">                 formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="fl">1</span> <span class="op">+</span> <span class="va">x</span> <span class="op">+</span> <span class="va">x</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">e</span>,</span>
@@ -71,22 +71,22 @@ method.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Coefficients:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)            x  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      1.7111      -0.2262  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       1.338        1.775  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">test</span><span class="op">$</span><span class="va">..cache..</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            y         x          e      .resid   .fitted</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  -1.639804 0.0342340 -2.6752103 -0.52458499 -1.115219</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   1.877597 0.5053544  0.1168591  0.08314602  1.794451</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   3.753408 0.8725313  1.1195653 -0.30875124  4.062159</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   3.092693 0.8506352  0.5184779 -0.83423362  3.926927</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   4.204578 0.7988724  1.7675085  0.59734152  3.607236</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   2.815682 0.6296867  0.7894904  0.25334772  2.562335</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   2.985467 0.6887602  0.8223159  0.05829024  2.927176</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   1.341272 0.3936687 -0.2073712  0.23660031  1.104672</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9   2.825092 0.4849022  1.1050597  1.15695586  1.668136</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10  1.189561 0.5236869 -0.6083735 -0.71811183  1.907673</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              y         x            e      .resid  .fitted</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1.32649609 0.4957455 -0.415013047 -0.36194849 1.688445</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   1.49445131 0.1356422  0.340410260  0.21661049 1.277841</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   1.99001687 0.3913059  0.445590651  0.42065839 1.569358</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   1.68397816 0.8397340 -0.860909005 -0.39669545 2.080674</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   2.02158541 0.5912794  0.080694704  0.22420939 1.797376</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   1.72936100 0.5020747 -0.024792735  0.03369962 1.695661</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   2.42334083 0.2537062  1.105267843  1.01087892 1.412462</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   2.62469750 0.8682186  0.002675344  0.51154462 2.113153</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   1.45812136 0.4439908 -0.182997189 -0.17131043 1.629432</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 -0.01537121 0.3061635 -1.415270871 -1.48764706 1.472276</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $formula</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> y ~ x</span>
@@ -98,7 +98,7 @@ method.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Coefficients:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)            x  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      1.7111      -0.2262  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       1.338        1.775  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
