@@ -8,7 +8,7 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
   # Pass CMD check
   .fitted <- .resid <- self <- NULL
 
-  new_class(BASE, env = env, class_name = "VI_MODEL")
+  bandicoot::new_class(bandicoot::BASE, env = env, class_name = "VI_MODEL")
 
   env$prm <- list()
   env$prm_type <- list()
@@ -40,7 +40,7 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
     list2env(prm, envir = environment())
 
     # Set the y variable
-    self$prm$y <- visage::closed_form(formula, env = new.env(parent = parent.env(self)))
+    self$prm$y <- bandicoot::closed_form(formula, env = new.env(parent = parent.env(self)))
   }
 
 # set_formula -------------------------------------------------------------
@@ -84,7 +84,7 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
   gen_ <- function(n, fit_model = TRUE, test = FALSE, computed = NULL) {
 
     # Generate the data frame from the expression
-    dat <- visage::CLOSED_FORM$as_dataframe(self$prm$y$gen(n, rhs_val = TRUE, computed = computed), "y")
+    dat <- bandicoot::CLOSED_FORM$as_dataframe(self$prm$y$gen(n, rhs_val = TRUE, computed = computed), "y")
 
     # If requires residuals and fitted values, fit the model
     if (fit_model) {
@@ -305,7 +305,7 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
       return(paste0("<", self$..type.., " class>"))
     }
 
-    results <- visage::use_method(self$prm$y, visage::CLOSED_FORM$..str..)()
+    results <- bandicoot::use_method(self$prm$y, bandicoot::CLOSED_FORM$..str..)()
     results <- paste0("<", self$..type.., " object>\n ",
                       gsub("<CLOSED_FORM object>\n EXPR", "y", results, fixed = TRUE))
 
@@ -317,22 +317,22 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
 
 # register_method ---------------------------------------------------------
 
-  register_method(env,
-                  ..init.. = init_,
-                  ..str.. = str_,
-                  set_formula = set_formula_,
-                  set_prm = set_prm_,
-                  gen = gen_,
-                  test = test_,
-                  fit = fit_,
-                  effect_size = effect_size_,
-                  plot_resid = plot_resid_,
-                  plot_qq = plot_qq_,
-                  plot = plot_,
-                  plot_lineup = plot_lineup_,
-                  rss = rss_,
-                  null_resid = null_resid_,
-                  gen_lineup = gen_lineup_)
+  bandicoot::register_method(env,
+                             ..init.. = init_,
+                             ..str.. = str_,
+                             set_formula = set_formula_,
+                             set_prm = set_prm_,
+                             gen = gen_,
+                             test = test_,
+                             fit = fit_,
+                             effect_size = effect_size_,
+                             plot_resid = plot_resid_,
+                             plot_qq = plot_qq_,
+                             plot = plot_,
+                             plot_lineup = plot_lineup_,
+                             rss = rss_,
+                             null_resid = null_resid_,
+                             gen_lineup = gen_lineup_)
 
   return(env)
 }
@@ -345,7 +345,7 @@ class_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
   # Pass CMD check
   self <- NULL
 
-  new_class(VI_MODEL, env = env, class_name = "CUBIC_MODEL")
+  bandicoot::new_class(VI_MODEL, env = env, class_name = "CUBIC_MODEL")
 
   # Run the `set_formula` method for the class
   env$set_formula(formula = y ~ 1 + (2-c) * x + c * z + a * (((2-c) * x)^2 + (c * z)^2) + b * (((2-c) * x)^3 + (c * z)^3) + e,
@@ -355,12 +355,12 @@ class_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
 # init --------------------------------------------------------------------
 
   init_ <- function(a = 1, b = 1, c = 1, sigma = 1,
-                    x = visage::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
-                    z = visage::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
-                    e = visage::rand_normal(0, sigma, env = new.env(parent = parent.env(self)))) {
+                    x = bandicoot::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
+                    z = bandicoot::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
+                    e = bandicoot::rand_normal(0, sigma, env = new.env(parent = parent.env(self)))) {
 
     # Use the init method from the VI_MODEL class
-    visage::use_method(self, visage::VI_MODEL$..init..)(
+    bandicoot::use_method(self, visage::VI_MODEL$..init..)(
       prm = list(a = a, b = b, c = c, sigma = sigma, x = x, z = z, e = e),
       prm_type = list(a = "o", b = "o", c = "o", sigma = "o", x = "r", z = "r", e = "r"),
       formula = self$formula,
@@ -382,7 +382,7 @@ class_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
         self$prm[[pname]] <- pval
         self$prm$e$set_prm(list("sigma"), list(pval))
       } else {
-        visage::use_method(self, visage::VI_MODEL$set_prm)(list(pname), list(pval))
+        bandicoot::use_method(self, visage::VI_MODEL$set_prm)(list(pname), list(pval))
       }
     }
 
@@ -424,7 +424,7 @@ class_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
 
 # register_method ---------------------------------------------------------
 
-  register_method(env,
+  bandicoot::register_method(env,
                   ..init.. = init_,
                   E = E_,
                   effect_size = effect_size_,
@@ -440,7 +440,7 @@ class_SIMPLE_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
   # Pass CMD check
   self <- NULL
 
-  new_class(VI_MODEL, env = env, class_name = "SIMPLE_CUBIC_MODEL")
+  bandicoot::new_class(VI_MODEL, env = env, class_name = "SIMPLE_CUBIC_MODEL")
 
   # Run the `set_formula` method for the class
   env$set_formula(formula = y ~ 1 + x + a * x^2 + b * x^3 + e,
@@ -450,11 +450,11 @@ class_SIMPLE_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
 # init --------------------------------------------------------------------
 
   init_ <- function(a = 1, b = 1, sigma = 1,
-                    x = visage::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
-                    e = visage::rand_normal(0, sigma, env = new.env(parent = parent.env(self)))) {
+                    x = bandicoot::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
+                    e = bandicoot::rand_normal(0, sigma, env = new.env(parent = parent.env(self)))) {
 
     # Use the init method from the VI_MODEL class
-    visage::use_method(self, visage::VI_MODEL$..init..)(
+    bandicoot::use_method(self, visage::VI_MODEL$..init..)(
       prm = list(a = a, b = b, sigma = sigma, x = x, e = e),
       prm_type = list(a = "o", b = "o", sigma = "o", x = "r", e = "r"),
       formula = self$formula,
@@ -469,7 +469,7 @@ class_SIMPLE_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
   set_prm_ <- function(prm_name, prm_value) {
 
     # Reuse the CUBIC_MODEL$set_prm method
-    visage::use_method(self, visage::CUBIC_MODEL$set_prm)(prm_name, prm_value)
+    bandicoot::use_method(self, visage::CUBIC_MODEL$set_prm)(prm_name, prm_value)
 
     return(self)
   }
@@ -504,11 +504,11 @@ class_SIMPLE_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
 
 # register_method ---------------------------------------------------------
 
-  register_method(env,
-                  ..init.. = init_,
-                  E = E_,
-                  effect_size = effect_size_,
-                  set_prm = set_prm_)
+  bandicoot::register_method(env,
+                             ..init.. = init_,
+                             E = E_,
+                             effect_size = effect_size_,
+                             set_prm = set_prm_)
 
   return(env)
 }
@@ -521,7 +521,7 @@ class_HETER_MODEL <- function(env = new.env(parent = parent.frame())) {
   # Pass CMD check
   self <- NULL
 
-  new_class(VI_MODEL, env = env, class_name = "HETER_MODEL")
+  bandicoot::new_class(VI_MODEL, env = env, class_name = "HETER_MODEL")
 
   # Run the `set_formula` method for the class
   env$set_formula(formula = y ~ 1 + x + sqrt(1 + (2 - abs(a)) * (x - a)^2 * b) * e,
@@ -531,11 +531,11 @@ class_HETER_MODEL <- function(env = new.env(parent = parent.frame())) {
 # init --------------------------------------------------------------------
 
   init_ <- function(a = 0, b = 1,
-                    x = visage::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
-                    e = visage::rand_normal(0, 1, env = new.env(parent = parent.env(self)))) {
+                    x = bandicoot::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
+                    e = bandicoot::rand_normal(0, 1, env = new.env(parent = parent.env(self)))) {
 
     # Use the init method from the VI_MODEL class
-    visage::use_method(self, visage::VI_MODEL$..init..)(
+    bandicoot::use_method(self, visage::VI_MODEL$..init..)(
       prm = list(a = a, b = b, x = x, e = e),
       prm_type = list(a = "o", b = "o", x = "r", e = "r"),
       formula = self$formula,
@@ -574,10 +574,10 @@ class_HETER_MODEL <- function(env = new.env(parent = parent.frame())) {
 
 # register_method ---------------------------------------------------------
 
-  register_method(env,
-                  ..init.. = init_,
-                  test = test_,
-                  effect_size = effect_size_)
+  bandicoot::register_method(env,
+                             ..init.. = init_,
+                             test = test_,
+                             effect_size = effect_size_)
 
   return(env)
 }
@@ -590,7 +590,7 @@ class_QUARTIC_MODEL <- function(env = new.env(parent = parent.frame())) {
   # Pass CMD check
   self <- NULL
 
-  new_class(VI_MODEL, env = env, class_name = "QUARTIC_MODEL")
+  bandicoot::new_class(VI_MODEL, env = env, class_name = "QUARTIC_MODEL")
 
   # Run the `set_formula` method for the class
   env$set_formula(formula = y ~ 1 + x + a * x^2 + b * x^3 + c * x^4 + e,
@@ -600,11 +600,11 @@ class_QUARTIC_MODEL <- function(env = new.env(parent = parent.frame())) {
 # init --------------------------------------------------------------------
 
   init_ <- function(a = 1, b = 1, c = 1, sigma = 1,
-                    x = visage::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
-                    e = visage::rand_normal(0, sigma, env = new.env(parent = parent.env(self)))) {
+                    x = bandicoot::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
+                    e = bandicoot::rand_normal(0, sigma, env = new.env(parent = parent.env(self)))) {
 
     # Use the init method from the VI_MODEL class
-    visage::use_method(self, visage::VI_MODEL$..init..)(
+    bandicoot::use_method(self, visage::VI_MODEL$..init..)(
       prm = list(a = a, b = b, c = c, sigma = sigma, x = x, e = e),
       prm_type = list(a = "o", b = "o", c = "o", sigma = "o", x = "r", e = "r"),
       formula = self$formula,
@@ -619,7 +619,7 @@ class_QUARTIC_MODEL <- function(env = new.env(parent = parent.frame())) {
   set_prm_ <- function(prm_name, prm_value) {
 
     # Reuse the CUBIC_MODEL$set_prm method
-    visage::use_method(self, visage::CUBIC_MODEL$set_prm)(prm_name, prm_value)
+    bandicoot::use_method(self, visage::CUBIC_MODEL$set_prm)(prm_name, prm_value)
 
     return(self)
   }
@@ -658,11 +658,11 @@ class_QUARTIC_MODEL <- function(env = new.env(parent = parent.frame())) {
 
 # register_method ---------------------------------------------------------
 
-  register_method(env,
-                  ..init.. = init_,
-                  E = E_,
-                  effect_size = effect_size_,
-                  set_prm = set_prm_)
+  bandicoot::register_method(env,
+                             ..init.. = init_,
+                             E = E_,
+                             effect_size = effect_size_,
+                             set_prm = set_prm_)
 
   return(env)
 }
@@ -675,7 +675,7 @@ class_POLY_MODEL <- function(env = new.env(parent = parent.frame())) {
   # Pass CMD check
   self <- NULL
 
-  new_class(VI_MODEL, env = env, class_name = "POLY_MODEL")
+  bandicoot::new_class(VI_MODEL, env = env, class_name = "POLY_MODEL")
 
   # Run the `set_formula` method for the class
   env$set_formula(formula = y ~ 1 + x + include_z * z + e,
@@ -687,17 +687,17 @@ class_POLY_MODEL <- function(env = new.env(parent = parent.frame())) {
 # init --------------------------------------------------------------------
 
   init_ <- function(shape = 2, sigma = 1, include_z = TRUE,
-                    x = visage::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
-                    e = visage::rand_normal(0, sigma, env = new.env(parent = parent.env(self)))) {
+                    x = bandicoot::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
+                    e = bandicoot::rand_normal(0, sigma, env = new.env(parent = parent.env(self)))) {
 
     if (!shape %in% 1:4) stop("Parameter `shape` out of range [1, 4].")
 
     hermite <- self$hermite
-    raw_z <- visage::closed_form(eval(self$raw_z_formula), env = new.env(parent = parent.env(self)))
-    z <- visage::closed_form(eval(self$z_formula), env = new.env(parent = parent.env(self)))
+    raw_z <- bandicoot::closed_form(eval(self$raw_z_formula), env = new.env(parent = parent.env(self)))
+    z <- bandicoot::closed_form(eval(self$z_formula), env = new.env(parent = parent.env(self)))
 
     # Use the init method from the VI_MODEL class
-    visage::use_method(self, visage::VI_MODEL$..init..)(
+    bandicoot::use_method(self, visage::VI_MODEL$..init..)(
       prm = list(shape = shape, include_z = include_z, sigma = sigma, x = x, raw_z = raw_z, z = z, e = e),
       prm_type = list(shape = "o", include_z = "o", sigma = "o", x = "r", raw_z = "r", z = "r", e = "r"),
       formula = self$formula,
@@ -728,7 +728,7 @@ class_POLY_MODEL <- function(env = new.env(parent = parent.frame())) {
       }
 
       # Reuse the CUBIC_MODEL$set_prm method
-      visage::use_method(self, visage::CUBIC_MODEL$set_prm)(list(pname), list(pval))
+      bandicoot::use_method(self, visage::CUBIC_MODEL$set_prm)(list(pname), list(pval))
     }
 
     return(self)
@@ -792,12 +792,12 @@ class_POLY_MODEL <- function(env = new.env(parent = parent.frame())) {
 
 # register_method ---------------------------------------------------------
 
-  register_method(env,
-                  ..init.. = init_,
-                  E = E_,
-                  effect_size = effect_size_,
-                  set_prm = set_prm_,
-                  hermite = hermite_)
+  bandicoot::register_method(env,
+                             ..init.. = init_,
+                             E = E_,
+                             effect_size = effect_size_,
+                             set_prm = set_prm_,
+                             hermite = hermite_)
 
   return(env)
 }

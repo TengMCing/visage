@@ -9,10 +9,10 @@
 \item{b}{Numeric. Default is \code{b = 1}.}
 
 \item{x}{Random variable or closed form expression. Default is
-\code{x = rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))}.}
+\code{x = bandicoot::rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))}.}
 
 \item{e}{Random variable or closed form expression. Default is
-\code{e = rand_normal(0, 1, env = new.env(parent = parent.env(self)))}.}
+\code{e = bandicoot::rand_normal(0, 1, env = new.env(parent = parent.env(self)))}.}
 }
 \value{
 No return value, called for side effects.
@@ -25,7 +25,7 @@ the null formula is defined in \link{HETER_MODEL$null_formula}.
 }
 \examples{
 
-# Instantiation
+# Instantiate
 test <- heter_model(a = 0, b = 20)
 
 test

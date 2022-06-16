@@ -11,10 +11,10 @@
 \item{sigma}{Positive numeric. Default is \code{sigma = 1}.}
 
 \item{x}{Random variable or closed form expression. Default is
-\code{x = rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))}.}
+\code{x = bandicoot::rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))}.}
 
 \item{e}{Random variable or closed form expression. Default is
-\code{e = rand_normal(0, sigma, env = new.env(parent = parent.env(self)))}.}
+\code{e = bandicoot::rand_normal(0, sigma, env = new.env(parent = parent.env(self)))}.}
 }
 \value{
 No return value, called for side effects.
@@ -28,9 +28,9 @@ defined in \link{SIMPLE_CUBIC_MODEL$alt_formula}.
 }
 \examples{
 
-# Instantiation
-x <- rand_uniform()
-e <- rand_normal()
+# Instantiate
+x <- bandicoot::rand_uniform()
+e <- bandicoot::rand_normal()
 
 test <- simple_cubic_model(a = 200, b = 200, x = x, e = e)
 

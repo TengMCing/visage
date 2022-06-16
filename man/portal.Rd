@@ -2,35 +2,14 @@
 % Please edit documentation in R/zzz_zzz.R
 \name{portal}
 \alias{portal}
-\alias{base_}
-\alias{rand_var}
-\alias{rand_uniform}
-\alias{rand_uniform_d}
-\alias{rand_normal}
-\alias{rand_lognormal}
-\alias{closed_form}
 \alias{vi_model}
 \alias{cubic_model}
 \alias{simple_cubic_model}
 \alias{quartic_model}
 \alias{poly_model}
 \alias{heter_model}
-\title{Portals to class instantiation methods}
+\title{Portals to class instantiate methods}
 \usage{
-base_(..., env = new.env(parent = parent.frame()))
-
-rand_var(..., env = new.env(parent = parent.frame()))
-
-rand_uniform(..., env = new.env(parent = parent.frame()))
-
-rand_uniform_d(..., env = new.env(parent = parent.frame()))
-
-rand_normal(..., env = new.env(parent = parent.frame()))
-
-rand_lognormal(..., env = new.env(parent = parent.frame()))
-
-closed_form(..., env = new.env(parent = parent.frame()))
-
 vi_model(..., env = new.env(parent = parent.frame()))
 
 cubic_model(..., env = new.env(parent = parent.frame()))
@@ -49,24 +28,10 @@ heter_model(..., env = new.env(parent = parent.frame()))
 \item{env}{Environment. The instance environment.}
 }
 \description{
-These functions are the same as \code{class$instantiation}.
+These functions are the same as \code{class$instantiate}.
 }
 \section{Functions}{
 \itemize{
-\item \code{base_}: \link{BASE}
-
-\item \code{rand_var}: \link{RAND_VAR}
-
-\item \code{rand_uniform}: \link{RAND_UNIFORM}
-
-\item \code{rand_uniform_d}: \link{RAND_UNIFORM_D}
-
-\item \code{rand_normal}: \link{RAND_NORMAL}
-
-\item \code{rand_lognormal}: \link{RAND_LOGNORMAL}
-
-\item \code{closed_form}: \link{CLOSED_FORM}
-
 \item \code{vi_model}: \link{VI_MODEL}
 
 \item \code{cubic_model}: \link{CUBIC_MODEL}

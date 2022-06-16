@@ -19,9 +19,9 @@ This function plots the lineup.
 }
 \examples{
 
-# Instantiation
-x <- rand_uniform()
-e <- rand_normal()
+# Instantiate
+x <- bandicoot::rand_uniform()
+e <- bandicoot::rand_normal()
 test <- vi_model(prm = list(x = x, e = e),
                  prm_type = list(x = "r", e = "r"),
                  formula = y ~ 1 + x + 10 * x^2 + e,

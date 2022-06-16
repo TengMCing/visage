@@ -4,7 +4,7 @@
 \alias{POLY_MODEL$formula}
 \title{Closed form expression of \code{y}}
 \description{
-A quoted formula, will be passed to \code{CLOSED_FORM$instantiation} to
+A quoted formula, will be passed to \code{CLOSED_FORM$instantiate} to
 define a closed form expression for \code{y}.
 }
 \examples{

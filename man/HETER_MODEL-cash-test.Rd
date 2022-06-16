@@ -20,9 +20,9 @@ variance formula is \code{~ x + I(x^2)}.
 }
 \examples{
 
-# Instantiation
-x <- rand_uniform()
-e <- rand_normal()
+# Instantiate
+x <- bandicoot::rand_uniform()
+e <- bandicoot::rand_normal()
 test <- heter_model(a = 0, b = 100)
 
 
