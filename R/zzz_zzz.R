@@ -7,6 +7,30 @@
 #' @param env Environment. The instance environment.
 NULL
 
+#' @describeIn portal [RAND_VAR]
+#' @export
+rand_var <- RAND_VAR$instantiate
+
+#' @describeIn portal [RAND_UNIFORM]
+#' @export
+rand_uniform <- RAND_UNIFORM$instantiate
+
+#' @describeIn portal [RAND_UNIFORM_D]
+#' @export
+rand_uniform_d <- RAND_UNIFORM_D$instantiate
+
+#' @describeIn portal [RAND_NORMAL]
+#' @export
+rand_normal <- RAND_NORMAL$instantiate
+
+#' @describeIn portal [RAND_LOGNORMAL]
+#' @export
+rand_lognormal <- RAND_LOGNORMAL$instantiate
+
+#' @describeIn portal [CLOSED_FORM]
+#' @export
+closed_form <- CLOSED_FORM$instantiate
+
 #' @describeIn portal [VI_MODEL]
 #' @export
 vi_model <- VI_MODEL$instantiate
