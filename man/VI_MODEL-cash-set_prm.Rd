@@ -19,9 +19,9 @@ this method to correctly set the parameter.
 }
 \examples{
 
-# Instantiation
-x <- rand_uniform()
-e <- rand_normal()
+# Instantiate
+x <- bandicoot::rand_uniform()
+e <- bandicoot::rand_normal()
 test <- vi_model(prm = list(a = 1, x = x, e = e),
                  prm_type = list(a = "o", x = "r", e = "r"),
                  formula = y ~ 1 + a * x + x^2 + e,

@@ -32,9 +32,9 @@ VI_MODEL <- class_VI_MODEL()
 #'
 #' @examples
 #'
-#' # Instantiation
-#' x <- rand_uniform()
-#' e <- rand_normal()
+#' # Instantiate
+#' x <- bandicoot::rand_uniform()
+#' e <- bandicoot::rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + x^2 + e)
@@ -55,9 +55,9 @@ VI_MODEL$prm
 #'
 #' @examples
 #'
-#' # Instantiation
-#' x <- rand_uniform()
-#' e <- rand_normal()
+#' # Instantiate
+#' x <- bandicoot::rand_uniform()
+#' e <- bandicoot::rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + x^2 + e)
@@ -73,9 +73,9 @@ VI_MODEL$prm_type
 #'
 #' @examples
 #'
-#' # Instantiation
-#' x <- rand_uniform()
-#' e <- rand_normal()
+#' # Instantiate
+#' x <- bandicoot::rand_uniform()
+#' e <- bandicoot::rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + x^2 + e,
@@ -92,14 +92,14 @@ VI_MODEL$..cache..
 #'
 #' @name VI_MODEL$formula
 #'
-#' @description A quoted formula, will be passed to `CLOSED_FORM$instantiation` to
+#' @description A quoted formula, will be passed to `CLOSED_FORM$instantiate` to
 #' define a closed form expression for `y`.
 #'
 #' @examples
 #'
-#' # Instantiation
-#' x <- rand_uniform()
-#' e <- rand_normal()
+#' # Instantiate
+#' x <- bandicoot::rand_uniform()
+#' e <- bandicoot::rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + x^2 + e,
@@ -121,9 +121,9 @@ VI_MODEL$formula
 #'
 #' @examples
 #'
-#' # Instantiation
-#' x <- rand_uniform()
-#' e <- rand_normal()
+#' # Instantiate
+#' x <- bandicoot::rand_uniform()
+#' e <- bandicoot::rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + x^2 + e,
@@ -148,9 +148,9 @@ VI_MODEL$null_formula
 #'
 #' @examples
 #'
-#' # Instantiation
-#' x <- rand_uniform()
-#' e <- rand_normal()
+#' # Instantiate
+#' x <- bandicoot::rand_uniform()
+#' e <- bandicoot::rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + x^2 + e,
@@ -181,7 +181,7 @@ VI_MODEL$alt_formula
 #' parameters. "r" stands for random variable or closed form used in the
 #' expression of `y`, "o" stands for others. This value only affects the
 #' string representation of the object.
-#' @param formula Formula. This will be passed to `CLOSED_FORM$instantiation` to
+#' @param formula Formula. This will be passed to `CLOSED_FORM$instantiate` to
 #' define a closed form expression for `y`. Default is `formula = self$formula`.
 #' @param null_formula Formula. Formula for fitting the null model. Default is
 #' `NULL`.
@@ -191,9 +191,9 @@ VI_MODEL$alt_formula
 #'
 #' @examples
 #'
-#' # Instantiation
-#' x <- rand_uniform()
-#' e <- rand_normal()
+#' # Instantiate
+#' x <- bandicoot::rand_uniform()
+#' e <- bandicoot::rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + x^2 + e,
@@ -214,9 +214,9 @@ VI_MODEL$..init..
 #'
 #' VI_MODEL$..str..()
 #'
-#' # Instantiation
-#' x <- rand_uniform()
-#' e <- rand_normal()
+#' # Instantiate
+#' x <- bandicoot::rand_uniform()
+#' e <- bandicoot::rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + x^2 + e,
@@ -238,9 +238,9 @@ VI_MODEL$..str..
 #'
 #' @examples
 #'
-#' # Instantiation
-#' x <- rand_uniform()
-#' e <- rand_normal()
+#' # Instantiate
+#' x <- bandicoot::rand_uniform()
+#' e <- bandicoot::rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + x^2 + e,
@@ -265,9 +265,9 @@ VI_MODEL$set_formula
 #'
 #' @examples
 #'
-#' # Instantiation
-#' x <- rand_uniform()
-#' e <- rand_normal()
+#' # Instantiate
+#' x <- bandicoot::rand_uniform()
+#' e <- bandicoot::rand_normal()
 #' test <- vi_model(prm = list(a = 1, x = x, e = e),
 #'                  prm_type = list(a = "o", x = "r", e = "r"),
 #'                  formula = y ~ 1 + a * x + x^2 + e,
@@ -300,9 +300,9 @@ VI_MODEL$set_prm
 #'
 #' @examples
 #'
-#' # Instantiation
-#' x <- rand_uniform()
-#' e <- rand_normal()
+#' # Instantiate
+#' x <- bandicoot::rand_uniform()
+#' e <- bandicoot::rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + x^2 + e,
@@ -334,9 +334,9 @@ VI_MODEL$gen
 #'
 #' @examples
 #'
-#' # Instantiation
-#' x <- rand_uniform()
-#' e <- rand_normal()
+#' # Instantiate
+#' x <- bandicoot::rand_uniform()
+#' e <- bandicoot::rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + x^2 + e,
@@ -365,9 +365,9 @@ VI_MODEL$test
 #'
 #' @examples
 #'
-#' # Instantiation
-#' x <- rand_uniform()
-#' e <- rand_normal()
+#' # Instantiate
+#' x <- bandicoot::rand_uniform()
+#' e <- bandicoot::rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + x^2 + e,
@@ -405,9 +405,9 @@ VI_MODEL$effect_size
 #'
 #' @examples
 #'
-#' # Instantiation
-#' x <- rand_uniform()
-#' e <- rand_normal()
+#' # Instantiate
+#' x <- bandicoot::rand_uniform()
+#' e <- bandicoot::rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + 10 * x^2 + e,
@@ -428,9 +428,9 @@ VI_MODEL$plot_resid
 #'
 #' @examples
 #'
-#' # Instantiation
-#' x <- rand_uniform()
-#' e <- rand_normal()
+#' # Instantiate
+#' x <- bandicoot::rand_uniform()
+#' e <- bandicoot::rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + 10 * x^2 + e,
@@ -464,9 +464,9 @@ VI_MODEL$plot_qq
 #'
 #' @examples
 #'
-#' # Instantiation
-#' x <- rand_uniform()
-#' e <- rand_normal()
+#' # Instantiate
+#' x <- bandicoot::rand_uniform()
+#' e <- bandicoot::rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + 10 * x^2 + e,
@@ -498,9 +498,9 @@ VI_MODEL$plot
 #'
 #' @examples
 #'
-#' # Instantiation
-#' x <- rand_uniform()
-#' e <- rand_normal()
+#' # Instantiate
+#' x <- bandicoot::rand_uniform()
+#' e <- bandicoot::rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + 10 * x^2 + e,
@@ -529,9 +529,9 @@ VI_MODEL$plot_lineup
 #'
 #' @examples
 #'
-#' # Instantiation
-#' x <- rand_uniform()
-#' e <- rand_normal()
+#' # Instantiate
+#' x <- bandicoot::rand_uniform()
+#' e <- bandicoot::rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + x^2 + e,
@@ -558,9 +558,9 @@ VI_MODEL$rss
 #'
 #' @examples
 #'
-#' # Instantiation
-#' x <- rand_uniform()
-#' e <- rand_normal()
+#' # Instantiate
+#' x <- bandicoot::rand_uniform()
+#' e <- bandicoot::rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + x^2 + e,
@@ -589,9 +589,9 @@ VI_MODEL$null_resid
 #'
 #' @examples
 #'
-#' # Instantiation
-#' x <- rand_uniform()
-#' e <- rand_normal()
+#' # Instantiate
+#' x <- bandicoot::rand_uniform()
+#' e <- bandicoot::rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + x^2 + e,
@@ -629,7 +629,7 @@ CUBIC_MODEL <- class_CUBIC_MODEL()
 #'
 #' @name CUBIC_MODEL$formula
 #'
-#' @description A quoted formula, will be passed to `CLOSED_FORM$instantiation` to
+#' @description A quoted formula, will be passed to `CLOSED_FORM$instantiate` to
 #' define a closed form expression for `y`.
 #'
 #' @examples
@@ -673,19 +673,19 @@ CUBIC_MODEL$alt_formula
 #' @param c Numeric. Default is `c = 1`.
 #' @param sigma Positive numeric. Default is `sigma = 1`.
 #' @param x Random variable or closed form expression. Default is
-#' `x = rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
+#' `x = bandicoot::rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
 #' @param z Random variable or closed form expression. Default is
-#' `z = rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
+#' `z = bandicoot::rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
 #' @param e Random variable or closed form expression. Default is
-#' `e = rand_normal(0, sigma, env = new.env(parent = parent.env(self)))`.
+#' `e = bandicoot::rand_normal(0, sigma, env = new.env(parent = parent.env(self)))`.
 #' @return No return value, called for side effects.
 #'
 #' @examples
 #'
-#' # Instantiation
-#' x <- rand_uniform()
-#' z <- rand_uniform()
-#' e <- rand_normal()
+#' # Instantiate
+#' x <- bandicoot::rand_uniform()
+#' z <- bandicoot::rand_uniform()
+#' e <- bandicoot::rand_normal()
 #'
 #' test <- cubic_model(a = 200, b = 200, c = 1, x = x, z = z, e = e)
 #'
@@ -715,7 +715,7 @@ CUBIC_MODEL$..init..
 #'
 #' @examples
 #'
-#' # Instantiation
+#' # Instantiate
 #' mod <- cubic_model(a = -1, b = 1, c = 1, sigma = 0.5)
 #'
 #' mod
@@ -799,7 +799,7 @@ HETER_MODEL <- class_HETER_MODEL()
 #'
 #' @name HETER_MODEL$formula
 #'
-#' @description A quoted formula, will be passed to `CLOSED_FORM$instantiation` to
+#' @description A quoted formula, will be passed to `CLOSED_FORM$instantiate` to
 #' define a closed form expression for `y`.
 #'
 #' @examples
@@ -840,14 +840,14 @@ HETER_MODEL$alt_formula
 #' @param a Numeric. Default is `a = 0`.
 #' @param b Numeric. Default is `b = 1`.
 #' @param x Random variable or closed form expression. Default is
-#' `x = rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
+#' `x = bandicoot::rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
 #' @param e Random variable or closed form expression. Default is
-#' `e = rand_normal(0, 1, env = new.env(parent = parent.env(self)))`.
+#' `e = bandicoot::rand_normal(0, 1, env = new.env(parent = parent.env(self)))`.
 #' @return No return value, called for side effects.
 #'
 #' @examples
 #'
-#' # Instantiation
+#' # Instantiate
 #' test <- heter_model(a = 0, b = 20)
 #'
 #' test
@@ -877,9 +877,9 @@ HETER_MODEL$..init..
 #'
 #' @examples
 #'
-#' # Instantiation
-#' x <- rand_uniform()
-#' e <- rand_normal()
+#' # Instantiate
+#' x <- bandicoot::rand_uniform()
+#' e <- bandicoot::rand_normal()
 #' test <- heter_model(a = 0, b = 100)
 #'
 #'
@@ -930,7 +930,7 @@ SIMPLE_CUBIC_MODEL <- class_SIMPLE_CUBIC_MODEL()
 #'
 #' @name SIMPLE_CUBIC_MODEL$formula
 #'
-#' @description A quoted formula, will be passed to `CLOSED_FORM$instantiation` to
+#' @description A quoted formula, will be passed to `CLOSED_FORM$instantiate` to
 #' define a closed form expression for `y`.
 #'
 #' @examples
@@ -973,16 +973,16 @@ SIMPLE_CUBIC_MODEL$alt_formula
 #' @param b Numeric. Default is `b = 1`.
 #' @param sigma Positive numeric. Default is `sigma = 1`.
 #' @param x Random variable or closed form expression. Default is
-#' `x = rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
+#' `x = bandicoot::rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
 #' @param e Random variable or closed form expression. Default is
-#' `e = rand_normal(0, sigma, env = new.env(parent = parent.env(self)))`.
+#' `e = bandicoot::rand_normal(0, sigma, env = new.env(parent = parent.env(self)))`.
 #' @return No return value, called for side effects.
 #'
 #' @examples
 #'
-#' # Instantiation
-#' x <- rand_uniform()
-#' e <- rand_normal()
+#' # Instantiate
+#' x <- bandicoot::rand_uniform()
+#' e <- bandicoot::rand_normal()
 #'
 #' test <- simple_cubic_model(a = 200, b = 200, x = x, e = e)
 #'
@@ -1012,7 +1012,7 @@ SIMPLE_CUBIC_MODEL$..init..
 #'
 #' @examples
 #'
-#' # Instantiation
+#' # Instantiate
 #' mod <- simple_cubic_model(a = -1, b = 1, sigma = 0.5)
 #'
 #' mod
@@ -1093,7 +1093,7 @@ QUARTIC_MODEL <- class_QUARTIC_MODEL()
 #'
 #' @name QUARTIC_MODEL$formula
 #'
-#' @description A quoted formula, will be passed to `CLOSED_FORM$instantiation` to
+#' @description A quoted formula, will be passed to `CLOSED_FORM$instantiate` to
 #' define a closed form expression for `y`.
 #'
 #' @examples
@@ -1137,16 +1137,16 @@ QUARTIC_MODEL$alt_formula
 #' @param c Numeric. Default is `c = 1`.
 #' @param sigma Positive numeric. Default is `sigma = 1`.
 #' @param x Random variable or closed form expression. Default is
-#' `x = rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
+#' `x = bandicoot::rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
 #' @param e Random variable or closed form expression. Default is
-#' `e = rand_normal(0, sigma, env = new.env(parent = parent.env(self)))`.
+#' `e = bandicoot::rand_normal(0, sigma, env = new.env(parent = parent.env(self)))`.
 #' @return No return value, called for side effects.
 #'
 #' @examples
 #'
-#' # Instantiation
-#' x <- rand_uniform()
-#' e <- rand_normal()
+#' # Instantiate
+#' x <- bandicoot::rand_uniform()
+#' e <- bandicoot::rand_normal()
 #'
 #' test <- quartic_model(a = 200, b = 200, c = 20, x = x, e = e)
 #'
@@ -1176,7 +1176,7 @@ QUARTIC_MODEL$..init..
 #'
 #' @examples
 #'
-#' # Instantiation
+#' # Instantiate
 #' mod <- quartic_model(a = -1, b = 1, c = 1, sigma = 0.5)
 #'
 #' mod
@@ -1259,7 +1259,7 @@ POLY_MODEL <- class_POLY_MODEL()
 #'
 #' @name POLY_MODEL$formula
 #'
-#' @description A quoted formula, will be passed to `CLOSED_FORM$instantiation` to
+#' @description A quoted formula, will be passed to `CLOSED_FORM$instantiate` to
 #' define a closed form expression for `y`.
 #'
 #' @examples
@@ -1329,16 +1329,16 @@ POLY_MODEL$z_formula
 #' @param include_z Boolean. Whether or not to include `z` in the formula of `y`.
 #' Default is `include_z = TRUE`.
 #' @param x Random variable or closed form expression. Default is
-#' `x = rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
+#' `x = bandicoot::rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
 #' @param e Random variable or closed form expression. Default is
-#' `e = rand_normal(0, sigma, env = new.env(parent = parent.env(self)))`.
+#' `e = bandicoot::rand_normal(0, sigma, env = new.env(parent = parent.env(self)))`.
 #' @return No return value, called for side effects.
 #'
 #' @examples
 #'
-#' # Instantiation
-#' x <- rand_uniform()
-#' e <- rand_normal(sigma = 0.5)
+#' # Instantiate
+#' x <- bandicoot::rand_uniform()
+#' e <- bandicoot::rand_normal(sigma = 0.5)
 #'
 #' test <- poly_model(shape = 1, x = x, e = e)
 #'
@@ -1383,7 +1383,7 @@ POLY_MODEL$..init..
 #'
 #' @examples
 #'
-#' # Instantiation
+#' # Instantiate
 #' mod <- poly_model(shape = 2, sigma = 0.5)
 #'
 #' mod

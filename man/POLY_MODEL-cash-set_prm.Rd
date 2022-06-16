@@ -22,7 +22,7 @@ corresponding value in \code{z} will be updated.
 }
 \examples{
 
-# Instantiation
+# Instantiate
 mod <- poly_model(shape = 2, sigma = 0.5)
 
 mod

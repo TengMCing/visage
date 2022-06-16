@@ -13,7 +13,7 @@ parameters. "r" stands for random variable or closed form used in the
 expression of \code{y}, "o" stands for others. This value only affects the
 string representation of the object.}
 
-\item{formula}{Formula. This will be passed to \code{CLOSED_FORM$instantiation} to
+\item{formula}{Formula. This will be passed to \code{CLOSED_FORM$instantiate} to
 define a closed form expression for \code{y}. Default is \code{formula = self$formula}.}
 
 \item{null_formula}{Formula. Formula for fitting the null model. Default is
@@ -32,9 +32,9 @@ is \code{y}.
 }
 \examples{
 
-# Instantiation
-x <- rand_uniform()
-e <- rand_normal()
+# Instantiate
+x <- bandicoot::rand_uniform()
+e <- bandicoot::rand_normal()
 test <- vi_model(prm = list(x = x, e = e),
                  prm_type = list(x = "r", e = "r"),
                  formula = y ~ 1 + x + x^2 + e,

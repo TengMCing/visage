@@ -4,14 +4,14 @@
 \alias{VI_MODEL$formula}
 \title{Closed form expression of \code{y}}
 \description{
-A quoted formula, will be passed to \code{CLOSED_FORM$instantiation} to
+A quoted formula, will be passed to \code{CLOSED_FORM$instantiate} to
 define a closed form expression for \code{y}.
 }
 \examples{
 
-# Instantiation
-x <- rand_uniform()
-e <- rand_normal()
+# Instantiate
+x <- bandicoot::rand_uniform()
+e <- bandicoot::rand_normal()
 test <- vi_model(prm = list(x = x, e = e),
                  prm_type = list(x = "r", e = "r"),
                  formula = y ~ 1 + x + x^2 + e,

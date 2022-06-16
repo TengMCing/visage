@@ -19,7 +19,7 @@ corresponding value in \code{e} will be updated.
 }
 \examples{
 
-# Instantiation
+# Instantiate
 mod <- simple_cubic_model(a = -1, b = 1, sigma = 0.5)
 
 mod
