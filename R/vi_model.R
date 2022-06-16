@@ -40,7 +40,9 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
     list2env(prm, envir = environment())
 
     # Set the y variable
-    self$prm$y <- bandicoot::closed_form(formula, env = new.env(parent = parent.env(self)))
+    self$prm$y <- visage::closed_form(formula, env = new.env(parent = parent.env(self)))
+
+    return(self)
   }
 
 # set_formula -------------------------------------------------------------
@@ -84,7 +86,7 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
   gen_ <- function(n, fit_model = TRUE, test = FALSE, computed = NULL) {
 
     # Generate the data frame from the expression
-    dat <- bandicoot::CLOSED_FORM$as_dataframe(self$prm$y$gen(n, rhs_val = TRUE, computed = computed), "y")
+    dat <- visage::CLOSED_FORM$as_dataframe(self$prm$y$gen(n, rhs_val = TRUE, computed = computed), "y")
 
     # If requires residuals and fitted values, fit the model
     if (fit_model) {
@@ -305,7 +307,7 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
       return(paste0("<", self$..type.., " class>"))
     }
 
-    results <- bandicoot::use_method(self$prm$y, bandicoot::CLOSED_FORM$..str..)()
+    results <- bandicoot::use_method(self$prm$y, visage::CLOSED_FORM$..str..)()
     results <- paste0("<", self$..type.., " object>\n ",
                       gsub("<CLOSED_FORM object>\n EXPR", "y", results, fixed = TRUE))
 
@@ -355,9 +357,9 @@ class_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
 # init --------------------------------------------------------------------
 
   init_ <- function(a = 1, b = 1, c = 1, sigma = 1,
-                    x = bandicoot::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
-                    z = bandicoot::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
-                    e = bandicoot::rand_normal(0, sigma, env = new.env(parent = parent.env(self)))) {
+                    x = visage::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
+                    z = visage::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
+                    e = visage::rand_normal(0, sigma, env = new.env(parent = parent.env(self)))) {
 
     # Use the init method from the VI_MODEL class
     bandicoot::use_method(self, visage::VI_MODEL$..init..)(
@@ -367,6 +369,8 @@ class_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
       null_formula = self$null_formula,
       alt_formula = self$alt_formula
       )
+
+    return(self)
   }
 
 
@@ -425,10 +429,10 @@ class_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
 # register_method ---------------------------------------------------------
 
   bandicoot::register_method(env,
-                  ..init.. = init_,
-                  E = E_,
-                  effect_size = effect_size_,
-                  set_prm = set_prm_)
+                             ..init.. = init_,
+                             E = E_,
+                             effect_size = effect_size_,
+                             set_prm = set_prm_)
 
   return(env)
 }
@@ -450,8 +454,8 @@ class_SIMPLE_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
 # init --------------------------------------------------------------------
 
   init_ <- function(a = 1, b = 1, sigma = 1,
-                    x = bandicoot::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
-                    e = bandicoot::rand_normal(0, sigma, env = new.env(parent = parent.env(self)))) {
+                    x = visage::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
+                    e = visage::rand_normal(0, sigma, env = new.env(parent = parent.env(self)))) {
 
     # Use the init method from the VI_MODEL class
     bandicoot::use_method(self, visage::VI_MODEL$..init..)(
@@ -461,6 +465,8 @@ class_SIMPLE_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
       null_formula = self$null_formula,
       alt_formula = self$alt_formula
     )
+
+    return(self)
   }
 
 
@@ -531,8 +537,8 @@ class_HETER_MODEL <- function(env = new.env(parent = parent.frame())) {
 # init --------------------------------------------------------------------
 
   init_ <- function(a = 0, b = 1,
-                    x = bandicoot::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
-                    e = bandicoot::rand_normal(0, 1, env = new.env(parent = parent.env(self)))) {
+                    x = visage::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
+                    e = visage::rand_normal(0, 1, env = new.env(parent = parent.env(self)))) {
 
     # Use the init method from the VI_MODEL class
     bandicoot::use_method(self, visage::VI_MODEL$..init..)(
@@ -542,6 +548,8 @@ class_HETER_MODEL <- function(env = new.env(parent = parent.frame())) {
       null_formula = self$null_formula,
       alt_formula = self$alt_formula
     )
+
+    return(self)
   }
 
 
@@ -600,8 +608,8 @@ class_QUARTIC_MODEL <- function(env = new.env(parent = parent.frame())) {
 # init --------------------------------------------------------------------
 
   init_ <- function(a = 1, b = 1, c = 1, sigma = 1,
-                    x = bandicoot::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
-                    e = bandicoot::rand_normal(0, sigma, env = new.env(parent = parent.env(self)))) {
+                    x = visage::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
+                    e = visage::rand_normal(0, sigma, env = new.env(parent = parent.env(self)))) {
 
     # Use the init method from the VI_MODEL class
     bandicoot::use_method(self, visage::VI_MODEL$..init..)(
@@ -611,6 +619,8 @@ class_QUARTIC_MODEL <- function(env = new.env(parent = parent.frame())) {
       null_formula = self$null_formula,
       alt_formula = self$alt_formula
     )
+
+    return(self)
   }
 
 
@@ -687,14 +697,14 @@ class_POLY_MODEL <- function(env = new.env(parent = parent.frame())) {
 # init --------------------------------------------------------------------
 
   init_ <- function(shape = 2, sigma = 1, include_z = TRUE,
-                    x = bandicoot::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
-                    e = bandicoot::rand_normal(0, sigma, env = new.env(parent = parent.env(self)))) {
+                    x = visage::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
+                    e = visage::rand_normal(0, sigma, env = new.env(parent = parent.env(self)))) {
 
     if (!shape %in% 1:4) stop("Parameter `shape` out of range [1, 4].")
 
     hermite <- self$hermite
-    raw_z <- bandicoot::closed_form(eval(self$raw_z_formula), env = new.env(parent = parent.env(self)))
-    z <- bandicoot::closed_form(eval(self$z_formula), env = new.env(parent = parent.env(self)))
+    raw_z <- visage::closed_form(eval(self$raw_z_formula), env = new.env(parent = parent.env(self)))
+    z <- visage::closed_form(eval(self$z_formula), env = new.env(parent = parent.env(self)))
 
     # Use the init method from the VI_MODEL class
     bandicoot::use_method(self, visage::VI_MODEL$..init..)(
@@ -704,6 +714,8 @@ class_POLY_MODEL <- function(env = new.env(parent = parent.frame())) {
       null_formula = self$null_formula,
       alt_formula = self$alt_formula
     )
+
+    return(self)
   }
 
 
