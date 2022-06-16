@@ -14,8 +14,8 @@ This function returns a string representation of the object.
 VI_MODEL$..str..()
 
 # Instantiate
-x <- bandicoot::rand_uniform()
-e <- bandicoot::rand_normal()
+x <- rand_uniform()
+e <- rand_normal()
 test <- vi_model(prm = list(x = x, e = e),
                  prm_type = list(x = "r", e = "r"),
                  formula = y ~ 1 + x + x^2 + e,

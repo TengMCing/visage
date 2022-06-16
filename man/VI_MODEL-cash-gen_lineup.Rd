@@ -13,8 +13,7 @@ which means the position is random.}
 
 \item{computed}{List. Default is \code{NULL}. If it is provided, random variables
 or random closed form expression will use the values from the list, which
-makes the expression potentially deterministic. In this function, only the
-actual data plot will use these computed values.}
+makes the expression potentially deterministic.}
 }
 \value{
 A data frame.
@@ -26,8 +25,8 @@ This function generates random values from the expression of
 \examples{
 
 # Instantiate
-x <- bandicoot::rand_uniform()
-e <- bandicoot::rand_normal()
+x <- rand_uniform()
+e <- rand_normal()
 test <- vi_model(prm = list(x = x, e = e),
                  prm_type = list(x = "r", e = "r"),
                  formula = y ~ 1 + x + x^2 + e,

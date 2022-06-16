@@ -10,7 +10,8 @@
 A function.
 }
 \description{
-This function returns a Hermite polynomial function.
+This function returns a Hermite polynomial function defined
+using \link[mpoly:hermite]{mpoly::hermite}.
 }
 \examples{
 

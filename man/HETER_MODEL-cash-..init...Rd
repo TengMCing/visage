@@ -9,13 +9,13 @@
 \item{b}{Numeric. Default is \code{b = 1}.}
 
 \item{x}{Random variable or closed form expression. Default is
-\code{x = bandicoot::rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))}.}
+\code{x = rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))}.}
 
 \item{e}{Random variable or closed form expression. Default is
-\code{e = bandicoot::rand_normal(0, 1, env = new.env(parent = parent.env(self)))}.}
+\code{e = rand_normal(0, 1, env = new.env(parent = parent.env(self)))}.}
 }
 \value{
-No return value, called for side effects.
+Return the object itself.
 }
 \description{
 This function will be called after an instance is built. User

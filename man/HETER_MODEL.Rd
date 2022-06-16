@@ -5,7 +5,7 @@
 \alias{HETER_MODEL}
 \title{HETER_MODEL class environment}
 \format{
-An environment with S3 class \code{visage_oop}.
+An environment with S3 class \code{bandicoot_oop}.
 }
 \usage{
 HETER_MODEL

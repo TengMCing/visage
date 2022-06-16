@@ -23,7 +23,7 @@ define a closed form expression for \code{y}. Default is \code{formula = self$fo
 Default is \code{NULL}.}
 }
 \value{
-No return value, called for side effects.
+Return the object itself.
 }
 \description{
 This function will be called after an instance is built. User
@@ -33,8 +33,8 @@ is \code{y}.
 \examples{
 
 # Instantiate
-x <- bandicoot::rand_uniform()
-e <- bandicoot::rand_normal()
+x <- rand_uniform()
+e <- rand_normal()
 test <- vi_model(prm = list(x = x, e = e),
                  prm_type = list(x = "r", e = "r"),
                  formula = y ~ 1 + x + x^2 + e,
