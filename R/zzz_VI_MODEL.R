@@ -6,9 +6,9 @@
 #' @name VI_MODEL
 #'
 #' @description This is the base class of visual inference linear model,
-#' inherited from [BASE].
-#' @format An environment with S3 class `visage_oop`.
-#' @seealso Parent class: [BASE]
+#' inherited from [bandicoot::BASE].
+#' @format An environment with S3 class `bandicoot_oop`.
+#' @seealso Parent class: [bandicoot::BASE]
 #' \cr
 #' \cr
 #' New attributes: [VI_MODEL$prm], [VI_MODEL$prm_type], [VI_MODEL$..cache..],
@@ -33,8 +33,8 @@ VI_MODEL <- class_VI_MODEL()
 #' @examples
 #'
 #' # Instantiate
-#' x <- bandicoot::rand_uniform()
-#' e <- bandicoot::rand_normal()
+#' x <- rand_uniform()
+#' e <- rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + x^2 + e)
@@ -56,8 +56,8 @@ VI_MODEL$prm
 #' @examples
 #'
 #' # Instantiate
-#' x <- bandicoot::rand_uniform()
-#' e <- bandicoot::rand_normal()
+#' x <- rand_uniform()
+#' e <- rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + x^2 + e)
@@ -74,8 +74,8 @@ VI_MODEL$prm_type
 #' @examples
 #'
 #' # Instantiate
-#' x <- bandicoot::rand_uniform()
-#' e <- bandicoot::rand_normal()
+#' x <- rand_uniform()
+#' e <- rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + x^2 + e,
@@ -98,8 +98,8 @@ VI_MODEL$..cache..
 #' @examples
 #'
 #' # Instantiate
-#' x <- bandicoot::rand_uniform()
-#' e <- bandicoot::rand_normal()
+#' x <- rand_uniform()
+#' e <- rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + x^2 + e,
@@ -122,8 +122,8 @@ VI_MODEL$formula
 #' @examples
 #'
 #' # Instantiate
-#' x <- bandicoot::rand_uniform()
-#' e <- bandicoot::rand_normal()
+#' x <- rand_uniform()
+#' e <- rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + x^2 + e,
@@ -149,8 +149,8 @@ VI_MODEL$null_formula
 #' @examples
 #'
 #' # Instantiate
-#' x <- bandicoot::rand_uniform()
-#' e <- bandicoot::rand_normal()
+#' x <- rand_uniform()
+#' e <- rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + x^2 + e,
@@ -187,13 +187,13 @@ VI_MODEL$alt_formula
 #' `NULL`.
 #' @param alt_formula Formula. Formula for fitting the alternative model.
 #' Default is `NULL`.
-#' @return No return value, called for side effects.
+#' @return Return the object itself.
 #'
 #' @examples
 #'
 #' # Instantiate
-#' x <- bandicoot::rand_uniform()
-#' e <- bandicoot::rand_normal()
+#' x <- rand_uniform()
+#' e <- rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + x^2 + e,
@@ -215,8 +215,8 @@ VI_MODEL$..init..
 #' VI_MODEL$..str..()
 #'
 #' # Instantiate
-#' x <- bandicoot::rand_uniform()
-#' e <- bandicoot::rand_normal()
+#' x <- rand_uniform()
+#' e <- rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + x^2 + e,
@@ -239,8 +239,8 @@ VI_MODEL$..str..
 #' @examples
 #'
 #' # Instantiate
-#' x <- bandicoot::rand_uniform()
-#' e <- bandicoot::rand_normal()
+#' x <- rand_uniform()
+#' e <- rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + x^2 + e,
@@ -266,8 +266,8 @@ VI_MODEL$set_formula
 #' @examples
 #'
 #' # Instantiate
-#' x <- bandicoot::rand_uniform()
-#' e <- bandicoot::rand_normal()
+#' x <- rand_uniform()
+#' e <- rand_normal()
 #' test <- vi_model(prm = list(a = 1, x = x, e = e),
 #'                  prm_type = list(a = "o", x = "r", e = "r"),
 #'                  formula = y ~ 1 + a * x + x^2 + e,
@@ -301,8 +301,8 @@ VI_MODEL$set_prm
 #' @examples
 #'
 #' # Instantiate
-#' x <- bandicoot::rand_uniform()
-#' e <- bandicoot::rand_normal()
+#' x <- rand_uniform()
+#' e <- rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + x^2 + e,
@@ -335,8 +335,8 @@ VI_MODEL$gen
 #' @examples
 #'
 #' # Instantiate
-#' x <- bandicoot::rand_uniform()
-#' e <- bandicoot::rand_normal()
+#' x <- rand_uniform()
+#' e <- rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + x^2 + e,
@@ -366,8 +366,8 @@ VI_MODEL$test
 #' @examples
 #'
 #' # Instantiate
-#' x <- bandicoot::rand_uniform()
-#' e <- bandicoot::rand_normal()
+#' x <- rand_uniform()
+#' e <- rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + x^2 + e,
@@ -406,8 +406,8 @@ VI_MODEL$effect_size
 #' @examples
 #'
 #' # Instantiate
-#' x <- bandicoot::rand_uniform()
-#' e <- bandicoot::rand_normal()
+#' x <- rand_uniform()
+#' e <- rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + 10 * x^2 + e,
@@ -429,8 +429,8 @@ VI_MODEL$plot_resid
 #' @examples
 #'
 #' # Instantiate
-#' x <- bandicoot::rand_uniform()
-#' e <- bandicoot::rand_normal()
+#' x <- rand_uniform()
+#' e <- rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + 10 * x^2 + e,
@@ -465,8 +465,8 @@ VI_MODEL$plot_qq
 #' @examples
 #'
 #' # Instantiate
-#' x <- bandicoot::rand_uniform()
-#' e <- bandicoot::rand_normal()
+#' x <- rand_uniform()
+#' e <- rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + 10 * x^2 + e,
@@ -499,8 +499,8 @@ VI_MODEL$plot
 #' @examples
 #'
 #' # Instantiate
-#' x <- bandicoot::rand_uniform()
-#' e <- bandicoot::rand_normal()
+#' x <- rand_uniform()
+#' e <- rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + 10 * x^2 + e,
@@ -530,8 +530,8 @@ VI_MODEL$plot_lineup
 #' @examples
 #'
 #' # Instantiate
-#' x <- bandicoot::rand_uniform()
-#' e <- bandicoot::rand_normal()
+#' x <- rand_uniform()
+#' e <- rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + x^2 + e,
@@ -559,8 +559,8 @@ VI_MODEL$rss
 #' @examples
 #'
 #' # Instantiate
-#' x <- bandicoot::rand_uniform()
-#' e <- bandicoot::rand_normal()
+#' x <- rand_uniform()
+#' e <- rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + x^2 + e,
@@ -583,15 +583,14 @@ VI_MODEL$null_resid
 #' which means the position is random.
 #' @param computed List. Default is `NULL`. If it is provided, random variables
 #' or random closed form expression will use the values from the list, which
-#' makes the expression potentially deterministic. In this function, only the
-#' actual data plot will use these computed values.
+#' makes the expression potentially deterministic.
 #' @return A data frame.
 #'
 #' @examples
 #'
 #' # Instantiate
-#' x <- bandicoot::rand_uniform()
-#' e <- bandicoot::rand_normal()
+#' x <- rand_uniform()
+#' e <- rand_normal()
 #' test <- vi_model(prm = list(x = x, e = e),
 #'                  prm_type = list(x = "r", e = "r"),
 #'                  formula = y ~ 1 + x + x^2 + e,
@@ -612,7 +611,7 @@ VI_MODEL$gen_lineup
 #'
 #' @description This is the class of visual inference cubic linear model,
 #' inherited from [VI_MODEL].
-#' @format An environment with S3 class `visage_oop`.
+#' @format An environment with S3 class `bandicoot_oop`.
 #' @seealso Parent class: [VI_MODEL]
 #' \cr
 #' \cr
@@ -673,19 +672,19 @@ CUBIC_MODEL$alt_formula
 #' @param c Numeric. Default is `c = 1`.
 #' @param sigma Positive numeric. Default is `sigma = 1`.
 #' @param x Random variable or closed form expression. Default is
-#' `x = bandicoot::rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
+#' `x = rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
 #' @param z Random variable or closed form expression. Default is
-#' `z = bandicoot::rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
+#' `z = rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
 #' @param e Random variable or closed form expression. Default is
-#' `e = bandicoot::rand_normal(0, sigma, env = new.env(parent = parent.env(self)))`.
-#' @return No return value, called for side effects.
+#' `e = rand_normal(0, sigma, env = new.env(parent = parent.env(self)))`.
+#' @return Return the object itself.
 #'
 #' @examples
 #'
 #' # Instantiate
-#' x <- bandicoot::rand_uniform()
-#' z <- bandicoot::rand_uniform()
-#' e <- bandicoot::rand_normal()
+#' x <- rand_uniform()
+#' z <- rand_uniform()
+#' e <- rand_normal()
 #'
 #' test <- cubic_model(a = 200, b = 200, c = 1, x = x, z = z, e = e)
 #'
@@ -780,7 +779,7 @@ CUBIC_MODEL$effect_size
 #'
 #' @description This is the class of visual inference heteroskedasticity
 #' linear model, inherited from [VI_MODEL].
-#' @format An environment with S3 class `visage_oop`.
+#' @format An environment with S3 class `bandicoot_oop`.
 #' @seealso Parent class: [VI_MODEL]
 #' \cr
 #' \cr
@@ -840,10 +839,10 @@ HETER_MODEL$alt_formula
 #' @param a Numeric. Default is `a = 0`.
 #' @param b Numeric. Default is `b = 1`.
 #' @param x Random variable or closed form expression. Default is
-#' `x = bandicoot::rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
+#' `x = rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
 #' @param e Random variable or closed form expression. Default is
-#' `e = bandicoot::rand_normal(0, 1, env = new.env(parent = parent.env(self)))`.
-#' @return No return value, called for side effects.
+#' `e = rand_normal(0, 1, env = new.env(parent = parent.env(self)))`.
+#' @return Return the object itself.
 #'
 #' @examples
 #'
@@ -878,8 +877,8 @@ HETER_MODEL$..init..
 #' @examples
 #'
 #' # Instantiate
-#' x <- bandicoot::rand_uniform()
-#' e <- bandicoot::rand_normal()
+#' x <- rand_uniform()
+#' e <- rand_normal()
 #' test <- heter_model(a = 0, b = 100)
 #'
 #'
@@ -913,7 +912,7 @@ HETER_MODEL$effect_size
 #'
 #' @description This is the class of visual inference simple cubic linear model,
 #' inherited from [VI_MODEL].
-#' @format An environment with S3 class `visage_oop`.
+#' @format An environment with S3 class `bandicoot_oop`.
 #' @seealso Parent class: [VI_MODEL]
 #' \cr
 #' \cr
@@ -973,16 +972,16 @@ SIMPLE_CUBIC_MODEL$alt_formula
 #' @param b Numeric. Default is `b = 1`.
 #' @param sigma Positive numeric. Default is `sigma = 1`.
 #' @param x Random variable or closed form expression. Default is
-#' `x = bandicoot::rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
+#' `x = rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
 #' @param e Random variable or closed form expression. Default is
-#' `e = bandicoot::rand_normal(0, sigma, env = new.env(parent = parent.env(self)))`.
-#' @return No return value, called for side effects.
+#' `e = rand_normal(0, sigma, env = new.env(parent = parent.env(self)))`.
+#' @return Return the object itself.
 #'
 #' @examples
 #'
 #' # Instantiate
-#' x <- bandicoot::rand_uniform()
-#' e <- bandicoot::rand_normal()
+#' x <- rand_uniform()
+#' e <- rand_normal()
 #'
 #' test <- simple_cubic_model(a = 200, b = 200, x = x, e = e)
 #'
@@ -1076,7 +1075,7 @@ SIMPLE_CUBIC_MODEL$effect_size
 #'
 #' @description This is the class of visual inference quartic linear model,
 #' inherited from [VI_MODEL].
-#' @format An environment with S3 class `visage_oop`.
+#' @format An environment with S3 class `bandicoot_oop`.
 #' @seealso Parent class: [VI_MODEL]
 #' \cr
 #' \cr
@@ -1137,16 +1136,16 @@ QUARTIC_MODEL$alt_formula
 #' @param c Numeric. Default is `c = 1`.
 #' @param sigma Positive numeric. Default is `sigma = 1`.
 #' @param x Random variable or closed form expression. Default is
-#' `x = bandicoot::rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
+#' `x = rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
 #' @param e Random variable or closed form expression. Default is
-#' `e = bandicoot::rand_normal(0, sigma, env = new.env(parent = parent.env(self)))`.
-#' @return No return value, called for side effects.
+#' `e = rand_normal(0, sigma, env = new.env(parent = parent.env(self)))`.
+#' @return Return the object itself.
 #'
 #' @examples
 #'
 #' # Instantiate
-#' x <- bandicoot::rand_uniform()
-#' e <- bandicoot::rand_normal()
+#' x <- rand_uniform()
+#' e <- rand_normal()
 #'
 #' test <- quartic_model(a = 200, b = 200, c = 20, x = x, e = e)
 #'
@@ -1241,7 +1240,7 @@ QUARTIC_MODEL$effect_size
 #'
 #' @description This is the class of visual inference orthogonal polynomial
 #' linear model, inherited from [VI_MODEL].
-#' @format An environment with S3 class `visage_oop`.
+#' @format An environment with S3 class `bandicoot_oop`.
 #' @seealso Parent class: [VI_MODEL]
 #' \cr
 #' \cr
@@ -1329,16 +1328,16 @@ POLY_MODEL$z_formula
 #' @param include_z Boolean. Whether or not to include `z` in the formula of `y`.
 #' Default is `include_z = TRUE`.
 #' @param x Random variable or closed form expression. Default is
-#' `x = bandicoot::rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
+#' `x = rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
 #' @param e Random variable or closed form expression. Default is
-#' `e = bandicoot::rand_normal(0, sigma, env = new.env(parent = parent.env(self)))`.
-#' @return No return value, called for side effects.
+#' `e = rand_normal(0, sigma, env = new.env(parent = parent.env(self)))`.
+#' @return Return the object itself.
 #'
 #' @examples
 #'
 #' # Instantiate
-#' x <- bandicoot::rand_uniform()
-#' e <- bandicoot::rand_normal(sigma = 0.5)
+#' x <- rand_uniform()
+#' e <- rand_normal(sigma = 0.5)
 #'
 #' test <- poly_model(shape = 1, x = x, e = e)
 #'
@@ -1439,7 +1438,8 @@ POLY_MODEL$effect_size
 #'
 #' @name POLY_MODEL$hermite
 #'
-#' @description This function returns a Hermite polynomial function.
+#' @description This function returns a Hermite polynomial function defined
+#' using [mpoly::hermite].
 #' @param shape Integer. A value between 1 to 4.
 #' @return A function.
 #'
