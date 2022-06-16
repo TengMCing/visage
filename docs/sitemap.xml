@@ -16,6 +16,48 @@
     <loc>/index.html</loc>
   </url>
   <url>
+    <loc>/reference/CLOSED_FORM-cash-..init...html</loc>
+  </url>
+  <url>
+    <loc>/reference/CLOSED_FORM-cash-..len...html</loc>
+  </url>
+  <url>
+    <loc>/reference/CLOSED_FORM-cash-..str...html</loc>
+  </url>
+  <url>
+    <loc>/reference/CLOSED_FORM-cash-as_dataframe.html</loc>
+  </url>
+  <url>
+    <loc>/reference/CLOSED_FORM-cash-ast.html</loc>
+  </url>
+  <url>
+    <loc>/reference/CLOSED_FORM-cash-compute.html</loc>
+  </url>
+  <url>
+    <loc>/reference/CLOSED_FORM-cash-expr.html</loc>
+  </url>
+  <url>
+    <loc>/reference/CLOSED_FORM-cash-gen.html</loc>
+  </url>
+  <url>
+    <loc>/reference/CLOSED_FORM-cash-set_expr.html</loc>
+  </url>
+  <url>
+    <loc>/reference/CLOSED_FORM-cash-set_sym.html</loc>
+  </url>
+  <url>
+    <loc>/reference/CLOSED_FORM-cash-sym.html</loc>
+  </url>
+  <url>
+    <loc>/reference/CLOSED_FORM-cash-sym_name.html</loc>
+  </url>
+  <url>
+    <loc>/reference/CLOSED_FORM-cash-sym_type.html</loc>
+  </url>
+  <url>
+    <loc>/reference/CLOSED_FORM.html</loc>
+  </url>
+  <url>
     <loc>/reference/CUBIC_MODEL-cash-..init...html</loc>
   </url>
   <url>
@@ -116,6 +158,69 @@
   </url>
   <url>
     <loc>/reference/QUARTIC_MODEL.html</loc>
+  </url>
+  <url>
+    <loc>/reference/RAND_LOGNORMAL-cash-..init...html</loc>
+  </url>
+  <url>
+    <loc>/reference/RAND_LOGNORMAL-cash-gen.html</loc>
+  </url>
+  <url>
+    <loc>/reference/RAND_LOGNORMAL.html</loc>
+  </url>
+  <url>
+    <loc>/reference/RAND_NORMAL-cash-..init...html</loc>
+  </url>
+  <url>
+    <loc>/reference/RAND_NORMAL-cash-gen.html</loc>
+  </url>
+  <url>
+    <loc>/reference/RAND_NORMAL.html</loc>
+  </url>
+  <url>
+    <loc>/reference/RAND_UNIFORM-cash-..init...html</loc>
+  </url>
+  <url>
+    <loc>/reference/RAND_UNIFORM-cash-gen.html</loc>
+  </url>
+  <url>
+    <loc>/reference/RAND_UNIFORM.html</loc>
+  </url>
+  <url>
+    <loc>/reference/RAND_UNIFORM_D-cash-..init...html</loc>
+  </url>
+  <url>
+    <loc>/reference/RAND_UNIFORM_D-cash-gen.html</loc>
+  </url>
+  <url>
+    <loc>/reference/RAND_UNIFORM_D.html</loc>
+  </url>
+  <url>
+    <loc>/reference/RAND_VAR-cash-..init...html</loc>
+  </url>
+  <url>
+    <loc>/reference/RAND_VAR-cash-..str...html</loc>
+  </url>
+  <url>
+    <loc>/reference/RAND_VAR-cash-E.html</loc>
+  </url>
+  <url>
+    <loc>/reference/RAND_VAR-cash-Var.html</loc>
+  </url>
+  <url>
+    <loc>/reference/RAND_VAR-cash-dist.html</loc>
+  </url>
+  <url>
+    <loc>/reference/RAND_VAR-cash-gen.html</loc>
+  </url>
+  <url>
+    <loc>/reference/RAND_VAR-cash-prm.html</loc>
+  </url>
+  <url>
+    <loc>/reference/RAND_VAR-cash-set_prm.html</loc>
+  </url>
+  <url>
+    <loc>/reference/RAND_VAR.html</loc>
   </url>
   <url>
     <loc>/reference/SIMPLE_CUBIC_MODEL-cash-..init...html</loc>
