@@ -5,7 +5,7 @@
 \alias{SIMPLE_CUBIC_MODEL}
 \title{SIMPLE_CUBIC_MODEL class environment}
 \format{
-An environment with S3 class \code{visage_oop}.
+An environment with S3 class \code{bandicoot_oop}.
 }
 \usage{
 SIMPLE_CUBIC_MODEL

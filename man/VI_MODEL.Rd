@@ -5,17 +5,17 @@
 \alias{VI_MODEL}
 \title{VI_MODEL class environment}
 \format{
-An environment with S3 class \code{visage_oop}.
+An environment with S3 class \code{bandicoot_oop}.
 }
 \usage{
 VI_MODEL
 }
 \description{
 This is the base class of visual inference linear model,
-inherited from \link{BASE}.
+inherited from \link[bandicoot:BASE]{bandicoot::BASE}.
 }
 \seealso{
-Parent class: \link{BASE}
+Parent class: \link[bandicoot:BASE]{bandicoot::BASE}
 \cr
 \cr
 New attributes: \link{VI_MODEL$prm}, \link{VI_MODEL$prm_type}, \link{VI_MODEL$..cache..},

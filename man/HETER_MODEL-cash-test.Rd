@@ -21,8 +21,8 @@ variance formula is \code{~ x + I(x^2)}.
 \examples{
 
 # Instantiate
-x <- bandicoot::rand_uniform()
-e <- bandicoot::rand_normal()
+x <- rand_uniform()
+e <- rand_normal()
 test <- heter_model(a = 0, b = 100)
 
 
