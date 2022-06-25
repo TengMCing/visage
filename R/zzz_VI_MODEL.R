@@ -22,7 +22,7 @@
 #' [VI_MODEL$plot], [VI_MODEL$plot_lineup], [VI_MODEL$rss],
 #' [VI_MODEL$null_resid], [VI_MODEL$gen_lineup]
 #' @export
-VI_MODEL <- class_VI_MODEL()
+VI_MODEL <- new.env()
 
 #' List of parameters
 #'
@@ -622,7 +622,7 @@ VI_MODEL$gen_lineup
 #' New methods: [CUBIC_MODEL$..init..], [CUBIC_MODEL$E],
 #' [CUBIC_MODEL$effect_size], [CUBIC_MODEL$set_prm]
 #' @export
-CUBIC_MODEL <- class_CUBIC_MODEL()
+CUBIC_MODEL <- new.env()
 
 #' Closed form expression of `y`
 #'
@@ -791,7 +791,7 @@ CUBIC_MODEL$effect_size
 #' New methods: [HETER_MODEL$..init..], [HETER_MODEL$test],
 #' [HETER_MODEL$effect_size]
 #' @export
-HETER_MODEL <- class_HETER_MODEL()
+HETER_MODEL <- new.env()
 
 
 #' Closed form expression of `y`
@@ -893,7 +893,9 @@ HETER_MODEL$test
 #'
 #' @description This function computes the effect size of the simulated data.
 #' @param dat Dataframe. The number of rows of the data frame will be used.
+#' @param a Numeric. Default is `a = self$prm$a`.
 #' @param b Numeric. Default is `b = self$prm$b`.
+#' @param type Character. Type of the effect size. Default is `type = NULL`.
 #' @return A single numeric value.
 #'
 #' @examples
@@ -923,7 +925,7 @@ HETER_MODEL$effect_size
 #' New methods: [SIMPLE_CUBIC_MODEL$..init..], [SIMPLE_CUBIC_MODEL$E],
 #' [SIMPLE_CUBIC_MODEL$effect_size], [SIMPLE_CUBIC_MODEL$set_prm]
 #' @export
-SIMPLE_CUBIC_MODEL <- class_SIMPLE_CUBIC_MODEL()
+SIMPLE_CUBIC_MODEL <- new.env()
 
 #' Closed form expression of `y`
 #'
@@ -1086,7 +1088,7 @@ SIMPLE_CUBIC_MODEL$effect_size
 #' New methods: [QUARTIC_MODEL$..init..], [QUARTIC_MODEL$E],
 #' [QUARTIC_MODEL$effect_size], [QUARTIC_MODEL$set_prm]
 #' @export
-QUARTIC_MODEL <- class_QUARTIC_MODEL()
+QUARTIC_MODEL <- new.env()
 
 #' Closed form expression of `y`
 #'
@@ -1252,7 +1254,7 @@ QUARTIC_MODEL$effect_size
 #' New methods: [POLY_MODEL$..init..], [POLY_MODEL$E],
 #' [POLY_MODEL$effect_size], [POLY_MODEL$set_prm], [POLY_MODEL$hermite]
 #' @export
-POLY_MODEL <- class_POLY_MODEL()
+POLY_MODEL <- new.env()
 
 #' Closed form expression of `y`
 #'

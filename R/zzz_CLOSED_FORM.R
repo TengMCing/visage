@@ -20,7 +20,7 @@
 #' [CLOSED_FORM$compute], [CLOSED_FORM$gen], [CLOSED_FORM$ast],
 #' [CLOSED_FORM$as_dataframe]
 #' @export
-CLOSED_FORM <- class_CLOSED_FORM()
+CLOSED_FORM <- new.env()
 
 #' List of symbols in the abstract syntax tree of the expression
 #'
