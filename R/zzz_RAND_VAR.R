@@ -19,7 +19,7 @@
 #' New methods: [RAND_VAR$..init..], [RAND_VAR$..str..],
 #' [RAND_VAR$E], [RAND_VAR$Var], [RAND_VAR$set_prm]
 #' @export
-RAND_VAR <- class_RAND_VAR()
+RAND_VAR <- new.env()
 
 #' Distribution name
 #'
@@ -157,7 +157,7 @@ RAND_VAR$..str..
 #' New methods: [RAND_UNIFORM$..init..], [RAND_UNIFORM$gen],
 #' RAND_UNIFORM$E, RAND_UNIFORM$Var
 #' @export
-RAND_UNIFORM <- class_RAND_UNIFORM()
+RAND_UNIFORM <- new.env()
 
 #' Initialization method
 #'
@@ -214,7 +214,7 @@ RAND_UNIFORM$gen
 #' New methods: [RAND_NORMAL$..init..], [RAND_NORMAL$gen],
 #' RAND_NORMAL$E, RAND_NORMAL$Var
 #' @export
-RAND_NORMAL <- class_RAND_NORMAL()
+RAND_NORMAL <- new.env()
 
 #' Initialization method
 #'
@@ -270,7 +270,7 @@ RAND_NORMAL$gen
 #' New methods: [RAND_LOGNORMAL$..init..], [RAND_LOGNORMAL$gen],
 #' RAND_LOGNORMAL$E, RAND_LOGNORMAL$Var
 #' @export
-RAND_LOGNORMAL <- class_RAND_LOGNORMAL()
+RAND_LOGNORMAL <- new.env()
 
 #' Initialization method
 #'
@@ -329,7 +329,7 @@ RAND_LOGNORMAL$gen
 #' New methods: [RAND_UNIFORM_D$..init..], [RAND_UNIFORM_D$gen],
 #' RAND_UNIFORM_D$E, RAND_UNIFORM_D$Var
 #' @export
-RAND_UNIFORM_D <- class_RAND_UNIFORM_D()
+RAND_UNIFORM_D <- new.env()
 
 #' Initialization method
 #'
