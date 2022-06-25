@@ -575,8 +575,26 @@ class_HETER_MODEL <- function(env = new.env(parent = parent.frame())) {
 
 # effect_size -------------------------------------------------------------
 
-  effect_size_ <- function(dat, b = self$prm$b) {
-    sqrt(nrow(dat)) * b
+  effect_size_ <- function(dat, a = self$prm$a, b = self$prm$b, type = NULL) {
+    if (!is.null(type) && type == "kl") {
+
+      n <- nrow(dat)
+      Xa <- as.matrix(data.frame(1, dat$x))
+      Ra <- diag(nrow(dat)) - Xa %*% solve(t(Xa) %*% Xa) %*% t(Xa)
+      V <- diag(1 + b * (2 - abs(a)) * (dat$x - a)^2)
+
+      Ra_V <- Ra %*% V
+      diag_Ra_V <- diag(Ra_V)
+      diag_Ra <- diag(Ra)
+
+      log_det_s2_div_det_s1 <- sum(log(diag_Ra_V)) - sum(log(diag_Ra))
+      tr_inv_s2_s1 <- sum(1/diag_Ra_V * diag_Ra)
+
+      (log_det_s2_div_det_s1 - n + tr_inv_s2_s1)/2
+
+    } else {
+      sqrt(nrow(dat)) * b
+    }
   }
 
 
