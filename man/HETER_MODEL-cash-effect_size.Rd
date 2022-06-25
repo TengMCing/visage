@@ -6,7 +6,11 @@
 \arguments{
 \item{dat}{Dataframe. The number of rows of the data frame will be used.}
 
+\item{a}{Numeric. Default is \code{a = self$prm$a}.}
+
 \item{b}{Numeric. Default is \code{b = self$prm$b}.}
+
+\item{type}{Character. Type of the effect size. Default is \code{type = NULL}.}
 }
 \value{
 A single numeric value.
