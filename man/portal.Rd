@@ -16,34 +16,73 @@
 \alias{heter_model}
 \title{Portals to class instantiate methods}
 \usage{
-rand_var(..., env = new.env(parent = parent.frame()))
+rand_var(..., env = new.env(parent = parent.frame()), init_call = sys.call())
 
-rand_uniform(..., env = new.env(parent = parent.frame()))
+rand_uniform(
+  ...,
+  env = new.env(parent = parent.frame()),
+  init_call = sys.call()
+)
 
-rand_uniform_d(..., env = new.env(parent = parent.frame()))
+rand_uniform_d(
+  ...,
+  env = new.env(parent = parent.frame()),
+  init_call = sys.call()
+)
 
-rand_normal(..., env = new.env(parent = parent.frame()))
+rand_normal(
+  ...,
+  env = new.env(parent = parent.frame()),
+  init_call = sys.call()
+)
 
-rand_lognormal(..., env = new.env(parent = parent.frame()))
+rand_lognormal(
+  ...,
+  env = new.env(parent = parent.frame()),
+  init_call = sys.call()
+)
 
-closed_form(..., env = new.env(parent = parent.frame()))
+closed_form(
+  ...,
+  env = new.env(parent = parent.frame()),
+  init_call = sys.call()
+)
 
-vi_model(..., env = new.env(parent = parent.frame()))
+vi_model(..., env = new.env(parent = parent.frame()), init_call = sys.call())
 
-cubic_model(..., env = new.env(parent = parent.frame()))
+cubic_model(
+  ...,
+  env = new.env(parent = parent.frame()),
+  init_call = sys.call()
+)
 
-simple_cubic_model(..., env = new.env(parent = parent.frame()))
+simple_cubic_model(
+  ...,
+  env = new.env(parent = parent.frame()),
+  init_call = sys.call()
+)
 
-quartic_model(..., env = new.env(parent = parent.frame()))
+quartic_model(
+  ...,
+  env = new.env(parent = parent.frame()),
+  init_call = sys.call()
+)
 
-poly_model(..., env = new.env(parent = parent.frame()))
+poly_model(..., env = new.env(parent = parent.frame()), init_call = sys.call())
 
-heter_model(..., env = new.env(parent = parent.frame()))
+heter_model(
+  ...,
+  env = new.env(parent = parent.frame()),
+  init_call = sys.call()
+)
 }
 \arguments{
 \item{...}{Arguments passed to \code{init} method.}
 
 \item{env}{Environment. The instance environment.}
+
+\item{init_call}{Call. Contents of the \code{..init_call..}. It is recommended to
+leave it as default. Default is \code{init_call = sys.call()}.}
 }
 \description{
 These functions are the same as \code{class$instantiate}.
