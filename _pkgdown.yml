@@ -6,6 +6,12 @@ template:
   bslib:
     pkgdown-nav-height: 100px
 reference:
+- title: "Data"
+  desc: >
+    Visual inference study data
+  contents:
+  - polynomials
+  - get_polynomials_lineup
 - title: "P-value"
   desc: >
     Functions for caculating p-value in a visual test
