@@ -14,7 +14,7 @@ class_RAND_VAR <- function(env = new.env(parent = parent.frame())) {
     if (!is.list(prm)) stop("`prm` is not a list!")
     self$prm <- prm
 
-    return(self)
+    return(invisible(self))
   }
 
   gen_ <- function(n, ...) NA
@@ -32,7 +32,7 @@ class_RAND_VAR <- function(env = new.env(parent = parent.frame())) {
       self$prm[[pname]] <- pval
     }
 
-    return(self)
+    return(invisible(self))
 
   }
 
@@ -84,7 +84,7 @@ class_RAND_UNIFORM <- function(env = new.env(parent = parent.frame())) {
       dist = "uniform",
       prm = list(a = a, b = b))
 
-    return(self)
+    return(invisible(self))
   }
 
   gen_ <- function(n, a = NULL, b = NULL) {
@@ -128,7 +128,7 @@ class_RAND_NORMAL <- function(env = new.env(parent = parent.frame())) {
       dist = "normal",
       prm = list(mu = mu, sigma = sigma))
 
-    return(self)
+    return(invisible(self))
   }
 
   gen_ <- function(n, mu = NULL, sigma = NULL) {
@@ -170,7 +170,7 @@ class_RAND_LOGNORMAL <- function(env = new.env(parent = parent.frame())) {
       dist = "lognormal",
       prm = list(mu = mu, sigma = sigma))
 
-    return(self)
+    return(invisible(self))
   }
 
   gen_ <- function(n, mu = NULL, sigma = NULL) {
@@ -213,7 +213,7 @@ class_RAND_UNIFORM_D <- function(env = new.env(parent = parent.frame())) {
       dist = "discrete uniform",
       prm = list(a = a, b = b, k = k, even = even))
 
-    return(self)
+    return(invisible(self))
   }
 
   gen_ <- function(n, a = NULL, b = NULL, k = NULL, even = NULL) {

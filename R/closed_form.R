@@ -55,7 +55,7 @@ class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
 
     self$sym_name <- as.list(names(self$sym))
 
-    return(self)
+    return(invisible(self))
 
   }
 
@@ -175,7 +175,7 @@ class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
       }
     }
 
-    return(self)
+    return(invisible(self))
 
   }
 
@@ -190,7 +190,7 @@ class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
     # Only keeps the RHS of the last "~" character
     self$expr <- str2lang(gsub("^.*~", "", paste(deparse(expr, width.cutoff = 500L), collapse = " ")))
 
-    return(self)
+    return(invisible(self))
   }
 
 # as_dataframe ------------------------------------------------------------
