@@ -76,13 +76,6 @@ of <code>y</code> after the instance has been built, which may create confusion.
 <span class="r-in">                 alt_formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="va">x</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">test</span><span class="op">$</span><span class="fu">set_formula</span><span class="op">(</span>alt_formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="va">x</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── &lt;VI_MODEL object&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> y = 1 + x + x^2 + e</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  - x: &lt;RAND_UNIFORM object&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>    [a: 0, b: 1]</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  - e: &lt;RAND_NORMAL object&gt;</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>    [mu: 0, sigma: 1] </span>
 <span class="r-in"><span class="va">test</span><span class="op">$</span><span class="va">alt_formula</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> y ~ x + I(x^3)</span>
 </code></pre></div>
