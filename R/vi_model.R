@@ -42,7 +42,7 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
     # Set the y variable
     self$prm$y <- visage::closed_form(formula, env = new.env(parent = parent.env(self)))
 
-    return(self)
+    return(invisible(self))
   }
 
 # set_formula -------------------------------------------------------------
@@ -61,7 +61,7 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
       attributes(self[[name_for_list[i]]]) <- NULL
     }
 
-    return(self)
+    return(invisible(self))
   }
 
 
@@ -77,7 +77,7 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
       self$prm$y$set_sym(list(pname), list(pval))
     }
 
-    return(self)
+    return(invisible(self))
 
   }
 
@@ -370,7 +370,7 @@ class_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
       alt_formula = self$alt_formula
       )
 
-    return(self)
+    return(invisible(self))
   }
 
 
@@ -390,7 +390,7 @@ class_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
       }
     }
 
-    return(self)
+    return(invisible(self))
 
   }
 
@@ -466,7 +466,7 @@ class_SIMPLE_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
       alt_formula = self$alt_formula
     )
 
-    return(self)
+    return(invisible(self))
   }
 
 
@@ -477,7 +477,7 @@ class_SIMPLE_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
     # Reuse the CUBIC_MODEL$set_prm method
     bandicoot::use_method(self, visage::CUBIC_MODEL$set_prm)(prm_name, prm_value)
 
-    return(self)
+    return(invisible(self))
   }
 
 # E -----------------------------------------------------------------------
@@ -549,7 +549,7 @@ class_HETER_MODEL <- function(env = new.env(parent = parent.frame())) {
       alt_formula = self$alt_formula
     )
 
-    return(self)
+    return(invisible(self))
   }
 
 
@@ -638,7 +638,7 @@ class_QUARTIC_MODEL <- function(env = new.env(parent = parent.frame())) {
       alt_formula = self$alt_formula
     )
 
-    return(self)
+    return(invisible(self))
   }
 
 
@@ -649,7 +649,7 @@ class_QUARTIC_MODEL <- function(env = new.env(parent = parent.frame())) {
     # Reuse the CUBIC_MODEL$set_prm method
     bandicoot::use_method(self, visage::CUBIC_MODEL$set_prm)(prm_name, prm_value)
 
-    return(self)
+    return(invisible(self))
   }
 
 # E -----------------------------------------------------------------------
@@ -733,7 +733,7 @@ class_POLY_MODEL <- function(env = new.env(parent = parent.frame())) {
       alt_formula = self$alt_formula
     )
 
-    return(self)
+    return(invisible(self))
   }
 
 
@@ -761,7 +761,7 @@ class_POLY_MODEL <- function(env = new.env(parent = parent.frame())) {
       bandicoot::use_method(self, visage::CUBIC_MODEL$set_prm)(list(pname), list(pval))
     }
 
-    return(self)
+    return(invisible(self))
   }
 
 # E -----------------------------------------------------------------------
