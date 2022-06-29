@@ -1,6 +1,6 @@
 Package: visage
 Title: Visual Inference for Linear Regression Diagnostics
-Version: 0.0.0.9009
+Version: 0.1.0
 Authors@R: 
     person(given = "Weihao",
            family = "Li",
@@ -13,11 +13,13 @@ URL: https://tengmcing.github.io/visage/, https://github.com/TengMCing/visage/
 BugReports: https://github.com/TengMCing/visage/issues
 Encoding: UTF-8
 LazyData: true
+LazyDataCompression: bzip2
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports:
     bandicoot,
     cli,
+    curl,
     dplyr,
     ggplot2,
     jsonlite,
@@ -35,5 +37,7 @@ Suggests:
     covr
 Config/testthat/edition: 3
 VignetteBuilder: knitr
-Remotes:  
+Remotes: 
     TengMCing/bandicoot
+Depends: 
+    R (>= 2.10)
