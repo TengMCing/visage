@@ -82,7 +82,7 @@ heter_model <- function(..., env = new.env(parent = parent.frame())) {
 .onLoad <- function(libname, pkgname) {
 
   # Classes are empty environments defined by new.env()
-  # Build them at load-time to ensure dependencies (w.g. bandicoot::BASE) are latest
+  # Build them at load-time to ensure dependencies (e.g. bandicoot::BASE) are latest
 
   class_RAND_VAR(RAND_VAR)
   class_RAND_UNIFORM(RAND_UNIFORM)
