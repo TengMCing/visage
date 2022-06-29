@@ -2,3 +2,9 @@
 .DS_Store
 .Rhistory
 inst/doc
+
+data-raw/survey/
+
+data-raw/third_experiment_dat.rds
+
+data-raw/third_experiment_order.txt
