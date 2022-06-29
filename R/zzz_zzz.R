@@ -5,78 +5,80 @@
 #' @description These functions are the same as `class$instantiate`.
 #' @param ... Arguments passed to `init` method.
 #' @param env Environment. The instance environment.
+#' @param init_call Call. Contents of the `..init_call..`. It is recommended to
+#' leave it as default. Default is `init_call = sys.call()`.
 NULL
 
 #' @describeIn portal [RAND_VAR]
 #' @export
-rand_var <- function(..., env = new.env(parent = parent.frame())) {
-  RAND_VAR$instantiate(..., env = env)
+rand_var <- function(..., env = new.env(parent = parent.frame()), init_call = sys.call()) {
+  RAND_VAR$instantiate(..., env = env, init_call = init_call)
 }
 
 #' @describeIn portal [RAND_UNIFORM]
 #' @export
-rand_uniform <- function(..., env = new.env(parent = parent.frame())) {
-  RAND_UNIFORM$instantiate(..., env = env)
+rand_uniform <- function(..., env = new.env(parent = parent.frame()), init_call = sys.call()) {
+  RAND_UNIFORM$instantiate(..., env = env, init_call = init_call)
 }
 
 #' @describeIn portal [RAND_UNIFORM_D]
 #' @export
-rand_uniform_d <- function(..., env = new.env(parent = parent.frame())) {
-  RAND_UNIFORM_D$instantiate(..., env = env)
+rand_uniform_d <- function(..., env = new.env(parent = parent.frame()), init_call = sys.call()) {
+  RAND_UNIFORM_D$instantiate(..., env = env, init_call = init_call)
 }
 
 #' @describeIn portal [RAND_NORMAL]
 #' @export
-rand_normal <- function(..., env = new.env(parent = parent.frame())) {
-  RAND_NORMAL$instantiate(..., env = env)
+rand_normal <- function(..., env = new.env(parent = parent.frame()), init_call = sys.call()) {
+  RAND_NORMAL$instantiate(..., env = env, init_call = init_call)
 }
 
 #' @describeIn portal [RAND_LOGNORMAL]
 #' @export
-rand_lognormal <- function(..., env = new.env(parent = parent.frame())) {
-  RAND_LOGNORMAL$instantiate(..., env = env)
+rand_lognormal <- function(..., env = new.env(parent = parent.frame()), init_call = sys.call()) {
+  RAND_LOGNORMAL$instantiate(..., env = env, init_call = init_call)
 }
 
 #' @describeIn portal [CLOSED_FORM]
 #' @export
-closed_form <- function(..., env = new.env(parent = parent.frame())) {
-  CLOSED_FORM$instantiate(..., env = env)
+closed_form <- function(..., env = new.env(parent = parent.frame()), init_call = sys.call()) {
+  CLOSED_FORM$instantiate(..., env = env, init_call = init_call)
 }
 
 #' @describeIn portal [VI_MODEL]
 #' @export
-vi_model <- function(..., env = new.env(parent = parent.frame())) {
-  VI_MODEL$instantiate(..., env = env)
+vi_model <- function(..., env = new.env(parent = parent.frame()), init_call = sys.call()) {
+  VI_MODEL$instantiate(..., env = env, init_call = init_call)
 }
 
 #' @describeIn portal [CUBIC_MODEL]
 #' @export
-cubic_model <- function(..., env = new.env(parent = parent.frame())) {
-  CUBIC_MODEL$instantiate(..., env = env)
+cubic_model <- function(..., env = new.env(parent = parent.frame()), init_call = sys.call()) {
+  CUBIC_MODEL$instantiate(..., env = env, init_call = init_call)
 }
 
 #' @describeIn portal [SIMPLE_CUBIC_MODEL]
 #' @export
-simple_cubic_model <- function(..., env = new.env(parent = parent.frame())) {
-  SIMPLE_CUBIC_MODEL$instantiate(..., env = env)
+simple_cubic_model <- function(..., env = new.env(parent = parent.frame()), init_call = sys.call()) {
+  SIMPLE_CUBIC_MODEL$instantiate(..., env = env, init_call = init_call)
 }
 
 #' @describeIn portal [QUARTIC_MODEL]
 #' @export
-quartic_model <- function(..., env = new.env(parent = parent.frame())) {
-  QUARTIC_MODEL$instantiate(..., env = env)
+quartic_model <- function(..., env = new.env(parent = parent.frame()), init_call = sys.call()) {
+  QUARTIC_MODEL$instantiate(..., env = env, init_call = init_call)
 }
 
 #' @describeIn portal [POLY_MODEL]
 #' @export
-poly_model <- function(..., env = new.env(parent = parent.frame())) {
-  POLY_MODEL$instantiate(..., env = env)
+poly_model <- function(..., env = new.env(parent = parent.frame()), init_call = sys.call()) {
+  POLY_MODEL$instantiate(..., env = env, init_call = init_call)
 }
 
 #' @describeIn portal [HETER_MODEL]
 #' @export
-heter_model <- function(..., env = new.env(parent = parent.frame())) {
-  HETER_MODEL$instantiate(..., env = env)
+heter_model <- function(..., env = new.env(parent = parent.frame()), init_call = sys.call()) {
+  HETER_MODEL$instantiate(..., env = env, init_call = init_call)
 }
 
 .onLoad <- function(libname, pkgname) {
