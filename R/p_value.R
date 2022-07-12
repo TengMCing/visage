@@ -31,18 +31,29 @@ eval_p_value <- function(p_value, significance_level = 0.05, tol = 1e-6) {
 #' plots in a lineup.
 #'
 #' For a given lineup, plots are assumed to have weights
-#' \eqn{W_i, i = 1, ..., N,} where \eqn{N} is the number of plots, and
-#' \eqn{W_i} follows a uniform distribution independently. For each draw,
+#' \eqn{W_i, i = 1, ..., M,} where \eqn{M} is the number of plots, and
+#' \eqn{W_i} follows a attractiveness distribution independently. For each draw,
 #' weights for a lineup will be simulated. Then, for each evaluation of a draw,
 #' the function will sample same number of plots as the number of selection in
 #' the evaluation using the simulated weights without replacement.
 #' Finally, the distribution of the occurrences of plot 1 in a draw is the
 #' approximated distribution of number of detections of a lineup.
 #'
+#' There are two attractiveness distribution available,
+#' one is uniform distribution, another is Dirichlet distribution. Uniform
+#' distribution ensures the marginal distribution of the probability of every
+#' plot being selected is uniform.
+#' When \eqn{\alpha = 1},
+#' Dirichlet distribution ensures the probability of every plot being selected
+#' is evenly distributed in a standard \eqn{M - 1} simplex.
+#'
 #' @param n_eval Integer. Number of evaluations.
 #' @param n_sel Integer. A vector of the number of selections.
 #' @param n_plot Integer. Number of plots in the lineup.
 #' @param n_sim Integer. Number of simulations draws.
+#' @param dist Character. Name of the distribution used for the attractiveness simulation.
+#' One of "uniform" and "dirichlet".
+#' @param alpha Numeric. A single parameter value used by the Dirichlet distribution.
 #' @return A named vector representing the probability mass function of the distribution.
 #'
 #' @examples
@@ -53,14 +64,17 @@ eval_p_value <- function(p_value, significance_level = 0.05, tol = 1e-6) {
 sim_dist <- function(n_eval,
                      n_sel,
                      n_plot = 20,
-                     n_sim = 50000) {
+                     n_sim = 50000,
+                     dist = "uniform",
+                     alpha = 1) {
 
   # Allow for n_sel to be a single integer
   stopifnot((n_eval == length(n_sel)) | (length(n_sel) == 1))
   n_sel <- rep(n_sel, length = n_eval)
 
   # Define weights for plots in lineups
-  plot_weights <- matrix(stats::runif(n_plot * n_sim), ncol = n_plot)
+  if (dist == "uniform") plot_weights <- matrix(stats::runif(n_plot * n_sim), ncol = n_plot)
+  if (dist == "dirichlet") plot_weights <- matrix(stats::rgamma(n_plot * n_sim, alpha, 1), ncol = n_plot)
 
   result <- matrix(ncol = n_eval, nrow = n_sim)
   for (i in 1:n_eval) {
@@ -94,12 +108,23 @@ sim_dist <- function(n_eval,
 #' the result corresponding to the combinations of `n_eval`
 #' and `n_sim`.
 #'
+#' There are two attractiveness distribution available,
+#' one is uniform distribution, another is Dirichlet distribution. Uniform
+#' distribution ensures the marginal distribution of the probability of every
+#' plot being selected is uniform.
+#' When \eqn{\alpha = 1},
+#' Dirichlet distribution ensures the probability of every plot being selected
+#' is evenly distributed in a standard \eqn{M - 1} simplex.
+#'
 #' @param n_detect Integer. Observed value of number of detections.
 #' @param n_eval Integer. Number of evaluations.
 #' @param n_sel Integer. A vector of the number of selections.
 #' @param n_plot Integer. Number of plots in the lineup.
 #' @param n_sim Integer. Number of simulations draws.
 #' @param cache_env Environment. A provided environment for caching.
+#' @param dist Character. Name of the distribution used for the attractiveness simulation.
+#' One of "uniform" and "dirichlet".
+#' @param alpha Numeric. A single parameter value used by the Dirichlet distribution.
 #' @return A numeric value representing the p-value.
 #'
 #' @examples
@@ -112,13 +137,15 @@ calc_p_value <- function(n_detect,
                          n_sel,
                          n_plot = 20,
                          n_sim = 50000,
-                         cache_env = NULL) {
+                         cache_env = NULL,
+                         dist = "uniform",
+                         alpha = 1) {
 
   if (n_detect > n_eval) stop("Number of detected plots greater than number of evaluations.")
 
   target_dist <- NULL
   n_sel <- sort(n_sel)
-  uid <- paste0(n_sim, "s",
+  uid <- paste0(dist, "_", alpha, "_", n_sim, "s",
                 paste0(n_sel, collapse = "_"))
 
   # Load result from cache
@@ -128,7 +155,9 @@ calc_p_value <- function(n_detect,
     target_dist <- sim_dist(n_eval,
                             n_sel,
                             n_plot,
-                            n_sim)
+                            n_sim,
+                            dist,
+                            alpha)
 
     # Cache result
     if (is.environment(cache_env)) cache_env$cache_dist[[uid]] <- target_dist
@@ -158,6 +187,14 @@ calc_p_value <- function(n_detect,
 #' the result corresponding to the combinations of `n_eval`
 #' and `n_sim`.
 #'
+#' There are two attractiveness distribution available,
+#' one is uniform distribution, another is Dirichlet distribution. Uniform
+#' distribution ensures the marginal distribution of the probability of every
+#' plot being selected is uniform.
+#' When \eqn{\alpha = 1},
+#' Dirichlet distribution ensures the probability of every plot being selected
+#' is evenly distributed in a standard \eqn{M - 1} simplex.
+#'
 #' @param detected Boolean. A vector of Boolean values indicating whether the
 #' lineup has been detected by the subjects.
 #' @param n_eval Integer. Desired number of evaluations.
@@ -165,6 +202,9 @@ calc_p_value <- function(n_detect,
 #' @param n_plot Integer. Number of plots in the lineup.
 #' @param n_sim Integer. Number of simulation draws.
 #' @param cache_env Environment. A provided environment for caching.
+#' @param dist Character. Name of the distribution used for the attractiveness simulation.
+#' One of "uniform" and "dirichlet".
+#' @param alpha Numeric. A single parameter value used by the Dirichlet distribution.
 #' @return A vector of p-value with the combination matrix as the attribute.
 #'
 #' @examples
@@ -178,7 +218,9 @@ calc_p_value_comb <- function(detected,
                               n_sel,
                               n_plot = 20,
                               n_sim = 50000,
-                              cache_env = NULL) {
+                              cache_env = NULL,
+                              dist = "uniform",
+                              alpha = 1) {
 
   if (n_eval == 0) stop("Number of evaluations equals to zero. Can not compute combinations.")
 
@@ -192,7 +234,9 @@ calc_p_value_comb <- function(detected,
                                  n_sel = n_sel[this_combo],
                                  n_plot = n_plot,
                                  n_sim = n_sim,
-                                 cache_env = cache_env)
+                                 cache_env = cache_env,
+                                 dist = dist,
+                                 alpha = alpha)
                   })
 
   # Save combinations
@@ -212,6 +256,14 @@ calc_p_value_comb <- function(detected,
 #' turned on to set evaluations with 0 or full selections to be false detection
 #' with only one selection.
 #'
+#' There are two attractiveness distribution available,
+#' one is uniform distribution, another is Dirichlet distribution. Uniform
+#' distribution ensures the marginal distribution of the probability of every
+#' plot being selected is uniform.
+#' When \eqn{\alpha = 1},
+#' Dirichlet distribution ensures the probability of every plot being selected
+#' is evenly distributed in a standard \eqn{M - 1} simplex.
+#'
 #' @param dat Data.frame/Tibble. A data.frame or a tibble.
 #' @param lineup_id Character. Column name of ids of lineup.
 #' @param detected Character. Column name of whether the lineup is detected by
@@ -228,6 +280,9 @@ calc_p_value_comb <- function(detected,
 #' @param n_plot Integer. Number of plots.
 #' @param n_sim Integer. Number of simulation draws.
 #' @param cache_env Environment. A provided environment for caching.
+#' @param dist Character. Name of the distribution used for the attractiveness simulation.
+#' One of "uniform" and "dirichlet".
+#' @param alpha Numeric. A single parameter value used by the Dirichlet distribution.
 #' @return If `comb = TRUE`, the function returns a tiible with columns
 #' `lineup_id` and `p_value`, where `p_value` is a list of vectors. If
 #' `comb = FALSE`, the `p_value` column is a vector.
@@ -250,7 +305,9 @@ calc_p_value_multi <- function(dat,
                                replace_full = TRUE,
                                n_plot = 20,
                                n_sim = 50000,
-                               cache_env = NULL) {
+                               cache_env = NULL,
+                               dist = "uniform",
+                               alpha = 1) {
   # Pass CMD check
   mutate <- `%>%` <- group_by <- summarise <- count <- filter <- bind_rows <- n <- NULL
 
@@ -308,7 +365,9 @@ calc_p_value_multi <- function(dat,
                                                     n_sel = n_sel,
                                                     n_plot = n_plot,
                                                     n_sim = n_sim,
-                                                    cache_env = cache_env)),
+                                                    cache_env = cache_env,
+                                                    dist = dist,
+                                                    alpha = alpha)),
                   n_eval = j,
                   total_eval = dplyr::n())
 
@@ -337,7 +396,9 @@ calc_p_value_multi <- function(dat,
                                              n_sel = n_sel,
                                              n_plot = n_plot,
                                              n_sim = n_sim,
-                                             cache_env = cache_env))
+                                             cache_env = cache_env,
+                                             dist = dist,
+                                             alpha = alpha))
   }
 
   return(result)
