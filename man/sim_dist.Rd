@@ -4,7 +4,14 @@
 \alias{sim_dist}
 \title{Approximate the distribution of number of detections of a lineup with simulation}
 \usage{
-sim_dist(n_eval, n_sel, n_plot = 20, n_sim = 50000)
+sim_dist(
+  n_eval,
+  n_sel,
+  n_plot = 20,
+  n_sim = 50000,
+  dist = "uniform",
+  alpha = 1
+)
 }
 \arguments{
 \item{n_eval}{Integer. Number of evaluations.}
@@ -14,6 +21,11 @@ sim_dist(n_eval, n_sel, n_plot = 20, n_sim = 50000)
 \item{n_plot}{Integer. Number of plots in the lineup.}
 
 \item{n_sim}{Integer. Number of simulations draws.}
+
+\item{dist}{Character. Name of the distribution used for the attractiveness simulation.
+One of "uniform" and "dirichlet".}
+
+\item{alpha}{Numeric. A single parameter value used by the Dirichlet distribution.}
 }
 \value{
 A named vector representing the probability mass function of the distribution.
@@ -25,13 +37,21 @@ plots in a lineup.
 }
 \details{
 For a given lineup, plots are assumed to have weights
-\eqn{W_i, i = 1, ..., N,} where \eqn{N} is the number of plots, and
-\eqn{W_i} follows a uniform distribution independently. For each draw,
+\eqn{W_i, i = 1, ..., M,} where \eqn{M} is the number of plots, and
+\eqn{W_i} follows a attractiveness distribution independently. For each draw,
 weights for a lineup will be simulated. Then, for each evaluation of a draw,
 the function will sample same number of plots as the number of selection in
 the evaluation using the simulated weights without replacement.
 Finally, the distribution of the occurrences of plot 1 in a draw is the
 approximated distribution of number of detections of a lineup.
+
+There are two attractiveness distribution available,
+one is uniform distribution, another is Dirichlet distribution. Uniform
+distribution ensures the marginal distribution of the probability of every
+plot being selected is uniform.
+When \eqn{\alpha = 1},
+Dirichlet distribution ensures the probability of every plot being selected
+is evenly distributed in a standard \eqn{M - 1} simplex.
 }
 \examples{
 sim_dist(3, c(2,2,3))

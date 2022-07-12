@@ -66,7 +66,9 @@ evaluations.</p>
   <span class="va">n_sel</span>,
   n_plot <span class="op">=</span> <span class="fl">20</span>,
   n_sim <span class="op">=</span> <span class="fl">50000</span>,
-  cache_env <span class="op">=</span> <span class="cn">NULL</span>
+  cache_env <span class="op">=</span> <span class="cn">NULL</span>,
+  dist <span class="op">=</span> <span class="st">"uniform"</span>,
+  alpha <span class="op">=</span> <span class="fl">1</span>
 <span class="op">)</span></code></pre></div>
     </div>
 
@@ -85,6 +87,11 @@ lineup has been detected by the subjects.</p></dd>
 <dd><p>Integer. Number of simulation draws.</p></dd>
 <dt>cache_env</dt>
 <dd><p>Environment. A provided environment for caching.</p></dd>
+<dt>dist</dt>
+<dd><p>Character. Name of the distribution used for the attractiveness simulation.
+One of "uniform" and "dirichlet".</p></dd>
+<dt>alpha</dt>
+<dd><p>Numeric. A single parameter value used by the Dirichlet distribution.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -96,6 +103,13 @@ lineup has been detected by the subjects.</p></dd>
 when this function needs to be reused. The cache environment will remember
 the result corresponding to the combinations of <code>n_eval</code>
 and <code>n_sim</code>.</p>
+<p>There are two attractiveness distribution available,
+one is uniform distribution, another is Dirichlet distribution. Uniform
+distribution ensures the marginal distribution of the probability of every
+plot being selected is uniform.
+When \(\alpha = 1\),
+Dirichlet distribution ensures the probability of every plot being selected
+is evenly distributed in a standard \(M - 1\) simplex.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -105,13 +119,13 @@ and <code>n_sim</code>.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">calc_p_value_comb</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span>, <span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.09786 0.00632 0.14686</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.09794 0.00662 0.14464</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"combinations")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1    1    2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    2    3    3</span>
 <span class="r-in"><span class="fu">calc_p_value_comb</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span>, <span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.05002 1.00000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.04912 1.00000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"combinations")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1    2</span>

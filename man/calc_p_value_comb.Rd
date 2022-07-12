@@ -10,7 +10,9 @@ calc_p_value_comb(
   n_sel,
   n_plot = 20,
   n_sim = 50000,
-  cache_env = NULL
+  cache_env = NULL,
+  dist = "uniform",
+  alpha = 1
 )
 }
 \arguments{
@@ -26,6 +28,11 @@ lineup has been detected by the subjects.}
 \item{n_sim}{Integer. Number of simulation draws.}
 
 \item{cache_env}{Environment. A provided environment for caching.}
+
+\item{dist}{Character. Name of the distribution used for the attractiveness simulation.
+One of "uniform" and "dirichlet".}
+
+\item{alpha}{Numeric. A single parameter value used by the Dirichlet distribution.}
 }
 \value{
 A vector of p-value with the combination matrix as the attribute.
@@ -42,6 +49,14 @@ It is encouraged to provide a cache environment to boost up the performance
 when this function needs to be reused. The cache environment will remember
 the result corresponding to the combinations of \code{n_eval}
 and \code{n_sim}.
+
+There are two attractiveness distribution available,
+one is uniform distribution, another is Dirichlet distribution. Uniform
+distribution ensures the marginal distribution of the probability of every
+plot being selected is uniform.
+When \eqn{\alpha = 1},
+Dirichlet distribution ensures the probability of every plot being selected
+is evenly distributed in a standard \eqn{M - 1} simplex.
 }
 \examples{
 calc_p_value_comb(c(TRUE, FALSE, TRUE), 2, c(1, 1, 2))

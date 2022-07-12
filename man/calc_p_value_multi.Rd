@@ -15,7 +15,9 @@ calc_p_value_multi(
   replace_full = TRUE,
   n_plot = 20,
   n_sim = 50000,
-  cache_env = NULL
+  cache_env = NULL,
+  dist = "uniform",
+  alpha = 1
 )
 }
 \arguments{
@@ -45,6 +47,11 @@ number of selections equal to number of plots.}
 \item{n_sim}{Integer. Number of simulation draws.}
 
 \item{cache_env}{Environment. A provided environment for caching.}
+
+\item{dist}{Character. Name of the distribution used for the attractiveness simulation.
+One of "uniform" and "dirichlet".}
+
+\item{alpha}{Numeric. A single parameter value used by the Dirichlet distribution.}
 }
 \value{
 If \code{comb = TRUE}, the function returns a tiible with columns
@@ -62,6 +69,14 @@ The cache environment will remember the result corresponding to the
 combinations of \code{n_eval} and \code{n_sim}. \code{replace_0} and \code{replace_full} can be
 turned on to set evaluations with 0 or full selections to be false detection
 with only one selection.
+
+There are two attractiveness distribution available,
+one is uniform distribution, another is Dirichlet distribution. Uniform
+distribution ensures the marginal distribution of the probability of every
+plot being selected is uniform.
+When \eqn{\alpha = 1},
+Dirichlet distribution ensures the probability of every plot being selected
+is evenly distributed in a standard \eqn{M - 1} simplex.
 }
 \examples{
 dat <- data.frame(lineup_id = c(1,1,2),

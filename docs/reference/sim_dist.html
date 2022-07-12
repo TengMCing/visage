@@ -54,7 +54,14 @@ plots in a lineup.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">sim_dist</span><span class="op">(</span><span class="va">n_eval</span>, <span class="va">n_sel</span>, n_plot <span class="op">=</span> <span class="fl">20</span>, n_sim <span class="op">=</span> <span class="fl">50000</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">sim_dist</span><span class="op">(</span>
+  <span class="va">n_eval</span>,
+  <span class="va">n_sel</span>,
+  n_plot <span class="op">=</span> <span class="fl">20</span>,
+  n_sim <span class="op">=</span> <span class="fl">50000</span>,
+  dist <span class="op">=</span> <span class="st">"uniform"</span>,
+  alpha <span class="op">=</span> <span class="fl">1</span>
+<span class="op">)</span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -67,6 +74,11 @@ plots in a lineup.</p>
 <dd><p>Integer. Number of plots in the lineup.</p></dd>
 <dt>n_sim</dt>
 <dd><p>Integer. Number of simulations draws.</p></dd>
+<dt>dist</dt>
+<dd><p>Character. Name of the distribution used for the attractiveness simulation.
+One of "uniform" and "dirichlet".</p></dd>
+<dt>alpha</dt>
+<dd><p>Numeric. A single parameter value used by the Dirichlet distribution.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -75,23 +87,30 @@ plots in a lineup.</p>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>For a given lineup, plots are assumed to have weights
-\(W_i, i = 1, ..., N,\) where \(N\) is the number of plots, and
-\(W_i\) follows a uniform distribution independently. For each draw,
+\(W_i, i = 1, ..., M,\) where \(M\) is the number of plots, and
+\(W_i\) follows a attractiveness distribution independently. For each draw,
 weights for a lineup will be simulated. Then, for each evaluation of a draw,
 the function will sample same number of plots as the number of selection in
 the evaluation using the simulated weights without replacement.
 Finally, the distribution of the occurrences of plot 1 in a draw is the
 approximated distribution of number of detections of a lineup.</p>
+<p>There are two attractiveness distribution available,
+one is uniform distribution, another is Dirichlet distribution. Uniform
+distribution ensures the marginal distribution of the probability of every
+plot being selected is uniform.
+When \(\alpha = 1\),
+Dirichlet distribution ensures the probability of every plot being selected
+is evenly distributed in a standard \(M - 1\) simplex.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">sim_dist</span><span class="op">(</span><span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       0       1       2       3 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.69660 0.25902 0.04178 0.00260 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.69822 0.25410 0.04474 0.00294 </span>
 <span class="r-in"><span class="fu">sim_dist</span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       0       1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.94968 0.05032 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.94752 0.05248 </span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
