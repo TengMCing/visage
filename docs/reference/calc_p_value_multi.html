@@ -65,7 +65,9 @@ be used instead.</p>
   replace_full <span class="op">=</span> <span class="cn">TRUE</span>,
   n_plot <span class="op">=</span> <span class="fl">20</span>,
   n_sim <span class="op">=</span> <span class="fl">50000</span>,
-  cache_env <span class="op">=</span> <span class="cn">NULL</span>
+  cache_env <span class="op">=</span> <span class="cn">NULL</span>,
+  dist <span class="op">=</span> <span class="st">"uniform"</span>,
+  alpha <span class="op">=</span> <span class="fl">1</span>
 <span class="op">)</span></code></pre></div>
     </div>
 
@@ -98,6 +100,11 @@ number of selections equal to number of plots.</p></dd>
 <dd><p>Integer. Number of simulation draws.</p></dd>
 <dt>cache_env</dt>
 <dd><p>Environment. A provided environment for caching.</p></dd>
+<dt>dist</dt>
+<dd><p>Character. Name of the distribution used for the attractiveness simulation.
+One of "uniform" and "dirichlet".</p></dd>
+<dt>alpha</dt>
+<dd><p>Numeric. A single parameter value used by the Dirichlet distribution.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -112,6 +119,13 @@ The cache environment will remember the result corresponding to the
 combinations of <code>n_eval</code> and <code>n_sim</code>. <code>replace_0</code> and <code>replace_full</code> can be
 turned on to set evaluations with 0 or full selections to be false detection
 with only one selection.</p>
+<p>There are two attractiveness distribution available,
+one is uniform distribution, another is Dirichlet distribution. Uniform
+distribution ensures the marginal distribution of the probability of every
+plot being selected is uniform.
+When \(\alpha = 1\),
+Dirichlet distribution ensures the probability of every plot being selected
+is evenly distributed in a standard \(M - 1\) simplex.</p>
     </div>
 
     <div class="section level2">
@@ -130,8 +144,8 @@ with only one selection.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   lineup_id p_value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>         1  0.097<span style="text-decoration: underline;">7</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>         2  0.102 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>         1  0.092<span style="text-decoration: underline;">7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>         2  0.098<span style="text-decoration: underline;">7</span></span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>

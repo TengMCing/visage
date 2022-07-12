@@ -60,7 +60,9 @@ of the number of detections greater or equal to the observed value.</p>
   <span class="va">n_sel</span>,
   n_plot <span class="op">=</span> <span class="fl">20</span>,
   n_sim <span class="op">=</span> <span class="fl">50000</span>,
-  cache_env <span class="op">=</span> <span class="cn">NULL</span>
+  cache_env <span class="op">=</span> <span class="cn">NULL</span>,
+  dist <span class="op">=</span> <span class="st">"uniform"</span>,
+  alpha <span class="op">=</span> <span class="fl">1</span>
 <span class="op">)</span></code></pre></div>
     </div>
 
@@ -78,6 +80,11 @@ of the number of detections greater or equal to the observed value.</p>
 <dd><p>Integer. Number of simulations draws.</p></dd>
 <dt>cache_env</dt>
 <dd><p>Environment. A provided environment for caching.</p></dd>
+<dt>dist</dt>
+<dd><p>Character. Name of the distribution used for the attractiveness simulation.
+One of "uniform" and "dirichlet".</p></dd>
+<dt>alpha</dt>
+<dd><p>Numeric. A single parameter value used by the Dirichlet distribution.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -89,14 +96,21 @@ of the number of detections greater or equal to the observed value.</p>
 when this function needs to be reused. The cache environment will remember
 the result corresponding to the combinations of <code>n_eval</code>
 and <code>n_sim</code>.</p>
+<p>There are two attractiveness distribution available,
+one is uniform distribution, another is Dirichlet distribution. Uniform
+distribution ensures the marginal distribution of the probability of every
+plot being selected is uniform.
+When \(\alpha = 1\),
+Dirichlet distribution ensures the probability of every plot being selected
+is evenly distributed in a standard \(M - 1\) simplex.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">calc_p_value</span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.0161</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.01644</span>
 <span class="r-in"><span class="fu">calc_p_value</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.04996</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.04922</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
