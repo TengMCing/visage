@@ -9,6 +9,8 @@
 \item{alpha}{Numeric. Alpha of dot. Value between 0 and 1.}
 
 \item{size}{Numeric. Size of dot. Value between 0 and 1. Default is 0.5.}
+
+\item{stroke}{Numeric. Stroke of dot. Default is 0.5.}
 }
 \value{
 A ggplot.

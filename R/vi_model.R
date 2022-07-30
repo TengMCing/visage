@@ -232,9 +232,9 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
 
 # plot_resid --------------------------------------------------------------
 
-  plot_resid_ <- function(dat, alpha = 1, size = 0.5) {
+  plot_resid_ <- function(dat, alpha = 1, size = 0.5, stroke = 0.5) {
     ggplot2::ggplot(dat) +
-      ggplot2::geom_point(ggplot2::aes(.fitted, .resid), alpha = alpha, size = size)
+      ggplot2::geom_point(ggplot2::aes(.fitted, .resid), alpha = alpha, size = size, stroke = stroke)
   }
 
 
@@ -254,12 +254,13 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
                     theme = ggplot2::theme_grey(),
                     alpha = 1,
                     size = 0.5,
+                    stroke = 0.5,
                     remove_axis = FALSE,
                     remove_legend = FALSE,
                     remove_grid_line = FALSE,
                     add_zero_line = TRUE) {
     p <- switch(type,
-                "resid" = self$plot_resid(dat, alpha, size),
+                "resid" = self$plot_resid(dat, alpha, size, stroke),
                 "qq" = self$plot_qq(dat)) +
       theme
 

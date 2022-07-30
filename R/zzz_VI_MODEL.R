@@ -401,6 +401,7 @@ VI_MODEL$effect_size
 #' @param dat Data frame. A data frame containing `.resid` and `.fitted`.
 #' @param alpha Numeric. Alpha of dot. Value between 0 and 1.
 #' @param size Numeric. Size of dot. Value between 0 and 1. Default is 0.5.
+#' @param stroke Numeric. Stroke of dot. Default is 0.5.
 #' @return A ggplot.
 #'
 #' @examples
@@ -452,6 +453,7 @@ VI_MODEL$plot_qq
 #' @param theme ggtheme. A ggplot theme object.
 #' @param alpha Numeric. Alpha of dot. Value between 0 and 1. Default is 1.
 #' @param size Numeric. Size of dot. Value between 0 and 1. Default is 0.5.
+#' @param stroke Numeric. Stroke of dot. Default is 0.5.
 #' @param remove_axis Boolean. Whether or not to remove the axis. Default is
 #' `remove_axis = FALSE`.
 #' @param remove_legend Boolean. Whether or not to remove the legend. Default is
