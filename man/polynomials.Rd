@@ -5,7 +5,7 @@
 \alias{polynomials}
 \title{Results of a visual inference study on reading residual plots of misspecified linear regression model caused by missing Hermite polynomial terms}
 \format{
-A tibble with 3200 rows and 28 variables:
+A tibble with 3200 rows and 30 variables:
 \describe{
 \item{page}{The page number of the study website}
 \item{response_time}{Time spent on a page, in milliseconds (1 second = 1000 milliseconds)}
@@ -35,6 +35,8 @@ A tibble with 3200 rows and 28 variables:
 \item{detect}{Whether the subject selects the actual residual plot}
 \item{conventional_p_value}{P-value of the conventional test (F-test) by comparing the null model (y ~ x) and the correct model (y ~ x + z)}
 \item{p_value}{P-value of the visual test calculated using \code{\link[=calc_p_value_multi]{calc_p_value_multi()}} with \code{n_sim = 1e+6}}
+\item{weigthed_detect}{If \code{detect == TRUE}, \code{weighted_detect = detect/num_selection}. Otherwise, \code{weighted_detect = 0}.}
+\item{prop_detect}{Poportion of detection. \code{prop_detect = mean(weighted_detect)}.}
 }
 }
 \usage{

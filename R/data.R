@@ -23,7 +23,7 @@
 #' subjects due to randomness. Data stored in [get_polynomials_lineup()]
 #' should be used instead.
 #'
-#' @format A tibble with 3200 rows and 28 variables:
+#' @format A tibble with 3200 rows and 30 variables:
 #' \describe{
 #'   \item{page}{The page number of the study website}
 #'   \item{response_time}{Time spent on a page, in milliseconds (1 second = 1000 milliseconds)}
@@ -53,6 +53,8 @@
 #'   \item{detect}{Whether the subject selects the actual residual plot}
 #'   \item{conventional_p_value}{P-value of the conventional test (F-test) by comparing the null model (y ~ x) and the correct model (y ~ x + z)}
 #'   \item{p_value}{P-value of the visual test calculated using [calc_p_value_multi()] with `n_sim = 1e+6`}
+#'   \item{weigthed_detect}{If `detect == TRUE`, `weighted_detect = detect/num_selection`. Otherwise, `weighted_detect = 0`.}
+#'   \item{prop_detect}{Poportion of detection. `prop_detect = mean(weighted_detect)`.}
 #' }
 "polynomials"
 

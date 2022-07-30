@@ -175,6 +175,13 @@ class_SURVEY <- function(env = new.env(parent = parent.frame())) {
     self$dat <- self$dat %>%
       left_join(p_value)
 
+    self$dat <- self$dat %>%
+      group_by(set, lineup_id) %>%
+      mutate(weighted_detect = detect/ifelse(num_selection == 0, 1, num_selection)) %>%
+      group_by(lineup_id) %>%
+      mutate(prop_detect = mean(weighted_detect)) %>%
+      ungroup()
+
     return(self$dat)
   }
 
