@@ -65,7 +65,7 @@ Every lineup consists of 20 residual plots with one actual residual plot and 19 
 
     <div class="section level2">
     <h2 id="format">Format<a class="anchor" aria-label="anchor" href="#format"></a></h2>
-    <p>A tibble with 3200 rows and 28 variables:</p><dl><dt>page</dt>
+    <p>A tibble with 3200 rows and 30 variables:</p><dl><dt>page</dt>
 <dd><p>The page number of the study website</p></dd>
 
 <dt>response_time</dt>
@@ -148,6 +148,12 @@ Every lineup consists of 20 residual plots with one actual residual plot and 19 
 
 <dt>p_value</dt>
 <dd><p>P-value of the visual test calculated using <code><a href="calc_p_value_multi.html">calc_p_value_multi()</a></code> with <code>n_sim = 1e+6</code></p></dd>
+
+<dt>weigthed_detect</dt>
+<dd><p>If <code>detect == TRUE</code>, <code>weighted_detect = detect/num_selection</code>. Otherwise, <code>weighted_detect = 0</code>.</p></dd>
+
+<dt>prop_detect</dt>
+<dd><p>Poportion of detection of a lineup. For a lineup, <code>prop_detect = mean(weighted_detect)</code>.</p></dd>
 
 
 </dl></div>
