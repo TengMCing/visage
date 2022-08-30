@@ -8,3 +8,9 @@ data-raw/survey/
 data-raw/third_experiment_dat.rds
 
 data-raw/third_experiment_order.txt
+
+data-raw/survey_fourth/
+
+data-raw/fourth_experiment_dat.rds
+
+data-raw/fourth_experiment_order.txt
