@@ -117,3 +117,18 @@ get_polynomials_lineup <- function() {
 
   polynomials_lineup
 }
+
+#' @export
+get_heter_lineup <- function() {
+
+  # Save the Rds file in a temp file
+  tmp <- tempfile()
+  curl::curl_download("https://raw.githubusercontent.com/TengMCing/visage/master/data-raw/heter_lineup.rds",
+                      destfile = tmp)
+  polynomials_lineup <- readRDS(tmp)
+
+  # Clean up
+  unlink(tmp)
+
+  polynomials_lineup
+}
