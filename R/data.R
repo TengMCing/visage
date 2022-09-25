@@ -110,12 +110,12 @@ get_polynomials_lineup <- function() {
   tmp <- tempfile()
   curl::curl_download("https://raw.githubusercontent.com/TengMCing/visage/master/data-raw/polynomials_lineup.rds",
                       destfile = tmp)
-  polynomials_lineup <- readRDS(tmp)
+  lineup <- readRDS(tmp)
 
   # Clean up
   unlink(tmp)
 
-  polynomials_lineup
+  lineup
 }
 
 #' @export
@@ -125,10 +125,40 @@ get_heter_lineup <- function() {
   tmp <- tempfile()
   curl::curl_download("https://raw.githubusercontent.com/TengMCing/visage/master/data-raw/heter_lineup.rds",
                       destfile = tmp)
-  polynomials_lineup <- readRDS(tmp)
+  lineup <- readRDS(tmp)
 
   # Clean up
   unlink(tmp)
 
-  polynomials_lineup
+  lineup
+}
+
+#' @export
+get_fifth_experiment_lineup <- function() {
+
+  # Save the Rds file in a temp file
+  tmp <- tempfile()
+  curl::curl_download("https://raw.githubusercontent.com/TengMCing/visage/master/data-raw/fifth_experiment_lineup.rds",
+                      destfile = tmp)
+  lineup <- readRDS(tmp)
+
+  # Clean up
+  unlink(tmp)
+
+  lineup
+}
+
+#' @export
+get_vi_lineup <- function() {
+
+  # Save the Rds file in a temp file
+  tmp <- tempfile()
+  curl::curl_download("https://raw.githubusercontent.com/TengMCing/visage/master/data-raw/vi_lineup.rds",
+                      destfile = tmp)
+  lineup <- readRDS(tmp)
+
+  # Clean up
+  unlink(tmp)
+
+  lineup
 }

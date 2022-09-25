@@ -153,7 +153,6 @@ class_SURVEY <- function(env = new.env(parent = parent.frame())) {
 
       # Unnest the metadata column and clean up some metadata
       unnest_wider(metadata)  %>%
-      rename(answer = ans) %>%
 
       # Check if the answer being detected
       mutate(detect = self$detect_or_not(selection, answer)) %>%
@@ -163,7 +162,10 @@ class_SURVEY <- function(env = new.env(parent = parent.frame())) {
                                             function(lineup_id) {
                                               if (is.na(lineup_id)) return(NA)
 
-                                              HETER_MODEL$test(filter(lineup_dat[[lineup_id]]$data, null == FALSE))$p_value
+                                              if (length(grep("heter_", lineup_id)) > 0)
+                                                return(HETER_MODEL$test(filter(lineup_dat[[lineup_id]]$data, null == FALSE))$p_value)
+                                              else
+                                                return(POLY_MODEL$test(filter(lineup_dat[[lineup_id]]$data, null == FALSE))$p_value)
                                             })) %>%
 
       # Discard non-lineup pages
@@ -182,6 +184,18 @@ class_SURVEY <- function(env = new.env(parent = parent.frame())) {
       mutate(prop_detect = mean(weighted_detect)) %>%
       ungroup()
 
+    self$dat <- self$dat %>%
+      rename(unique_lineup_id = lineup_id) %>%
+      mutate(lineup_id = gsub(".+_", "", unique_lineup_id)) %>%
+      select(unique_lineup_id, lineup_id, page, set, num,
+             response_time, selection, num_selection, answer,
+             detect, weighted_detect, prop_detect, effect_size,
+             conventional_p_value, p_value, reason,
+             confidence, age_group, education, pronoun,
+             previous_experience, type, formula, shape, a, b,
+             x_dist, e_dist, e_sigma, include_z, name,
+             k, n)
+
     return(self$dat)
   }
 
@@ -195,12 +209,39 @@ class_SURVEY <- function(env = new.env(parent = parent.frame())) {
 }
 
 
+lineup_ord <- read_csv(here::here("data-raw/fifth_experiment_order.txt"), col_names = FALSE) %>%
+  t() %>%
+  as.data.frame() %>%
+  as.list() %>%
+  unname()
+poly_dat <- readRDS(here::here("data-raw/polynomials_lineup.rds"))
+heter_dat <- readRDS(here::here("data-raw/heter_lineup.rds"))
+
+lineup_dat <- list()
+
+for (lineup_id in unique(unlist(lineup_ord))) {
+  if (length(grep("poly_", lineup_id)) > 0)
+    lineup_dat[[lineup_id]] <- poly_dat[[lineup_id]]
+  else
+    lineup_dat[[lineup_id]] <- heter_dat[[lineup_id]]
+}
+
+
 SURVEY <- class_SURVEY()
-heter_survey <- SURVEY$instantiate(survey_folder = "survey_fourth",
+
+fifth_survey <- SURVEY$instantiate(survey_folder = "survey_fifth",
                                    k = 20,
-                                   lineup_dat = readRDS(here::here("data-raw/fourth_experiment_dat.rds")),
-                                   lineup_ord = read_csv(here::here("data-raw/fourth_experiment_order.txt"), col_names = FALSE) %>%
-                                     t() %>%
-                                     as.data.frame() %>%
-                                     as.list() %>%
-                                     unname())
+                                   lineup_dat = lineup_dat,
+                                   lineup_ord = lineup_ord)
+
+
+fifth_survey$process_responses()
+
+fifth_experiment <- fifth_survey$dat
+fifth_experiment_lineup <- fifth_survey$lineup_dat
+
+usethis::use_data(fifth_experiment, overwrite = TRUE)
+saveRDS(fifth_experiment_lineup, here::here("data-raw/fifth_experiment_lineup.rds"))
+
+
+

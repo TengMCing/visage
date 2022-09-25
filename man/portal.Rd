@@ -89,28 +89,28 @@ These functions are the same as \code{class$instantiate}.
 }
 \section{Functions}{
 \itemize{
-\item \code{rand_var}: \link{RAND_VAR}
+\item \code{rand_var()}: \link{RAND_VAR}
 
-\item \code{rand_uniform}: \link{RAND_UNIFORM}
+\item \code{rand_uniform()}: \link{RAND_UNIFORM}
 
-\item \code{rand_uniform_d}: \link{RAND_UNIFORM_D}
+\item \code{rand_uniform_d()}: \link{RAND_UNIFORM_D}
 
-\item \code{rand_normal}: \link{RAND_NORMAL}
+\item \code{rand_normal()}: \link{RAND_NORMAL}
 
-\item \code{rand_lognormal}: \link{RAND_LOGNORMAL}
+\item \code{rand_lognormal()}: \link{RAND_LOGNORMAL}
 
-\item \code{closed_form}: \link{CLOSED_FORM}
+\item \code{closed_form()}: \link{CLOSED_FORM}
 
-\item \code{vi_model}: \link{VI_MODEL}
+\item \code{vi_model()}: \link{VI_MODEL}
 
-\item \code{cubic_model}: \link{CUBIC_MODEL}
+\item \code{cubic_model()}: \link{CUBIC_MODEL}
 
-\item \code{simple_cubic_model}: \link{SIMPLE_CUBIC_MODEL}
+\item \code{simple_cubic_model()}: \link{SIMPLE_CUBIC_MODEL}
 
-\item \code{quartic_model}: \link{QUARTIC_MODEL}
+\item \code{quartic_model()}: \link{QUARTIC_MODEL}
 
-\item \code{poly_model}: \link{POLY_MODEL}
+\item \code{poly_model()}: \link{POLY_MODEL}
 
-\item \code{heter_model}: \link{HETER_MODEL}
+\item \code{heter_model()}: \link{HETER_MODEL}
+
 }}
-

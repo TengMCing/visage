@@ -163,7 +163,7 @@ class_SURVEY <- function(env = new.env(parent = parent.frame())) {
                                             function(lineup_id) {
                                               if (is.na(lineup_id)) return(NA)
 
-                                              HETER_MODEL$test(filter(lineup_dat[[lineup_id]]$data, null == FALSE))$p_value
+                                              return(HETER_MODEL$test(filter(lineup_dat[[lineup_id]]$data, null == FALSE))$p_value)
                                             })) %>%
 
       # Discard non-lineup pages
@@ -220,7 +220,7 @@ heter_survey$process_responses()
 
 heter <- heter_survey$dat
 heter_lineup <- heter_survey$lineup_dat
-names(heter_lineup) <- unclass(glue::glue("lineup_{1:length(heter_lineup)}"))
+names(heter_lineup) <- unclass(glue::glue("heter_{1:length(heter_lineup)}"))
 heter_lineup <- map(heter_lineup, ~{.x$metadata$answer <- .x$metadata$ans; .x$metadata$ans <- NULL; .x})
 
 usethis::use_data(heter, overwrite = TRUE)

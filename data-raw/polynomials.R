@@ -220,7 +220,7 @@ poly_survey$process_responses()
 
 polynomials <- poly_survey$dat
 polynomials_lineup <- poly_survey$lineup_dat
-names(polynomials_lineup) <- unclass(glue::glue("poly_lineup_{1:length(polynomials_lineup)}"))
+names(polynomials_lineup) <- unclass(glue::glue("poly_{1:length(polynomials_lineup)}"))
 polynomials_lineup <- map(polynomials_lineup, ~{.x$metadata$answer <- .x$metadata$ans; .x$metadata$ans <- NULL; .x})
 
 usethis::use_data(polynomials, overwrite = TRUE)
