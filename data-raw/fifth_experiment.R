@@ -13,7 +13,7 @@ class_SURVEY <- function(env = new.env(parent = parent.frame())) {
   env$dat <- NULL
   env$cache_env <- new.env(parent = parent.env(env))
 
-# ..init.. ----------------------------------------------------------------
+  # ..init.. ----------------------------------------------------------------
 
   init_ <- function(survey_folder = NULL, k = 20, lineup_dat = NULL, lineup_ord = NULL) {
     self$survey_folder <- survey_folder
@@ -23,7 +23,7 @@ class_SURVEY <- function(env = new.env(parent = parent.frame())) {
   }
 
 
-# get_responses -----------------------------------------------------------
+  # get_responses -----------------------------------------------------------
 
   get_responses_ <- function(uuid, survey_folder = self$survey_folder, k = self$k) {
     # Map user choices to user info
@@ -101,7 +101,7 @@ class_SURVEY <- function(env = new.env(parent = parent.frame())) {
   }
 
 
-# detect_or_not -----------------------------------------------------------
+  # detect_or_not -----------------------------------------------------------
 
   detect_or_not_ <- function(selection, answer) {
     detect <- imap_lgl(selection, ~answer[.y] %in% as.integer(str_split(.x, "_")[[1]]))
@@ -110,7 +110,7 @@ class_SURVEY <- function(env = new.env(parent = parent.frame())) {
   }
 
 
-# process_responses -------------------------------------------------------
+  # process_responses -------------------------------------------------------
 
   process_responses_ <- function(survey_folder = self$survey_folder,
                                  k = 20,
@@ -163,7 +163,7 @@ class_SURVEY <- function(env = new.env(parent = parent.frame())) {
                                             function(lineup_id) {
                                               if (is.na(lineup_id)) return(NA)
 
-                                              POLY_MODEL$test(filter(lineup_dat[[lineup_id]]$data, null == FALSE))$p_value
+                                              HETER_MODEL$test(filter(lineup_dat[[lineup_id]]$data, null == FALSE))$p_value
                                             })) %>%
 
       # Discard non-lineup pages
@@ -182,17 +182,6 @@ class_SURVEY <- function(env = new.env(parent = parent.frame())) {
       mutate(prop_detect = mean(weighted_detect)) %>%
       ungroup()
 
-    self$dat <- self$dat %>%
-      mutate(unique_lineup_id = paste0("poly_", lineup_id)) %>%
-      select(unique_lineup_id, lineup_id, page, set, num,
-             response_time, selection, num_selection, answer,
-             detect, weighted_detect, prop_detect, effect_size,
-             conventional_p_value, p_value, reason,
-             confidence, age_group, education, pronoun,
-             previous_experience, type, formula, shape,
-             x_dist, include_z, e_dist, e_sigma, name,
-             k, n)
-
     return(self$dat)
   }
 
@@ -207,21 +196,11 @@ class_SURVEY <- function(env = new.env(parent = parent.frame())) {
 
 
 SURVEY <- class_SURVEY()
-poly_survey <- SURVEY$instantiate(survey_folder = "survey",
-                                  k = 20,
-                                  lineup_dat = readRDS(here::here("data-raw/third_experiment_dat.rds")),
-                                  lineup_ord = read_csv(here::here("data-raw/third_experiment_order.txt"), col_names = FALSE) %>%
-                                    t() %>%
-                                    as.data.frame() %>%
-                                    as.list() %>%
-                                    unname())
-
-poly_survey$process_responses()
-
-polynomials <- poly_survey$dat
-polynomials_lineup <- poly_survey$lineup_dat
-names(polynomials_lineup) <- unclass(glue::glue("poly_lineup_{1:length(polynomials_lineup)}"))
-polynomials_lineup <- map(polynomials_lineup, ~{.x$metadata$answer <- .x$metadata$ans; .x$metadata$ans <- NULL; .x})
-
-usethis::use_data(polynomials, overwrite = TRUE)
-saveRDS(polynomials_lineup, here::here("data-raw/polynomials_lineup.rds"))
+heter_survey <- SURVEY$instantiate(survey_folder = "survey_fourth",
+                                   k = 20,
+                                   lineup_dat = readRDS(here::here("data-raw/fourth_experiment_dat.rds")),
+                                   lineup_ord = read_csv(here::here("data-raw/fourth_experiment_order.txt"), col_names = FALSE) %>%
+                                     t() %>%
+                                     as.data.frame() %>%
+                                     as.list() %>%
+                                     unname())

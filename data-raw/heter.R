@@ -182,6 +182,17 @@ class_SURVEY <- function(env = new.env(parent = parent.frame())) {
       mutate(prop_detect = mean(weighted_detect)) %>%
       ungroup()
 
+    self$dat <- self$dat %>%
+      mutate(unique_lineup_id = paste0("heter_", lineup_id)) %>%
+      select(unique_lineup_id, lineup_id, page, set, num,
+             response_time, selection, num_selection, answer,
+             detect, weighted_detect, prop_detect, effect_size,
+             conventional_p_value, p_value, reason,
+             confidence, age_group, education, pronoun,
+             previous_experience, type, formula, a, b,
+             x_dist, e_dist, e_sigma, name,
+             k, n)
+
     return(self$dat)
   }
 
