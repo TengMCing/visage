@@ -169,11 +169,11 @@ class_SURVEY <- function(env = new.env(parent = parent.frame())) {
       # Discard non-lineup pages
       filter(page > 4)
 
-    p_value <- self$dat %>%
-      calc_p_value_multi(detected = "detect", n_sel = "num_selection", cache_env = self$cache_env, n_sim = 100000)
-
-    self$dat <- self$dat %>%
-      left_join(p_value)
+    # p_value <- self$dat %>%
+    #   calc_p_value_multi(detected = "detect", n_sel = "num_selection", cache_env = self$cache_env, n_sim = 100000)
+    #
+    # self$dat <- self$dat %>%
+    #   left_join(p_value)
 
     self$dat <- self$dat %>%
       group_by(set, lineup_id) %>%
@@ -187,7 +187,7 @@ class_SURVEY <- function(env = new.env(parent = parent.frame())) {
       select(unique_lineup_id, lineup_id, page, set, num,
              response_time, selection, num_selection, answer,
              detect, weighted_detect, prop_detect, effect_size,
-             conventional_p_value, p_value, reason,
+             conventional_p_value, reason,
              confidence, age_group, education, pronoun,
              previous_experience, type, formula, shape,
              x_dist, include_z, e_dist, e_sigma, name,

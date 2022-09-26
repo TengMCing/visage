@@ -312,7 +312,7 @@ calc_p_value_multi <- function(dat,
   mutate <- `%>%` <- group_by <- summarise <- count <- filter <- bind_rows <- n <- NULL
 
   # Load pkg funcs, quote dplyr to pass CMD check
-  bandicoot::define_pkg_fn("dplyr", mutate, `%>%`, group_by, summarise, count, filter, bind_rows)
+  bandicoot::define_pkg_fn("dplyr", mutate, `%>%`, group_by, summarise, count, filter, bind_rows, rename)
 
   # Replace variable names
   dat <- tibble::tibble(lineup_id = dat[[lineup_id]],
@@ -401,5 +401,6 @@ calc_p_value_multi <- function(dat,
                                              alpha = alpha))
   }
 
+  names(result) <- c(lineup_id, "p_value")
   return(result)
 }

@@ -52,7 +52,6 @@
 #'   \item{answer}{The answer of the lineup}
 #'   \item{detect}{Whether the subject selects the actual residual plot}
 #'   \item{conventional_p_value}{P-value of the conventional test (F-test) by comparing the null model (y ~ x) and the correct model (y ~ x + z)}
-#'   \item{p_value}{P-value of the visual test calculated using [calc_p_value_multi()] with `n_sim = 1e+6`}
 #'   \item{weigthed_detect}{If `detect == TRUE`, `weighted_detect = detect/num_selection`. Otherwise, `weighted_detect = 0`.}
 #'   \item{prop_detect}{Poportion of detection of a lineup. For a lineup, `prop_detect = mean(weighted_detect)`.}
 #' }
