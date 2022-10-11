@@ -71,7 +71,8 @@ vi_survey <- vi_survey %>%
 
 vi_survey <- vi_survey %>%
   group_by(unique_lineup_id) %>%
-  mutate(prop_detect = mean(weighted_detect))
+  mutate(prop_detect = mean(weighted_detect)) %>%
+  ungroup()
 
 poly_lineup <- readRDS(here::here("data-raw/polynomials_lineup.rds"))
 heter_lineup <- readRDS(here::here("data-raw/heter_lineup.rds"))
