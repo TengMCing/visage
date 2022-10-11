@@ -68,6 +68,11 @@ vi_survey <- vi_survey %>%
   left_join(p_value, by = "unique_lineup_id") %>%
   select(exp, unique_lineup_id:conventional_p_value, p_value, reason:alpha_sum_sq_error)
 
+
+vi_survey <- vi_survey %>%
+  group_by(unique_lineup_id) %>%
+  mutate(prop_detect = mean(weighted_detect))
+
 poly_lineup <- readRDS(here::here("data-raw/polynomials_lineup.rds"))
 heter_lineup <- readRDS(here::here("data-raw/heter_lineup.rds"))
 vi_lineup <- append(poly_lineup, heter_lineup)
