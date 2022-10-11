@@ -15,15 +15,58 @@ vi_survey <- fifth_experiment %>%
 
 set.seed(10086)
 
+alpha_vi_survey <- vi_survey %>%
+  filter(b == 0) %>%
+  select(unique_lineup_id, x_dist, n) %>%
+  group_by(unique_lineup_id) %>%
+  summarise(across(x_dist:n, first)) %>%
+  arrange(across(c(x_dist:n))) %>%
+  mutate(setting_id = rep(1:12, each = 3))
+
+alpha_vi_survey <- alpha_vi_survey %>%
+  select(unique_lineup_id, setting_id) %>%
+  right_join(filter(vi_survey, b == 0)) %>%
+  select(unique_lineup_id, setting_id, selection, num_selection) %>%
+  (function(x) {
+    for (i in 1:20)
+      x[[paste0("plot_", i)]] <-
+        grepl(paste0("_", i, "_"), x$selection) |
+        grepl(paste0("^", i, "_"), x$selection) |
+        grepl(paste0("_", i, "$"), x$selection) |
+        grepl(paste0("^", i, "$"), x$selection)
+    x}
+  ) %>%
+  mutate(across(plot_1:plot_20, function(x) ifelse(num_selection, x/num_selection, 1/20))) %>%
+  group_by(setting_id, unique_lineup_id) %>%
+  summarise(across(plot_1:plot_20, sum)) %>%
+  ungroup() %>%
+  pivot_longer(plot_1:plot_20) %>%
+  group_by(setting_id, unique_lineup_id) %>%
+  summarise(c_interesting = sum(value >= 1)) %>%
+  group_by(setting_id) %>%
+  summarise(c_interesting = mean(c_interesting)) %>%
+  ungroup() %>%
+  mutate(alpha = vinference::estimate_alpha_numeric(Zc = c_interesting, m0 = 20, K = 20)) %>%
+  mutate(alpha_sum_sq_error = alpha$sum_sq_error, alpha = alpha$alpha) %>%
+  right_join(alpha_vi_survey)
+
+
+vi_survey <- vi_survey %>%
+  left_join(alpha_vi_survey %>%
+              group_by(setting_id) %>%
+              summarise(across(everything(), first)) %>%
+              select(x_dist, n, c_interesting, alpha, alpha_sum_sq_error))
+
+
 p_value <- visage::calc_p_value_multi(vi_survey,
-                                      lineup_id = "unique_lineup_id",
-                                      detected = "detect",
-                                      n_sel = "num_selection",
-                                      cache_env = new.env())
+                                      lineup_id = unique_lineup_id,
+                                      detect = detect,
+                                      n_sel = num_selection,
+                                      alpha = alpha)
 
 vi_survey <- vi_survey %>%
   left_join(p_value, by = "unique_lineup_id") %>%
-  select(exp, unique_lineup_id:conventional_p_value, p_value, reason:n)
+  select(exp, unique_lineup_id:conventional_p_value, p_value, reason:alpha_sum_sq_error)
 
 poly_lineup <- readRDS(here::here("data-raw/polynomials_lineup.rds"))
 heter_lineup <- readRDS(here::here("data-raw/heter_lineup.rds"))
