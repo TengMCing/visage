@@ -5,20 +5,20 @@
 \title{Calculate p-value for a visual test}
 \usage{
 calc_p_value(
-  n_detect,
-  n_eval,
+  detect,
   n_sel,
   n_plot = 20,
   n_sim = 50000,
+  dist = "dirichlet",
+  alpha = 1,
   cache_env = NULL,
-  dist = "uniform",
-  alpha = 1
+  method = "linear_approx",
+  replace_0 = TRUE
 )
 }
 \arguments{
-\item{n_detect}{Integer. Observed value of number of detections.}
-
-\item{n_eval}{Integer. Number of evaluations.}
+\item{detect}{Integer. A vector of boolean values indicating whether the
+subject detect the actual data plot.}
 
 \item{n_sel}{Integer. A vector of the number of selections.}
 
@@ -26,27 +26,42 @@ calc_p_value(
 
 \item{n_sim}{Integer. Number of simulations draws.}
 
-\item{cache_env}{Environment. A provided environment for caching.}
-
 \item{dist}{Character. Name of the distribution used for the attractiveness simulation.
 One of "uniform" and "dirichlet".}
 
 \item{alpha}{Numeric. A single parameter value used by the Dirichlet distribution.}
+
+\item{cache_env}{Environment. A provided environment for caching.}
+
+\item{method}{Character. Method of p-value calculation. "linear_approx" for linear
+approximation and "simulate" for simulation.}
+
+\item{replace_0}{Boolean. Whether to treat evaluations with number of
+selections equal to 0 as selecting all the plots.}
 }
 \value{
 A numeric value representing the p-value.
 }
 \description{
-This function calculate the p-value for a visual test. The null distribution
-is simulated by using function \code{\link[=sim_dist]{sim_dist()}}. The p-value is the probability
-of the number of detections greater or equal to the observed value.
+This function calculate the p-value for a visual test.
 }
 \details{
+If \code{method == "simulate"},
+the null distribution is simulated by using function \code{\link[=sim_dist]{sim_dist()}} and the
+p-value is the probability of the number of detections greater or equal to
+the observed value. \cr\cr
+If \code{method == "linear_approx"}, the null
+distribution is calculated using function \code{\link[=exact_dist]{exact_dist()}} and the p-value
+is the probability of the detections greater or equal to the weighted
+observed value. The weighted observed detections is calculated by incrementing
+1/n_sel for a detection, and 1/n_plot for zero selections. Since the null
+distribution is discrete, and weighted observed detections is a real value,
+linear approximation is used for the decimal part.\cr\cr
 It is encouraged to provide a cache environment to boost up the performance
-when this function needs to be reused. The cache environment will remember
+when this function needs to be reused and \code{method == "simulate"}.
+The cache environment will remember
 the result corresponding to the combinations of \code{n_eval}
-and \code{n_sim}.
-
+and \code{n_sim}.\cr\cr
 There are two attractiveness distribution available,
 one is uniform distribution, another is Dirichlet distribution. Uniform
 distribution ensures the marginal distribution of the probability of every
@@ -56,7 +71,7 @@ Dirichlet distribution ensures the probability of every plot being selected
 is evenly distributed in a standard \eqn{M - 1} simplex.
 }
 \examples{
-calc_p_value(2, 3, c(1,1,2))
-calc_p_value(1, 1, c(1))
+calc_p_value(c(1, 1, 0), c(1, 1, 2), alpha = 0.5)
+calc_p_value(1, 1, 1)
 
 }

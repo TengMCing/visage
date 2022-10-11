@@ -4,18 +4,9 @@
 \alias{sim_dist}
 \title{Approximate the distribution of number of detections of a lineup with simulation}
 \usage{
-sim_dist(
-  n_eval,
-  n_sel,
-  n_plot = 20,
-  n_sim = 50000,
-  dist = "uniform",
-  alpha = 1
-)
+sim_dist(n_sel, n_plot = 20, n_sim = 50000, dist = "uniform", alpha = 1)
 }
 \arguments{
-\item{n_eval}{Integer. Number of evaluations.}
-
 \item{n_sel}{Integer. A vector of the number of selections.}
 
 \item{n_plot}{Integer. Number of plots in the lineup.}
@@ -54,7 +45,7 @@ Dirichlet distribution ensures the probability of every plot being selected
 is evenly distributed in a standard \eqn{M - 1} simplex.
 }
 \examples{
-sim_dist(3, c(2,2,3))
-sim_dist(1, c(1))
+sim_dist(c(2,2,3))
+sim_dist(1)
 
 }

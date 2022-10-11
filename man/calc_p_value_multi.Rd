@@ -6,69 +6,57 @@
 \usage{
 calc_p_value_multi(
   dat,
-  lineup_id = "lineup_id",
-  detected = "detected",
-  n_sel = "n_sel",
-  comb = FALSE,
-  n_eval = 1,
-  replace_0 = TRUE,
-  replace_full = TRUE,
+  lineup_id,
+  detect,
+  n_sel,
+  alpha,
   n_plot = 20,
   n_sim = 50000,
+  dist = "dirichlet",
   cache_env = NULL,
-  dist = "uniform",
-  alpha = 1
+  method = "linear_approx",
+  replace_0 = TRUE
 )
 }
 \arguments{
 \item{dat}{Data.frame/Tibble. A data.frame or a tibble.}
 
-\item{lineup_id}{Character. Column name of ids of lineup.}
+\item{lineup_id}{Column of ids of lineup.}
 
-\item{detected}{Character. Column name of whether the lineup is detected by
-the subject.}
+\item{detect}{Column of whether the lineup is detected by the subject.}
 
-\item{n_sel}{Character. Column name of the number of selections.}
+\item{n_sel}{Column of the number of selections.}
 
-\item{comb}{Boolean. Whether to compute all the combinations.
-See also \code{\link[=calc_p_value_comb]{calc_p_value_comb()}}.}
-
-\item{n_eval}{Integer. A vector of desired number of evaluations. Only used
-when \code{comb = TRUE}.}
-
-\item{replace_0}{Boolean. Whether to give treatment to evaluations with
-number of selections equal to 0.}
-
-\item{replace_full}{Boolean. Whether to give treatment to evaluations with
-number of selections equal to number of plots.}
+\item{alpha}{Column of the parameter values used by the Dirichlet distribution.}
 
 \item{n_plot}{Integer. Number of plots.}
 
 \item{n_sim}{Integer. Number of simulation draws.}
 
-\item{cache_env}{Environment. A provided environment for caching.}
-
 \item{dist}{Character. Name of the distribution used for the attractiveness simulation.
 One of "uniform" and "dirichlet".}
 
-\item{alpha}{Numeric. A single parameter value used by the Dirichlet distribution.}
+\item{cache_env}{Environment. A provided environment for caching.}
+
+\item{method}{Character. Method of p-value calculation. "linear_approx" for linear
+approximation and "simulate" for simulation.}
+
+\item{replace_0}{Boolean. Whether to treat evaluations with number of
+selections equal to 0 as selecting all the plots.}
 }
 \value{
-If \code{comb = TRUE}, the function returns a tiible with columns
-\code{lineup_id} and \code{p_value}, where \code{p_value} is a list of vectors. If
-\code{comb = FALSE}, the \code{p_value} column is a vector.
+A tibble with one column for lineup id and one column for the p-value.
 }
 \description{
 This function calculates p-value for multiple lineups by using function
-\code{\link[=calc_p_value]{calc_p_value()}}. If \code{comb = TRUE}, then function \code{\link[=calc_p_value_comb]{calc_p_value_comb()}} will
-be used instead.
+\code{\link[=calc_p_value]{calc_p_value()}}.
 }
 \details{
 It is encouraged to provide a cache environment to boost up the performance.
 The cache environment will remember the result corresponding to the
-combinations of \code{n_eval} and \code{n_sim}. \code{replace_0} and \code{replace_full} can be
-turned on to set evaluations with 0 or full selections to be false detection
-with only one selection.
+combinations of \code{n_eval} and \code{n_sim}. \code{replace_0} can be
+turned on to set evaluations with 0 selections to be false detection
+with 20 selections.
 
 There are two attractiveness distribution available,
 one is uniform distribution, another is Dirichlet distribution. Uniform
@@ -79,10 +67,9 @@ Dirichlet distribution ensures the probability of every plot being selected
 is evenly distributed in a standard \eqn{M - 1} simplex.
 }
 \examples{
-dat <- data.frame(lineup_id = c(1,1,2),
-                  detected = c(TRUE, FALSE, TRUE),
-                  n_sel = c(1,1,2))
-calc_p_value_multi(dat, comb = TRUE, n_eval = 1:2)
-calc_p_value_multi(dat)
+dat <- data.frame(unique_lineup_id = c(1,1,2),
+                  detect_or_not = c(TRUE, FALSE, TRUE),
+                  num_selection = c(1,1,2))
+calc_p_value_multi(dat, unique_lineup_id, detect_or_not, num_selection)
 
 }
