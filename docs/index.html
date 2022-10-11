@@ -33,7 +33,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item">
   <a class="nav-link" href="reference/index.html">Reference</a>
@@ -62,8 +62,7 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>The goal of visage is to provide a set of tools for running visual
-inference experiments on linear regression models.</p>
+<p>The goal of visage is to provide a set of tools for running visual inference experiments on linear regression models.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -78,19 +77,14 @@ inference experiments on linear regression models.</p>
 <h2 id="table-of-content">Table of Content<a class="anchor" aria-label="anchor" href="#table-of-content"></a>
 </h2>
 <ol style="list-style-type: decimal">
-<li><a href="#1-visual-inference-cubic-linear-model-class-cubic_model">Visual
-inference cubic linear model class <code>CUBIC_MODEL</code></a></li>
-<li><a href="#2-visual-inference-heteroskedasticity-linear-model-class-heter_model">Visual
-inference heteroskedasticity linear model class
-<code>HETER_MODEL</code></a></li>
-<li><a href="#3-closed-form-expression-closed_form">Closed form
-expression <code>CLOSED_FORM</code></a></li>
+<li><a href="#id_1-visual-inference-cubic-linear-model-class-cubic_model">Visual inference cubic linear model class <code>CUBIC_MODEL</code></a></li>
+<li><a href="#id_2-visual-inference-heteroskedasticity-linear-model-class-heter_model">Visual inference heteroskedasticity linear model class <code>HETER_MODEL</code></a></li>
+<li><a href="#id_3-closed-form-expression-closed_form">Closed form expression <code>CLOSED_FORM</code></a></li>
 </ol>
 </div>
 <div class="section level2">
-<h2 id="1-visual-inference-cubic-linear-model-class-cubic_model">1. Visual inference cubic linear model class
-<code>CUBIC_MODEL</code>
-<a class="anchor" aria-label="anchor" href="#1-visual-inference-cubic-linear-model-class-cubic_model"></a>
+<h2 id="id_1-visual-inference-cubic-linear-model-class-cubic_model">1. Visual inference cubic linear model class <code>CUBIC_MODEL</code>
+<a class="anchor" aria-label="anchor" href="#id_1-visual-inference-cubic-linear-model-class-cubic_model"></a>
 </h2>
 <p><strong>1.1. Define a model</strong></p>
 <p>A visual inference cubic linear model is defined as:</p>
@@ -98,20 +92,8 @@ expression <code>CLOSED_FORM</code></a></li>
 <code class="sourceCode R"><span class="va">CUBIC_MODEL</span><span class="op">$</span><span class="va">formula</span>
 <span class="co">#&gt; y ~ 1 + (2 - c) * x + c * z + a * (((2 - c) * x)^2 + (c * z)^2) + </span>
 <span class="co">#&gt;     b * (((2 - c) * x)^3 + (c * z)^3) + e</span></code></pre></div>
-<p>where <code>x</code> and <code>z</code> are random variables,
-<code>a</code>, <code>b</code> and <code>c</code> are parameters and
-<code>e</code> is the random error term.</p>
-<p><code><a href="reference/portal.html">cubic_model()</a></code> is a cubic model class constructor, which
-takes arguments <code>a</code>, <code>b</code>, <code>c</code>,
-<code>sigma</code>, <code>x</code> and <code>z</code>, where the first
-four are numeric values defined above, and <code>x</code> and
-<code>z</code> are random variable instances created by the random
-variable abstract base class constructor <code><a href="reference/portal.html">rand_var()</a></code>. If we
-would like <code>x</code> and <code>z</code> to be uniform random
-variables ranged from −1 to 1, it can be achieved by using the uniform
-random variable class constructor <code><a href="reference/portal.html">rand_uniform()</a></code>. It only
-takes two arguments which are the lower bound and the upper bound of the
-support.</p>
+<p>where <code>x</code> and <code>z</code> are random variables, <code>a</code>, <code>b</code> and <code>c</code> are parameters and <code>e</code> is the random error term.</p>
+<p><code><a href="reference/portal.html">cubic_model()</a></code> is a cubic model class constructor, which takes arguments <code>a</code>, <code>b</code>, <code>c</code>, <code>sigma</code>, <code>x</code> and <code>z</code>, where the first four are numeric values defined above, and <code>x</code> and <code>z</code> are random variable instances created by the random variable abstract base class constructor <code><a href="reference/portal.html">rand_var()</a></code>. If we would like <code>x</code> and <code>z</code> to be uniform random variables ranged from −1 to 1, it can be achieved by using the uniform random variable class constructor <code><a href="reference/portal.html">rand_uniform()</a></code>. It only takes two arguments which are the lower bound and the upper bound of the support.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/portal.html">cubic_model</a></span><span class="op">(</span>a <span class="op">=</span> <span class="op">-</span><span class="fl">3</span>, b <span class="op">=</span> <span class="op">-</span><span class="fl">3</span>, c <span class="op">=</span> <span class="fl">1</span>, sigma <span class="op">=</span> <span class="fl">1</span>,
                    x <span class="op">=</span> <span class="fu"><a href="reference/portal.html">rand_uniform</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, z <span class="op">=</span> <span class="fu"><a href="reference/portal.html">rand_uniform</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
@@ -130,14 +112,7 @@ support.</p>
 <span class="co">#&gt;  - c: 1</span>
 <span class="co">#&gt;  - sigma: 1</span></code></pre></div>
 <p><strong>1.2. Generate random values from the model</strong></p>
-<p>An instance of cubic model class contains methods of simulating data
-and making residual plot. Method <code>gen()</code> returns a data frame
-containing realizations of <code>x</code>, <code>z</code>,
-<code>y</code> and <code>e</code> simulated from the model. The number
-of realizations depends on the integer argument <code>n</code>. In
-addition, a null model will be fitted using the simulated data and
-residuals and fitted values will be included in the returned data
-frame.</p>
+<p>An instance of cubic model class contains methods of simulating data and making residual plot. Method <code>gen()</code> returns a data frame containing realizations of <code>x</code>, <code>z</code>, <code>y</code> and <code>e</code> simulated from the model. The number of realizations depends on the integer argument <code>n</code>. In addition, a null model will be fitted using the simulated data and residuals and fitted values will be included in the returned data frame.</p>
 <p>The null model is defined as:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">CUBIC_MODEL</span><span class="op">$</span><span class="va">null_formula</span>
@@ -152,21 +127,12 @@ frame.</p>
 <span class="co">#&gt; 4  0.81797183  0.0770836  0.2033810 -0.2939637  0.2591844  0.5587875</span>
 <span class="co">#&gt; 5 -0.19549152  0.7433097 -0.1200783  1.1089237  0.2492970 -0.4447885</span></code></pre></div>
 <p><strong>1.3. Make a residual plot</strong></p>
-<p>Method <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> produce a <code>ggplot</code> object. It
-takes a data frame containing columns <code>.resid</code> and
-<code>.fitted</code> as input, along with a character argument type
-indicating the type of the data plot, and other aesthetic arguments such
-as size and alpha to control the appearance of the plot.</p>
+<p>Method <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> produce a <code>ggplot</code> object. It takes a data frame containing columns <code>.resid</code> and <code>.fitted</code> as input, along with a character argument type indicating the type of the data plot, and other aesthetic arguments such as size and alpha to control the appearance of the plot.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="fu">plot</span><span class="op">(</span><span class="va">mod</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"resid"</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-7-1.png" width="100%"></p>
 <p><strong>1.4. Make a lineup</strong></p>
-<p>A lineup is a matrix of residual plots which can be produced by using
-the methods <code>gen_lineup()</code> and <code>plot_lineup()</code>.
-Method <code>gen_lineup()</code> takes the number of realizations
-<code>n</code> and the number of plots in a lineup <code>k</code> as
-inputs. Other than that, the method <code>plot_lineup()</code> has the
-same user interface as <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>.</p>
+<p>A lineup is a matrix of residual plots which can be produced by using the methods <code>gen_lineup()</code> and <code>plot_lineup()</code>. Method <code>gen_lineup()</code> takes the number of realizations <code>n</code> and the number of plots in a lineup <code>k</code> as inputs. Other than that, the method <code>plot_lineup()</code> has the same user interface as <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>.</p>
 <p>Generate a lineup consists of 2 plots and 8 realizations:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="fu">gen_lineup</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">8</span>, k <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
@@ -210,23 +176,15 @@ same user interface as <code><a href="https://rdrr.io/r/graphics/plot.default.ht
 <p><img src="reference/figures/README-unnamed-chunk-9-1.png" width="100%"></p>
 </div>
 <div class="section level2">
-<h2 id="2-visual-inference-heteroskedasticity-linear-model-class-heter_model">2. Visual inference heteroskedasticity linear model class
-<code>HETER_MODEL</code>
-<a class="anchor" aria-label="anchor" href="#2-visual-inference-heteroskedasticity-linear-model-class-heter_model"></a>
+<h2 id="id_2-visual-inference-heteroskedasticity-linear-model-class-heter_model">2. Visual inference heteroskedasticity linear model class <code>HETER_MODEL</code>
+<a class="anchor" aria-label="anchor" href="#id_2-visual-inference-heteroskedasticity-linear-model-class-heter_model"></a>
 </h2>
 <p>A visual inference heteroskedasticity linear model is defined as:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">HETER_MODEL</span><span class="op">$</span><span class="va">formula</span>
 <span class="co">#&gt; y ~ 1 + x + sqrt(1 + (2 - abs(a)) * (x - a)^2 * b) * e</span></code></pre></div>
-<p>where <code>x</code> is random variables, <code>a</code>,
-<code>b</code> are parameters and <code>e</code> is the random error
-term.</p>
-<p>Similar to the cubic model, the heteroskedasticity model could be
-built by the heteroskedasticity model class constructor
-<code><a href="reference/portal.html">heter_model()</a></code>. This function takes three arguments as
-inputs, which are <code>a</code>, <code>b</code> and <code>x</code>.
-<code>a</code> and <code>b</code> are numeric parameters defined above.
-<code>x</code> needs to be a random variable object.</p>
+<p>where <code>x</code> is random variables, <code>a</code>, <code>b</code> are parameters and <code>e</code> is the random error term.</p>
+<p>Similar to the cubic model, the heteroskedasticity model could be built by the heteroskedasticity model class constructor <code><a href="reference/portal.html">heter_model()</a></code>. This function takes three arguments as inputs, which are <code>a</code>, <code>b</code> and <code>x</code>. <code>a</code> and <code>b</code> are numeric parameters defined above. <code>x</code> needs to be a random variable object.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/portal.html">heter_model</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">0</span>, b <span class="op">=</span> <span class="fl">16</span>, x <span class="op">=</span> <span class="fu"><a href="reference/portal.html">rand_uniform</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 
@@ -240,12 +198,7 @@ inputs, which are <code>a</code>, <code>b</code> and <code>x</code>.
 <span class="co">#&gt;    [mu: 0, sigma: 1]</span>
 <span class="co">#&gt;  - a: 0</span>
 <span class="co">#&gt;  - b: 16</span></code></pre></div>
-<p>Since both the cubic model class <code>CUBIC_MODEL</code> and the
-heteroskedasticity model class <code>HETER_MODEL</code> are inherited
-from the visual inference model class <code>VI_MODEL</code>,
-heteroskedasticity model object can be used in a similar way as cubic
-model object. The following codes give examples of the use of the
-object.</p>
+<p>Since both the cubic model class <code>CUBIC_MODEL</code> and the heteroskedasticity model class <code>HETER_MODEL</code> are inherited from the visual inference model class <code>VI_MODEL</code>, heteroskedasticity model object can be used in a similar way as cubic model object. The following codes give examples of the use of the object.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt;           y          x          e     .resid    .fitted</span>
@@ -262,21 +215,12 @@ object.</p>
 <p><img src="reference/figures/README-unnamed-chunk-14-1.png" width="100%"></p>
 </div>
 <div class="section level2">
-<h2 id="3-closed-form-expression-closed_form">3. Closed form expression <code>CLOSED_FORM</code>
-<a class="anchor" aria-label="anchor" href="#3-closed-form-expression-closed_form"></a>
+<h2 id="id_3-closed-form-expression-closed_form">3. Closed form expression <code>CLOSED_FORM</code>
+<a class="anchor" aria-label="anchor" href="#id_3-closed-form-expression-closed_form"></a>
 </h2>
-<p><strong>3.1. Define and evaluate a closed form
-expression</strong></p>
-<p>“Closed form expression” is defined as a special type of
-<code>R</code> expression that can replace random variables in the
-expression with their realizations before evaluation. This may sound
-confusing, so let’s look at some examples.</p>
-<p><code><a href="reference/portal.html">closed_form()</a></code> is the closed form expression constructor,
-which takes only one arguments <code>expr</code> required to be a
-formula. Considering the simplest case first, where the expression
-contains zero random variables, such as <code>1 + 3</code>. It can be
-evaluated using the method <code>compute()</code> directly as a typical
-<code>R</code> expression.</p>
+<p><strong>3.1. Define and evaluate a closed form expression</strong></p>
+<p>“Closed form expression” is defined as a special type of <code>R</code> expression that can replace random variables in the expression with their realizations before evaluation. This may sound confusing, so let’s look at some examples.</p>
+<p><code><a href="reference/portal.html">closed_form()</a></code> is the closed form expression constructor, which takes only one arguments <code>expr</code> required to be a formula. Considering the simplest case first, where the expression contains zero random variables, such as <code>1 + 3</code>. It can be evaluated using the method <code>compute()</code> directly as a typical <code>R</code> expression.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cf</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/portal.html">closed_form</a></span><span class="op">(</span><span class="op">~</span><span class="fl">1</span> <span class="op">+</span> <span class="fl">3</span><span class="op">)</span>
 <span class="va">cf</span>
@@ -285,19 +229,11 @@ evaluated using the method <code>compute()</code> directly as a typical
 <span class="co">#&gt; EXPR = 1 + 3</span>
 <span class="va">cf</span><span class="op">$</span><span class="fu">compute</span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; [1] 4</span></code></pre></div>
-<p>However, if the closed form expression contains any random variables,
-it can not be evaluated directly since the values of random variables
-are unknown. In the following example, <code>x</code> is a uniform
-random variable ranged from -1 to 1, and <code>x + 1</code> is an
-expression that can not be evaluated by method
-<code>compute()</code>.</p>
+<p>However, if the closed form expression contains any random variables, it can not be evaluated directly since the values of random variables are unknown. In the following example, <code>x</code> is a uniform random variable ranged from -1 to 1, and <code>x + 1</code> is an expression that can not be evaluated by method <code>compute()</code>.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/portal.html">rand_uniform</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>
 <span class="va">cf</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/portal.html">closed_form</a></span><span class="op">(</span><span class="op">~</span><span class="fl">1</span> <span class="op">+</span> <span class="va">x</span><span class="op">)</span></code></pre></div>
-<p>In this case, the <code>gen()</code> method will try to generate
-<code>n</code> realizations from random variables, then evaluate the
-expression. In addition, if <code>rhs_val = TRUE</code>, realizations
-generated from random variables will be returned.</p>
+<p>In this case, the <code>gen()</code> method will try to generate <code>n</code> realizations from random variables, then evaluate the expression. In addition, if <code>rhs_val = TRUE</code>, realizations generated from random variables will be returned.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cf</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, rhs_val <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; $lhs</span>
@@ -307,12 +243,9 @@ generated from random variables will be returned.</p>
 <span class="co">#&gt; $rhs$x</span>
 <span class="co">#&gt; [1] -0.02496395  0.05645430 -0.85482059  0.47172645  0.59040424</span></code></pre></div>
 <p><strong>3.2. Nested closed form expression</strong></p>
-<p>Nested closed form expression is useful when a hierarchical structure
-present in the expression.</p>
+<p>Nested closed form expression is useful when a hierarchical structure present in the expression.</p>
 <p>Consider the following statistical model:</p>
-<p><code>y = x + e</code>, where <code>x</code> is a uniform random
-variable ranged from -1 to 1, and <code>e = 1 + x^2 * z</code>, where
-<code>z</code> is a standard normal random variable.</p>
+<p><code>y = x + e</code>, where <code>x</code> is a uniform random variable ranged from -1 to 1, and <code>e = 1 + x^2 * z</code>, where <code>z</code> is a standard normal random variable.</p>
 <p>We can define this model using the following code:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/portal.html">rand_normal</a></span><span class="op">(</span>mu <span class="op">=</span> <span class="fl">0</span>, sigma <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
@@ -331,11 +264,7 @@ variable ranged from -1 to 1, and <code>e = 1 + x^2 * z</code>, where
 <span class="co">#&gt;       [a: -1, b: 1]</span>
 <span class="co">#&gt;     - z: &lt;RAND_NORMAL object&gt;</span>
 <span class="co">#&gt;       [mu: 0, sigma: 1]</span></code></pre></div>
-<p>Note that <code>y</code> depends on <code>e</code> and <code>e</code>
-itself is a closed form expression. Both <code>y</code> and
-<code>e</code> depend on <code>x</code>. The method <code>gen()</code>
-will return values of <code>x</code>, <code>z</code> and <code>e</code>
-if <code>rhs_val = TRUE</code>.</p>
+<p>Note that <code>y</code> depends on <code>e</code> and <code>e</code> itself is a closed form expression. Both <code>y</code> and <code>e</code> depend on <code>x</code>. The method <code>gen()</code> will return values of <code>x</code>, <code>z</code> and <code>e</code> if <code>rhs_val = TRUE</code>.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">y</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, rhs_val <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; $lhs</span>
@@ -350,12 +279,8 @@ if <code>rhs_val = TRUE</code>.</p>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $rhs$e</span>
 <span class="co">#&gt; [1] 2.2337655 0.9522362 0.3515329 0.9994395 1.2230088</span></code></pre></div>
-<p><strong>3.3. Turn <code>gen()</code> result into dataframe via method
-<code>as_dataframe()</code></strong></p>
-<p>Results of <code>gen()</code> is either a vector or a list, which can
-be converted into a dataframe via method <code>as_dataframe()</code>.
-The <code>lhs</code> argument is for naming the left hand side result of
-the closed form expression.</p>
+<p><strong>3.3. Turn <code>gen()</code> result into dataframe via method <code>as_dataframe()</code></strong></p>
+<p>Results of <code>gen()</code> is either a vector or a list, which can be converted into a dataframe via method <code>as_dataframe()</code>. The <code>lhs</code> argument is for naming the left hand side result of the closed form expression.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">y</span><span class="op">$</span><span class="fu">as_dataframe</span><span class="op">(</span><span class="va">y</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, rhs_val <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, lhs <span class="op">=</span> <span class="st">"y"</span><span class="op">)</span>
 <span class="co">#&gt;             y          x            z         e</span>
@@ -364,19 +289,8 @@ the closed form expression.</p>
 <span class="co">#&gt; 3  0.04497571 -0.9471222 -0.008809068 0.9920979</span>
 <span class="co">#&gt; 4  1.21070276  0.2920914 -0.953951360 0.9186114</span>
 <span class="co">#&gt; 5  1.30983252  0.2867094  0.281295600 1.0231231</span></code></pre></div>
-<p><strong>3.4. Current limitiation of
-<code>CLOSED_FORM</code></strong></p>
-<p>For <code><a href="reference/portal.html">closed_form()</a></code>, any simple expressions can be
-provided, as long as all the symbols exist in the current environment.
-Note that this function tries to evaluate <strong>ALL</strong> the
-atomic symbols in the expression during initialization, and store the
-values in the object. Hence, calls like <code>a$b</code> will also be
-decomposed as <code>$</code>, <code>a</code> and <code>b</code>, where
-<code>b</code> will be interpreted as a variable <code>b</code> exists
-in the current environment. Therefore, use <code>~a[["b"]]</code>
-instead of <code>~a$b</code>. And pre-define function like
-<code>myfun = function() 1</code>, then use it in the expression
-<code>~myfun()</code>.</p>
+<p><strong>3.4. Current limitiation of <code>CLOSED_FORM</code></strong></p>
+<p>For <code><a href="reference/portal.html">closed_form()</a></code>, any simple expressions can be provided, as long as all the symbols exist in the current environment. Note that this function tries to evaluate <strong>ALL</strong> the atomic symbols in the expression during initialization, and store the values in the object. Hence, calls like <code>a$b</code> will also be decomposed as <code>$</code>, <code>a</code> and <code>b</code>, where <code>b</code> will be interpreted as a variable <code>b</code> exists in the current environment. Therefore, use <code>~a[["b"]]</code> instead of <code>~a$b</code>. And pre-define function like <code>myfun = function() 1</code>, then use it in the expression <code>~myfun()</code>.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
@@ -428,8 +342,7 @@ instead of <code>~a$b</code>. And pre-define function like
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer>
