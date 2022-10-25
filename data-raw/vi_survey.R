@@ -74,6 +74,52 @@ vi_survey <- vi_survey %>%
   mutate(prop_detect = mean(weighted_detect)) %>%
   ungroup()
 
+
+# add expected effect size ------------------------------------------------
+
+
+expected_effect_size <- function(shape, e_sigma, x_dist, n, tol = 1e-2, window = 1e2) {
+  stand_dist <- function(x) (x - min(x))/max(x - min(x)) * 2 - 1
+  effect_size_series <- c()
+  while (TRUE) {
+    x <- switch(x_dist,
+                uniform = visage::rand_uniform(-1, 1),
+                normal = {raw_x <- visage::rand_normal(sigma = 0.3); visage::closed_form(~stand_dist(raw_x))},
+                lognormal = {raw_x <- visage::rand_lognormal(sigma = 0.6); visage::closed_form(~stand_dist(raw_x/3 - 1))},
+                even_discrete = visage::rand_uniform_d(k = 5, even = TRUE))
+    mod <- visage::poly_model(shape, x = x, sigma = e_sigma)
+    tmp_dat <- mod$gen(n)
+    effect_size_series <- c(effect_size_series, mod$effect_size(tmp_dat))
+    if (length(effect_size_series) < window) next
+
+
+    mean_series <- cummean(effect_size_series)
+    check_conv_var <- var(mean_series[(length(mean_series) - window + 1):length(mean_series)])
+    print(check_conv_var)
+    if (check_conv_var < tol) break
+  }
+  mean(effect_size_series)
+}
+
+poly_sim <- function() {
+  all_comb <- expand.grid(shape = 1:4,
+                          e_sigma = c(0.5, 1, 2, 4),
+                          x_dist = c("uniform", "normal", "lognormal", "even_discrete"),
+                          n = c(50, 100, 300)) %>%
+    rowwise() %>%
+    mutate(expected_effect_size = expected_effect_size(shape, e_sigma, x_dist, n))
+  all_comb %>%
+    ungroup()
+}
+
+tmp_sim <- poly_sim()
+
+vi_survey <- vi_survey %>%
+  left_join(tmp_sim) %>%
+  filter(type != "polynomial") %>%
+  .$expected_effect_size
+
+
 poly_lineup <- readRDS(here::here("data-raw/polynomials_lineup.rds"))
 heter_lineup <- readRDS(here::here("data-raw/heter_lineup.rds"))
 vi_lineup <- append(poly_lineup, heter_lineup)
