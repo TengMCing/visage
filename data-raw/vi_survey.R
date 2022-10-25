@@ -115,9 +115,7 @@ poly_sim <- function() {
 tmp_sim <- poly_sim()
 
 vi_survey <- vi_survey %>%
-  left_join(tmp_sim) %>%
-  filter(type != "polynomial") %>%
-  .$expected_effect_size
+  left_join(tmp_sim)
 
 
 poly_lineup <- readRDS(here::here("data-raw/polynomials_lineup.rds"))
