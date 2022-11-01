@@ -67,15 +67,15 @@ class_SURVEY <- function(env = new.env(parent = parent.frame())) {
     })
 
     # handle confidence
-    # The third response is the confidence
+    # The last response is the confidence
     confidence_dict <- c("Not at all", "Slightly", "Moderately", "Very", "Extremely")
 
     # If the confidence is "1", "2", "3", "4" or "5", then map using the dictionary,
     # otherwise, keep the user provided confidence ("NA")
-    confidence <- map_chr(lineup_respone, ~if(.x[3] %in% c("1", "2", "3", "4", "5")) {
-      confidence_dict[as.integer(.x[3])]
+    confidence <- map_chr(lineup_respone, ~if(.x[length(.x)] %in% c("1", "2", "3", "4", "5")) {
+      confidence_dict[as.integer(.x[length(.x)])]
     } else {
-      .x[3]
+      .x[length(.x)]
     })
 
 
