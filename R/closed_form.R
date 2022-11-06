@@ -211,7 +211,7 @@ class_CLOSED_FORM <- function(env = new.env(parent = parent.frame())) {
     s <- 0
 
     for (sym in self$sym) {
-      if (class(sym) == "bandicoot_oop") {
+      if (inherits(sym, "bandicoot_oop")) {
         if ("CLOSED_FORM" %in% sym$..class..) {
           s <- s + sym$..len..()
 
