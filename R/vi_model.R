@@ -227,8 +227,25 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
 
 # effect_size -------------------------------------------------------------
 
-  effect_size_ <- function(...) {NA}
+  effect_size_ <- function(n = 50, tol = 1e-2, window_size = 1000) {
+    effect_size_series <- c()
 
+    while (TRUE) {
+      effect_size_series <- c(effect_size_series, self$sample_effect_size(self$gen(n = n)))
+      if (length(effect_size_series) < 2 * window_size) next
+
+      delta <- abs(mean(effect_size_series) - mean(effect_size_series[1:(length(effect_size_series) - window_size)]))
+
+      if (delta < tol) break
+    }
+
+    mean(effect_size_series)
+  }
+
+
+# sample_effect_size ------------------------------------------------------
+
+  sample_effect_size_ <- function(...) {NA}
 
 # plot_resid --------------------------------------------------------------
 
@@ -329,6 +346,7 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
                              test = test_,
                              fit = fit_,
                              effect_size = effect_size_,
+                             sample_effect_size = sample_effect_size_,
                              plot_resid = plot_resid_,
                              plot_qq = plot_qq_,
                              plot = plot_,
@@ -411,13 +429,13 @@ class_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
   }
 
 
-# effect_size -------------------------------------------------------------
+# sample_effect_size ------------------------------------------------------
 
-  effect_size_ <- function(dat,
-                           a = self$prm$a,
-                           b = self$prm$b,
-                           c = self$prm$c,
-                           sigma = self$prm$sigma) {
+  sample_effect_size_ <- function(dat,
+                                  a = self$prm$a,
+                                  b = self$prm$b,
+                                  c = self$prm$c,
+                                  sigma = self$prm$sigma) {
 
     Xa <- as.matrix(data.frame(1, dat$x, dat$z))
     Ra <- diag(nrow(dat)) - Xa %*% solve(t(Xa) %*% Xa) %*% t(Xa)
@@ -432,7 +450,7 @@ class_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
   bandicoot::register_method(env,
                              ..init.. = init_,
                              E = E_,
-                             effect_size = effect_size_,
+                             sample_effect_size = sample_effect_size_,
                              set_prm = set_prm_)
 
   return(env)
@@ -496,10 +514,10 @@ class_SIMPLE_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
 
 # effect_size -------------------------------------------------------------
 
-  effect_size_ <- function(dat,
-                           a = self$prm$a,
-                           b = self$prm$b,
-                           sigma = self$prm$sigma) {
+  sample_effect_size_ <- function(dat,
+                                  a = self$prm$a,
+                                  b = self$prm$b,
+                                  sigma = self$prm$sigma) {
 
     Xa <- as.matrix(data.frame(1, dat$x))
     Ra <- diag(nrow(dat)) - Xa %*% solve(t(Xa) %*% Xa) %*% t(Xa)
@@ -514,7 +532,7 @@ class_SIMPLE_CUBIC_MODEL <- function(env = new.env(parent = parent.frame())) {
   bandicoot::register_method(env,
                              ..init.. = init_,
                              E = E_,
-                             effect_size = effect_size_,
+                             sample_effect_size = sample_effect_size_,
                              set_prm = set_prm_)
 
   return(env)
@@ -576,7 +594,7 @@ class_HETER_MODEL <- function(env = new.env(parent = parent.frame())) {
 
 # effect_size -------------------------------------------------------------
 
-  effect_size_ <- function(dat, a = self$prm$a, b = self$prm$b, type = NULL) {
+  sample_effect_size_ <- function(dat, a = self$prm$a, b = self$prm$b, type = NULL) {
     if (!is.null(type) && type == "kl") {
 
       n <- nrow(dat)
@@ -604,7 +622,7 @@ class_HETER_MODEL <- function(env = new.env(parent = parent.frame())) {
   bandicoot::register_method(env,
                              ..init.. = init_,
                              test = test_,
-                             effect_size = effect_size_)
+                             sample_effect_size = sample_effect_size_)
 
   return(env)
 }
@@ -669,13 +687,13 @@ class_QUARTIC_MODEL <- function(env = new.env(parent = parent.frame())) {
   }
 
 
-# effect_size -------------------------------------------------------------
+# sample_effect_size ------------------------------------------------------
 
-  effect_size_ <- function(dat,
-                           a = self$prm$a,
-                           b = self$prm$b,
-                           c = self$prm$c,
-                           sigma = self$prm$sigma) {
+  sample_effect_size_ <- function(dat,
+                                  a = self$prm$a,
+                                  b = self$prm$b,
+                                  c = self$prm$c,
+                                  sigma = self$prm$sigma) {
 
     Xa <- as.matrix(data.frame(1, dat$x))
     Ra <- diag(nrow(dat)) - Xa %*% solve(t(Xa) %*% Xa) %*% t(Xa)
@@ -690,7 +708,7 @@ class_QUARTIC_MODEL <- function(env = new.env(parent = parent.frame())) {
   bandicoot::register_method(env,
                              ..init.. = init_,
                              E = E_,
-                             effect_size = effect_size_,
+                             sample_effect_size = sample_effect_size_,
                              set_prm = set_prm_)
 
   return(env)
@@ -786,12 +804,12 @@ class_POLY_MODEL <- function(env = new.env(parent = parent.frame())) {
   }
 
 
-# effect_size -------------------------------------------------------------
+# sample_effect_size ------------------------------------------------------
 
-  effect_size_ <- function(dat,
-                           sigma = self$prm$sigma,
-                           include_z = self$prm$include_z,
-                           type = "kl") {
+  sample_effect_size_ <- function(dat,
+                                  sigma = self$prm$sigma,
+                                  include_z = self$prm$include_z,
+                                  type = "kl") {
 
     if (type == "kl") {
       n <- nrow(dat)
@@ -826,7 +844,7 @@ class_POLY_MODEL <- function(env = new.env(parent = parent.frame())) {
   bandicoot::register_method(env,
                              ..init.. = init_,
                              E = E_,
-                             effect_size = effect_size_,
+                             sample_effect_size = sample_effect_size_,
                              set_prm = set_prm_,
                              hermite = hermite_)
 
