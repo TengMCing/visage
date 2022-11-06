@@ -4,16 +4,15 @@
 \alias{VI_MODEL$effect_size}
 \title{Compute the effect size of the simulated data or the defined model}
 \arguments{
-\item{...}{Derived class needs to override this method.}
+\item{n}{Number of observations in a plot.}
+
+\item{tol}{Tolerance of the convergence.}
+
+\item{window_size}{Window size of the convergence check.}
 }
 \value{
-NA
+The estimated effect size.
 }
 \description{
-This function computes the effect size of the simulated data or
-the defined model. This is an abstract method.
-}
-\examples{
-
-VI_MODEL$effect_size()
+This function computes the effect size of the defined model.
 }

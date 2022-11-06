@@ -23,6 +23,6 @@ New attributes: \link{SIMPLE_CUBIC_MODEL$formula},
 \cr
 \cr
 New methods: \link{SIMPLE_CUBIC_MODEL$..init..}, \link{SIMPLE_CUBIC_MODEL$E},
-\link{SIMPLE_CUBIC_MODEL$effect_size}, \link{SIMPLE_CUBIC_MODEL$set_prm}
+\link{SIMPLE_CUBIC_MODEL$sample_effect_size}, \link{SIMPLE_CUBIC_MODEL$set_prm}
 }
 \keyword{datasets}

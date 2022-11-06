@@ -23,6 +23,6 @@ New attributes: \link{QUARTIC_MODEL$formula},
 \cr
 \cr
 New methods: \link{QUARTIC_MODEL$..init..}, \link{QUARTIC_MODEL$E},
-\link{QUARTIC_MODEL$effect_size}, \link{QUARTIC_MODEL$set_prm}
+\link{QUARTIC_MODEL$sample_effect_size}, \link{QUARTIC_MODEL$set_prm}
 }
 \keyword{datasets}

@@ -24,6 +24,6 @@ New attributes: \link{HETER_MODEL$formula},
 \cr
 \cr
 New methods: \link{HETER_MODEL$..init..}, \link{HETER_MODEL$test},
-\link{HETER_MODEL$effect_size}
+\link{HETER_MODEL$sample_effect_size}
 }
 \keyword{datasets}
