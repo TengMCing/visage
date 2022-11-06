@@ -379,18 +379,29 @@ VI_MODEL$test
 #' test$fit(test$gen(100000), formula = y ~ x + I(x^2))
 VI_MODEL$fit
 
-#' Compute the effect size of the simulated data or the defined model
+#' Compute the sample based effect size of the simulated data of the defined model
 #'
-#' @name VI_MODEL$effect_size
+#' @name VI_MODEL$sample_effect_size
 #'
-#' @description This function computes the effect size of the simulated data or
-#' the defined model. This is an abstract method.
+#' @description This function computes the sample based effect size of the
+#' simulated data of the defined model. This is an abstract method.
 #' @param ... Derived class needs to override this method.
 #' @return NA
 #'
 #' @examples
 #'
-#' VI_MODEL$effect_size()
+#' VI_MODEL$sample_effect_size()
+VI_MODEL$sample_effect_size
+
+#' Compute the effect size of the simulated data or the defined model
+#'
+#' @name VI_MODEL$effect_size
+#'
+#' @description This function computes the effect size of the defined model.
+#' @param n Number of observations in a plot.
+#' @param tol Tolerance of the convergence.
+#' @param window_size Window size of the convergence check.
+#' @return The estimated effect size.
 VI_MODEL$effect_size
 
 #' Plot the residuals vs fitted values plot
@@ -622,7 +633,7 @@ VI_MODEL$gen_lineup
 #' \cr
 #' \cr
 #' New methods: [CUBIC_MODEL$..init..], [CUBIC_MODEL$E],
-#' [CUBIC_MODEL$effect_size], [CUBIC_MODEL$set_prm]
+#' [CUBIC_MODEL$sample_effect_size], [CUBIC_MODEL$set_prm]
 #' @export
 CUBIC_MODEL <- new.env()
 
@@ -753,11 +764,11 @@ CUBIC_MODEL$set_prm
 #'                                     alpha = 0.6)
 CUBIC_MODEL$E
 
-#' Compute the effect size of the simulated data
+#' Compute the sample baased effect size of the simulated data
 #'
-#' @name CUBIC_MODEL$effect_size
+#' @name CUBIC_MODEL$sample_effect_size
 #'
-#' @description This function computes the effect size of the simulated data.
+#' @description This function computes the sample based effect size of the simulated data.
 #' @param dat Dataframe/List. List contains variable `x` and `z`.
 #' @param a Numeric. Default is `a = self$prm$a`.
 #' @param b Numeric. Default is `b = self$prm$b`.
@@ -769,8 +780,8 @@ CUBIC_MODEL$E
 #'
 #' mod <- cubic_model(-1, 1, 1, 0.5)
 #' dat <- mod$gen(1000, fit_model = TRUE)
-#' mod$effect_size(dat)
-CUBIC_MODEL$effect_size
+#' mod$sample_effect_size(dat)
+CUBIC_MODEL$sample_effect_size
 
 # HETER_MODEL -------------------------------------------------------------
 
@@ -791,7 +802,7 @@ CUBIC_MODEL$effect_size
 #' \cr
 #' \cr
 #' New methods: [HETER_MODEL$..init..], [HETER_MODEL$test],
-#' [HETER_MODEL$effect_size]
+#' [HETER_MODEL$sample_effect_size]
 #' @export
 HETER_MODEL <- new.env()
 
@@ -889,11 +900,11 @@ HETER_MODEL$..init..
 HETER_MODEL$test
 
 
-#' Compute the effect size of the simulated data
+#' Compute the sample based effect size of the simulated data
 #'
-#' @name HETER_MODEL$effect_size
+#' @name HETER_MODEL$sample_effect_size
 #'
-#' @description This function computes the effect size of the simulated data.
+#' @description This function computes the sample based effect size of the simulated data.
 #' @param dat Dataframe. The number of rows of the data frame will be used.
 #' @param a Numeric. Default is `a = self$prm$a`.
 #' @param b Numeric. Default is `b = self$prm$b`.
@@ -903,8 +914,8 @@ HETER_MODEL$test
 #' @examples
 #'
 #' mod <- heter_model(a = 0, b = 16)
-#' mod$effect_size(mod$gen(100))
-HETER_MODEL$effect_size
+#' mod$sample_effect_size(mod$gen(100))
+HETER_MODEL$sample_effect_size
 
 
 
@@ -925,7 +936,7 @@ HETER_MODEL$effect_size
 #' \cr
 #' \cr
 #' New methods: [SIMPLE_CUBIC_MODEL$..init..], [SIMPLE_CUBIC_MODEL$E],
-#' [SIMPLE_CUBIC_MODEL$effect_size], [SIMPLE_CUBIC_MODEL$set_prm]
+#' [SIMPLE_CUBIC_MODEL$sample_effect_size], [SIMPLE_CUBIC_MODEL$set_prm]
 #' @export
 SIMPLE_CUBIC_MODEL <- new.env()
 
@@ -1051,11 +1062,11 @@ SIMPLE_CUBIC_MODEL$set_prm
 #'                                     alpha = 0.6)
 SIMPLE_CUBIC_MODEL$E
 
-#' Compute the effect size of the simulated data
+#' Compute the sample based effect size of the simulated data
 #'
-#' @name SIMPLE_CUBIC_MODEL$effect_size
+#' @name SIMPLE_CUBIC_MODEL$sample_effect_size
 #'
-#' @description This function computes the effect size of the simulated data.
+#' @description This function computes the sample based effect size of the simulated data.
 #' @param dat Dataframe/List. List contains variable `x`.
 #' @param a Numeric. Default is `a = self$prm$a`.
 #' @param b Numeric. Default is `b = self$prm$b`.
@@ -1066,8 +1077,8 @@ SIMPLE_CUBIC_MODEL$E
 #'
 #' mod <- simple_cubic_model(-1, 1, 0.5)
 #' dat <- mod$gen(1000, fit_model = TRUE)
-#' mod$effect_size(dat)
-SIMPLE_CUBIC_MODEL$effect_size
+#' mod$sample_effect_size(dat)
+SIMPLE_CUBIC_MODEL$sample_effect_size
 
 
 
@@ -1088,7 +1099,7 @@ SIMPLE_CUBIC_MODEL$effect_size
 #' \cr
 #' \cr
 #' New methods: [QUARTIC_MODEL$..init..], [QUARTIC_MODEL$E],
-#' [QUARTIC_MODEL$effect_size], [QUARTIC_MODEL$set_prm]
+#' [QUARTIC_MODEL$sample_effect_size], [QUARTIC_MODEL$set_prm]
 #' @export
 QUARTIC_MODEL <- new.env()
 
@@ -1216,11 +1227,11 @@ QUARTIC_MODEL$set_prm
 #'                                     alpha = 0.6)
 QUARTIC_MODEL$E
 
-#' Compute the effect size of the simulated data
+#' Compute the sample based effect size of the simulated data
 #'
-#' @name QUARTIC_MODEL$effect_size
+#' @name QUARTIC_MODEL$sample_effect_size
 #'
-#' @description This function computes the effect size of the simulated data.
+#' @description This function computes the sample based effect size of the simulated data.
 #' @param dat Dataframe/List. List contains variable `x`.
 #' @param a Numeric. Default is `a = self$prm$a`.
 #' @param b Numeric. Default is `b = self$prm$b`.
@@ -1232,8 +1243,8 @@ QUARTIC_MODEL$E
 #'
 #' mod <- quartic_model(-1, 1, 1, 0.5)
 #' dat <- mod$gen(1000, fit_model = TRUE)
-#' mod$effect_size(dat)
-QUARTIC_MODEL$effect_size
+#' mod$sample_effect_size(dat)
+QUARTIC_MODEL$sample_effect_size
 
 
 # POLY_MODEL --------------------------------------------------------------
@@ -1254,7 +1265,7 @@ QUARTIC_MODEL$effect_size
 #' \cr
 #' \cr
 #' New methods: [POLY_MODEL$..init..], [POLY_MODEL$E],
-#' [POLY_MODEL$effect_size], [POLY_MODEL$set_prm], [POLY_MODEL$hermite]
+#' [POLY_MODEL$sample_effect_size], [POLY_MODEL$set_prm], [POLY_MODEL$hermite]
 #' @export
 POLY_MODEL <- new.env()
 
@@ -1420,11 +1431,11 @@ POLY_MODEL$set_prm
 #'                                     alpha = 0.6)
 POLY_MODEL$E
 
-#' Compute the effect size of the simulated data
+#' Compute the sample based effect size of the simulated data
 #'
-#' @name POLY_MODEL$effect_size
+#' @name POLY_MODEL$sample_effect_size
 #'
-#' @description This function computes the effect size of the simulated data.
+#' @description This function computes the sample based effect size of the simulated data.
 #' @param dat Dataframe/List. List contains variable `x` and `z`.
 #' @param sigma Positive numeric. Default is `sigma = self$prm$sigma`.
 #' @param type Character. Type of the effect size measure. Default is
@@ -1435,8 +1446,8 @@ POLY_MODEL$E
 #'
 #' mod <- poly_model(4, 0.5)
 #' dat <- mod$gen(1000, fit_model = TRUE)
-#' mod$effect_size(dat)
-POLY_MODEL$effect_size
+#' mod$sample_effect_size(dat)
+POLY_MODEL$sample_effect_size
 
 #' Hermite polynomial functions
 #'
