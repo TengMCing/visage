@@ -401,6 +401,7 @@ VI_MODEL$sample_effect_size
 #' @param n Number of observations in a plot.
 #' @param tol Tolerance of the convergence.
 #' @param window_size Window size of the convergence check.
+#' @param ... Arguments passed to method `VI_MODEL$sample_effect_size`.
 #' @return The estimated effect size.
 VI_MODEL$effect_size
 
