@@ -184,9 +184,36 @@ class_SURVEY <- function(env = new.env(parent = parent.frame())) {
 
     self$dat <- self$dat %>%
       mutate(unique_lineup_id = paste0("poly_", lineup_id)) %>%
+      rename(sample_effect_size = effect_size)
+
+    dat_effect_size <- self$dat %>%
+      count(x_dist, shape, e_sigma, n) %>%
+      select(x_dist, shape, e_sigma, n) %>%
+      rowwise() %>%
+      mutate(effect_size = (function(x_dist, shape, e_sigma, n) {
+        print(paste("Effect size of", x_dist, shape, e_sigma, n))
+        stand_dist <- function(x) (x - min(x))/max(x - min(x)) * 2 - 1
+        x <- switch(x_dist,
+                    uniform = visage::rand_uniform(-1, 1),
+                    normal = {raw_x <- visage::rand_normal(sigma = 0.3); visage::closed_form(~stand_dist(raw_x))},
+                    lognormal = {raw_x <- visage::rand_lognormal(sigma = 0.6); visage::closed_form(~stand_dist(raw_x/3 - 1))},
+                    even_discrete = visage::rand_uniform_d(k = 5, even = TRUE))
+        mod <- visage::poly_model(shape, x = x, sigma = e_sigma)
+        es <- mod$effect_size(n = n, tol = 1e-2, window_size = 500)
+        print(es)
+        es
+      })(x_dist, shape, e_sigma, n)) %>%
+      ungroup()
+
+    self$dat <- self$dat %>%
+      left_join(dat_effect_size)
+
+
+    self$dat <- self$dat %>%
       select(unique_lineup_id, lineup_id, page, set, num,
              response_time, selection, num_selection, answer,
              detect, weighted_detect, prop_detect, effect_size,
+             sample_effect_size,
              conventional_p_value, reason,
              confidence, age_group, education, pronoun,
              previous_experience, type, formula, shape,
@@ -221,7 +248,21 @@ poly_survey$process_responses()
 polynomials <- poly_survey$dat
 polynomials_lineup <- poly_survey$lineup_dat
 names(polynomials_lineup) <- unclass(glue::glue("poly_{1:length(polynomials_lineup)}"))
-polynomials_lineup <- map(polynomials_lineup, ~{.x$metadata$answer <- .x$metadata$ans; .x$metadata$ans <- NULL; .x})
+polynomials_lineup <- map(polynomials_lineup,
+                          ~{.x$metadata$answer <- .x$metadata$ans
+                          .x$metadata$ans <- NULL
+                          .x})
+
+polynomials_lineup <- map(polynomials_lineup,
+                          ~{.x$metadata$sample_effect_size <- .x$metadata$effect_size
+                          .x$metadata$effect_size <- filter(polynomials,
+                                                            shape == .x$metadata$shape,
+                                                            x_dist == .x$metadata$x_dist,
+                                                            e_sigma == .x$metadata$e_sigma,
+                                                            n == .x$metadata$n) %>%
+                            pull(effect_size) %>%
+                            .[1]
+                          .x})
 
 usethis::use_data(polynomials, overwrite = TRUE)
 saveRDS(polynomials_lineup, here::here("data-raw/polynomials_lineup.rds"))
