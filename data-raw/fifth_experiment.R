@@ -190,6 +190,7 @@ class_SURVEY <- function(env = new.env(parent = parent.frame())) {
       select(unique_lineup_id, lineup_id, page, set, num,
              response_time, selection, num_selection, answer,
              detect, weighted_detect, prop_detect, effect_size,
+             sample_effect_size,
              conventional_p_value, reason,
              confidence, age_group, education, pronoun,
              previous_experience, type, formula, shape, a, b,
