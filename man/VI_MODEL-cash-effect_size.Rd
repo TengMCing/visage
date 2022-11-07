@@ -9,6 +9,8 @@
 \item{tol}{Tolerance of the convergence.}
 
 \item{window_size}{Window size of the convergence check.}
+
+\item{...}{Arguments passed to method \code{VI_MODEL$sample_effect_size}.}
 }
 \value{
 The estimated effect size.
