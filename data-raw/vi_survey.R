@@ -41,12 +41,22 @@ alpha_vi_survey <- alpha_vi_survey %>%
   summarise(across(plot_1:plot_20, sum)) %>%
   ungroup() %>%
   pivot_longer(plot_1:plot_20) %>%
+  group_by(unique_lineup_id) %>%
+  mutate(total = sum(value)) %>%
+  ungroup() %>%
+  (function(x) {
+    for (id in x$unique_lineup_id) {
+      current_ans <- vi_survey$answer[vi_survey$unique_lineup_id == id][1]
+      x$value[x$unique_lineup_id == id & x$name == paste0("plot_", current_ans)] <- 0
+    }
+    x
+  }) %>%
   group_by(setting_id, unique_lineup_id) %>%
-  summarise(c_interesting = sum(value >= 1)) %>%
+  summarise(c_interesting = sum(value >= 19/total)) %>%
   group_by(setting_id) %>%
   summarise(c_interesting = mean(c_interesting)) %>%
   ungroup() %>%
-  mutate(alpha = vinference::estimate_alpha_numeric(Zc = c_interesting, m0 = 20, K = 20)) %>%
+  mutate(alpha = vinference::estimate_alpha_numeric(Zc = c_interesting, m0 = 19, K = 20)) %>%
   mutate(alpha_sum_sq_error = alpha$sum_sq_error, alpha = alpha$alpha) %>%
   right_join(alpha_vi_survey)
 

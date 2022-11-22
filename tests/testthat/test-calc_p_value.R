@@ -17,4 +17,3 @@ test_that("calc_p_value() supports cache", {
 test_that("calc_p_value() works for n_detect = 0", {
   expect_equal(visage::calc_p_value(0, c(1), method = "simulate"), 1)
 })
-
