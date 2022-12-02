@@ -103,6 +103,7 @@ reference:
   - VI_MODEL$test
   - VI_MODEL$fit
   - VI_MODEL$effect_size
+  - VI_MODEL$sample_effect_size
   - VI_MODEL$gen
   - VI_MODEL$gen_lineup
   - VI_MODEL$null_resid
@@ -122,7 +123,7 @@ reference:
   - CUBIC_MODEL$alt_formula
   - CUBIC_MODEL$set_prm
   - CUBIC_MODEL$E
-  - CUBIC_MODEL$effect_size
+  - CUBIC_MODEL$sample_effect_size
 - subtitle: "Visual inference simple cubic linear model class"
   desc: >
     Visual inference simple cubic linear model class
@@ -134,7 +135,7 @@ reference:
   - SIMPLE_CUBIC_MODEL$alt_formula
   - SIMPLE_CUBIC_MODEL$set_prm
   - SIMPLE_CUBIC_MODEL$E
-  - SIMPLE_CUBIC_MODEL$effect_size
+  - SIMPLE_CUBIC_MODEL$sample_effect_size
 - subtitle: "Visual inference quartic linear model class"
   desc: >
     Visual inference quartic linear model class
@@ -146,7 +147,7 @@ reference:
   - QUARTIC_MODEL$alt_formula
   - QUARTIC_MODEL$set_prm
   - QUARTIC_MODEL$E
-  - QUARTIC_MODEL$effect_size
+  - QUARTIC_MODEL$sample_effect_size
 - subtitle: "Visual inference orthogonal polynomial model class"
   desc: >
     Visual inference orthogonal polynomial linear model class
@@ -159,8 +160,9 @@ reference:
   - POLY_MODEL$raw_z_formula
   - POLY_MODEL$z_formula
   - POLY_MODEL$set_prm
+  - POLY_MODEL$test
   - POLY_MODEL$E
-  - POLY_MODEL$effect_size
+  - POLY_MODEL$sample_effect_size
   - POLY_MODEL$hermite
 - subtitle: "Visual inference heteroskedasticity linear model class"
   desc: >
@@ -172,5 +174,5 @@ reference:
   - HETER_MODEL$null_formula
   - HETER_MODEL$alt_formula
   - HETER_MODEL$test
-  - HETER_MODEL$effect_size
+  - HETER_MODEL$sample_effect_size
 

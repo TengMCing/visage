@@ -76,6 +76,9 @@
     <loc>https://tengmcing.github.io/visage/reference/CUBIC_MODEL-cash-null_formula.html</loc>
   </url>
   <url>
+    <loc>https://tengmcing.github.io/visage/reference/CUBIC_MODEL-cash-sample_effect_size.html</loc>
+  </url>
+  <url>
     <loc>https://tengmcing.github.io/visage/reference/CUBIC_MODEL-cash-set_prm.html</loc>
   </url>
   <url>
@@ -95,6 +98,9 @@
   </url>
   <url>
     <loc>https://tengmcing.github.io/visage/reference/HETER_MODEL-cash-null_formula.html</loc>
+  </url>
+  <url>
+    <loc>https://tengmcing.github.io/visage/reference/HETER_MODEL-cash-sample_effect_size.html</loc>
   </url>
   <url>
     <loc>https://tengmcing.github.io/visage/reference/HETER_MODEL-cash-test.html</loc>
@@ -127,7 +133,13 @@
     <loc>https://tengmcing.github.io/visage/reference/POLY_MODEL-cash-raw_z_formula.html</loc>
   </url>
   <url>
+    <loc>https://tengmcing.github.io/visage/reference/POLY_MODEL-cash-sample_effect_size.html</loc>
+  </url>
+  <url>
     <loc>https://tengmcing.github.io/visage/reference/POLY_MODEL-cash-set_prm.html</loc>
+  </url>
+  <url>
+    <loc>https://tengmcing.github.io/visage/reference/POLY_MODEL-cash-test.html</loc>
   </url>
   <url>
     <loc>https://tengmcing.github.io/visage/reference/POLY_MODEL-cash-z_formula.html</loc>
@@ -152,6 +164,9 @@
   </url>
   <url>
     <loc>https://tengmcing.github.io/visage/reference/QUARTIC_MODEL-cash-null_formula.html</loc>
+  </url>
+  <url>
+    <loc>https://tengmcing.github.io/visage/reference/QUARTIC_MODEL-cash-sample_effect_size.html</loc>
   </url>
   <url>
     <loc>https://tengmcing.github.io/visage/reference/QUARTIC_MODEL-cash-set_prm.html</loc>
@@ -241,6 +256,9 @@
     <loc>https://tengmcing.github.io/visage/reference/SIMPLE_CUBIC_MODEL-cash-null_formula.html</loc>
   </url>
   <url>
+    <loc>https://tengmcing.github.io/visage/reference/SIMPLE_CUBIC_MODEL-cash-sample_effect_size.html</loc>
+  </url>
+  <url>
     <loc>https://tengmcing.github.io/visage/reference/SIMPLE_CUBIC_MODEL-cash-set_prm.html</loc>
   </url>
   <url>
@@ -299,6 +317,9 @@
   </url>
   <url>
     <loc>https://tengmcing.github.io/visage/reference/VI_MODEL-cash-rss.html</loc>
+  </url>
+  <url>
+    <loc>https://tengmcing.github.io/visage/reference/VI_MODEL-cash-sample_effect_size.html</loc>
   </url>
   <url>
     <loc>https://tengmcing.github.io/visage/reference/VI_MODEL-cash-set_formula.html</loc>

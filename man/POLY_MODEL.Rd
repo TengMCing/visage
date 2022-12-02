@@ -23,7 +23,7 @@ New attributes: \link{POLY_MODEL$formula},
 \link{POLY_MODEL$raw_z_formula}
 \cr
 \cr
-New methods: \link{POLY_MODEL$..init..}, \link{POLY_MODEL$E},
+New methods: \link{POLY_MODEL$..init..}, \link{POLY_MODEL$test}, \link{POLY_MODEL$E},
 \link{POLY_MODEL$sample_effect_size}, \link{POLY_MODEL$set_prm}, \link{POLY_MODEL$hermite}
 }
 \keyword{datasets}
