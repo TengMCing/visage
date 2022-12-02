@@ -1394,7 +1394,7 @@ POLY_MODEL$..init..
 #' @param null_formula Formula. Formula for fitting the null model. Default
 #' is `null_formula = self$null_formula`.
 #' @param alt_formula Formula. Formula for fitting the alternative model. Only
-#' used in F-test.
+#' used in F-test. Default is `alt_formula = self$alt_formula`.
 #' @param test Character. A string representing the test. Either "F" or "RESET".
 #' @param power Integer. A vector of integers representing the power of the
 #' variables that should be included. Only used in RESET test. Default is 2:3.

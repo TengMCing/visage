@@ -329,6 +329,8 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
     results <- paste0("<", self$..type.., " object>\n ",
                       gsub("<CLOSED_FORM object>\n EXPR", "y", results, fixed = TRUE))
 
+    if (length(names(self$prm_type)[self$prm_type == "o"]) > 0) results <- paste0(results, "\n Parameters:")
+
     for (i in names(self$prm_type)[self$prm_type == "o"]) results <- paste0(results, "\n  - ", i, ": ", self$prm[[i]])
 
     results
