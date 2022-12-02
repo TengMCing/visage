@@ -163,7 +163,10 @@ class_SURVEY <- function(env = new.env(parent = parent.frame())) {
                                             function(lineup_id) {
                                               if (is.na(lineup_id)) return(NA)
 
-                                              POLY_MODEL$test(filter(lineup_dat[[lineup_id]]$data, null == FALSE))$p_value
+                                              POLY_MODEL$test(filter(lineup_dat[[lineup_id]]$data, null == FALSE),
+                                                              test = "RESET",
+                                                              power = 2:3,
+                                                              power_type = "fitted")$p_value
                                             })) %>%
 
       # Discard non-lineup pages
@@ -248,11 +251,14 @@ poly_survey$process_responses()
 polynomials <- poly_survey$dat
 polynomials_lineup <- poly_survey$lineup_dat
 names(polynomials_lineup) <- unclass(glue::glue("poly_{1:length(polynomials_lineup)}"))
+
+# Change variable name
 polynomials_lineup <- map(polynomials_lineup,
                           ~{.x$metadata$answer <- .x$metadata$ans
                           .x$metadata$ans <- NULL
                           .x})
 
+# Fix effect size
 polynomials_lineup <- map(polynomials_lineup,
                           ~{.x$metadata$sample_effect_size <- .x$metadata$effect_size
                           .x$metadata$effect_size <- filter(polynomials,
@@ -263,6 +269,24 @@ polynomials_lineup <- map(polynomials_lineup,
                             pull(effect_size) %>%
                             .[1]
                           .x})
+
+# Fix p-value (F -> RESET)
+polynomials_lineup <- map(polynomials_lineup,
+                          ~{
+                            .x$data$test_name <- "RESET-test"
+
+                            for (i in 1:20) {
+                              current_test <- POLY_MODEL$test(filter(.x$data, k == i),
+                                                              test = "RESET",
+                                                              power = 2:3,
+                                                              power_type = "fitted")
+
+                              .x$data$statistic[.x$data$k == i] <- current_test$statistic
+                              .x$data$p_value[.x$data$k == i] <- current_test$p_value
+                            }
+
+                            .x
+                          })
 
 usethis::use_data(polynomials, overwrite = TRUE)
 saveRDS(polynomials_lineup, here::here("data-raw/polynomials_lineup.rds"))
