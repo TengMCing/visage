@@ -755,6 +755,31 @@ class_POLY_MODEL <- function(env = new.env(parent = parent.frame())) {
     return(invisible(self))
   }
 
+# test --------------------------------------------------------------------
+
+  test_ <- function(dat,
+                    null_formula = self$null_formula,
+                    alt_formula = self$alt_formula,
+                    test = "F",
+                    power = 2:3,
+                    power_type = "fitted") {
+
+    if (test == "F") {
+      # Use the test method (F-test) from VI_MODEL class
+      return(bandicoot::use_method(self, VI_MODEL$test)(dat, null_formula, alt_formula))
+    }
+
+    if (test == "RESET") {
+      null_mod <- self$fit(dat, null_formula)
+      RESET_test <- lmtest::resettest(null_mod, power = power, type = power_type, data = dat)
+      return(list(name = "RESET-test",
+                  statistic = unname(RESET_test$statistic),
+                  p_value = unname(RESET_test$p.value)))
+    }
+
+    stop("Unknown test type!")
+  }
+
 
 # set_prm -----------------------------------------------------------------
 
@@ -843,6 +868,7 @@ class_POLY_MODEL <- function(env = new.env(parent = parent.frame())) {
 
   bandicoot::register_method(env,
                              ..init.. = init_,
+                             test = test_,
                              E = E_,
                              sample_effect_size = sample_effect_size_,
                              set_prm = set_prm_,
