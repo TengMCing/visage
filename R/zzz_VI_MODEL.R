@@ -1265,7 +1265,7 @@ QUARTIC_MODEL$sample_effect_size
 #' [POLY_MODEL$raw_z_formula]
 #' \cr
 #' \cr
-#' New methods: [POLY_MODEL$..init..], [POLY_MODEL$E],
+#' New methods: [POLY_MODEL$..init..], [POLY_MODEL$test], [POLY_MODEL$E],
 #' [POLY_MODEL$sample_effect_size], [POLY_MODEL$set_prm], [POLY_MODEL$hermite]
 #' @export
 POLY_MODEL <- new.env()
@@ -1380,6 +1380,43 @@ POLY_MODEL$z_formula
 #' test <- poly_model(shape = 4, x = x, e = e)
 #' test$plot_lineup(test$gen_lineup(100))
 POLY_MODEL$..init..
+
+
+#' Test the null model
+#'
+#' @name POLY_MODEL$test
+#'
+#' @description This function test the null model.
+#' In this class, the test is either a F-test computed using [stats::anova] or a
+#' RESET test computed using [lmtest::resettest].
+#' @param dat Data frame. A data frame containing all variables needed by the
+#' `null_formula`.
+#' @param null_formula Formula. Formula for fitting the null model. Default
+#' is `null_formula = self$null_formula`.
+#' @param alt_formula Formula. Formula for fitting the alternative model. Only
+#' used in F-test.
+#' @param test Character. A string representing the test. Either "F" or "RESET".
+#' @param power Integer. A vector of integers representing the power of the
+#' variables that should be included. Only used in RESET test. Default is 2:3.
+#' @param power_type Character. Argument passed to [lmtest::resettest]. "fitted",
+#' "regressor" or "princomp". Only used in RESET test. Default is "fitted".
+#' @return A list containing the test name, the test statistic and the p-value.
+#'
+#' @examples
+#'
+#' # Instantiate
+#' mod <- poly_model(shape = 2, sigma = 0.5)
+#'
+#' mod
+#'
+#' dat <- mod$gen(100000)
+#'
+#' # F-test
+#' mod$test(dat, test = "F")
+#'
+#' # RESET test
+#' mod$test(dat, test = "RESET", power = 2:4)
+HETER_MODEL$test
 
 #' Set parameter for the model
 #'
