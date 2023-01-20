@@ -167,7 +167,7 @@ class_SURVEY <- function(env = new.env(parent = parent.frame())) {
                                               else
                                                 return(POLY_MODEL$test(filter(lineup_dat[[lineup_id]]$data, null == FALSE),
                                                                        test = "RESET",
-                                                                       power = 2:3,
+                                                                       power = 2:4,
                                                                        power_type = "fitted")$p_value)
                                             })) %>%
 

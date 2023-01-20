@@ -165,7 +165,7 @@ class_SURVEY <- function(env = new.env(parent = parent.frame())) {
 
                                               POLY_MODEL$test(filter(lineup_dat[[lineup_id]]$data, null == FALSE),
                                                               test = "RESET",
-                                                              power = 2:3,
+                                                              power = 2:4,
                                                               power_type = "fitted")$p_value
                                             })) %>%
 
@@ -278,7 +278,7 @@ polynomials_lineup <- map(polynomials_lineup,
                             for (i in 1:20) {
                               current_test <- POLY_MODEL$test(filter(.x$data, k == i),
                                                               test = "RESET",
-                                                              power = 2:3,
+                                                              power = 2:4,
                                                               power_type = "fitted")
 
                               .x$data$statistic[.x$data$k == i] <- current_test$statistic
