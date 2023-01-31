@@ -74,12 +74,24 @@ p_value <- visage::calc_p_value_multi(vi_survey,
                                       n_sel = num_selection,
                                       alpha = alpha)
 
+p_value_only_5 <- visage::calc_p_value_multi(vi_survey %>%
+                                               filter(x_dist == "uniform") %>%
+                                               group_by(unique_lineup_id) %>%
+                                               slice_sample(n = 5),
+                                             lineup_id = unique_lineup_id,
+                                             detect = detect,
+                                             n_sel = num_selection,
+                                             alpha = alpha) %>%
+  rename(p_value_only_5 = p_value)
+
 vi_survey <- vi_survey %>%
   left_join(p_value, by = "unique_lineup_id") %>%
   mutate(attention_check = ifelse((type == "polynomial" & e_sigma < 0.5) | (type == "heteroskedasticity" & b > 64), TRUE, FALSE)) %>%
   mutate(null_lineup = ifelse(is.na(b) | b != 0, FALSE, TRUE)) %>%
   select(exp, unique_lineup_id:num, attention_check, null_lineup, response_time:conventional_p_value, p_value, reason:alpha_sum_sq_error)
 
+vi_survey <- vi_survey %>%
+  left_join(p_value_only_5)
 
 vi_survey <- vi_survey %>%
   group_by(unique_lineup_id) %>%
