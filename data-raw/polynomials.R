@@ -190,22 +190,23 @@ class_SURVEY <- function(env = new.env(parent = parent.frame())) {
       rename(sample_effect_size = effect_size)
 
     dat_effect_size <- self$dat %>%
-      count(x_dist, shape, e_sigma, n) %>%
-      select(x_dist, shape, e_sigma, n) %>%
+      count(shape, e_sigma, n) %>%
+      select(shape, e_sigma, n) %>%
       rowwise() %>%
-      mutate(effect_size = (function(x_dist, shape, e_sigma, n) {
-        print(paste("Effect size of", x_dist, shape, e_sigma, n))
+      mutate(effect_size = (function(shape, e_sigma, n) {
+        print(paste("Effect size of", shape, e_sigma, n))
         stand_dist <- function(x) (x - min(x))/max(x - min(x)) * 2 - 1
-        x <- switch(x_dist,
-                    uniform = visage::rand_uniform(-1, 1),
-                    normal = {raw_x <- visage::rand_normal(sigma = 0.3); visage::closed_form(~stand_dist(raw_x))},
-                    lognormal = {raw_x <- visage::rand_lognormal(sigma = 0.6); visage::closed_form(~stand_dist(raw_x/3 - 1))},
-                    even_discrete = visage::rand_uniform_d(k = 5, even = TRUE))
+        x <- {raw_x <- visage::rand_normal(sigma = 0.3); visage::closed_form(~stand_dist(raw_x))}
+        # x <- switch(x_dist,
+        #             uniform = visage::rand_uniform(-1, 1),
+        #             normal = {raw_x <- visage::rand_normal(sigma = 0.3); visage::closed_form(~stand_dist(raw_x))},
+        #             lognormal = {raw_x <- visage::rand_lognormal(sigma = 0.6); visage::closed_form(~stand_dist(raw_x/3 - 1))},
+        #             even_discrete = visage::rand_uniform_d(k = 5, even = TRUE))
         mod <- visage::poly_model(shape, x = x, sigma = e_sigma)
-        es <- mod$effect_size(n = n, tol = 1e-2, window_size = 500)
+        es <- mod$average_effect_size(n = n, tol = 1e-2, window_size = 500)
         print(es)
         es
-      })(x_dist, shape, e_sigma, n)) %>%
+      })(shape, e_sigma, n)) %>%
       ungroup()
 
     self$dat <- self$dat %>%
@@ -263,7 +264,6 @@ polynomials_lineup <- map(polynomials_lineup,
                           ~{.x$metadata$sample_effect_size <- .x$metadata$effect_size
                           .x$metadata$effect_size <- filter(polynomials,
                                                             shape == .x$metadata$shape,
-                                                            x_dist == .x$metadata$x_dist,
                                                             e_sigma == .x$metadata$e_sigma,
                                                             n == .x$metadata$n) %>%
                             pull(effect_size) %>%

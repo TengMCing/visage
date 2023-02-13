@@ -187,22 +187,23 @@ class_SURVEY <- function(env = new.env(parent = parent.frame())) {
       rename(sample_effect_size = effect_size)
 
     dat_effect_size <- self$dat %>%
-      count(x_dist, a, b, n) %>%
-      select(x_dist, a, b, n) %>%
+      count(a, b, n) %>%
+      select(a, b, n) %>%
       rowwise() %>%
-      mutate(effect_size = (function(x_dist, a, b, n) {
-        print(paste("Effect size of", x_dist, a, b, n))
+      mutate(effect_size = (function(a, b, n) {
+        print(paste("Effect size of", a, b, n))
         stand_dist <- function(x) (x - min(x))/max(x - min(x)) * 2 - 1
-        x <- switch(x_dist,
-                    uniform = visage::rand_uniform(-1, 1),
-                    normal = {raw_x <- visage::rand_normal(sigma = 0.3); visage::closed_form(~stand_dist(raw_x))},
-                    lognormal = {raw_x <- visage::rand_lognormal(sigma = 0.6); visage::closed_form(~stand_dist(raw_x/3 - 1))},
-                    even_discrete = visage::rand_uniform_d(k = 5, even = TRUE))
+        x <- {raw_x <- visage::rand_normal(sigma = 0.3); visage::closed_form(~stand_dist(raw_x))}
+        # x <- switch(x_dist,
+        #             uniform = visage::rand_uniform(-1, 1),
+        #             normal = {raw_x <- visage::rand_normal(sigma = 0.3); visage::closed_form(~stand_dist(raw_x))},
+        #             lognormal = {raw_x <- visage::rand_lognormal(sigma = 0.6); visage::closed_form(~stand_dist(raw_x/3 - 1))},
+        #             even_discrete = visage::rand_uniform_d(k = 5, even = TRUE))
         mod <- visage::heter_model(a = a, b = b, x = x)
-        es <- mod$effect_size(n = n, tol = 1e-2, window_size = 500, type = "kl")
+        es <- mod$average_effect_size(n = n, tol = 1e-2, window_size = 500, type = "kl")
         print(es)
         es
-      })(x_dist, a, b, n)) %>%
+      })(a, b, n)) %>%
       ungroup()
 
     self$dat <- self$dat %>%
@@ -254,7 +255,6 @@ heter_lineup <- map(heter_lineup,
                     .x$metadata$effect_size <- filter(heter,
                                                       a == .x$metadata$a,
                                                       b == .x$metadata$b,
-                                                      x_dist == .x$metadata$x_dist,
                                                       n == .x$metadata$n) %>%
                       pull(effect_size) %>%
                       .[1]
