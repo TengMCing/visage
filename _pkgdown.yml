@@ -102,7 +102,7 @@ reference:
   - VI_MODEL$set_prm
   - VI_MODEL$test
   - VI_MODEL$fit
-  - VI_MODEL$effect_size
+  - VI_MODEL$average_effect_size
   - VI_MODEL$sample_effect_size
   - VI_MODEL$gen
   - VI_MODEL$gen_lineup
