@@ -243,24 +243,6 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
   }
 
 
-# effect_size -------------------------------------------------------------
-
-  effect_size_ <- function(n = 50, tol = 1e-2, window_size = 1000, ...) {
-    effect_size_series <- c()
-
-    while (TRUE) {
-      effect_size_series <- c(effect_size_series, self$sample_effect_size(self$gen(n = n), ...))
-      if (length(effect_size_series) < 2 * window_size) next
-
-      delta <- abs(mean(effect_size_series) - mean(effect_size_series[1:(length(effect_size_series) - window_size)]))
-
-      if (delta < tol) break
-    }
-
-    mean(effect_size_series)
-  }
-
-
 # sample_effect_size ------------------------------------------------------
 
   sample_effect_size_ <- function(...) {NA}
@@ -366,7 +348,6 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
                              test = test_,
                              fit = fit_,
                              average_effect_size = average_effect_size_,
-                             effect_size = effect_size_,
                              sample_effect_size = sample_effect_size_,
                              plot_resid = plot_resid_,
                              plot_qq = plot_qq_,

@@ -16,7 +16,7 @@
 #' \cr
 #' \cr
 #' New methods: [VI_MODEL$..init..], [VI_MODEL$..str..], [VI_MODEL$set_formula],
-#' [VI_MODEL$gen], [VI_MODEL$test], [VI_MODEL$fit], [VI_MODEL$effect_size],
+#' [VI_MODEL$gen], [VI_MODEL$test], [VI_MODEL$fit], [VI_MODEL$average_effect_size],
 #' [VI_MODEL$plot_resid],
 #' [VI_MODEL$plot_qq],
 #' [VI_MODEL$plot], [VI_MODEL$plot_lineup], [VI_MODEL$rss],
@@ -395,15 +395,15 @@ VI_MODEL$sample_effect_size
 
 #' Compute the effect size of the simulated data or the defined model
 #'
-#' @name VI_MODEL$effect_size
+#' @name VI_MODEL$average_effect_size
 #'
-#' @description This function computes the effect size of the defined model.
+#' @description This function computes the average effect size of the defined model.
 #' @param n Number of observations in a plot.
 #' @param tol Tolerance of the convergence.
 #' @param window_size Window size of the convergence check.
 #' @param ... Arguments passed to method `VI_MODEL$sample_effect_size`.
-#' @return The estimated effect size.
-VI_MODEL$effect_size
+#' @return The average effect size.
+VI_MODEL$average_effect_size
 
 #' Plot the residuals vs fitted values plot
 #'
