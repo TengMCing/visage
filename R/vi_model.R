@@ -233,6 +233,7 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
     while (TRUE) {
       effect_size_series <- c(effect_size_series, self$sample_effect_size(self$gen(n = n), ...))
       if (length(effect_size_series) < 2 * window_size) next
+      if (any(is.na(effect_size_series))) return(NA)
 
       delta <- abs(mean(effect_size_series) - mean(effect_size_series[1:(length(effect_size_series) - window_size)]))
 
