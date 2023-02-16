@@ -598,6 +598,11 @@ class_HETER_MODEL <- function(env = new.env(parent = parent.frame())) {
 # effect_size -------------------------------------------------------------
 
   sample_effect_size_ <- function(dat, a = self$prm$a, b = self$prm$b, type = NULL) {
+
+    if (!is.null(type) && type == "simple") {
+      return(sqrt(nrow(dat)) * b / (abs(a) + 1))
+    }
+
     if (!is.null(type) && type == "kl") {
 
       n <- nrow(dat)
@@ -612,11 +617,10 @@ class_HETER_MODEL <- function(env = new.env(parent = parent.frame())) {
       log_det_s2_div_det_s1 <- sum(log(diag_Ra_V_Ra)) - sum(log(diag_Ra))
       tr_inv_s2_s1 <- sum(1/diag_Ra_V_Ra * diag_Ra)
 
-      (log_det_s2_div_det_s1 - n + tr_inv_s2_s1)/2
-
-    } else {
-      sqrt(nrow(dat)) * b
+      return((log_det_s2_div_det_s1 - n + tr_inv_s2_s1)/2)
     }
+
+    return(sqrt(nrow(dat)) * b)
   }
 
 
@@ -837,7 +841,13 @@ class_POLY_MODEL <- function(env = new.env(parent = parent.frame())) {
   sample_effect_size_ <- function(dat,
                                   sigma = self$prm$sigma,
                                   include_z = self$prm$include_z,
+                                  shape = self$prm$shape,
                                   type = "kl") {
+
+    if (type == "simple") {
+      n <- nrow(dat)
+      return(sqrt(n) / (sigma * c(1, 2, 3, 5)[shape]))
+    }
 
     if (type == "kl") {
       n <- nrow(dat)
@@ -855,16 +865,15 @@ class_POLY_MODEL <- function(env = new.env(parent = parent.frame())) {
       # sum(diag(I_n)) = n
       # -n + n = 0
       # mu_1 = 0
-      c((t(mu_2) %*% inv_sigma_2 %*% mu_2)/2)
-
-    } else {
-      Xa <- as.matrix(data.frame(1, dat$x))
-      Ra <- diag(nrow(dat)) - Xa %*% solve(t(Xa) %*% Xa) %*% t(Xa)
-      Xb <- as.matrix(data.frame(dat$z))
-      beta_b <- matrix(as.numeric(include_z))
-
-      (1/nrow(dat)) * (1/sigma^2) * sum((diag(sqrt(diag(Ra))) %*% Xb %*% beta_b)^2)
+      return(c((t(mu_2) %*% inv_sigma_2 %*% mu_2)/2))
     }
+
+    Xa <- as.matrix(data.frame(1, dat$x))
+    Ra <- diag(nrow(dat)) - Xa %*% solve(t(Xa) %*% Xa) %*% t(Xa)
+    Xb <- as.matrix(data.frame(dat$z))
+    beta_b <- matrix(as.numeric(include_z))
+
+    return((1/nrow(dat)) * (1/sigma^2) * sum((diag(sqrt(diag(Ra))) %*% Xb %*% beta_b)^2))
   }
 
 # register_method ---------------------------------------------------------
