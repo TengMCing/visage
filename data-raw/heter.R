@@ -200,7 +200,7 @@ class_SURVEY <- function(env = new.env(parent = parent.frame())) {
         #             lognormal = {raw_x <- visage::rand_lognormal(sigma = 0.6); visage::closed_form(~stand_dist(raw_x/3 - 1))},
         #             even_discrete = visage::rand_uniform_d(k = 5, even = TRUE))
         mod <- visage::heter_model(a = a, b = b, x = x)
-        es <- mod$average_effect_size(n = n, tol = 1e-2, window_size = 500, type = "kl")
+        es <- mod$average_effect_size(n = n, tol = 1e-2, window_size = 500, type = "simple")
         print(es)
         es
       })(a, b, n)) %>%
