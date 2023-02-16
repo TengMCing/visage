@@ -1476,6 +1476,8 @@ POLY_MODEL$E
 #' @description This function computes the sample based effect size of the simulated data.
 #' @param dat Dataframe/List. List contains variable `x` and `z`.
 #' @param sigma Positive numeric. Default is `sigma = self$prm$sigma`.
+#' @param include_z Boolean. Default is `include_z = self$prm$include_z`.
+#' @param shape Positive integer. Default is `shape = self$prm$shape`.
 #' @param type Character. Type of the effect size measure. Default is
 #' `type = kl`.
 #' @return A numeric value.
