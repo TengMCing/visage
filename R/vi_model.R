@@ -600,7 +600,8 @@ class_HETER_MODEL <- function(env = new.env(parent = parent.frame())) {
   sample_effect_size_ <- function(dat, a = self$prm$a, b = self$prm$b, type = NULL) {
 
     if (!is.null(type) && type == "simple") {
-      return(sqrt(nrow(dat)) * b / (abs(a) + 1))
+      return(sqrt(nrow(dat)) * b)
+      # return(sqrt(nrow(dat)) * b / (abs(a) + 1))
     }
 
     if (!is.null(type) && type == "kl") {
@@ -846,7 +847,8 @@ class_POLY_MODEL <- function(env = new.env(parent = parent.frame())) {
 
     if (type == "simple") {
       n <- nrow(dat)
-      return(sqrt(n) / (sigma * c(1, 2, 3, 5)[shape]))
+      # return(sqrt(n) / (sigma * c(1, 2, 3, 5)[shape]))
+      return(sqrt(n) / sigma)
     }
 
     if (type == "kl") {
