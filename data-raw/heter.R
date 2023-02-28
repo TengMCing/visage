@@ -184,7 +184,7 @@ class_SURVEY <- function(env = new.env(parent = parent.frame())) {
 
     self$dat <- self$dat %>%
       mutate(unique_lineup_id = paste0("heter_", lineup_id)) %>%
-      rename(sample_effect_size = effect_size)
+      select(-effect_size)
 
     dat_effect_size <- self$dat %>%
       count(a, b, n) %>%
@@ -194,13 +194,8 @@ class_SURVEY <- function(env = new.env(parent = parent.frame())) {
         print(paste("Effect size of", a, b, n))
         stand_dist <- function(x) (x - min(x))/max(x - min(x)) * 2 - 1
         x <- {raw_x <- visage::rand_normal(sigma = 0.3); visage::closed_form(~stand_dist(raw_x))}
-        # x <- switch(x_dist,
-        #             uniform = visage::rand_uniform(-1, 1),
-        #             normal = {raw_x <- visage::rand_normal(sigma = 0.3); visage::closed_form(~stand_dist(raw_x))},
-        #             lognormal = {raw_x <- visage::rand_lognormal(sigma = 0.6); visage::closed_form(~stand_dist(raw_x/3 - 1))},
-        #             even_discrete = visage::rand_uniform_d(k = 5, even = TRUE))
         mod <- visage::heter_model(a = a, b = b, x = x)
-        es <- mod$average_effect_size(n = n, tol = 1e-2, window_size = 10, type = "simple")
+        es <- mod$sample_effect_size(mod$gen(n), type = "simple")
         print(es)
         es
       })(a, b, n)) %>%
@@ -213,7 +208,6 @@ class_SURVEY <- function(env = new.env(parent = parent.frame())) {
       select(unique_lineup_id, lineup_id, page, set, num,
              response_time, selection, num_selection, answer,
              detect, weighted_detect, prop_detect, effect_size,
-             sample_effect_size,
              conventional_p_value, reason,
              confidence, age_group, education, pronoun,
              previous_experience, type, formula, a, b,
@@ -251,7 +245,7 @@ names(heter_lineup) <- unclass(glue::glue("heter_{1:length(heter_lineup)}"))
 heter_lineup <- map(heter_lineup, ~{.x$metadata$answer <- .x$metadata$ans; .x$metadata$ans <- NULL; .x})
 
 heter_lineup <- map(heter_lineup,
-                    ~{.x$metadata$sample_effect_size <- .x$metadata$effect_size
+                    ~{
                     .x$metadata$effect_size <- filter(heter,
                                                       a == .x$metadata$a,
                                                       b == .x$metadata$b,
