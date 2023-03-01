@@ -195,7 +195,7 @@ class_SURVEY <- function(env = new.env(parent = parent.frame())) {
         stand_dist <- function(x) (x - min(x))/max(x - min(x)) * 2 - 1
         x <- {raw_x <- visage::rand_normal(sigma = 0.3); visage::closed_form(~stand_dist(raw_x))}
         mod <- visage::heter_model(a = a, b = b, x = x)
-        es <- mod$sample_effect_size(mod$gen(n), type = "simple")
+        es <- mod$average_effect_size(n = n, type = "kl")
         print(es)
         es
       })(a, b, n)) %>%
