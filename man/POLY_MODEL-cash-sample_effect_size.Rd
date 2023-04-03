@@ -8,6 +8,10 @@
 
 \item{sigma}{Positive numeric. Default is \code{sigma = self$prm$sigma}.}
 
+\item{include_z}{Boolean. Default is \code{include_z = self$prm$include_z}.}
+
+\item{shape}{Positive integer. Default is \code{shape = self$prm$shape}.}
+
 \item{type}{Character. Type of the effect size measure. Default is
 \code{type = kl}.}
 }

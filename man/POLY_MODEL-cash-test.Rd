@@ -11,7 +11,7 @@
 is \code{null_formula = self$null_formula}.}
 
 \item{alt_formula}{Formula. Formula for fitting the alternative model. Only
-used in F-test.}
+used in F-test. Default is \code{alt_formula = self$alt_formula}.}
 
 \item{test}{Character. A string representing the test. Either "F" or "RESET".}
 
