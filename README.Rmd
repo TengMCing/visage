@@ -26,8 +26,8 @@ The goal of visage is to provide a set of tools for running visual inference exp
 And the development version from [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("TengMCing/visage")
+# install.packages("remotes")
+remotes::install_url("https://github.com/TengMCing/visage/raw/master/built/visage_0.1.0.tar.gz")
 ```
 
 ```{r}
