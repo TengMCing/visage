@@ -1576,3 +1576,72 @@ AR1_MODEL <- new.env()
 #' test <- ar1_model(phi = 0.7, x = x, e = e)
 #' test$plot_lineup(test$gen_lineup(100))
 AR1_MODEL$..init..
+
+
+# NON_NORMAL_MODEL --------------------------------------------------------
+
+
+#' NON_NORMAL_MODEL class environment
+#'
+#' @name NON_NORMAL_MODEL
+#'
+#' @description This is the class of visual inference orthogonal polynomial
+#' linear model, inherited from [VI_MODEL].
+#' @format An environment with S3 class `bandicoot_oop`.
+#' @seealso Parent class: [VI_MODEL]
+#' \cr
+#' \cr
+#' New attributes: [NON_NORMAL_MODEL$formula],
+#' [NON_NORMAL_MODEL$null_formula], [NON_NORMAL_MODEL$alt_formula]
+#' \cr
+#' \cr
+#' New methods: [NON_NORMAL_MODEL$..init..], [NON_NORMAL_MODEL$test]
+#' @export
+NON_NORMAL_MODEL <- new.env()
+
+#' Initialization method
+#'
+#' @name NON_NORMAL_MODEL$..init..
+#'
+#' @description This function will be called after an instance is built. User
+#' input will be stored in the environment. The response variable of this model
+#' is `y`. The formula of y is defined in [NON_NORMAL_MODEL$formula], the null
+#' formula is defined in [NON_NORMAL_MODEL$null_formula], the alternative is
+#' defined in [NON_NORMAL_MODEL$alt_formula].
+#' @param x Random variable or closed form expression. Default is
+#' `x = rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
+#' @param e Random variable or closed form expression. Default is
+#' `e = rand_lognormal(0, sigma, env = new.env(parent = parent.env(self)))`.
+#' @return Return the object itself.
+#'
+#' @examples
+#'
+#' # Instantiate
+#' x <- rand_uniform()
+#' e <- rand_lognormal(sigma = 0.5)
+#'
+#' test <- non_normal_model(x = x, e = e)
+#'
+#' test
+#'
+#' # Generate data
+#' test$gen(10)
+#'
+#' # Generate lineup
+#' test$gen_lineup(10, k = 3)
+#'
+#' # Plot the lineup
+#' test$plot_lineup(test$gen_lineup(100))
+#'
+#' test <- non_normal_model(x = x, e = rand_lognormal(sigma = 0.1))
+#' test$plot_lineup(test$gen_lineup(100))
+#'
+#' test <- non_normal_model(x = x, e = rand_lognormal(sigma = 0.5))
+#' test$plot_lineup(test$gen_lineup(100))
+#'
+#' test <- non_normal_model(x = x, e = rand_lognormal(sigma = 1))
+#' test$plot_lineup(test$gen_lineup(100))
+#'
+#' test <- non_normal_model(x = x, e = rand_lognormal(sigma = 2))
+#' test$plot_lineup(test$gen_lineup(100))
+NON_NORMAL_MODEL$..init..
