@@ -16,6 +16,12 @@
     <loc>https://tengmcing.github.io/visage/index.html</loc>
   </url>
   <url>
+    <loc>https://tengmcing.github.io/visage/reference/AR1_MODEL-cash-..init...html</loc>
+  </url>
+  <url>
+    <loc>https://tengmcing.github.io/visage/reference/AR1_MODEL.html</loc>
+  </url>
+  <url>
     <loc>https://tengmcing.github.io/visage/reference/CLOSED_FORM-cash-..init...html</loc>
   </url>
   <url>
@@ -275,6 +281,9 @@
   </url>
   <url>
     <loc>https://tengmcing.github.io/visage/reference/VI_MODEL-cash-alt_formula.html</loc>
+  </url>
+  <url>
+    <loc>https://tengmcing.github.io/visage/reference/VI_MODEL-cash-average_effect_size.html</loc>
   </url>
   <url>
     <loc>https://tengmcing.github.io/visage/reference/VI_MODEL-cash-effect_size.html</loc>

@@ -175,4 +175,9 @@ reference:
   - HETER_MODEL$alt_formula
   - HETER_MODEL$test
   - HETER_MODEL$sample_effect_size
-
+- subtitle: "Visual inference autoregressive (1) linear model class"
+  desc: >
+    Visual inference autoregressive (1) linear model class
+  contents:
+  - AR1_MODEL
+  - AR1_MODEL$..init..
