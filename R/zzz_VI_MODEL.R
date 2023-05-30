@@ -1416,7 +1416,7 @@ POLY_MODEL$..init..
 #'
 #' # RESET test
 #' mod$test(dat, test = "RESET", power = 2:4)
-HETER_MODEL$test
+POLY_MODEL$test
 
 #' Set parameter for the model
 #'
@@ -1505,3 +1505,74 @@ POLY_MODEL$sample_effect_size
 #' POLY_MODEL$hermite(3)
 #' POLY_MODEL$hermite(4)
 POLY_MODEL$hermite
+
+
+
+# AR1_MODEL ---------------------------------------------------------------
+
+#' AR1_MODEL class environment
+#'
+#' @name AR1_MODEL
+#'
+#' @description This is the class of visual inference orthogonal polynomial
+#' linear model, inherited from [VI_MODEL].
+#' @format An environment with S3 class `bandicoot_oop`.
+#' @seealso Parent class: [VI_MODEL]
+#' \cr
+#' \cr
+#' New attributes: [AR1_MODEL$formula],
+#' [AR1_MODEL$null_formula], [AR1_MODEL$alt_formula]
+#' \cr
+#' \cr
+#' New methods: [AR1_MODEL$..init..], [AR1_MODEL$test], [AR1_MODEL$set_prm], [AR1_MODEL$ar1]
+#' @export
+AR1_MODEL <- new.env()
+
+#' Initialization method
+#'
+#' @name AR1_MODEL$..init..
+#'
+#' @description This function will be called after an instance is built. User
+#' input will be stored in the environment. The response variable of this model
+#' is `y`. The formula of y is defined in [AR1_MODEL$formula], the null
+#' formula is defined in [AR1_MODEL$null_formula], the alternative is
+#' defined in [AR1_MODEL$alt_formula].
+#' @param phi Numeric. The parameter for the `AR(1)` term. Default is `phi = 0.5`.
+#' @param sigma Positive numeric. Default is `sigma = 1`.
+#' @param x Random variable or closed form expression. Default is
+#' `x = rand_uniform(-1, 1, env = new.env(parent = parent.env(self)))`.
+#' @param e Random variable or closed form expression. Default is
+#' `e = rand_normal(0, sigma, env = new.env(parent = parent.env(self)))`.
+#' @return Return the object itself.
+#'
+#' @examples
+#'
+#' # Instantiate
+#' x <- rand_uniform()
+#' e <- rand_normal(sigma = 0.5)
+#'
+#' test <- ar1_model(phi = 0.9, x = x, e = e)
+#'
+#' test
+#'
+#' # Generate data
+#' test$gen(10)
+#'
+#' # Generate lineup
+#' test$gen_lineup(10, k = 3)
+#'
+#' # Plot the lineup
+#' test$plot_lineup(test$gen_lineup(100))
+#'
+#' test <- ar1_model(phi = 0.1, x = x, e = e)
+#' test$plot_lineup(test$gen_lineup(100))
+#'
+#' test <- ar1_model(phi = 0.3, x = x, e = e)
+#' test$plot_lineup(test$gen_lineup(100))
+#'
+#' test <- ar1_model(phi = 0.5, x = x, e = e)
+#' test$plot_lineup(test$gen_lineup(100))
+#'
+#' test <- ar1_model(phi = 0.7, x = x, e = e)
+#' test$plot_lineup(test$gen_lineup(100))
+AR1_MODEL$..init..

@@ -81,6 +81,12 @@ heter_model <- function(..., env = new.env(parent = parent.frame()), init_call =
   HETER_MODEL$instantiate(..., env = env, init_call = init_call)
 }
 
+#' @describeIn portal [AR1_MODEL]
+#' @export
+ar1_model <- function(..., env = new.env(parent = parent.frame()), init_call = sys.call()) {
+  AR1_MODEL$instantiate(..., env = env, init_call = init_call)
+}
+
 .onLoad <- function(libname, pkgname) {
 
   # Classes are empty environments defined by new.env()
@@ -100,4 +106,5 @@ heter_model <- function(..., env = new.env(parent = parent.frame()), init_call =
   class_QUARTIC_MODEL(QUARTIC_MODEL)
   class_POLY_MODEL(POLY_MODEL)
   class_HETER_MODEL(HETER_MODEL)
+  class_AR1_MODEL(AR1_MODEL)
 }
