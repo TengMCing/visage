@@ -374,3 +374,64 @@ RAND_UNIFORM_D$..init..
 #'
 #' test$gen(3, a = c(1,2,3), b = c(2,3,4), k = 1, even = c(TRUE, TRUE, FALSE))
 RAND_UNIFORM_D$gen
+
+
+# RAND_T ------------------------------------------------------------------
+
+
+#' RAND_T class environment
+#'
+#' @name RAND_T
+#'
+#' @description This is the class of the discrete uniform random variable, inherited from
+#' [RAND_VAR].
+#' @format An environment with S3 class `bandicoot_oop`.
+#' @seealso Parent class: [RAND_VAR]
+#' \cr
+#' \cr
+#' New methods: [RAND_T$..init..], [RAND_T$gen],
+#' RAND_T$E, RAND_T$Var
+#' @export
+RAND_T <- new.env()
+
+#' Initialization method
+#'
+#' @name RAND_T$..init..
+#'
+#' @description This function will be called after an instance is built. User
+#' input will be stored in the environment.
+#' @param mu Numeric. Mean. Default is 0.
+#' @param tau Numeric. Scale parameter. Default is 1.
+#' @param df Integer. Degree of freedom. Default is 10.
+#' @return Return the object itself.
+#'
+#' @examples
+#'
+#' # Instantiate
+#' test <- rand_t(mu = 0, tau = 1, df = 3)
+#' test
+RAND_UNIFORM_D$..init..
+
+#' Generate random values
+#'
+#' @name RAND_T$gen
+#'
+#' @description This function generates random values from the random variable.
+#' @param n Integer. Number of observations.
+#' @param mu Numeric. If it is provided and has length `n`, values will be used in
+#' each realization.
+#' @param tau Numeric. If it is provided and has length `n`, values will be used in
+#' each realization.
+#' @param df Integer. If it is provided and has length `n`, values will be used in
+#' each realization.
+#' @return A vector of numeric values.
+#' @seealso [stats::rt()], [sample()]
+#'
+#' @examples
+#'
+#' test <- rand_t(df = 12)
+#' test$gen(10)
+#'
+#' test$gen(3, mu = c(1,2,3), tau = c(2,3,4), df = 10)
+RAND_UNIFORM_D$gen
+
