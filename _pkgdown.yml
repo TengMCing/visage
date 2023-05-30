@@ -67,6 +67,13 @@ reference:
   - RAND_LOGNORMAL
   - RAND_LOGNORMAL$..init..
   - RAND_LOGNORMAL$gen
+- subtitle: "Random student's t variable class"
+  desc: >
+    Random student's t variable class
+  contents:
+  - RAND_T
+  - RAND_T$..init..
+  - RAND_T$gen
 - title: "Closed form expression class"
   desc: >
     Closed form expression class
@@ -181,3 +188,9 @@ reference:
   contents:
   - AR1_MODEL
   - AR1_MODEL$..init..
+- subtitle: "Visual inference non-normal linear model class"
+  desc: >
+    Visual inference non-normal linear model class
+  contents:
+  - NON_NORMAL_MODEL
+  - NON_NORMAL_MODEL$..init..

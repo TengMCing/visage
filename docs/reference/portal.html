@@ -74,6 +74,8 @@
 <span>  init_call <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">sys.call</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
+<span><span class="fu">rand_t</span><span class="op">(</span><span class="va">...</span>, env <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span>parent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, init_call <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">sys.call</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu">closed_form</span><span class="op">(</span></span>
 <span>  <span class="va">...</span>,</span>
 <span>  env <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span>parent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -108,7 +110,13 @@
 <span>  init_call <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">sys.call</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">ar1_model</span><span class="op">(</span><span class="va">...</span>, env <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span>parent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, init_call <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">sys.call</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">ar1_model</span><span class="op">(</span><span class="va">...</span>, env <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span>parent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, init_call <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">sys.call</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">non_normal_model</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
+<span>  env <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span>parent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  init_call <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">sys.call</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -134,6 +142,7 @@ leave it as default. Default is <code>init_call = sys.call()</code>.</p></dd>
 <li><p><code>rand_uniform_d()</code>: <a href="RAND_UNIFORM_D.html">RAND_UNIFORM_D</a></p></li>
 <li><p><code>rand_normal()</code>: <a href="RAND_NORMAL.html">RAND_NORMAL</a></p></li>
 <li><p><code>rand_lognormal()</code>: <a href="RAND_LOGNORMAL.html">RAND_LOGNORMAL</a></p></li>
+<li><p><code>rand_t()</code>: <a href="RAND_T.html">RAND_T</a></p></li>
 <li><p><code>closed_form()</code>: <a href="CLOSED_FORM.html">CLOSED_FORM</a></p></li>
 <li><p><code>vi_model()</code>: <a href="VI_MODEL.html">VI_MODEL</a></p></li>
 <li><p><code>cubic_model()</code>: <a href="CUBIC_MODEL.html">CUBIC_MODEL</a></p></li>
@@ -142,6 +151,7 @@ leave it as default. Default is <code>init_call = sys.call()</code>.</p></dd>
 <li><p><code>poly_model()</code>: <a href="POLY_MODEL.html">POLY_MODEL</a></p></li>
 <li><p><code>heter_model()</code>: <a href="HETER_MODEL.html">HETER_MODEL</a></p></li>
 <li><p><code>ar1_model()</code>: <a href="AR1_MODEL.html">AR1_MODEL</a></p></li>
+<li><p><code>non_normal_model()</code>: <a href="NON_NORMAL_MODEL.html">NON_NORMAL_MODEL</a></p></li>
 </ul></div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

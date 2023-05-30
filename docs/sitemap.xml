@@ -115,6 +115,12 @@
     <loc>https://tengmcing.github.io/visage/reference/HETER_MODEL.html</loc>
   </url>
   <url>
+    <loc>https://tengmcing.github.io/visage/reference/NON_NORMAL_MODEL-cash-..init...html</loc>
+  </url>
+  <url>
+    <loc>https://tengmcing.github.io/visage/reference/NON_NORMAL_MODEL.html</loc>
+  </url>
+  <url>
     <loc>https://tengmcing.github.io/visage/reference/POLY_MODEL-cash-..init...html</loc>
   </url>
   <url>
@@ -197,6 +203,15 @@
   </url>
   <url>
     <loc>https://tengmcing.github.io/visage/reference/RAND_NORMAL.html</loc>
+  </url>
+  <url>
+    <loc>https://tengmcing.github.io/visage/reference/RAND_T-cash-..init...html</loc>
+  </url>
+  <url>
+    <loc>https://tengmcing.github.io/visage/reference/RAND_T-cash-gen.html</loc>
+  </url>
+  <url>
+    <loc>https://tengmcing.github.io/visage/reference/RAND_T.html</loc>
   </url>
   <url>
     <loc>https://tengmcing.github.io/visage/reference/RAND_UNIFORM-cash-..init...html</loc>

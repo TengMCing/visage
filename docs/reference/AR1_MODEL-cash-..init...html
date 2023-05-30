@@ -109,102 +109,41 @@ defined in AR1_MODEL$alt_formula.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Generate data</span></span></span>
 <span class="r-in"><span><span class="va">test</span><span class="op">$</span><span class="fu">gen</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            y          x           e      .resid  .fitted</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   2.182172 0.75417703  0.42799532 -5.23089927 7.413072</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   3.754140 0.13526608  0.65491928 -4.05626055 7.810401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   5.310020 0.71729367  0.21399941 -2.12673055 7.436750</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   6.142950 0.14089077  0.22304128 -1.66384047 7.806790</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   7.444943 0.80267331  0.11361529  0.06300533 7.381938</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   9.291204 0.29208312  1.29867197  1.58147663 7.709727</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   9.250367 0.13321299 -0.24492926  1.43864826 7.811719</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  10.165251 0.74266085  0.09726004  2.74478669 7.420465</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  11.021748 0.05546453  0.81755713  3.16011586 7.861632</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 11.463308 0.81564622 -0.27191182  4.08969806 7.373610</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           y         x           e     .resid  .fitted</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.974252 0.7041656 -0.72991367 -4.8418460 5.816098</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1.698146 0.9556848 -1.13436590 -4.1096826 5.807828</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  3.282547 0.2353804  0.51883591 -2.5489639 5.831511</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  4.996622 0.6570756  0.38525361 -0.8210244 5.817646</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  6.092544 0.5869880  0.00859646  0.2725934 5.819951</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  6.759900 0.5227754 -0.24616539  0.9378378 5.822062</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  6.930801 0.2391326 -0.39224123  1.0994133 5.831388</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  8.454915 0.8377031  0.37949051  2.6432073 5.811707</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  9.361961 0.9208756 -0.16833761  3.5529885 5.808973</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 9.636827 0.5444136 -0.33335144  3.8154767 5.821351</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Generate lineup</span></span></span>
 <span class="r-in"><span><span class="va">test</span><span class="op">$</span><span class="fu">gen_lineup</span><span class="op">(</span><span class="fl">10</span>, k <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            y         x           e      .resid  .fitted test_name  statistic</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1.786271 0.2770059  0.50926553 -3.62755107 5.413823  Box-test 5.40302371</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   2.839550 0.2187300  0.01317595 -2.36951250 5.209063  Box-test 5.40302371</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   4.276525 0.7801099 -0.05918027 -2.90501502 7.181540  Box-test 5.40302371</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   4.846868 0.6135507 -0.61555514 -1.74944569 6.596314  Box-test 5.40302371</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   6.234401 0.7444670  0.12775330 -0.82190274 7.056304  Box-test 5.40302371</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   7.128271 0.1343799  0.38292940  2.21558204 4.912689  Box-test 5.40302371</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   7.993476 0.4002724  0.17776012  2.14654178 5.846934  Box-test 5.40302371</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   9.202957 0.6000066  0.40882153  2.65423186 6.548725  Box-test 5.40302371</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9   8.679481 0.4110031 -1.01418327  2.79484290 5.884638  Box-test 5.40302371</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10  9.435047 0.9483918 -0.32487733  1.66222845 7.772819  Box-test 5.40302371</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11  5.475050 0.2770059  0.50926553  0.06122757 5.413823  Box-test 0.65613219</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12  1.766825 0.2187300  0.01317595 -3.44223792 5.209063  Box-test 0.65613219</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13  7.150864 0.7801099 -0.05918027 -0.03067567 7.181540  Box-test 0.65613219</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14  8.715106 0.6135507 -0.61555514  2.11879234 6.596314  Box-test 0.65613219</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15  5.140067 0.7444670  0.12775330 -1.91623723 7.056304  Box-test 0.65613219</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16  7.764794 0.1343799  0.38292940  2.85210563 4.912689  Box-test 0.65613219</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17  2.960603 0.4002724  0.17776012 -2.88633175 5.846934  Box-test 0.65613219</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18  4.507860 0.6000066  0.40882153 -2.04086453 6.548725  Box-test 0.65613219</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19  9.845360 0.4110031 -1.01418327  3.96072241 5.884638  Box-test 0.65613219</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20  9.096318 0.9483918 -0.32487733  1.32349913 7.772819  Box-test 0.65613219</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21  5.861899 0.2770059  0.50926553  0.44807599 5.413823  Box-test 0.05381012</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22  6.610951 0.2187300  0.01317595  1.40188863 5.209063  Box-test 0.05381012</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23  8.020883 0.7801099 -0.05918027  0.83934281 7.181540  Box-test 0.05381012</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24  6.077844 0.6135507 -0.61555514 -0.51846944 6.596314  Box-test 0.05381012</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25 12.220859 0.7444670  0.12775330  5.16455493 7.056304  Box-test 0.05381012</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26  4.079058 0.1343799  0.38292940 -0.83363028 4.912689  Box-test 0.05381012</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27  2.214348 0.4002724  0.17776012 -3.63258637 5.846934  Box-test 0.05381012</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28  4.766733 0.6000066  0.40882153 -1.78199156 6.548725  Box-test 0.05381012</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29  7.644885 0.4110031 -1.01418327  1.76024731 5.884638  Box-test 0.05381012</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30  4.925387 0.9483918 -0.32487733 -2.84743204 7.772819  Box-test 0.05381012</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      p_value k  null</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.0201019 3 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.0201019 3 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  0.0201019 3 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.0201019 3 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.0201019 3 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  0.0201019 3 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  0.0201019 3 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  0.0201019 3 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  0.0201019 3 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 0.0201019 3 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 0.4179288 1  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 0.4179288 1  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 0.4179288 1  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 0.4179288 1  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 0.4179288 1  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 0.4179288 1  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 0.4179288 1  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 0.4179288 1  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19 0.4179288 1  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20 0.4179288 1  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21 0.8165613 2  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22 0.8165613 2  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23 0.8165613 2  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24 0.8165613 2  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25 0.8165613 2  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26 0.8165613 2  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27 0.8165613 2  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28 0.8165613 2  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29 0.8165613 2  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30 0.8165613 2  TRUE</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in match.arg(type):</span> 'arg' should be one of “Box-Pierce”, “Ljung-Box”</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot the lineup</span></span></span>
 <span class="r-in"><span><span class="va">test</span><span class="op">$</span><span class="fu">plot_lineup</span><span class="op">(</span><span class="va">test</span><span class="op">$</span><span class="fu">gen_lineup</span><span class="op">(</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="AR1_MODEL-cash-..init...Rd-1.png" alt="" width="700" height="433"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in match.arg(type):</span> 'arg' should be one of “Box-Pierce”, “Ljung-Box”</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">test</span> <span class="op">&lt;-</span> <span class="fu"><a href="portal.html">ar1_model</a></span><span class="op">(</span>phi <span class="op">=</span> <span class="fl">0.1</span>, x <span class="op">=</span> <span class="va">x</span>, e <span class="op">=</span> <span class="va">e</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">test</span><span class="op">$</span><span class="fu">plot_lineup</span><span class="op">(</span><span class="va">test</span><span class="op">$</span><span class="fu">gen_lineup</span><span class="op">(</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="AR1_MODEL-cash-..init...Rd-2.png" alt="" width="700" height="433"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in match.arg(type):</span> 'arg' should be one of “Box-Pierce”, “Ljung-Box”</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">test</span> <span class="op">&lt;-</span> <span class="fu"><a href="portal.html">ar1_model</a></span><span class="op">(</span>phi <span class="op">=</span> <span class="fl">0.3</span>, x <span class="op">=</span> <span class="va">x</span>, e <span class="op">=</span> <span class="va">e</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">test</span><span class="op">$</span><span class="fu">plot_lineup</span><span class="op">(</span><span class="va">test</span><span class="op">$</span><span class="fu">gen_lineup</span><span class="op">(</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="AR1_MODEL-cash-..init...Rd-3.png" alt="" width="700" height="433"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in match.arg(type):</span> 'arg' should be one of “Box-Pierce”, “Ljung-Box”</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">test</span> <span class="op">&lt;-</span> <span class="fu"><a href="portal.html">ar1_model</a></span><span class="op">(</span>phi <span class="op">=</span> <span class="fl">0.5</span>, x <span class="op">=</span> <span class="va">x</span>, e <span class="op">=</span> <span class="va">e</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">test</span><span class="op">$</span><span class="fu">plot_lineup</span><span class="op">(</span><span class="va">test</span><span class="op">$</span><span class="fu">gen_lineup</span><span class="op">(</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="AR1_MODEL-cash-..init...Rd-4.png" alt="" width="700" height="433"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in match.arg(type):</span> 'arg' should be one of “Box-Pierce”, “Ljung-Box”</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">test</span> <span class="op">&lt;-</span> <span class="fu"><a href="portal.html">ar1_model</a></span><span class="op">(</span>phi <span class="op">=</span> <span class="fl">0.7</span>, x <span class="op">=</span> <span class="va">x</span>, e <span class="op">=</span> <span class="va">e</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">test</span><span class="op">$</span><span class="fu">plot_lineup</span><span class="op">(</span><span class="va">test</span><span class="op">$</span><span class="fu">gen_lineup</span><span class="op">(</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="AR1_MODEL-cash-..init...Rd-5.png" alt="" width="700" height="433"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in match.arg(type):</span> 'arg' should be one of “Box-Pierce”, “Ljung-Box”</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
