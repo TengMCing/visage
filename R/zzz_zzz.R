@@ -39,6 +39,12 @@ rand_lognormal <- function(..., env = new.env(parent = parent.frame()), init_cal
   RAND_LOGNORMAL$instantiate(..., env = env, init_call = init_call)
 }
 
+#' @describeIn portal [RAND_T]
+#' @export
+rand_t <- function(..., env = new.env(parent = parent.frame()), init_call = sys.call()) {
+  RAND_T$instantiate(..., env = env, init_call = init_call)
+}
+
 #' @describeIn portal [CLOSED_FORM]
 #' @export
 closed_form <- function(..., env = new.env(parent = parent.frame()), init_call = sys.call()) {
@@ -87,6 +93,12 @@ ar1_model <- function(..., env = new.env(parent = parent.frame()), init_call = s
   AR1_MODEL$instantiate(..., env = env, init_call = init_call)
 }
 
+#' @describeIn portal [NON_NORMAL_MODEL]
+#' @export
+non_normal_model <- function(..., env = new.env(parent = parent.frame()), init_call = sys.call()) {
+  NON_NORMAL_MODEL$instantiate(..., env = env, init_call = init_call)
+}
+
 .onLoad <- function(libname, pkgname) {
 
   # Classes are empty environments defined by new.env()
@@ -97,6 +109,7 @@ ar1_model <- function(..., env = new.env(parent = parent.frame()), init_call = s
   class_RAND_UNIFORM_D(RAND_UNIFORM_D)
   class_RAND_NORMAL(RAND_NORMAL)
   class_RAND_LOGNORMAL(RAND_LOGNORMAL)
+  class_RAND_T(RAND_T)
 
   class_CLOSED_FORM(CLOSED_FORM)
 
@@ -107,4 +120,5 @@ ar1_model <- function(..., env = new.env(parent = parent.frame()), init_call = s
   class_POLY_MODEL(POLY_MODEL)
   class_HETER_MODEL(HETER_MODEL)
   class_AR1_MODEL(AR1_MODEL)
+  class_NON_NORMAL_MODEL(NON_NORMAL_MODEL)
 }
