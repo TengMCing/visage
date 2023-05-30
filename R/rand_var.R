@@ -111,8 +111,6 @@ class_RAND_UNIFORM <- function(env = new.env(parent = parent.frame())) {
 
 # RAND_NORMAL -------------------------------------------------------------
 
-
-
 class_RAND_NORMAL <- function(env = new.env(parent = parent.frame())) {
 
   # Pass CMD check
@@ -254,6 +252,51 @@ class_RAND_UNIFORM_D <- function(env = new.env(parent = parent.frame())) {
   E_ <- function() (self$prm$a + self$prm$b)/2
 
   Var_ <- function() (self$prm$b - self$prm$a)^2/12
+
+  bandicoot::register_method(env, ..init.. = init_, gen = gen_, E = E_, Var = Var_)
+
+  return(env)
+}
+
+
+# RAND_T ------------------------------------------------------------------
+
+class_RAND_T <- function(env = new.env(parent = parent.frame())) {
+
+  # Pass CMD check
+  self <- NULL
+
+  # Inherit from RAND_VAR class
+  bandicoot::new_class(RAND_VAR, env = env, class_name = "RAND_T")
+
+  init_ <- function(mu = 0, tau = 1, df = 10) {
+
+    # Use the parent class `..init..` method
+    bandicoot::use_method(self, visage::RAND_VAR$..init..)(
+      dist = "t",
+      prm = list(mu = mu, tau = tau, df = df))
+
+    return(invisible(self))
+  }
+
+  gen_ <- function(n, mu = NULL, tau = NULL, df = NULL) {
+
+    if (is.null(mu)) mu <- self$prm$mu
+    if (is.null(tau)) tau <- self$prm$tau
+    if (is.null(df)) df <- self$prm$df
+
+    if (length(mu) == 1 & length(tau) == 1 & length(df) == 1) return(stats::rt(n, df) * tau + mu)
+
+    if (length(mu) == 1) mu <- rep(mu, n)
+    if (length(tau) == 1) tau <- rep(tau, n)
+    if (length(df) == 1) df <- rep(df, n)
+
+    unlist(lapply(1:n, function(i) stats::rt(1, df[i]) * tau[i] + mu[i]))
+  }
+
+  E_ <- function() self$prm$mu
+
+  Var_ <- function() self$prm$tau^2 * df / (df - 2)
 
   bandicoot::register_method(env, ..init.. = init_, gen = gen_, E = E_, Var = Var_)
 
