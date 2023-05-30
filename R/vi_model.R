@@ -931,13 +931,13 @@ class_AR1_MODEL <- function(env = new.env(parent = parent.frame())) {
 
   test_ <- function(dat,
                     null_formula = self$null_formula,
-                    type = "Box-pierce",
+                    type = "Ljung–Box",
                     lag = 1) {
 
       null_mod <- self$fit(dat, null_formula)
       BOX_test <- stats::Box.test(stats::resid(null_mod),
                                   lag = lag,
-                                  type = "Box-Pierce")
+                                  type = type)
       return(list(name = "Box-test",
                   statistic = unname(BOX_test$statistic),
                   p_value = unname(BOX_test$p.value)))
@@ -969,6 +969,60 @@ class_AR1_MODEL <- function(env = new.env(parent = parent.frame())) {
                              test = test_,
                              set_prm = set_prm_,
                              ar1 = ar1_)
+
+}
+
+
+# NON_NORMAL_MODEL --------------------------------------------------------
+
+class_NON_NORMAL_MODEL <- function(env = new.env(parent = parent.frame())) {
+
+  # pass CMD check
+  self <- NULL
+
+  bandicoot::new_class(VI_MODEL, env = env, class_name = "NON_NORMAL_MODEL")
+
+  # Run the `set_formula` method for the class
+  env$set_formula(formula = y ~ 1 + x + e,
+                  null_formula = y ~ x,
+                  alt_formula = y ~ x)
+
+
+# init_ -------------------------------------------------------------------
+
+  init_ <- function(x = visage::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
+                    e = visage::rand_lognormal(0, 1, env = new.env(parent = parent.env(self)))) {
+
+    # Use the init method from the VI_MODEL class
+    bandicoot::use_method(self, visage::VI_MODEL$..init..)(
+      prm = list(x = x, e = e),
+      prm_type = list(x = "r", e = "r"),
+      formula = self$formula,
+      null_formula = self$null_formula,
+      alt_formula = self$alt_formula
+    )
+
+    return(invisible(self))
+  }
+
+# test --------------------------------------------------------------------
+
+  test_ <- function(dat,
+                    null_formula = self$null_formula) {
+
+    null_mod <- self$fit(dat, null_formula)
+    SHAPIRO_test <- shapiro.test(stats::resid(null_mod))
+    return(list(name = "Shapiro-test",
+                statistic = unname(SHAPIRO_test$statistic),
+                p_value = unname(SHAPIRO_test$p.value)))
+
+  }
+
+# register_method ---------------------------------------------------------
+
+  bandicoot::register_method(env,
+                             ..init.. = init_,
+                             test = test_)
 
 }
 
