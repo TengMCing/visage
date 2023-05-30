@@ -7,6 +7,7 @@
 \alias{rand_uniform_d}
 \alias{rand_normal}
 \alias{rand_lognormal}
+\alias{rand_t}
 \alias{closed_form}
 \alias{vi_model}
 \alias{cubic_model}
@@ -15,6 +16,7 @@
 \alias{poly_model}
 \alias{heter_model}
 \alias{ar1_model}
+\alias{non_normal_model}
 \title{Portals to class instantiate methods}
 \usage{
 rand_var(..., env = new.env(parent = parent.frame()), init_call = sys.call())
@@ -42,6 +44,8 @@ rand_lognormal(
   env = new.env(parent = parent.frame()),
   init_call = sys.call()
 )
+
+rand_t(..., env = new.env(parent = parent.frame()), init_call = sys.call())
 
 closed_form(
   ...,
@@ -78,6 +82,12 @@ heter_model(
 )
 
 ar1_model(..., env = new.env(parent = parent.frame()), init_call = sys.call())
+
+non_normal_model(
+  ...,
+  env = new.env(parent = parent.frame()),
+  init_call = sys.call()
+)
 }
 \arguments{
 \item{...}{Arguments passed to \code{init} method.}
@@ -102,6 +112,8 @@ These functions are the same as \code{class$instantiate}.
 
 \item \code{rand_lognormal()}: \link{RAND_LOGNORMAL}
 
+\item \code{rand_t()}: \link{RAND_T}
+
 \item \code{closed_form()}: \link{CLOSED_FORM}
 
 \item \code{vi_model()}: \link{VI_MODEL}
@@ -117,5 +129,7 @@ These functions are the same as \code{class$instantiate}.
 \item \code{heter_model()}: \link{HETER_MODEL}
 
 \item \code{ar1_model()}: \link{AR1_MODEL}
+
+\item \code{non_normal_model()}: \link{NON_NORMAL_MODEL}
 
 }}
