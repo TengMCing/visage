@@ -14,6 +14,7 @@
 \alias{quartic_model}
 \alias{poly_model}
 \alias{heter_model}
+\alias{ar1_model}
 \title{Portals to class instantiate methods}
 \usage{
 rand_var(..., env = new.env(parent = parent.frame()), init_call = sys.call())
@@ -75,6 +76,8 @@ heter_model(
   env = new.env(parent = parent.frame()),
   init_call = sys.call()
 )
+
+ar1_model(..., env = new.env(parent = parent.frame()), init_call = sys.call())
 }
 \arguments{
 \item{...}{Arguments passed to \code{init} method.}
@@ -112,5 +115,7 @@ These functions are the same as \code{class$instantiate}.
 \item \code{poly_model()}: \link{POLY_MODEL}
 
 \item \code{heter_model()}: \link{HETER_MODEL}
+
+\item \code{ar1_model()}: \link{AR1_MODEL}
 
 }}
