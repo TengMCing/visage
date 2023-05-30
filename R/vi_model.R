@@ -891,4 +891,89 @@ class_POLY_MODEL <- function(env = new.env(parent = parent.frame())) {
   return(env)
 }
 
+
+# AR1_MODEL ---------------------------------------------------------------
+
+class_AR1_MODEL <- function(env = new.env(parent = parent.frame())) {
+
+  # pass CMD check
+  self <- NULL
+
+  bandicoot::new_class(VI_MODEL, env = env, class_name = "AR1_MODEL")
+
+  # Run the `set_formula` method for the class
+  env$set_formula(formula = y ~ ar1(1 + x + e, phi),
+                  null_formula = y ~ x,
+                  alt_formula = y ~ x + lag(y))
+
+
+# init_ -------------------------------------------------------------------
+
+  init_ <- function(phi = 0.5, sigma = 1,
+                    x = visage::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
+                    e = visage::rand_normal(0, sigma, env = new.env(parent = parent.env(self)))) {
+
+    if (!shape %in% 1:4) stop("Parameter `shape` out of range [1, 4].")
+
+    ar1 <- self$ar1
+
+    # Use the init method from the VI_MODEL class
+    bandicoot::use_method(self, visage::VI_MODEL$..init..)(
+      prm = list(phi = phi, sigma = sigma, x = x, e = e),
+      prm_type = list(phi = "o", sigma = "o", x = "r", e = "r"),
+      formula = self$formula,
+      null_formula = self$null_formula,
+      alt_formula = self$alt_formula
+    )
+
+    return(invisible(self))
+  }
+
+# test --------------------------------------------------------------------
+
+  test_ <- function(dat,
+                    null_formula = self$null_formula,
+                    alt_formula = self$alt_formula,
+                    type = "Box-pierce",
+                    lag = 1) {
+
+      null_mod <- self$fit(dat, null_formula)
+      BOX_test <- Box.test(resid(null_mod),
+                           lag = lag,
+                           type = "Box-Pierce")
+      return(list(name = "Box-test",
+                  statistic = unname(BOX_test$statistic),
+                  p_value = unname(BOX_test$p.value)))
+
+  }
+
+# set_prm -----------------------------------------------------------------
+
+  set_prm_ <- function(prm_name, prm_value) {
+
+    # Reuse the CUBIC_MODEL$set_prm method
+    bandicoot::use_method(self, visage::CUBIC_MODEL$set_prm)(prm_name, prm_value)
+
+    return(invisible(self))
+  }
+
+# ar1 ---------------------------------------------------------------------
+
+  ar1_ <- function(lag_diff, phi) {
+    Reduce(function(lag_y_t, y_t) phi * lag_y_t + y_t,
+           lag_diff,
+           accumulate = TRUE)
+  }
+
+# register_method ---------------------------------------------------------
+
+  bandicoot::register_method(env,
+                             ..init.. = init_,
+                             test = test_,
+                             set_prm = set_prm_,
+                             ar1 = ar1_)
+
+}
+
+
 # nocov end
