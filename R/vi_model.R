@@ -606,6 +606,8 @@ class_HETER_MODEL <- function(env = new.env(parent = parent.frame())) {
 
     if (!is.null(type) && type == "kl") {
 
+      if (b == 0) return(0)
+
       n <- nrow(dat)
       Xa <- as.matrix(data.frame(1, dat$x))
       Ra <- diag(nrow(dat)) - Xa %*% solve(t(Xa) %*% Xa) %*% t(Xa)
@@ -852,6 +854,9 @@ class_POLY_MODEL <- function(env = new.env(parent = parent.frame())) {
     }
 
     if (type == "kl") {
+
+      if (include_z == 0) return(0)
+
       n <- nrow(dat)
       Xa <- as.matrix(data.frame(1, dat$x))
       Ra <- diag(nrow(dat)) - Xa %*% solve(t(Xa) %*% Xa) %*% t(Xa)
@@ -931,7 +936,7 @@ class_AR1_MODEL <- function(env = new.env(parent = parent.frame())) {
 
   test_ <- function(dat,
                     null_formula = self$null_formula,
-                    type = "Ljung–Box",
+                    type = "Ljung-Box",
                     lag = 1) {
 
       null_mod <- self$fit(dat, null_formula)
