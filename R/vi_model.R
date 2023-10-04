@@ -13,9 +13,6 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
   env$prm <- list()
   env$prm_type <- list()
 
-  # Define a place holder for cached model, data and null formula
-  env$..cache.. <- list(dat = NULL, formula = NULL, mod = NULL)
-
 # init --------------------------------------------------------------------
 
   init_ <- function(prm = list(), prm_type = list(), formula = self$formula, null_formula = NULL, alt_formula = NULL) {
@@ -187,27 +184,16 @@ class_VI_MODEL <- function(env = new.env(parent = parent.frame())) {
 
 # fit ---------------------------------------------------------------------
 
-  fit_ <- function(dat = self$..cache..$dat, formula = self$null_formula, cache = FALSE, ...) {
+  fit_ <- function(dat, formula = self$null_formula, ...) {
 
     if (is.null(formula)) stop("`formula` is missing! Can't fit the model.")
 
     # Get rid of the environment and class attributes in case it is a formula
     attributes(formula) <- NULL
 
-    # If the dat is not provided and the formula is the same, then return the cached model
-    if (cache && missing(dat) && (formula == self$..cache..$formula)) {
-      return(self$..cache..$mod)
-    }
-
-    # Use `substitute` to let `lm` correctly record the call
-    mod <- eval(substitute(stats::lm(formula = formula, data = dat, ...)))
-
-    # Cache the model, data and the formula
-    if (cache) {
-      self$..cache..$mod <- mod
-      self$..cache..$formula <- formula
-      self$..cache..$dat <- dat
-    }
+    # Fit the model with the provided formula and data
+    lm_call <- substitute(stats::lm(formula = formula, data = dat, ...))
+    mod <- eval(lm_call, envir = parent.frame())
 
     return(mod)
   }
