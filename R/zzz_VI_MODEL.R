@@ -11,7 +11,7 @@
 #' @seealso Parent class: [bandicoot::BASE]
 #' \cr
 #' \cr
-#' New attributes: [VI_MODEL$prm], [VI_MODEL$prm_type], [VI_MODEL$..cache..],
+#' New attributes: [VI_MODEL$prm], [VI_MODEL$prm_type],
 #' [VI_MODEL$formula], [VI_MODEL$null_formula], [VI_MODEL$alt_formula]
 #' \cr
 #' \cr
@@ -63,30 +63,6 @@ VI_MODEL$prm
 #'                  formula = y ~ 1 + x + x^2 + e)
 #' test$prm_type
 VI_MODEL$prm_type
-
-#' Cache list, containing the last fitted model, data frame and formula
-#'
-#' @name VI_MODEL$..cache..
-#'
-#' @description A list, will be used if `cache = TRUE` while calling the `fit`
-#' method.
-#'
-#' @examples
-#'
-#' # Instantiate
-#' x <- rand_uniform()
-#' e <- rand_normal()
-#' test <- vi_model(prm = list(x = x, e = e),
-#'                  prm_type = list(x = "r", e = "r"),
-#'                  formula = y ~ 1 + x + x^2 + e,
-#'                  null_formula = y ~ x,
-#'                  alt_formula = y ~ x + I(x^2))
-#'
-#' # Turn on cache
-#' test$fit(test$gen(10), cache = TRUE)
-#'
-#' test$..cache..
-VI_MODEL$..cache..
 
 #' Closed form expression of `y`
 #'
@@ -356,10 +332,9 @@ VI_MODEL$test
 #'
 #' @description This function fit a linear model by using `stats::lm`.
 #' @param dat Data frame. A data frame containing all variables needed by the
-#' `formula`. Default is `dat = self$..cache..$dat`.
+#' `formula`.
 #' @param formula Formula. Formula for fitting the model. Default
 #' is `formula = self$null_formula`.
-#' @param cache Boolean. Whether or not to cache the model. Default is `FALSE`.
 #' @param ... Arguments passed to `stats::lm`.
 #' @return A fitted linear model.
 #'
