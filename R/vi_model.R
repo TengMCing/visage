@@ -580,7 +580,7 @@ class_HETER_MODEL <- function(env = new.env(parent = parent.frame())) {
 
 # test --------------------------------------------------------------------
 
-  test_ <- function(dat, null_formula = self$null_formula) {
+  test_ <- function(dat) {
 
     # Get the null model
     mod <- self$fit(dat)
