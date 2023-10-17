@@ -49,15 +49,27 @@ eval_p_value <- function(p_value, significance_level = 0.05, tol = 1e-6) {
 #'
 #' @param n_sel Integer. A vector of the number of selections.
 #' @param n_plot Integer. Number of plots in the lineup.
-#' @param n_sim Integer. Number of simulations draws.
+#' @param n_sim Integer. Number of simulations draws. More simulation draws
+#' will result in more accurate results.
 #' @param dist Character. Name of the distribution used for the attractiveness simulation.
 #' One of "uniform" and "dirichlet".
 #' @param alpha Numeric. A single parameter value used by the Dirichlet distribution.
 #' @return A named vector representing the probability mass function of the distribution.
 #'
 #' @examples
-#' sim_dist(c(2,2,3))
+#'
+#' # The first person select 2 plots, the second one select 2 plots and
+#' # the third person select 3 plots.
+#' sim_dist(c(2, 2, 3))
+#'
+#' # There is only one observer and it selects one plot from the lineup.
 #' sim_dist(1)
+#'
+#' # Dirichlet distribution will be better if you want to take into account the
+#' # possible dependencies between responses due to the same lineup is
+#' # presented to multiple observers.
+#' # There is no need to use this distribution if there is only one observer.
+#' sim_dist(c(2, 2, 3), dist = "dirichlet")
 #'
 #' @export
 sim_dist <- function(n_sel,
@@ -67,6 +79,8 @@ sim_dist <- function(n_sel,
                      alpha = 1) {
 
   n_eval <- length(n_sel)
+
+  if (!dist %in% c("uniform", "dirichlet")) stop("Argument `dist` needs to be either 'uniform' or 'dirichlet'!")
 
   # Define weights for plots in lineups
   if (dist == "uniform") plot_weights <- matrix(stats::runif(n_plot * n_sim), ncol = n_plot)
