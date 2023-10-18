@@ -109,17 +109,14 @@ sim_dist <- function(n_sel,
 
 #' Calculate the exact distribution of number of detections of a lineup
 #'
-#' This function calculate the exact distribution of number of detections of a
+#' This function calculates the exact distribution of number of detections of a
 #' lineup assuming every subject selects exactly one plot.
 #'
 #' For a given lineup, plots are assumed to have weights
 #' \eqn{W_i, i = 1, ..., M,} where \eqn{M} is the number of plots, and
 #' \eqn{W_i} follows a attractiveness distribution independently. \cr\cr
-#' There are two attractiveness distribution available,
-#' one is uniform distribution, another is Dirichlet distribution. Uniform
-#' distribution ensures the marginal distribution of the probability of every
-#' plot being selected is uniform.
-#' When \eqn{\alpha = 1},
+#' Currently, this function only supports Dirichlet distribution as
+#' the attractiveness distribution.
 #' Dirichlet distribution ensures the probability of every plot being selected
 #' is evenly distributed in a standard \eqn{M - 1} simplex.
 #'
