@@ -59,7 +59,7 @@ eval_p_value <- function(p_value, significance_level = 0.05, tol = 1e-6) {
 #' @examples
 #'
 #' # The first person select 2 plots, the second one select 2 plots and
-#' # the third person select 3 plots.
+#' # the third one select 3 plots.
 #' sim_dist(c(2, 2, 3))
 #'
 #' # There is only one observer and it selects one plot from the lineup.
@@ -123,17 +123,19 @@ sim_dist <- function(n_sel,
 #' @param n_eval Integer. Number of evaluations.
 #' @param n_plot Integer. Number of plots in the lineup.
 #' @param dist Character. Name of the distribution used for the attractiveness model.
-#' One of "uniform" and "dirichlet".
+#' Currently, this can only be "dirichlet".
 #' @param alpha Numeric. A single parameter value used by the Dirichlet distribution.
 #' @return A named vector representing the probability mass function of the distribution.
 #'
 #' @examples
+#'
+#' # The first person select 2 plots, the second one select 2 plots and
+#' # the third one select 3 plots.
 #' sim_dist(c(2,2,3))
-#' sim_dist(1)
 #'
 #' @export
 exact_dist <- function(n_eval, n_plot = 20, dist = "dirichlet", alpha = 1) {
-  if (dist == "uniform") stop("Unimplemented featurs!")
+  if (dist != "dirichlet") stop("Attractiveness distribution other than 'dirichlet' is not currently supported!")
   if (dist == "dirichlet") {
     n_detect <- 0:n_eval
     result <- choose(n_eval, n_detect) * beta(n_detect + alpha, n_eval - n_detect + (n_plot - 1) * alpha) / beta(alpha, (n_plot - 1) * alpha)
@@ -142,24 +144,34 @@ exact_dist <- function(n_eval, n_plot = 20, dist = "dirichlet", alpha = 1) {
   }
 }
 
-# calc_p_value_dirichlet_linear_approx ------------------------------------
+# linear_approx_dirichlet -------------------------------------------------
 
-# calc_p_value_dirichlet_linear_approx <- function(detect, n_eval, n_sel, alpha, n_plot = 20) {
-#
-#   # Allow for n_sel to be a single integer
-#   stopifnot((n_eval == length(n_sel)) | (length(n_sel) == 1))
-#   n_sel <- rep(n_sel, length = n_eval)
-#
-#   if (sum(detect) == 0) return(1)
-#   target_dist <- exact_dist_dirichlet(n_eval, alpha, n_plot)
-#   if (all(n_sel == 1)) return(1 - unname(cumsum(target_dist)[sum(detect)]))
-#
-#   weighted_total_detect <- sum(ifelse(n_sel == 0, 1/n_plot, detect/n_sel))
-#   floor_total <- floor(weighted_total_detect)
-#   ceil_total <- ceiling(weighted_total_detect)
-#
-#   unname(sum(target_dist[(ceil_total:n_eval) + 1]) + (ceil_total - weighted_total_detect) * target_dist[floor_total + 1])
-# }
+#' Use linear approximation to calculate p-value for a visual test
+#'
+#' This functions use linear approximation to calculate p-value for
+#' a visual test. The Dirichlet attractiveness distribution
+#' will be used.
+#'
+#' @param c_i Numeric. Sum of the weighted detections.
+#' @param n_eval. Number of evaluations.
+#' @param n_plot. Number of plots.
+#' @return A named vector representing the probability mass function of the distribution.
+#'
+#' @examples
+#'
+#' # Two people detect the data plot with one selection and one person
+#' # detects the data plot with two selections.
+#' linear_approx_dirichlet(3.5, 5)
+linear_approx_dirichlet <- function(c_i, n_eval, n_plot = 20, alpha = 1) {
+
+    if (c_i == 0) return(1)
+
+    target_dist <- exact_dist(n_eval, n_plot, dist = "dirichlet", alpha = alpha)
+    floor_c_i <- floor(c_i)
+    ceil_c_i <- ceiling(c_i)
+
+    return(unname(sum(target_dist[(ceil_c_i:n_eval) + 1]) + (ceil_c_i - c_i) * target_dist[floor_c_i + 1]))
+}
 
 
 # calc_p_value ------------------------------------------------------------
