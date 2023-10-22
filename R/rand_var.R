@@ -9,7 +9,7 @@ class_RAND_VAR <- function(env = new.env(parent = parent.frame())) {
 
   bandicoot::new_class(bandicoot::BASE, env = env, class_name = "RAND_VAR")
 
-  init_ <- function(dist = "uniform", prm = list()) {
+  init_ <- function(dist = "", prm = list()) {
     self$dist <- dist
     if (!is.list(prm)) stop("`prm` is not a list!")
     self$prm <- prm
