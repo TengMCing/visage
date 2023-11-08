@@ -765,7 +765,7 @@ class_POLY_MODEL <- function(env = new.env(parent = parent.frame())) {
 
     if (test == "F") {
       # Use the test method (F-test) from VI_MODEL class
-      return(bandicoot::use_method(self, VI_MODEL$test)(dat, null_formula, alt_formula))
+      return(bandicoot::use_method(self, visage::VI_MODEL$test)(dat, null_formula, alt_formula))
     }
 
     if (test == "RESET") {
