@@ -20,6 +20,11 @@ A vector of numeric values.
 }
 \description{
 This function generates random values from the random variable.
+\subsection{Usage}{
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{RAND_T$gen(n, mu = NULL, tau = NULL, df = NULL)
+}\if{html}{\out{</div>}}
+}
 }
 \examples{
 

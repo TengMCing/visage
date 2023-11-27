@@ -4,9 +4,9 @@
 \alias{RAND_UNIFORM$..init..}
 \title{Initialization method}
 \arguments{
-\item{a}{Numeric. Lower bound. Default is 0.}
+\item{a}{Numeric. Lower bound.}
 
-\item{b}{Numeric. Upper bound. Default is 1.}
+\item{b}{Numeric. Upper bound.}
 }
 \value{
 Return the object itself.
@@ -14,6 +14,11 @@ Return the object itself.
 \description{
 This function will be called after an instance is built. User
 input will be stored in the environment.
+\subsection{Usage}{
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{RAND_UNIFORM$..init..(a = 0, b = 1)
+}\if{html}{\out{</div>}}
+}
 }
 \examples{
 

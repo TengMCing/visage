@@ -18,7 +18,7 @@ inherited from \link[bandicoot:BASE]{bandicoot::BASE}.
 Parent class: \link[bandicoot:BASE]{bandicoot::BASE}
 \cr
 \cr
-New attributes: \link{VI_MODEL$prm}, \link{VI_MODEL$prm_type}, \link{VI_MODEL$..cache..},
+New attributes: \link{VI_MODEL$prm}, \link{VI_MODEL$prm_type},
 \link{VI_MODEL$formula}, \link{VI_MODEL$null_formula}, \link{VI_MODEL$alt_formula}
 \cr
 \cr

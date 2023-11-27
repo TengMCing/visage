@@ -9,41 +9,6 @@
 #' leave it as default. Default is `init_call = sys.call()`.
 NULL
 
-#' @describeIn portal [RAND_VAR]
-#' @export
-rand_var <- function(..., env = new.env(parent = parent.frame()), init_call = sys.call()) {
-  RAND_VAR$instantiate(..., env = env, init_call = init_call)
-}
-
-#' @describeIn portal [RAND_UNIFORM]
-#' @export
-rand_uniform <- function(..., env = new.env(parent = parent.frame()), init_call = sys.call()) {
-  RAND_UNIFORM$instantiate(..., env = env, init_call = init_call)
-}
-
-#' @describeIn portal [RAND_UNIFORM_D]
-#' @export
-rand_uniform_d <- function(..., env = new.env(parent = parent.frame()), init_call = sys.call()) {
-  RAND_UNIFORM_D$instantiate(..., env = env, init_call = init_call)
-}
-
-#' @describeIn portal [RAND_NORMAL]
-#' @export
-rand_normal <- function(..., env = new.env(parent = parent.frame()), init_call = sys.call()) {
-  RAND_NORMAL$instantiate(..., env = env, init_call = init_call)
-}
-
-#' @describeIn portal [RAND_LOGNORMAL]
-#' @export
-rand_lognormal <- function(..., env = new.env(parent = parent.frame()), init_call = sys.call()) {
-  RAND_LOGNORMAL$instantiate(..., env = env, init_call = init_call)
-}
-
-#' @describeIn portal [RAND_T]
-#' @export
-rand_t <- function(..., env = new.env(parent = parent.frame()), init_call = sys.call()) {
-  RAND_T$instantiate(..., env = env, init_call = init_call)
-}
 
 #' @describeIn portal [CLOSED_FORM]
 #' @export

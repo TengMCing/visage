@@ -14,6 +14,11 @@ Return the object itself.
 \description{
 This function will be called after an instance is built. User
 input will be stored in the environment.
+\subsection{Usage}{
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{RAND_VAR$..init..(dist = "", prm = list())
+}\if{html}{\out{</div>}}
+}
 }
 \examples{
 

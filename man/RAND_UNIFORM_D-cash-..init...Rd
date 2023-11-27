@@ -4,11 +4,11 @@
 \alias{RAND_UNIFORM_D$..init..}
 \title{Initialization method}
 \arguments{
-\item{a}{Numeric. Lower bound. Default is 0.}
+\item{a}{Numeric. Lower bound.}
 
-\item{b}{Numeric. Upper bound. Default is 1.}
+\item{b}{Numeric. Upper bound.}
 
-\item{k}{Integer. Number of unique discrete values. Default is 5.}
+\item{k}{Integer. Number of unique discrete values.}
 
 \item{even}{Boolean. Whether or not candidate values are evenly spaced.}
 }
@@ -18,6 +18,11 @@ Return the object itself.
 \description{
 This function will be called after an instance is built. User
 input will be stored in the environment.
+\subsection{Usage}{
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{RAND_UNIFORM_D$..init..(a = 0, b = 1, k = 5, even = FALSE)
+}\if{html}{\out{</div>}}
+}
 }
 \examples{
 

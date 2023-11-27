@@ -13,6 +13,11 @@ NA. User needs to define their own \code{gen} method in derived class.
 }
 \description{
 This function generates random values from the random variable.
+\subsection{Usage}{
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{RAND_VAR$gen(n, ...)
+}\if{html}{\out{</div>}}
+}
 }
 \examples{
 

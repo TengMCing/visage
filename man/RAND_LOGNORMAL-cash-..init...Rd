@@ -4,10 +4,9 @@
 \alias{RAND_LOGNORMAL$..init..}
 \title{Initialization method}
 \arguments{
-\item{mu}{Numeric. Mean of the log of the random variable. Default is 0.}
+\item{mu}{Numeric. Mean of the log of the random variable.}
 
-\item{sigma}{Numeric. Standard deviation of the log the random variable.
-Default is 1.}
+\item{sigma}{Numeric. Standard deviation of the log the random variable.}
 }
 \value{
 Return the object itself.
@@ -15,6 +14,11 @@ Return the object itself.
 \description{
 This function will be called after an instance is built. User
 input will be stored in the environment.
+\subsection{Usage}{
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{RAND_LOGNORMAL$..init..(mu = 0, sigma = 1)
+}\if{html}{\out{</div>}}
+}
 }
 \examples{
 

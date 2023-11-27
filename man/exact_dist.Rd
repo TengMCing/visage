@@ -12,7 +12,7 @@ exact_dist(n_eval, n_plot = 20, dist = "dirichlet", alpha = 1)
 \item{n_plot}{Integer. Number of plots in the lineup.}
 
 \item{dist}{Character. Name of the distribution used for the attractiveness model.
-One of "uniform" and "dirichlet".}
+Currently, this can only be "dirichlet".}
 
 \item{alpha}{Numeric. A single parameter value used by the Dirichlet distribution.}
 }
@@ -20,23 +20,22 @@ One of "uniform" and "dirichlet".}
 A named vector representing the probability mass function of the distribution.
 }
 \description{
-This function calculate the exact distribution of number of detections of a
+This function calculates the exact distribution of number of detections of a
 lineup assuming every subject selects exactly one plot.
 }
 \details{
 For a given lineup, plots are assumed to have weights
 \eqn{W_i, i = 1, ..., M,} where \eqn{M} is the number of plots, and
 \eqn{W_i} follows a attractiveness distribution independently. \cr\cr
-There are two attractiveness distribution available,
-one is uniform distribution, another is Dirichlet distribution. Uniform
-distribution ensures the marginal distribution of the probability of every
-plot being selected is uniform.
-When \eqn{\alpha = 1},
+Currently, this function only supports Dirichlet distribution as
+the attractiveness distribution.
 Dirichlet distribution ensures the probability of every plot being selected
 is evenly distributed in a standard \eqn{M - 1} simplex.
 }
 \examples{
+
+# The first person select 2 plots, the second one select 2 plots and
+# the third one select 3 plots.
 sim_dist(c(2,2,3))
-sim_dist(1)
 
 }

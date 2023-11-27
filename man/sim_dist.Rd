@@ -11,7 +11,8 @@ sim_dist(n_sel, n_plot = 20, n_sim = 50000, dist = "uniform", alpha = 1)
 
 \item{n_plot}{Integer. Number of plots in the lineup.}
 
-\item{n_sim}{Integer. Number of simulations draws.}
+\item{n_sim}{Integer. Number of simulations draws. More simulation draws
+will result in more accurate results.}
 
 \item{dist}{Character. Name of the distribution used for the attractiveness simulation.
 One of "uniform" and "dirichlet".}
@@ -45,7 +46,18 @@ Dirichlet distribution ensures the probability of every plot being selected
 is evenly distributed in a standard \eqn{M - 1} simplex.
 }
 \examples{
-sim_dist(c(2,2,3))
+
+# The first person select 2 plots, the second one select 2 plots and
+# the third one select 3 plots.
+sim_dist(c(2, 2, 3))
+
+# There is only one observer and it selects one plot from the lineup.
 sim_dist(1)
+
+# Dirichlet distribution will be better if you want to take into account the
+# possible dependencies between responses due to the same lineup is
+# presented to multiple observers.
+# There is no need to use this distribution if there is only one observer.
+sim_dist(c(2, 2, 3), dist = "dirichlet")
 
 }

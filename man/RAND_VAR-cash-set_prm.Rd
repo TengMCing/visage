@@ -13,6 +13,11 @@ Return the object itself.
 }
 \description{
 This function updates the parameters.
+\subsection{Usage}{
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{RAND_VAR$set_prm(prm_name, prm_value)
+}\if{html}{\out{</div>}}
+}
 }
 \examples{
 

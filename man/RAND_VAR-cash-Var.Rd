@@ -9,6 +9,11 @@ NA
 \description{
 Variance of the random variable.
 User could override this method in derived class.
+\subsection{Usage}{
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{RAND_VAR$Var()
+}\if{html}{\out{</div>}}
+}
 }
 \examples{
 

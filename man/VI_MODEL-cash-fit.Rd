@@ -5,12 +5,10 @@
 \title{Test the null model against the alternative model}
 \arguments{
 \item{dat}{Data frame. A data frame containing all variables needed by the
-\code{formula}. Default is \code{dat = self$..cache..$dat}.}
+\code{formula}.}
 
 \item{formula}{Formula. Formula for fitting the model. Default
 is \code{formula = self$null_formula}.}
-
-\item{cache}{Boolean. Whether or not to cache the model. Default is \code{FALSE}.}
 
 \item{...}{Arguments passed to \code{stats::lm}.}
 }

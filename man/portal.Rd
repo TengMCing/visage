@@ -2,12 +2,6 @@
 % Please edit documentation in R/zzz_zzz.R
 \name{portal}
 \alias{portal}
-\alias{rand_var}
-\alias{rand_uniform}
-\alias{rand_uniform_d}
-\alias{rand_normal}
-\alias{rand_lognormal}
-\alias{rand_t}
 \alias{closed_form}
 \alias{vi_model}
 \alias{cubic_model}
@@ -19,34 +13,6 @@
 \alias{non_normal_model}
 \title{Portals to class instantiate methods}
 \usage{
-rand_var(..., env = new.env(parent = parent.frame()), init_call = sys.call())
-
-rand_uniform(
-  ...,
-  env = new.env(parent = parent.frame()),
-  init_call = sys.call()
-)
-
-rand_uniform_d(
-  ...,
-  env = new.env(parent = parent.frame()),
-  init_call = sys.call()
-)
-
-rand_normal(
-  ...,
-  env = new.env(parent = parent.frame()),
-  init_call = sys.call()
-)
-
-rand_lognormal(
-  ...,
-  env = new.env(parent = parent.frame()),
-  init_call = sys.call()
-)
-
-rand_t(..., env = new.env(parent = parent.frame()), init_call = sys.call())
-
 closed_form(
   ...,
   env = new.env(parent = parent.frame()),
@@ -102,18 +68,6 @@ These functions are the same as \code{class$instantiate}.
 }
 \section{Functions}{
 \itemize{
-\item \code{rand_var()}: \link{RAND_VAR}
-
-\item \code{rand_uniform()}: \link{RAND_UNIFORM}
-
-\item \code{rand_uniform_d()}: \link{RAND_UNIFORM_D}
-
-\item \code{rand_normal()}: \link{RAND_NORMAL}
-
-\item \code{rand_lognormal()}: \link{RAND_LOGNORMAL}
-
-\item \code{rand_t()}: \link{RAND_T}
-
 \item \code{closed_form()}: \link{CLOSED_FORM}
 
 \item \code{vi_model()}: \link{VI_MODEL}

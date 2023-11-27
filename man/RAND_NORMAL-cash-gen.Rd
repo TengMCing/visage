@@ -17,6 +17,11 @@ A vector of numeric values.
 }
 \description{
 This function generates random values from the random variable.
+\subsection{Usage}{
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{RAND_NORMAL$gen(n, mu = NULL, sigma = NULL)
+}\if{html}{\out{</div>}}
+}
 }
 \examples{
 

@@ -4,9 +4,9 @@
 \alias{RAND_NORMAL$..init..}
 \title{Initialization method}
 \arguments{
-\item{mu}{Numeric. Mean. Default is 0.}
+\item{mu}{Numeric. Mean.}
 
-\item{sigma}{Numeric. Standard deviation. Default is 1.}
+\item{sigma}{Numeric. Standard deviation.}
 }
 \value{
 Return the object itself.
@@ -14,6 +14,11 @@ Return the object itself.
 \description{
 This function will be called after an instance is built. User
 input will be stored in the environment.
+\subsection{Usage}{
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{RAND_NORMAL$..init..(mu = 0, sigma = 1)
+}\if{html}{\out{</div>}}
+}
 }
 \examples{
 

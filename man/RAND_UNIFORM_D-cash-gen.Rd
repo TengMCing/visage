@@ -23,6 +23,11 @@ A vector of numeric values.
 }
 \description{
 This function generates random values from the random variable.
+\subsection{Usage}{
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{RAND_UNIFORM_D$gen(n, a = NULL, b = NULL, k = NULL, even = NULL)
+}\if{html}{\out{</div>}}
+}
 }
 \examples{
 
