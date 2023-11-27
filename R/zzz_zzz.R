@@ -64,6 +64,12 @@ non_normal_model <- function(..., env = new.env(parent = parent.frame()), init_c
   NON_NORMAL_MODEL$instantiate(..., env = env, init_call = init_call)
 }
 
+#' @describeIn portal [PHN_MODEL]
+#' @export
+phn_model <- function(..., env = new.env(parent = parent.frame()), init_call = sys.call()) {
+  PHN_MODEL$instantiate(..., env = env, init_call = init_call)
+}
+
 .onLoad <- function(libname, pkgname) {
 
   # Classes are empty environments defined by new.env()
@@ -86,4 +92,5 @@ non_normal_model <- function(..., env = new.env(parent = parent.frame()), init_c
   class_HETER_MODEL(HETER_MODEL)
   class_AR1_MODEL(AR1_MODEL)
   class_NON_NORMAL_MODEL(NON_NORMAL_MODEL)
+  class_PHN_MODEL(PHN_MODEL)
 }

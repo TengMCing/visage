@@ -563,12 +563,12 @@ rand_uniform_d <- function(a = 0,
                            even = FALSE,
                            env = new.env(parent = parent.frame()),
                            init_call = sys.call()) {
-  RAND_UNIFORM$instantiate(a = a,
-                           b = b,
-                           k = k,
-                           even = even,
-                           env = env,
-                           init_call = init_call)
+  RAND_UNIFORM_D$instantiate(a = a,
+                             b = b,
+                             k = k,
+                             even = even,
+                             env = env,
+                             init_call = init_call)
 }
 
 #' Initialization method

@@ -1620,3 +1620,9 @@ NON_NORMAL_MODEL <- new.env()
 #' test <- non_normal_model(x = x, e = rand_lognormal(sigma = 2))
 #' test$plot_lineup(test$gen_lineup(100))
 NON_NORMAL_MODEL$..init..
+
+
+# PHN_MODEL ---------------------------------------------------------------
+
+#' @export
+PHN_MODEL <- new.env()

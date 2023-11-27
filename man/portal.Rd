@@ -11,6 +11,7 @@
 \alias{heter_model}
 \alias{ar1_model}
 \alias{non_normal_model}
+\alias{phn_model}
 \title{Portals to class instantiate methods}
 \usage{
 closed_form(
@@ -54,6 +55,8 @@ non_normal_model(
   env = new.env(parent = parent.frame()),
   init_call = sys.call()
 )
+
+phn_model(..., env = new.env(parent = parent.frame()), init_call = sys.call())
 }
 \arguments{
 \item{...}{Arguments passed to \code{init} method.}
@@ -85,5 +88,7 @@ These functions are the same as \code{class$instantiate}.
 \item \code{ar1_model()}: \link{AR1_MODEL}
 
 \item \code{non_normal_model()}: \link{NON_NORMAL_MODEL}
+
+\item \code{phn_model()}: \link{PHN_MODEL}
 
 }}

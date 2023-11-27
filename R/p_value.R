@@ -153,8 +153,9 @@ exact_dist <- function(n_eval, n_plot = 20, dist = "dirichlet", alpha = 1) {
 #' will be used.
 #'
 #' @param c_i Numeric. Sum of the weighted detections.
-#' @param n_eval. Number of evaluations.
-#' @param n_plot. Number of plots.
+#' @param n_eval Number of evaluations.
+#' @param n_plot Number of plots.
+#' @param alpha Numeric. A single parameter value used by the Dirichlet distribution.
 #' @return A named vector representing the probability mass function of the distribution.
 #'
 #' @examples
@@ -162,6 +163,7 @@ exact_dist <- function(n_eval, n_plot = 20, dist = "dirichlet", alpha = 1) {
 #' # Two people detect the data plot with one selection and one person
 #' # detects the data plot with two selections.
 #' linear_approx_dirichlet(3.5, 5)
+#' @noRd
 linear_approx_dirichlet <- function(c_i, n_eval, n_plot = 20, alpha = 1) {
 
     if (c_i == 0) return(1)

@@ -1005,7 +1005,7 @@ class_NON_NORMAL_MODEL <- function(env = new.env(parent = parent.frame())) {
                     null_formula = self$null_formula) {
 
     null_mod <- self$fit(dat, null_formula)
-    SHAPIRO_test <- shapiro.test(stats::resid(null_mod))
+    SHAPIRO_test <- stats::shapiro.test(stats::resid(null_mod))
     return(list(name = "Shapiro-test",
                 statistic = unname(SHAPIRO_test$statistic),
                 p_value = unname(SHAPIRO_test$p.value)))
@@ -1017,6 +1017,192 @@ class_NON_NORMAL_MODEL <- function(env = new.env(parent = parent.frame())) {
   bandicoot::register_method(env,
                              ..init.. = init_,
                              test = test_)
+
+}
+
+
+# PHN_MODEL ---------------------------------------------------------------
+
+class_PHN_MODEL <- function(env = new.env(parent = parent.frame())) {
+
+  # Pass CMD check
+  self <- NULL
+
+  bandicoot::new_class(VI_MODEL, env = env, class_name = "PHN_MODEL")
+
+  # Run the `set_formula` method for the class
+  env$set_formula(formula = y ~ 1 + x1 + include_x2 * x2 + include_z * (z + include_x2 * w) + k * e,
+                  z_formula = z ~ (raw_z - min(raw_z))/max(raw_z - min(raw_z)) * 2 - 1,
+                  raw_z_formula = raw_z ~ hermite(j)((x1 - min(x1))/max(x1 - min(x1)) * 4 - 2),
+                  w_formula = w ~ (raw_w - min(raw_w))/max(raw_w - min(raw_w)) * 2 - 1,
+                  raw_w_formula = raw_w ~ hermite(j)((x2 - min(x2))/max(x2 - min(x2)) * 4 - 2),
+                  k_formula = sigma ~ sqrt(1 + (2 - abs(a)) * ((x1 + include_x2 * x2) - a)^2 * b),
+                  null_formula = y ~ x1 + x2,
+                  alt_formula = y ~ x1 + x2 + z)
+
+
+# ..init.. ----------------------------------------------------------------
+
+
+  init_ <- function(j = 2,
+                    include_x2 = FALSE,
+                    include_z = TRUE,
+                    sigma = 1,
+                    a = 0,
+                    b = 0,
+                    x1 = visage::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
+                    x2 = visage::rand_uniform(-1, 1, env = new.env(parent = parent.env(self))),
+                    e = visage::rand_normal(0, sigma, env = new.env(parent = parent.env(self)))) {
+
+    hermite <- self$hermite
+    raw_z <- visage::closed_form(eval(self$raw_z_formula), env = new.env(parent = parent.env(self)))
+    z <- visage::closed_form(eval(self$z_formula), env = new.env(parent = parent.env(self)))
+    raw_w <- visage::closed_form(eval(self$raw_w_formula), env = new.env(parent = parent.env(self)))
+    w <- visage::closed_form(eval(self$w_formula), env = new.env(parent = parent.env(self)))
+    k <- visage::closed_form(eval(self$k_formula), env = new.env(parent = parent.env(self)))
+
+    if (!include_x2) {
+      self$set_formula(null_formula = y ~ x1,
+                       alt_formula = y ~ x1 + z)
+    }
+
+    # Use the init method from the VI_MODEL class
+    bandicoot::use_method(self, visage::VI_MODEL$..init..)(
+      prm = list(j = j,
+                 include_x2 = include_x2,
+                 include_z = include_z,
+                 sigma = sigma,
+                 a = a,
+                 b = b,
+                 x1 = x1,
+                 x2 = x2,
+                 raw_z = raw_z,
+                 z = z,
+                 raw_w = raw_w,
+                 w = w,
+                 k = k,
+                 e = e),
+      prm_type = list(j = "o",
+                      include_x2 = "o",
+                      include_z = "o",
+                      sigma = "o",
+                      a = "o",
+                      b = "o",
+                      x1 = "r",
+                      x2 = "r",
+                      raw_z = "r",
+                      z = "r",
+                      raw_w = "r",
+                      w = "r",
+                      k = "r",
+                      e = "r"),
+      formula = self$formula,
+      null_formula = self$null_formula,
+      alt_formula = self$alt_formula
+    )
+
+    return(invisible(self))
+  }
+
+
+# hermite -----------------------------------------------------------------
+
+  hermite_ <- function(j) {
+    suppressMessages(as.function(mpoly::hermite(j)))
+  }
+
+
+# sample_effect_size ------------------------------------------------------
+
+  sample_effect_size_ <- function(dat, times = 1000L) {
+
+    include_z <- self$prm$include_z
+    include_x2 <- self$prm$include_x2
+    sigma <- self$prm$sigma
+    a <- self$prm$a
+    b <- self$prm$b
+    e_dist <- self$prm$e$..class..[1]
+
+    if (include_z == 0 && b == 0 && e_dist == "RAND_NORMAL") return(0)
+
+    n <- nrow(dat)
+
+    if (include_x2) {
+      Xa <- as.matrix(data.frame(1, dat$x1, dat$x2))
+      Xb <- as.matrix(data.frame(dat$z, dat$w))
+      beta_b <- matrix(c(as.numeric(include_z),
+                         as.numeric(include_z) * as.numeric(include_x2)))
+    } else {
+      Xa <- as.matrix(data.frame(1, dat$x1))
+      Xb <- as.matrix(data.frame(dat$z))
+      beta_b <- matrix(as.numeric(include_z))
+    }
+
+    Ra <- diag(nrow(dat)) - Xa %*% solve(t(Xa) %*% Xa) %*% t(Xa)
+
+    if (e_dist == "RAND_NORMAL") {
+
+      V <- diag(1 + (2 - abs(a)) * ((dat$x1 + include_x2 * dat$x2) - a)^2 * b) * sigma^2
+
+      Ra_V_Ra <- Ra %*% V %*% t(Ra)
+      diag_Ra_V_Ra <- diag(Ra_V_Ra)
+      diag_Ra_sigma <- diag(Ra) * sigma^2
+
+      log_det_s2_div_det_s1 <- sum(log(diag_Ra_V_Ra)) - sum(log(diag_Ra_sigma))
+      tr_inv_s2_s1 <- sum(1/diag_Ra_V_Ra * diag_Ra_sigma)
+
+      mu_z <- Ra %*% Xb %*% beta_b
+      mean_diff <- t(mu_z) %*% diag(1/diag_Ra_V_Ra) %*% mu_z
+
+      return(c((log_det_s2_div_det_s1 - n + tr_inv_s2_s1 + mean_diff)/2))
+    } else {
+
+      k <- (1 + (2 - abs(a)) * ((dat$x1 + include_x2 * dat$x2) - a)^2 * b)
+      e <- self$prm$e
+      Xb_beta_b <- c(Xb %*% beta_b)
+
+      sample_e <- matrix(e$gen(n * times), ncol = times)
+      before_ra <- matrix(e$gen(n * times), ncol = times) * k + Xb_beta_b
+
+      assumed_pdf <- function(x, sd) dnorm(x, mean = 0, sd = sd)
+      sd_vector <- sqrt(diag(Ra)) * sigma
+
+      final_result <- 0
+
+      for (i in 1:n) {
+        this_row <- Ra[i, ]
+        after_ra <- c(this_row %*% before_ra)
+
+        this_pdf <- function(x) {
+          result <- approxfun(density(after_ra))(x)
+          ifelse(is.na(result), 0, result)
+        }
+
+        current_sd <- sd_vector[i]
+
+        kl_integrand <- function(x) {
+          p_x <- this_pdf(x)
+          q_x <- assumed_pdf(x, sd = current_sd)
+
+          result <- log(p_x / q_x)
+
+          result <- ifelse(p_x == 0, 0, result)
+          result <- ifelse(q_x == 0 & p_x != 0, Inf, result)
+
+          return(result)
+        }
+
+        final_result <- final_result + mean(kl_integrand(after_ra))
+      }
+
+      return(final_result)
+    }
+  }
+
+  bandicoot::register_method(env,
+                             ..init.. = init_,
+                             hermite = hermite_,
+                             sample_effect_size = sample_effect_size_)
 
 }
 
