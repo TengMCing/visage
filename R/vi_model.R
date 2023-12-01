@@ -604,10 +604,14 @@ class_HETER_MODEL <- function(env = new.env(parent = parent.frame())) {
 
       Ra_V_Ra <- Ra %*% V %*% t(Ra)
       diag_Ra_V_Ra <- diag(Ra_V_Ra)
-      diag_Ra <- diag(Ra)
+      sigma2_hat <- mean(dat$.resid^2)
 
-      log_det_s2_div_det_s1 <- sum(log(diag_Ra_V_Ra)) - sum(log(diag_Ra))
-      tr_inv_s2_s1 <- sum(1/diag_Ra_V_Ra * diag_Ra)
+      # Correct one:
+      # diag_Ra_sigma2 <- diag(Ra) * sigma2_hat
+      diag_Ra_sigma2 <- diag(Ra)
+
+      log_det_s2_div_det_s1 <- sum(log(diag_Ra_V_Ra)) - sum(log(diag_Ra_sigma2))
+      tr_inv_s2_s1 <- sum(1/diag_Ra_V_Ra * diag_Ra_sigma2)
 
       return((log_det_s2_div_det_s1 - n + tr_inv_s2_s1)/2)
     }
@@ -1146,7 +1150,7 @@ class_PHN_MODEL <- function(env = new.env(parent = parent.frame())) {
 
       Ra_V_Ra <- Ra %*% V %*% t(Ra)
       diag_Ra_V_Ra <- diag(Ra_V_Ra)
-      diag_Ra_sigma <- diag(Ra) * sigma^2
+      diag_Ra_sigma <- diag(Ra) * mean(dat$.resid^2)
 
       log_det_s2_div_det_s1 <- sum(log(diag_Ra_V_Ra)) - sum(log(diag_Ra_sigma))
       tr_inv_s2_s1 <- sum(1/diag_Ra_V_Ra * diag_Ra_sigma)
@@ -1165,7 +1169,7 @@ class_PHN_MODEL <- function(env = new.env(parent = parent.frame())) {
       before_ra <- matrix(e$gen(n * times), ncol = times) * k + Xb_beta_b
 
       assumed_pdf <- function(x, sd) dnorm(x, mean = 0, sd = sd)
-      sd_vector <- sqrt(diag(Ra)) * sigma
+      sd_vector <- sqrt(diag(Ra)) * sqrt(mean(dat$.resid^2))
 
       final_result <- 0
 

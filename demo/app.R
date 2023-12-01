@@ -24,7 +24,7 @@ ui <- fluidPage(
            fluidRow(column(2),
                     column(8, h4("The model is defined as $$\\begin{align*} y &= 1 + x1 + include_{x2} * x2 + include_z * (z + include_{x2} * w) + k * e\\\\ z &\\propto He_j(x1) \\\\ w &\\propto He_j(x2) \\\\ k &= \\sqrt{1 + (2 - |a|) * ((x1 + include_{x2} * x2) - a)^2 * b} \\end{align*}$$")),
                     column(2)),
-           h3("Visual signal strength: ", textOutput("current_vss", inline = TRUE)),
+           h3("Signal strength: ", textOutput("current_vss", inline = TRUE)),
            div(style = "background-color: grey; height: 540px; ", plotOutput("resplot"))),
     column(3,
            br(),
