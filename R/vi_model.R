@@ -1188,7 +1188,7 @@ class_PHN_MODEL <- function(env = new.env(parent = parent.frame())) {
           p_x <- this_pdf(x)
           q_x <- assumed_pdf(x, sd = current_sd)
 
-          result <- log(p_x / q_x)
+          result <- log(p_x) - log(q_x)
 
           result <- ifelse(p_x == 0, 0, result)
           result <- ifelse(q_x == 0 & p_x != 0, Inf, result)
