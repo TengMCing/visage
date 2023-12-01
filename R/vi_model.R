@@ -1168,7 +1168,7 @@ class_PHN_MODEL <- function(env = new.env(parent = parent.frame())) {
       sample_e <- matrix(e$gen(n * times), ncol = times)
       before_ra <- matrix(e$gen(n * times), ncol = times) * k + Xb_beta_b
 
-      assumed_pdf <- function(x, sd) dnorm(x, mean = 0, sd = sd)
+      # assumed_pdf <- function(x, sd) dnorm(x, mean = 0, sd = sd)
       sd_vector <- sqrt(diag(Ra)) * sqrt(mean(dat$.resid^2))
 
       final_result <- 0
@@ -1186,12 +1186,13 @@ class_PHN_MODEL <- function(env = new.env(parent = parent.frame())) {
 
         kl_integrand <- function(x) {
           p_x <- this_pdf(x)
-          q_x <- assumed_pdf(x, sd = current_sd)
+          # q_x <- assumed_pdf(x, sd = current_sd)
+          log_qx <- -0.5 * log(2 * pi * current_sd^2) - x^2 / (2 * current_sd^2)
 
-          result <- log(p_x) - log(q_x)
+          result <- log(p_x) - log_qx
 
           result <- ifelse(p_x == 0, 0, result)
-          result <- ifelse(q_x == 0 & p_x != 0, Inf, result)
+          # result <- ifelse(q_x == 0 & p_x != 0, Inf, result)
 
           return(result)
         }
