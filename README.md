@@ -18,7 +18,8 @@ And the development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("remotes")
-remotes::install_url("https://github.com/TengMCing/visage/raw/master/built/visage_0.1.2.tar.gz")
+remotes::install_github("TengMCing/visage")
+# remotes::install_url("https://github.com/TengMCing/visage/raw/master/built/visage_0.1.2.tar.gz")
 ```
 
 ``` r
