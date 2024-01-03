@@ -604,10 +604,11 @@ class_HETER_MODEL <- function(env = new.env(parent = parent.frame())) {
 
       Ra_V_Ra <- Ra %*% V %*% t(Ra)
       diag_Ra_V_Ra <- diag(Ra_V_Ra)
-      sigma2_hat <- mean(dat$.resid^2)
+
+      # sigma2_assumed <- mean(sqrt(V))
 
       # Correct one:
-      # diag_Ra_sigma2 <- diag(Ra) * sigma2_hat
+      # diag_Ra_sigma2 <- diag(Ra) * sigma2_assumed
       diag_Ra_sigma2 <- diag(Ra)
 
       log_det_s2_div_det_s1 <- sum(log(diag_Ra_V_Ra)) - sum(log(diag_Ra_sigma2))
@@ -1150,26 +1151,41 @@ class_PHN_MODEL <- function(env = new.env(parent = parent.frame())) {
 
       Ra_V_Ra <- Ra %*% V %*% t(Ra)
       diag_Ra_V_Ra <- diag(Ra_V_Ra)
-      diag_Ra_sigma <- diag(Ra) * mean(dat$.resid^2)
-
-      log_det_s2_div_det_s1 <- sum(log(diag_Ra_V_Ra)) - sum(log(diag_Ra_sigma))
-      tr_inv_s2_s1 <- sum(1/diag_Ra_V_Ra * diag_Ra_sigma)
 
       mu_z <- Ra %*% Xb %*% beta_b
       mean_diff <- t(mu_z) %*% diag(1/diag_Ra_V_Ra) %*% mu_z
 
-      return(c((log_det_s2_div_det_s1 - n + tr_inv_s2_s1 + mean_diff)/2))
+      if (b == 0) {
+        return(c(mean_diff/2))
+      } else {
+
+        # The variance of a uniform mixture distribution with mean zero is the mean
+        # of each individual variance
+        diag_Ra_sigma <- diag(Ra) * mean(sqrt(V))
+
+        log_det_s2_div_det_s1 <- sum(log(diag_Ra_V_Ra)) - sum(log(diag_Ra_sigma))
+
+        tr_inv_s2_s1 <- sum(1/diag_Ra_V_Ra * diag_Ra_sigma)
+
+        return(c((log_det_s2_div_det_s1 - n + tr_inv_s2_s1 + mean_diff)/2))
+      }
     } else {
 
-      k <- (1 + (2 - abs(a)) * ((dat$x1 + include_x2 * dat$x2) - a)^2 * b)
+      k <- dat$k
       e <- self$prm$e
       Xb_beta_b <- c(Xb %*% beta_b)
 
-      sample_e <- matrix(e$gen(n * times), ncol = times)
-      before_ra <- matrix(e$gen(n * times), ncol = times) * k + Xb_beta_b
+      sample_e <- e$gen(n * times)
 
-      # assumed_pdf <- function(x, sd) dnorm(x, mean = 0, sd = sd)
-      sd_vector <- sqrt(diag(Ra)) * sqrt(mean(dat$.resid^2))
+      # Mean correction in case the provided error distribution has mean other
+      # than zero
+      sample_e <- sample_e - mean(sample_e)
+
+      # This is our assumed standard deviation for the error
+      # distribution (after scaling by k)
+      sd_vector <- sqrt(diag(Ra)) * sd(sample_e) * mean(k)
+
+      before_ra <- matrix(sample_e, ncol = times) * k + Xb_beta_b
 
       final_result <- 0
 
