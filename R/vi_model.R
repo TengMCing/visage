@@ -1161,7 +1161,7 @@ class_PHN_MODEL <- function(env = new.env(parent = parent.frame())) {
 
         # The variance of a uniform mixture distribution with mean zero is the mean
         # of each individual variance
-        diag_Ra_sigma <- diag(Ra) * mean(sqrt(V))
+        diag_Ra_sigma <- diag(Ra) * mean(diag(V))
 
         log_det_s2_div_det_s1 <- sum(log(diag_Ra_V_Ra)) - sum(log(diag_Ra_sigma))
 
