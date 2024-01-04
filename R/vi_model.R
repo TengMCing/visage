@@ -605,7 +605,7 @@ class_HETER_MODEL <- function(env = new.env(parent = parent.frame())) {
       Ra_V_Ra <- Ra %*% V %*% t(Ra)
       diag_Ra_V_Ra <- diag(Ra_V_Ra)
 
-      # sigma2_assumed <- mean(sqrt(V))
+      # sigma2_assumed <- mean(diag(V))
 
       # Correct one:
       # diag_Ra_sigma2 <- diag(Ra) * sigma2_assumed
@@ -1147,7 +1147,10 @@ class_PHN_MODEL <- function(env = new.env(parent = parent.frame())) {
 
     if (e_dist == "RAND_NORMAL") {
 
-      V <- diag(1 + (2 - abs(a)) * ((dat$x1 + include_x2 * dat$x2) - a)^2 * b) * sigma^2
+      e <- self$prm$e
+      sample_e <- e$gen(n * times)
+
+      V <- diag(1 + (2 - abs(a)) * ((dat$x1 + include_x2 * dat$x2) - a)^2 * b) * var(sample_e)
 
       Ra_V_Ra <- Ra %*% V %*% t(Ra)
       diag_Ra_V_Ra <- diag(Ra_V_Ra)
