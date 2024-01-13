@@ -836,7 +836,7 @@ class_POLY_MODEL <- function(env = new.env(parent = parent.frame())) {
 # sample_effect_size ------------------------------------------------------
 
   sample_effect_size_ <- function(dat,
-                                  sigma = self$prm$sigma,
+                                  sigma = self$prm$e$prm$sigma,
                                   include_z = self$prm$include_z,
                                   shape = self$prm$shape,
                                   type = "kl") {
@@ -1148,9 +1148,8 @@ class_PHN_MODEL <- function(env = new.env(parent = parent.frame())) {
     if (e_dist == "RAND_NORMAL") {
 
       e <- self$prm$e
-      sample_e <- e$gen(n * times)
 
-      V <- diag(1 + (2 - abs(a)) * ((dat$x1 + include_x2 * dat$x2) - a)^2 * b) * var(sample_e)
+      V <- diag(1 + (2 - abs(a)) * ((dat$x1 + include_x2 * dat$x2) - a)^2 * b) * e$prm$sigma^2
 
       Ra_V_Ra <- Ra %*% V %*% t(Ra)
       diag_Ra_V_Ra <- diag(Ra_V_Ra)
