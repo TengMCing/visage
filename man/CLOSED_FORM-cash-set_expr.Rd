@@ -14,6 +14,11 @@ Return the object itself.
 This function updates the closed form expression. It will not
 update the symbol values. For updating symbol values,
 please check \link{CLOSED_FORM$set_sym}.
+\subsection{Usage}{
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{CLOSED_FORM$set_expr(expr)
+}\if{html}{\out{</div>}}
+}
 }
 \examples{
 

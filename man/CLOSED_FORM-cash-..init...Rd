@@ -28,6 +28,11 @@ are typically vectors.
 \cr
 Inner closed form expressions in a hierarchical closed form expression will
 also be replaced by the returns of their \code{gen} method.
+\subsection{Usage}{
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{CLOSED_FORM$..init..(expr)
+}\if{html}{\out{</div>}}
+}
 }
 \examples{
 

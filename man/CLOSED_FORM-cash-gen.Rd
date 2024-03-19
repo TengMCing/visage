@@ -7,9 +7,9 @@
 \item{n}{Integer. Number of observations.}
 
 \item{rhs_val}{Boolean. Whether or not to keep the right hand side values of the
-expression. Default is \code{FALSE}.}
+expression.}
 
-\item{computed}{List. Default is \code{NULL}. If it is provided, random variables
+\item{computed}{List. If it is provided, random variables
 or random closed form expression will use the values from the list, which
 makes the expression potentially deterministic.}
 }
@@ -20,6 +20,11 @@ Numeric values.
 This function generates random values from the expression.
 Random values or closed form expression will share the same value as long
 as they have the same name.
+\subsection{Usage}{
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{CLOSED_FORM$gen(n, rhs_val = FALSE, computed = NULL)
+}\if{html}{\out{</div>}}
+}
 }
 \examples{
 

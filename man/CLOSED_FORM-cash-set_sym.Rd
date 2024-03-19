@@ -17,6 +17,11 @@ symbols. List of symbol names and symbol types will be updated automatically.
 There is no protection for values that should not be modified, which may lead
 to error or loss of binding of some objects. Please use this function with
 caution.
+\subsection{Usage}{
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{CLOSED_FORM$set_sym(sym_name, sym_value)
+}\if{html}{\out{</div>}}
+}
 }
 \examples{
 

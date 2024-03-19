@@ -10,12 +10,6 @@
 NULL
 
 
-#' @describeIn portal [CLOSED_FORM]
-#' @export
-closed_form <- function(..., env = new.env(parent = parent.frame()), init_call = sys.call()) {
-  CLOSED_FORM$instantiate(..., env = env, init_call = init_call)
-}
-
 #' @describeIn portal [VI_MODEL]
 #' @export
 vi_model <- function(..., env = new.env(parent = parent.frame()), init_call = sys.call()) {

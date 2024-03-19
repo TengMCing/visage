@@ -2,7 +2,6 @@
 % Please edit documentation in R/zzz_zzz.R
 \name{portal}
 \alias{portal}
-\alias{closed_form}
 \alias{vi_model}
 \alias{cubic_model}
 \alias{simple_cubic_model}
@@ -14,12 +13,6 @@
 \alias{phn_model}
 \title{Portals to class instantiate methods}
 \usage{
-closed_form(
-  ...,
-  env = new.env(parent = parent.frame()),
-  init_call = sys.call()
-)
-
 vi_model(..., env = new.env(parent = parent.frame()), init_call = sys.call())
 
 cubic_model(
@@ -71,8 +64,6 @@ These functions are the same as \code{class$instantiate}.
 }
 \section{Functions}{
 \itemize{
-\item \code{closed_form()}: \link{CLOSED_FORM}
-
 \item \code{vi_model()}: \link{VI_MODEL}
 
 \item \code{cubic_model()}: \link{CUBIC_MODEL}

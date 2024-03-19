@@ -9,6 +9,11 @@ An integer.
 \description{
 This function recursively count symbols
 stored in the closed form expression and nested closed form expression.
+\subsection{Usage}{
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{CLOSED_FORM$..len..()
+}\if{html}{\out{</div>}}
+}
 }
 \examples{
 

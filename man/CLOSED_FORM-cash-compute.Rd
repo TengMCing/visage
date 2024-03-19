@@ -8,6 +8,11 @@ Numeric value.
 }
 \description{
 This function computes a deterministic expression.
+\subsection{Usage}{
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{CLOSED_FORM$compute()
+}\if{html}{\out{</div>}}
+}
 }
 \examples{
 

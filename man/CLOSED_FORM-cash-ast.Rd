@@ -10,7 +10,12 @@
 A list.
 }
 \description{
-This function returns the abstract syntax tree of the exrpession
+This function returns the abstract syntax tree of the expression.
+\subsection{Usage}{
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{CLOSED_FORM$ast(expr)
+}\if{html}{\out{</div>}}
+}
 }
 \examples{
 

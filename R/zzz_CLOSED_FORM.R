@@ -1,26 +1,69 @@
 
 # CLOSED_FORM -------------------------------------------------------------
 
+CLOSED_FORM <- new.env()
+
+
 #' CLOSED_FORM class environment
 #'
 #' @name CLOSED_FORM
 #'
 #' @description This is the base class of closed form expression, inherited from
-#' [bandicoot::BASE].
-#' @format An environment with S3 class `bandicoot_oop`.
-#' @seealso Parent class: [bandicoot::BASE]
-#' \cr
-#' \cr
-#' New attributes: [CLOSED_FORM$sym], [CLOSED_FORM$sym_name],
-#' [CLOSED_FORM$sym_type], [CLOSED_FORM$expr]
-#' \cr
-#' \cr
-#' New methods: [CLOSED_FORM$..init..], [CLOSED_FORM$..str..],
-#' [CLOSED_FORM$..len..],
-#' [CLOSED_FORM$compute], [CLOSED_FORM$gen], [CLOSED_FORM$ast],
-#' [CLOSED_FORM$as_dataframe]
+#' [bandicoot::BASE]. It is an environment with S3 class `bandicoot_oop`.\cr\cr
+#' For instantiation, any simple expressions can be provided,
+#' as long as all the symbols exist in the current environment. Note that it
+#' tries to evaluate **ALL the atomic symbols** in the expression during
+#' initialization, and store the values in the object. Hence, calls like
+#' `a$b` will also be decomposed as `$`, `a` and `b`, where `b` will be
+#' interpreted as **a variable "b" exists in the current environment**. Therefore,
+#' use `~a[["b"]]` instead of `~a$b`. And pre-define function like
+#' `myfun = function() 1`, then use it in the expression `~myfun()`.
+#'
+#' @param expr Formula. Only the right hand side of the last `~` will be kept as
+#' the final expression.
+#' @param env Environment. The instance environment.
+#' @param init_call Call. Contents of the `..init_call...` It is recommended to leave it
+#' as default.
+#' @return An instance environment.
+#'
+#' @details # Class information
+#' ## Parent classes
+#' * Direct:
+#'    * [bandicoot::BASE]
+#'
+#' ## New attributes
+#' * E:
+#'    * [CLOSED_FORM$expr]
+#' * S:
+#'    * [CLOSED_FORM$sym]
+#'    * [CLOSED_FORM$sym_name]
+#'    * [CLOSED_FORM$sym_type]
+#'
+#' ## New methods
+#' * A:
+#'    * [CLOSED_FORM$as_dataframe]
+#'    * [CLOSED_FORM$ast]
+#' * C:
+#'    * [CLOSED_FORM$compute]
+#' * G:
+#'    * [CLOSED_FORM$gen]
+#' * I:
+#'    * [CLOSED_FORM$..init..]
+#' * L:
+#'    * [CLOSED_FORM$..len..]
+#' * S:
+#'    * [CLOSED_FORM$..str..]
+#'
 #' @export
-CLOSED_FORM <- new.env()
+CLOSED_FORM
+
+#' @describeIn CLOSED_FORM Class constructor, same as `CLOSED_FORM$instantiate()`.
+#' @export
+closed_form <- function(expr,
+                        env = new.env(parent = parent.frame()),
+                        init_call = sys.call()) {
+  CLOSED_FORM$instantiate(expr = expr, env = env, init_call = init_call)
+}
 
 #' List of symbols in the abstract syntax tree of the expression
 #'
@@ -134,6 +177,12 @@ CLOSED_FORM$expr
 #' \cr
 #' Inner closed form expressions in a hierarchical closed form expression will
 #' also be replaced by the returns of their `gen` method.
+#'
+#' ## Usage
+#' ```
+#' CLOSED_FORM$..init..(expr)
+#' ```
+#'
 #' @param expr Formula. Only the right hand side of the last `~` will be kept as
 #' the final expression.
 #' @return Return the object itself.
@@ -165,6 +214,12 @@ CLOSED_FORM$..init..
 #'
 #' @description This function recursively count symbols
 #' stored in the closed form expression and nested closed form expression.
+#'
+#' ## Usage
+#' ```
+#' CLOSED_FORM$..len..()
+#' ```
+#'
 #' @return An integer.
 #'
 #' @examples
@@ -178,6 +233,12 @@ CLOSED_FORM$..len..
 #' @name CLOSED_FORM$..str..
 #'
 #' @description This function returns a string representation of the object.
+#'
+#' ## Usage
+#' ```
+#' CLOSED_FORM$..str..()
+#' ```
+#'
 #' @return A string.
 #'
 #' @examples
@@ -193,6 +254,12 @@ CLOSED_FORM$..str..
 #' @name CLOSED_FORM$compute
 #'
 #' @description This function computes a deterministic expression.
+#'
+#' ## Usage
+#' ```
+#' CLOSED_FORM$compute()
+#' ```
+#'
 #' @return Numeric value.
 #'
 #' @examples
@@ -208,10 +275,16 @@ CLOSED_FORM$compute
 #' @description This function generates random values from the expression.
 #' Random values or closed form expression will share the same value as long
 #' as they have the same name.
+#'
+#' ## Usage
+#' ```
+#' CLOSED_FORM$gen(n, rhs_val = FALSE, computed = NULL)
+#' ```
+#'
 #' @param n Integer. Number of observations.
 #' @param rhs_val Boolean. Whether or not to keep the right hand side values of the
-#' expression. Default is `FALSE`.
-#' @param computed List. Default is `NULL`. If it is provided, random variables
+#' expression.
+#' @param computed List. If it is provided, random variables
 #' or random closed form expression will use the values from the list, which
 #' makes the expression potentially deterministic.
 #' @return Numeric values.
@@ -271,7 +344,13 @@ CLOSED_FORM$gen
 #'
 #' @name CLOSED_FORM$ast
 #'
-#' @description This function returns the abstract syntax tree of the exrpession
+#' @description This function returns the abstract syntax tree of the expression.
+#'
+#' ## Usage
+#' ```
+#' CLOSED_FORM$ast(expr)
+#' ```
+#'
 #' @param expr Language. Any quoted expression.
 #' @return A list.
 #'
@@ -287,8 +366,14 @@ CLOSED_FORM$ast
 #'
 #' @description This function transforms the result generated by `gen` to a
 #' data frame.
+#'
+#' ## Usage
+#' ```
+#' CLOSED_FORM$as_dataframe(dat, lhs = ".lhs")
+#' ```
+#'
 #' @param dat Vector or List. Results generated by `gen` method.
-#' @param lhs Character. The name of the expression. Default is ".lhs".
+#' @param lhs Character. The name of the expression.
 #' @return A data frame.
 #'
 #' @examples
@@ -323,6 +408,12 @@ CLOSED_FORM$as_dataframe
 #' There is no protection for values that should not be modified, which may lead
 #' to error or loss of binding of some objects. Please use this function with
 #' caution.
+#'
+#' ## Usage
+#' ```
+#' CLOSED_FORM$set_sym(sym_name, sym_value)
+#' ```
+#'
 #' @param sym_name Vector or List. A sequence of character symbol names.
 #' @param sym_value Vector or List. A sequence of symbol values.
 #' @return Return the object itself.
@@ -355,6 +446,12 @@ CLOSED_FORM$set_sym
 #' @description This function updates the closed form expression. It will not
 #' update the symbol values. For updating symbol values,
 #' please check [CLOSED_FORM$set_sym].
+#'
+#' ## Usage
+#' ```
+#' CLOSED_FORM$set_expr(expr)
+#' ```
+#'
 #' @param expr Formula. Only the right hand side of the last `~` will be kept as
 #' the final expression.
 #' @return Return the object itself.
